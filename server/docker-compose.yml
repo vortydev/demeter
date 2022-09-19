@@ -3,7 +3,7 @@ version: "3.8"
 services:
   # app service
   app:
-    image: node:12-alpine
+    image: node:18-alpine
     command: sh -c "yarn install && yarn run dev"
     ports:
       - 3000:3000

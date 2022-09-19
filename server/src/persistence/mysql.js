@@ -73,14 +73,14 @@ async function init() {
             },
         );
 
-        // create table utilisateur
-        // pool.query(
-        //     'CREATE TABLE IF NOT EXISTS tbl_utilisateur (id int(8) NOT NULL AUTO_INCREMENT, username varchar(255) NOT NULL, email varchar(255) NOT NULL, mdp varchar(255) NOT NULL, idRole int(8) NOT NULL, idStatut int(8) NOT NULL, dateCreation DATETIME NOT NULL, CONSTRAINT PK_Utilisateur PRIMARY KEY (`id`), CONSTRAINT FK_UserRole FOREIGN KEY (`idRole`) REFERENCES `tbl_role` (`id`), CONSTRAINT FK_UserStatut FOREIGN KEY (`idStatut`) REFERENCES `tbl_statut` (`id`)) DEFAULT CHARSET utf8mb4',
-        //     err => {
-        //         if (err) return rej(err);
-        //         acc();
-        //     },
-        // );
+        // tbl_teamleader_pw
+        pool.query(
+            'CREATE TABLE IF NOT EXISTS tbl_teamleader_pw (tpw_id int(8) NOT NULL AUTO_INCREMENT, tpw_name varchar(255) NOT NULL, tpw_password varchar(255) NOT NULL, CONSTRAINT PK_TeamleaderPw PRIMARY KEY (tpw_id)) DEFAULT CHARSET utf8mb4',
+            err => {
+                if (err) return rej(err);
+                acc();
+            }
+        );
     });
 }
 

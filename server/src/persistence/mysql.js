@@ -36,16 +36,6 @@ async function init() {
 
     // création des tables de la BD
     return new Promise((acc, rej) => {
-        // démo todo app 
-        // TODO remove this
-        pool.query(
-            'CREATE TABLE IF NOT EXISTS todo_items (id varchar(36), name varchar(255), completed boolean) DEFAULT CHARSET utf8mb4',
-            err => {
-                if (err) return rej(err);
-                console.log(`Connected to mysql db at host ${HOST}`);
-                acc();
-            },
-        );
 
         /* ***** UTILISATEURS ***** */
 
@@ -116,7 +106,7 @@ async function init() {
 
         // tbl_product
         pool.query(
-            'CREATE TABLE IF NOT EXISTS tbl_product (pt_id int(8) NOT NULL AUTO_INCREMENT, pt_name varchar(255) NOT NULL, pt_category_id int(8) NOT NULL, pt_vendor_id int(8) NOT NULL, pt_price decimal(15,2) NOT NULL, pt_qty_inv int(8) NOT NULL, pt_qty_unit decimal(15,2) NOT NULL, pt_mes_id int(8) NOT NULL, pt_format varchar(255) NOT NULL, FOREIGN KEY (pt_category_id) REFERENCES tbl_category_product(ctp_id), FOREIGN KEY (pt_vendor_id) REFERENCES tbl_vendor(ven_id), FOREIGN KEY (pt_mes_id) REFERENCES tbl_mesurement(mes_id), CONSTRAINT PK_Product PRIMARY KEY (pt_id)) DEFAULT CHARSET utf8mb4',
+            'CREATE TABLE IF NOT EXISTS tbl_product (pt_id int(8) NOT NULL AUTO_INCREMENT, pt_name varchar(255) NOT NULL, pt_category_id int(8) NOT NULL, pt_vendor_id int(8) NOT NULL, pt_price decimal(15,2) NOT NULL, pt_qty_inv int(8) NOT NULL, pt_qty_unit DECIMAL(15,2) NOT NULL, pt_mes_id int(8) NOT NULL, pt_format varchar(255) NOT NULL, FOREIGN KEY (pt_category_id) REFERENCES tbl_category_product(ctp_id), FOREIGN KEY (pt_vendor_id) REFERENCES tbl_vendor(ven_id), FOREIGN KEY (pt_mes_id) REFERENCES tbl_mesurement(mes_id), CONSTRAINT PK_Product PRIMARY KEY (pt_id)) DEFAULT CHARSET utf8mb4',
             err => {
                 if (err) return rej(err);
                 acc();
@@ -126,8 +116,22 @@ async function init() {
         /* ***** CARNET DE RECETTES ***** */
         
         // tbl_recipe
+        pool.query(
+            'CREATE TABLE IF NOT EXISTS tbl_recipe (rec_id int(8) NOT NULL AUTO_INCREMENT, rec_name varchar(255) NOT NULL, rec_available boolean NOT NULL default 0, CONSTRAINT PK_Recipe PRIMARY KEY (rec_id)) DEFAULT CHARSET utf8mb4',
+            err => {
+                if (err) return rej(err);
+                acc();
+            }
+        );
 
         // rel_product_recipe
+        pool.query(
+            'CREATE TABLE IF NOT EXISTS rel_product_recipe (rpr_product_id int(8) NOT NULL, rpr_recipe_id int(8) NOT NULL, rpr_qty int(8) NOT NULL, rpr_mes_id int(8) NOT NULL, FOREIGN KEY (rpr_mes_id) REFERENCES tbl_mesurement(mes_id), FOREIGN KEY (rpr_product_id) REFERENCES tbl_product(pt_id), FOREIGN KEY (rpr_recipe_id) REFERENCES tbl_recipe(rec_id), CONSTRAINT PK_Rel_ProductRecipe PRIMARY KEY (rpr_product_id, rpr_recipe_id)) DEFAULT CHARSET utf8mb4',
+            err => {
+                if (err) return rej(err);
+                acc();
+            }
+        );
 
         /* ***** TÂCHES ***** */
 
@@ -138,6 +142,7 @@ async function init() {
         /* ***** ANNONCES ***** */
 
         // tbl_announcement
+
     });
 }
 

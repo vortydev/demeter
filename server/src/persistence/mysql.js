@@ -2,6 +2,7 @@ const waitPort = require('wait-port');
 const fs = require('fs');
 const mysql = require('mysql');
 
+// constantes MySQL
 const {
     MYSQL_HOST: HOST,
     MYSQL_HOST_FILE: HOST_FILE,
@@ -15,6 +16,7 @@ const {
 
 let pool;
 
+// initialise la BD. appelé à chaque démarrage de l'application
 async function init() {
     const host = HOST_FILE ? fs.readFileSync(HOST_FILE) : HOST;
     const user = USER_FILE ? fs.readFileSync(USER_FILE) : USER;
@@ -32,9 +34,10 @@ async function init() {
         charset: 'utf8mb4',
     });
 
-    // initisialisation de la BD
+    // création des tables de la BD
     return new Promise((acc, rej) => {
-        // démo todo app
+        // démo todo app 
+        // TODO remove this
         pool.query(
             'CREATE TABLE IF NOT EXISTS todo_items (id varchar(36), name varchar(255), completed boolean) DEFAULT CHARSET utf8mb4',
             err => {
@@ -44,7 +47,7 @@ async function init() {
             },
         );
 
-        /* UTILISATEURS */
+        /* ***** UTILISATEURS ***** */
 
         // tbl_role_account
         pool.query(
@@ -52,7 +55,7 @@ async function init() {
             err => {
                 if (err) return rej(err);
                 acc();
-            },
+            }
         );
 
         // tbl_state_account
@@ -61,7 +64,7 @@ async function init() {
             err => {
                 if (err) return rej(err);
                 acc();
-            },
+            }
         );
 
         // tbl_account
@@ -70,7 +73,7 @@ async function init() {
             err => {
                 if (err) return rej(err);
                 acc();
-            },
+            }
         );
 
         // tbl_teamleader_pw
@@ -81,6 +84,60 @@ async function init() {
                 acc();
             }
         );
+
+        /* *** INVENTAIRE *** */
+
+        // tbl_category_product
+        pool.query(
+            'CREATE TABLE IF NOT EXISTS tbl_category_product (ctp_id int(8) NOT NULL AUTO_INCREMENT, ctp_name varchar(255) NOT NULL, CONSTRAINT PK_CategoryProduct PRIMARY KEY (ctp_id)) DEFAULT CHARSET utf8mb4',
+            err => {
+                if (err) return rej(err);
+                acc();
+            }
+        );
+
+        // tbl_vendor
+        pool.query(
+            'CREATE TABLE IF NOT EXISTS tbl_vendor (ven_id int(8) NOT NULL AUTO_INCREMENT, ven_name varchar(255) NOT NULL, ven_phone int, ven_email varchar(255), ven_address varchar(511), CONSTRAINT PK_Vendor PRIMARY KEY (ven_id)) DEFAULT CHARSET utf8mb4',
+            err => {
+                if (err) return rej(err);
+                acc();
+            }
+        );
+
+        // tbl_mesurement
+        pool.query(
+            'CREATE TABLE IF NOT EXISTS tbl_mesurement (mes_id int(8) NOT NULL AUTO_INCREMENT, mes_name varchar(255) NOT NULL, CONSTRAINT PK_Mesurement PRIMARY KEY (mes_id)) DEFAULT CHARSET utf8mb4',
+            err => {
+                if (err) return rej(err);
+                acc();
+            }
+        );
+
+        // tbl_product
+        pool.query(
+            'CREATE TABLE IF NOT EXISTS tbl_product (pt_id int(8) NOT NULL AUTO_INCREMENT, pt_name varchar(255) NOT NULL, pt_category_id int(8) NOT NULL, pt_vendor_id int(8) NOT NULL, pt_price decimal(15,2) NOT NULL, pt_qty_inv int(8) NOT NULL, pt_qty_unit decimal(15,2) NOT NULL, pt_mes_id int(8) NOT NULL, pt_format varchar(255) NOT NULL, FOREIGN KEY (pt_category_id) REFERENCES tbl_category_product(ctp_id), FOREIGN KEY (pt_vendor_id) REFERENCES tbl_vendor(ven_id), FOREIGN KEY (pt_mes_id) REFERENCES tbl_mesurement(mes_id), CONSTRAINT PK_Product PRIMARY KEY (pt_id)) DEFAULT CHARSET utf8mb4',
+            err => {
+                if (err) return rej(err);
+                acc();
+            }
+        );
+
+        /* ***** CARNET DE RECETTES ***** */
+        
+        // tbl_recipe
+
+        // rel_product_recipe
+
+        /* ***** TÂCHES ***** */
+
+        // tbl_category_task
+
+        // tbl_task
+
+        /* ***** ANNONCES ***** */
+
+        // tbl_announcement
     });
 }
 

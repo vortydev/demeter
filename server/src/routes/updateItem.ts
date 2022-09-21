@@ -1,6 +1,6 @@
 import db from '../persistence';
 
-export const updateItem = async (req:any, res:any) => {
+ const updateItem = async (req:any, res:any) => {
     await db.updateItem(req.params.id, {
         name: req.body.name,
         completed: req.body.completed,
@@ -8,3 +8,5 @@ export const updateItem = async (req:any, res:any) => {
     const item = await db.getItem(req.params.id);
     res.send(item);
 };
+
+export {updateItem};

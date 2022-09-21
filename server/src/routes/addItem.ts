@@ -1,7 +1,7 @@
 import db from '../persistence';
-import uuid from 'uuid/v4';
+import { v4 as uuid } from 'uuid';
 
-export const addItem = async (req, res) => {
+export const addItem = async (req :any, res:any) => {
     const item = {
         id: uuid(),
         name: req.body.name,

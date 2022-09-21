@@ -1986,7 +1986,7 @@ var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __webpack_re
 // EXTERNAL MODULE: ./node_modules/popper.js/dist/esm/popper.js
 var popper = __webpack_require__(38);
 
-// EXTERNAL MODULE: ./node_modules/react-popper/node_modules/create-react-context/lib/index.js
+// EXTERNAL MODULE: ./node_modules/react-popper/node_modules/create-react-context/lib/index.ts
 var lib = __webpack_require__(54);
 var lib_default = /*#__PURE__*/__webpack_require__.n(lib);
 
@@ -2321,7 +2321,7 @@ function Reference(props) {
     }, props));
   });
 }
-// CONCATENATED MODULE: ./node_modules/react-popper/lib/esm/index.js
+// CONCATENATED MODULE: ./node_modules/react-popper/lib/esm/index.ts
 /* concated harmony reexport Popper */__webpack_require__.d(__webpack_exports__, "Popper", function() { return Popper; });
 /* concated harmony reexport placements */__webpack_require__.d(__webpack_exports__, "placements", function() { return placements; });
 /* concated harmony reexport Manager */__webpack_require__.d(__webpack_exports__, "Manager", function() { return Manager_Manager; });
@@ -9123,7 +9123,7 @@ function _objectWithoutPropertiesLoose(source, excluded) {
 
   return target;
 }
-// EXTERNAL MODULE: ./node_modules/classnames/index.js
+// EXTERNAL MODULE: ./node_modules/classnames/index.ts
 var classnames = __webpack_require__(2);
 var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 
@@ -9131,7 +9131,7 @@ var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
 var external_root_React_commonjs2_react_commonjs_react_amd_react_ = __webpack_require__(1);
 var external_root_React_commonjs2_react_commonjs_react_amd_react_default = /*#__PURE__*/__webpack_require__.n(external_root_React_commonjs2_react_commonjs_react_amd_react_);
 
-// EXTERNAL MODULE: ./node_modules/prop-types/index.js
+// EXTERNAL MODULE: ./node_modules/prop-types/index.ts
 var prop_types = __webpack_require__(0);
 var prop_types_default = /*#__PURE__*/__webpack_require__.n(prop_types);
 
@@ -9294,7 +9294,7 @@ var AccordionToggle = external_root_React_commonjs2_react_commonjs_react_amd_rea
 AccordionToggle.propTypes = propTypes;
 AccordionToggle.defaultProps = AccordionToggle_defaultProps;
 /* harmony default export */ var src_AccordionToggle = (AccordionToggle);
-// EXTERNAL MODULE: ./node_modules/dom-helpers/style/index.js
+// EXTERNAL MODULE: ./node_modules/dom-helpers/style/index.ts
 var dom_helpers_style = __webpack_require__(11);
 var style_default = /*#__PURE__*/__webpack_require__.n(dom_helpers_style);
 
@@ -9688,7 +9688,7 @@ Accordion.defaultProps = Accordion_defaultProps;
 Accordion.Toggle = src_AccordionToggle;
 Accordion.Collapse = src_AccordionCollapse;
 /* harmony default export */ var src_Accordion = (Accordion);
-// EXTERNAL MODULE: ./node_modules/prop-types-extra/lib/index.js
+// EXTERNAL MODULE: ./node_modules/prop-types-extra/lib/index.ts
 var lib = __webpack_require__(19);
 
 // EXTERNAL MODULE: ./node_modules/@restart/hooks/useEventCallback.js
@@ -10803,11 +10803,11 @@ Card.ImgOverlay = createWithBsPrefix('card-img-overlay');
 // CONCATENATED MODULE: ./src/CardGroup.js
 
 /* harmony default export */ var CardGroup = (createWithBsPrefix('card-group'));
-// EXTERNAL MODULE: ./node_modules/dom-helpers/transition/index.js
+// EXTERNAL MODULE: ./node_modules/dom-helpers/transition/index.ts
 var dom_helpers_transition = __webpack_require__(51);
 var transition_default = /*#__PURE__*/__webpack_require__.n(dom_helpers_transition);
 
-// EXTERNAL MODULE: ./node_modules/uncontrollable/index.js
+// EXTERNAL MODULE: ./node_modules/uncontrollable/index.ts
 var uncontrollable = __webpack_require__(7);
 var uncontrollable_default = /*#__PURE__*/__webpack_require__.n(uncontrollable);
 
@@ -13744,7 +13744,7 @@ Media.propTypes = Media_propTypes;
 Media.defaultProps = Media_defaultProps;
 Media.Body = createWithBsPrefix('media-body');
 /* harmony default export */ var src_Media = (Media);
-// EXTERNAL MODULE: ./node_modules/dom-helpers/events/index.js
+// EXTERNAL MODULE: ./node_modules/dom-helpers/events/index.ts
 var events = __webpack_require__(25);
 var events_default = /*#__PURE__*/__webpack_require__.n(events);
 
@@ -17698,7 +17698,7 @@ function Tooltip(_ref) {
 Tooltip.propTypes = Tooltip_propTypes;
 Tooltip.defaultProps = Tooltip_defaultProps;
 /* harmony default export */ var src_Tooltip = (createBootstrapComponent(Tooltip, 'tooltip'));
-// CONCATENATED MODULE: ./src/index.js
+// CONCATENATED MODULE: ./src/index.ts
 /* concated harmony reexport Accordion */__webpack_require__.d(__webpack_exports__, "Accordion", function() { return src_Accordion; });
 /* concated harmony reexport Alert */__webpack_require__.d(__webpack_exports__, "Alert", function() { return src_Alert; });
 /* concated harmony reexport Badge */__webpack_require__.d(__webpack_exports__, "Badge", function() { return src_Badge; });

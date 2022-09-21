@@ -1,15 +1,21 @@
 // framework
-const express = require('express');
+import express from 'express';
+import process from 'process';
+
 const app = express();
 
 // BD
-const db = require('./persistence');
-const getItems = require('./routes/getItems');
-const addItem = require('./routes/addItem');
-const updateItem = require('./routes/updateItem');
-const deleteItem = require('./routes/deleteItem');
+import db from './persistence';
+import {getItems} from './routes/getItems';
+import {addItem}from './routes/addItem';
+import {updateItem} from './routes/updateItem';
+import {deleteItem} from './routes/deleteItem';
 
 // SETUP L'APPLICATION
+//import path from 'path';
+//import {fileURLToPath} from 'url';
+//const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 app.use(express.json());
 app.use(express.static(__dirname + '/static'));
 

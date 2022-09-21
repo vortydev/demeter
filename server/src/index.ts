@@ -1,23 +1,27 @@
 // framework
-const express = require('express');
+import express from 'express';
+import process from 'process';
+
 const app = express();
 
 // BD
-const db = require('./persistence');
-const getItems = require('./routes/getItems');
-const addItem = require('./routes/addItem');
-const updateItem = require('./routes/updateItem');
-const deleteItem = require('./routes/deleteItem');
+import db from './persistence';
+import {addProduct, deleteProduct, getProducts, updateProduct }from './routes/productOperations';
+
 
 // SETUP L'APPLICATION
+//import path from 'path';
+//import {fileURLToPath} from 'url';
+//const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 app.use(express.json());
 app.use(express.static(__dirname + '/static'));
 
 // définit les routes
-app.get('/items', getItems);
-app.post('/items', addItem);
-app.put('/items/:id', updateItem);
-app.delete('/items/:id', deleteItem);
+app.get('/items', getProducts);
+app.post('/items', addProduct);
+app.put('/items/:id', updateProduct);
+app.delete('/items/:id', deleteProduct);
 
 // initialise la BD
 db.init().then(() => {

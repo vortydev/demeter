@@ -8,27 +8,27 @@ const addProduct = async (req :any, res:any) => {
         completed: false,
     };
 
-    await db.storeItem(item);
+    await db.addProduct(item);
     res.send(item);
 };
 
 const deleteProduct = async (req:any, res:any) => {
-    await db.removeItem(req.params.id);
+    await db.deleteProduct(req.params.id);
     res.sendStatus(200);
 };
 
 const getProducts = async (req:any, res:any) => {
-    const items = await db.getItems();
+    const items = await db.getProducts();
     res.send(items);
 };
 
 const updateProduct = async (req:any, res:any) => {
-    await db.updateItem(req.params.id, {
+    await db.updateProduct(req.params.id, {
         name: req.body.name,
         completed: req.body.completed,
     });
-    const item = await db.getItem(req.params.id);
+    const item = await db.getProduct(req.params.id);
     res.send(item);
 };
 
-export {addProduct, deleteProduct, getProducts, updateProduct};
+export { addProduct, deleteProduct, getProducts, updateProduct };

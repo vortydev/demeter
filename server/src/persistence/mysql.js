@@ -161,7 +161,7 @@ async function init() {
         });
 
         acc();
-        console.log('Database initialisation complete');
+        console.log('Database ready!');
     });
 }
 
@@ -261,6 +261,20 @@ async function getAccounts() {
     });
 }
 
+// getAccount
+async function getAccount(id) {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_account WHERE acc_id=?', [id], (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(account =>
+                    Object.assign({}, account),
+                )[0],
+            );
+        });
+    });
+}
+
 // addAccount
 async function addAccount(account) {
     return new Promise((acc, rej) => {
@@ -275,6 +289,30 @@ async function addAccount(account) {
     });
 }
 
+// updateAccount
+async function updateAccount(id, account) {
+    return new Promise((acc, rej) => {
+        pool.query(
+            'UPDATE tbl_account SET acc_name=?, acc_pwd=?, acc_role_id=?, acc_state_id=? WHERE acc_id=?',
+            [account.name, account.password, account.role, account.state, id],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
+// deleteAccount
+async function deleteAccount(id) {
+    return new Promise((acc, rej) => {
+        pool.query('DELETE FROM tbl_account WHERE acc_id = ?', [id], err => {
+            if (err) return rej(err);
+            acc();
+        });
+    });
+}
+
 module.exports = {
     init,
     teardown,
@@ -285,4 +323,7 @@ module.exports = {
     deleteProduct,
     addAccount,
     getAccounts,
+    getAccount,
+    updateAccount,
+    deleteAccount,
 };

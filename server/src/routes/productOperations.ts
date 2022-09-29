@@ -40,11 +40,18 @@ const getProduct = async (req:any, res:any) => {
 // mets à jour un produit
 const updateProduct = async (req:any, res:any) => {
     await db.updateProduct(req.params.id, {
+        id: req.body.id,
         name: req.body.name,
-        completed: req.body.completed,
+        category: req.body.category,
+        vendor: req.body.vendor,
+        price: req.body.price,
+        qty_inv: req.body.qty_inv,
+        qty_unit: req.body.qty_unit,
+        mesurement: req.body.mesurement,
+        format: req.body.format,
     });
     const product = await db.getProduct(req.params.id);
     res.send(product);
 };
 
-export { addProduct, deleteProduct, getProducts, getProduct, updateProduct };
+export { addProduct, getProducts, getProduct, updateProduct, deleteProduct };

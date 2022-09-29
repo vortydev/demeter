@@ -238,12 +238,11 @@ async function addProduct(product) {
 }
 
 // updateProduct
-// TODO
-async function updateProduct(id, item) {
+async function updateProduct(id, product) {
     return new Promise((acc, rej) => {
         pool.query(
-            'UPDATE todo_items SET name=?, completed=? WHERE id=?',
-            [item.name, item.completed ? 1 : 0, id],
+            'UPDATE tbl_product SET pt_name=?, pt_category_id=?, pt_vendor_id=?, pt_price=?, pt_qty_inv=?, pt_qty_unit=?, pt_mes_id=?, pt_format=? WHERE pt_id=?',
+            [product.id, product.name, product.category, product.vendor, product.price, product.qty_inv, product.qty_unit, product.mesurement, product.format, id],
             err => {
                 if (err) return rej(err);
                 acc();

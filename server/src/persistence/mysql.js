@@ -91,6 +91,11 @@ async function init() {
                 err => {
                     if (err) return rej(err);
 
+            conn.query(
+                'INSERT IGNORE INTO tbl_category_product (ctp_id, ctp_name) VALUES (1, "Non périssable"), (2, "Périssable")',
+                err => {
+                    if (err) return rej(err);
+
             // tbl_vendor
             conn.query(
                 'CREATE TABLE IF NOT EXISTS tbl_vendor (ven_id int(8) NOT NULL AUTO_INCREMENT, ven_name varchar(255) NOT NULL, ven_phone int, ven_email varchar(255), ven_address varchar(511), CONSTRAINT PK_Vendor PRIMARY KEY (ven_id)) DEFAULT CHARSET utf8mb4',
@@ -109,9 +114,20 @@ async function init() {
                 err => {
                     if (err) return rej(err);
 
+            // tbl_category_recipe
+            conn.query(
+                'CREATE TABLE IF NOT EXISTS tbl_category_recipe (ctr_id int(8) NOT NULL AUTO_INCREMENT, ctr_name varchar(255) NOT NULL, CONSTRAINT PK_Product PRIMARY KEY (ctr_id)) DEFAULT CHARSET utf8mb4',
+                err => {
+                    if (err) return rej(err);
+
+            conn.query(
+                'INSERT IGNORE INTO tbl_category_recipe (ctr_id, ctr_name) VALUES (1, "Boulangerie"), (2, "Pâtisserie"), (3, "Viennoiserie"), (4, "Cuisine")',
+                err => {
+                    if (err) return rej(err);
+
             // tbl_recipe
             conn.query(
-                'CREATE TABLE IF NOT EXISTS tbl_recipe (rec_id int(8) NOT NULL AUTO_INCREMENT, rec_name varchar(255) NOT NULL, rec_available boolean NOT NULL default 0, CONSTRAINT PK_Recipe PRIMARY KEY (rec_id)) DEFAULT CHARSET utf8mb4',
+                'CREATE TABLE IF NOT EXISTS tbl_recipe (rec_id int(8) NOT NULL AUTO_INCREMENT, rec_name varchar(255) NOT NULL, rec_category_id int(8) NOT NULL, rec_available boolean NOT NULL default 0, FOREIGN KEY (rec_category_id) REFERENCES tbl_category_recipe(ctr_id), CONSTRAINT PK_Recipe PRIMARY KEY (rec_id)) DEFAULT CHARSET utf8mb4',
                 err => {
                     if (err) return rej(err);
                                 
@@ -123,6 +139,9 @@ async function init() {
                                                         
                     conn.release();
                     // callback();
+            });
+            });
+            });
             });
             });
             });
@@ -208,8 +227,8 @@ async function getProduct(id) {
 async function addProduct(product) {
     return new Promise((acc, rej) => {
         pool.query(
-            'INSERT INTO todo_items (id, name, completed) VALUES (?, ?, ?)',
-            [item.id, item.name, item.completed ? 1 : 0],
+            'INSERT INTO tbl_product (pt_id, pt_name, pt_category_id, pt_vendor_id, pt_price, pt_qty_inv, pt_qty_unit, pt_mes_id, pt_format) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [product.id, product.name, product.category, product.vendor, product.price, product.qty_inv, product.qty_unit, product.mesurement, product.format],
             err => {
                 if (err) return rej(err);
                 acc();

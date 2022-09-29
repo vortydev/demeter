@@ -178,13 +178,11 @@ async function teardown() {
 // getProducts
 async function getProducts() {
     return new Promise((acc, rej) => {
-        pool.query('SELECT * FROM todo_items', (err, rows) => {
+        pool.query('SELECT * FROM tbl_product', (err, rows) => {
             if (err) return rej(err);
             acc(
-                rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                rows.map(product =>
+                    Object.assign({}, product),
                 ),
             );
         });
@@ -194,13 +192,11 @@ async function getProducts() {
 // getProduct
 async function getProduct(id) {
     return new Promise((acc, rej) => {
-        pool.query('SELECT * FROM todo_items WHERE id=?', [id], (err, rows) => {
+        pool.query('SELECT * FROM tbl_product WHERE pt_id=?', [id], (err, rows) => {
             if (err) return rej(err);
             acc(
-                rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                rows.map(product =>
+                    Object.assign({}, product),
                 )[0],
             );
         });
@@ -208,7 +204,8 @@ async function getProduct(id) {
 }
 
 // addProduct
-async function addProduct(item) {
+// TODO
+async function addProduct(product) {
     return new Promise((acc, rej) => {
         pool.query(
             'INSERT INTO todo_items (id, name, completed) VALUES (?, ?, ?)',
@@ -222,6 +219,7 @@ async function addProduct(item) {
 }
 
 // updateProduct
+// TODO
 async function updateProduct(id, item) {
     return new Promise((acc, rej) => {
         pool.query(
@@ -238,7 +236,7 @@ async function updateProduct(id, item) {
 // deleteProduct
 async function deleteProduct(id) {
     return new Promise((acc, rej) => {
-        pool.query('DELETE FROM todo_items WHERE id = ?', [id], err => {
+        pool.query('DELETE FROM tbl_product WHERE pt_id = ?', [id], err => {
             if (err) return rej(err);
             acc();
         });

@@ -1,6 +1,7 @@
 import db from '../persistence';
 import { v4 as uuid } from 'uuid';
 
+// ajoute un compte utilisateur
 const addAccount = async (req :any, res:any) => {
     const account = {
         id: req.body.id,
@@ -14,16 +15,19 @@ const addAccount = async (req :any, res:any) => {
     res.send(account);
 };
 
+// retourne un array de tous les utilisateurs
 const getAccounts = async (req:any, res:any) => {
     const accounts = await db.getAccounts();
     res.send(accounts);
 };
 
+// retourne l'utilisateur ayant l'ID en paramètre
 const getAccount = async (req:any, res:any) => {
     const account = await db.getAccount(req.params.id);
     res.send(account);
 };
 
+// mets à jour un utilisateur
 const updateAccount = async (req:any, res:any) => {
     await db.updateAccount(req.params.id, {
         name: req.body.username,
@@ -35,6 +39,7 @@ const updateAccount = async (req:any, res:any) => {
     res.send(account);
 };
 
+// supprime un utilisateur
 const deleteAccount = async (req:any, res:any) => {
     await db.deleteAccount(req.params.id);
     res.sendStatus(200);

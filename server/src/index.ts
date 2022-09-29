@@ -6,7 +6,7 @@ const app = express();
 
 // BD
 import db from './persistence';
-import { addProduct, deleteProduct, getProducts, updateProduct } from './routes/productOperations';
+import { addProduct, deleteProduct, getProducts, getProduct, updateProduct } from './routes/productOperations';
 import { addAccount, getAccounts, getAccount, updateAccount, deleteAccount } from './routes/accountOperations';
 
 app.use(express.json({type: ['application/json', 'text/plain']}));
@@ -15,6 +15,7 @@ app.use(express.static(__dirname + '/static'));
 
 // définit les routes
 app.get('/items', getProducts);
+app.get('/items/:id', getProduct);
 app.post('/items', addProduct);
 app.put('/items/:id', updateProduct);
 app.delete('/items/:id', deleteProduct);

@@ -6,8 +6,9 @@ const app = express();
 
 // BD
 import db from './persistence';
-import { addProduct, getProducts, getProduct, updateProduct, deleteProduct } from './routes/productOperations';
-import { addAccount, getAccounts, getAccount, updateAccount, deleteAccount } from './routes/accountOperations';
+import { getAccounts, getAccount, addAccount, updateAccount, deleteAccount } from './routes/accountOperations';
+import { getProducts, getProduct, addProduct, updateProduct, deleteProduct } from './routes/productOperations';
+import { getVendors, getVendor, addVendor, updateVendor, deleteVendor } from './routes/vendorOperations';
 
 app.use(express.json({type: ['application/json', 'text/plain']}));
 app.use(express.urlencoded());
@@ -25,6 +26,12 @@ app.get('/accounts/:id', getAccount);
 app.post('/accounts', addAccount);
 app.put('/accounts/:id', updateAccount);
 app.delete('/accounts/:id', deleteAccount);
+
+app.get('/vendors', getVendors);
+app.get('/vendors/:id', getVendor);
+app.post('/vendors', addVendor);
+app.put('/vendors/:id', updateVendor);
+app.delete('/vendors/:id', deleteVendor);
 
 // initialise la BD
 db.init().then(() => {

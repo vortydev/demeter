@@ -99,7 +99,7 @@ async function init() {
 
             // tbl_vendor
             conn.query(
-                'CREATE TABLE IF NOT EXISTS tbl_vendor (ven_id int(8) NOT NULL AUTO_INCREMENT, ven_name varchar(255) NOT NULL, ven_phone int, ven_email varchar(255), ven_address varchar(511), CONSTRAINT PK_Vendor PRIMARY KEY (ven_id)) DEFAULT CHARSET utf8mb4',
+                'CREATE TABLE IF NOT EXISTS tbl_vendor (ven_id int(8) NOT NULL AUTO_INCREMENT, ven_name varchar(255) NOT NULL, ven_phone varchar(255), ven_email varchar(255), ven_address varchar(511), CONSTRAINT PK_Vendor PRIMARY KEY (ven_id)) DEFAULT CHARSET utf8mb4',
                 err => {
                     if (err) return rej(err);
 
@@ -337,6 +337,75 @@ async function deleteAccount(id) {
     });
 }
 
+/* *** Fournisseurs *** */
+
+// getVendors
+async function getVendors() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_vendor', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(vendor =>
+                    Object.assign({}, vendor),
+                ),
+            );
+        });
+    });
+}
+
+// getVendor
+async function getVendor(id) {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_vendor WHERE ven_id=?', [id], (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(vendor =>
+                    Object.assign({}, vendor),
+                )[0],
+            );
+        });
+    });
+}
+
+// addVendor
+async function addVendor(vendor) {
+    return new Promise((acc, rej) => {
+        pool.query(
+            'INSERT IGNORE INTO tbl_vendor (ven_id, ven_name, ven_phone, ven_email, ven_address) VALUES (?, ?, ?, ?, ?)',
+            [vendor.id, vendor.name, vendor.phone, vendor.email, vendor.address],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
+// deleteVendor
+async function deleteVendor(id) {
+    return new Promise((acc, rej) => {
+        pool.query('DELETE FROM tbl_vendor WHERE ven_id = ?', [id], err => {
+            if (err) return rej(err);
+            acc();
+        });
+    });
+}
+
+// updateVendor
+async function updateVendor(id, vendor) {
+    return new Promise((acc, rej) => {
+        pool.query(
+            'UPDATE tbl_vendor SET ven_name=?, ven_phone=?, ven_email=?, ven_address=? WHERE ven_id=?',
+            [vendor.name, vendor.phone, vendor.email, vendor.address, id],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
+// EXPORTS
 module.exports = {
     init,
     teardown,
@@ -350,4 +419,9 @@ module.exports = {
     getAccount,
     updateAccount,
     deleteAccount,
+    getVendors,
+    getVendor,
+    addVendor,
+    deleteVendor,
+    updateVendor,
 };

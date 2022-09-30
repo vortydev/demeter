@@ -5,7 +5,7 @@ import { v4 as uuid } from 'uuid';
 const addAccount = async (req :any, res:any) => {
     const account = {
         id: req.body.id,
-        name: req.body.username,
+        name: req.body.name,
         password: req.body.password,
         role: req.body.role,
         state: req.body.state,
@@ -30,7 +30,7 @@ const getAccount = async (req:any, res:any) => {
 // mets à jour un utilisateur
 const updateAccount = async (req:any, res:any) => {
     await db.updateAccount(req.params.id, {
-        name: req.body.username,
+        name: req.body.name,
         password: req.body.password,
         role: req.body.role,
         state: req.body.state

@@ -517,6 +517,72 @@ async function getProductCategory(id) {
     });
 }
 
+// getChefPwds
+async function getChefPwds() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_teamleader_pw', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(pwd =>
+                    Object.assign({}, pwd),
+                ),
+            );
+        });
+    });
+}
+
+// getChefPwd
+async function getChefPwd(id) {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_teamleader_pw WHERE tpw_id=?', [id], (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(pwd =>
+                    Object.assign({}, pwd),
+                )[0],
+            );
+        });
+    });
+}
+
+// addChefPwd
+async function addChefPwd(pwd) {
+    return new Promise((acc, rej) => {
+        pool.query(
+            'INSERT IGNORE INTO tbl_teamleader_pw (tpw_id, tpw_name, tpw_password) VALUES (?, ?, ?)',
+            [pwd.id, pwd.name, pwd.password],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
+// deleteChefPwd
+async function deleteChefPwd(id) {
+    return new Promise((acc, rej) => {
+        pool.query('DELETE FROM tbl_teamleader_pw WHERE tpw_id = ?', [id], err => {
+            if (err) return rej(err);
+            acc();
+        });
+    });
+}
+
+// updateChefPwd
+async function updateChefPwd(id, pwd) {
+    return new Promise((acc, rej) => {
+        pool.query(
+            'UPDATE tbl_teamleader_pw SET tpw_name=?, tpw_password=? WHERE tpw_id=?',
+            [pwd.name, pwd.password, id],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
 // EXPORTS
 module.exports = {
     init,
@@ -544,4 +610,9 @@ module.exports = {
     getState,
     getProductCategories,
     getProductCategory,
+    getChefPwds,
+    getChefPwd,
+    addChefPwd,
+    deleteChefPwd,
+    updateChefPwd,
 };

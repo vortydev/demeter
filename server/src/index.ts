@@ -10,6 +10,7 @@ import db from './persistence';
 import { getAccounts, getAccount, addAccount, updateAccount, deleteAccount } from './routes/accountOperations';
 import { getRoles, getRole } from './routes/roleOperations';
 import { getStates, getState } from './routes/stateOperations';
+import { getChefPwds, getChefPwd, addChefPwd, updateChefPwd, deleteChefPwd } from './routes/teamleadpwdOperations';
 
 import { getProducts, getProduct, addProduct, updateProduct, deleteProduct } from './routes/productOperations';
 import { getVendors, getVendor, addVendor, updateVendor, deleteVendor } from './routes/vendorOperations';
@@ -35,6 +36,13 @@ app.get('/roles/:id', getRole);
 app.get('/states', getStates);
 app.get('/states/:id', getState);
 
+// routes teamlead passwords
+app.get('/teamleadpwd', getChefPwds);
+app.get('/teamleadpwd/:id', getChefPwd);
+app.post('/teamleadpwd', addChefPwd);
+app.put('/teamleadpwd/:id', updateChefPwd);
+app.delete('/teamleadpwd/:id', deleteChefPwd);
+
 // routes produits
 app.get('/products', getProducts);
 app.get('/products/:id', getProduct);
@@ -53,6 +61,7 @@ app.delete('/vendors/:id', deleteVendor);
 app.get('/mesurements', getMesurements);
 app.get('/mesurements/:id', getMesurement);
 
+// routes catégories produits
 app.get('/categories/products', getProductCategories);
 app.get('/categories/products/:id', getProductCategory);
 

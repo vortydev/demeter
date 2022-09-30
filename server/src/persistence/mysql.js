@@ -91,15 +91,27 @@ async function init() {
                 err => {
                     if (err) return rej(err);
 
+            // insert tbl_category_product
+            conn.query(
+                'INSERT IGNORE INTO tbl_category_product (ctp_id, ctp_name) VALUES (1, "Non périssable"), (2, "Périssable")',
+                err => {
+                    if (err) return rej(err);
+
             // tbl_vendor
             conn.query(
-                'CREATE TABLE IF NOT EXISTS tbl_vendor (ven_id int(8) NOT NULL AUTO_INCREMENT, ven_name varchar(255) NOT NULL, ven_phone int, ven_email varchar(255), ven_address varchar(511), CONSTRAINT PK_Vendor PRIMARY KEY (ven_id)) DEFAULT CHARSET utf8mb4',
+                'CREATE TABLE IF NOT EXISTS tbl_vendor (ven_id int(8) NOT NULL AUTO_INCREMENT, ven_name varchar(255) NOT NULL, ven_phone varchar(255), ven_email varchar(255), ven_address varchar(511), CONSTRAINT PK_Vendor PRIMARY KEY (ven_id)) DEFAULT CHARSET utf8mb4',
                 err => {
                     if (err) return rej(err);
 
             // tbl_mesurement
             conn.query(
-                'CREATE TABLE IF NOT EXISTS tbl_mesurement (mes_id int(8) NOT NULL AUTO_INCREMENT, mes_name varchar(255) NOT NULL, CONSTRAINT PK_Mesurement PRIMARY KEY (mes_id)) DEFAULT CHARSET utf8mb4',
+                'CREATE TABLE IF NOT EXISTS tbl_mesurement (mes_id int(8) NOT NULL AUTO_INCREMENT, mes_name varchar(255) NOT NULL, mes_weight int(8) NOT NULL, CONSTRAINT PK_Mesurement PRIMARY KEY (mes_id)) DEFAULT CHARSET utf8mb4',
+                err => {
+                    if (err) return rej(err);
+
+            // insert tbl_mesurement
+            conn.query(
+                'INSERT IGNORE INTO tbl_mesurement (mes_id, mes_name, mes_weight) VALUES (1, "g", 1), (2, "kg", 1000), (3, "mL", 1), (4, "L", 1000)',
                 err => {
                     if (err) return rej(err);
 
@@ -109,9 +121,20 @@ async function init() {
                 err => {
                     if (err) return rej(err);
 
+            // tbl_category_recipe
+            conn.query(
+                'CREATE TABLE IF NOT EXISTS tbl_category_recipe (ctr_id int(8) NOT NULL AUTO_INCREMENT, ctr_name varchar(255) NOT NULL, CONSTRAINT PK_Product PRIMARY KEY (ctr_id)) DEFAULT CHARSET utf8mb4',
+                err => {
+                    if (err) return rej(err);
+
+            conn.query(
+                'INSERT IGNORE INTO tbl_category_recipe (ctr_id, ctr_name) VALUES (1, "Boulangerie"), (2, "Pâtisserie"), (3, "Viennoiserie"), (4, "Cuisine")',
+                err => {
+                    if (err) return rej(err);
+
             // tbl_recipe
             conn.query(
-                'CREATE TABLE IF NOT EXISTS tbl_recipe (rec_id int(8) NOT NULL AUTO_INCREMENT, rec_name varchar(255) NOT NULL, rec_available boolean NOT NULL default 0, CONSTRAINT PK_Recipe PRIMARY KEY (rec_id)) DEFAULT CHARSET utf8mb4',
+                'CREATE TABLE IF NOT EXISTS tbl_recipe (rec_id int(8) NOT NULL AUTO_INCREMENT, rec_name varchar(255) NOT NULL, rec_category_id int(8) NOT NULL, rec_available boolean NOT NULL default 0, FOREIGN KEY (rec_category_id) REFERENCES tbl_category_recipe(ctr_id), CONSTRAINT PK_Recipe PRIMARY KEY (rec_id)) DEFAULT CHARSET utf8mb4',
                 err => {
                     if (err) return rej(err);
                                 
@@ -123,6 +146,10 @@ async function init() {
                                                         
                     conn.release();
                     // callback();
+            });
+            });
+            });
+            });
             });
             });
             });
@@ -178,13 +205,11 @@ async function teardown() {
 // getProducts
 async function getProducts() {
     return new Promise((acc, rej) => {
-        pool.query('SELECT * FROM todo_items', (err, rows) => {
+        pool.query('SELECT * FROM tbl_product', (err, rows) => {
             if (err) return rej(err);
             acc(
-                rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                rows.map(product =>
+                    Object.assign({}, product),
                 ),
             );
         });
@@ -194,13 +219,11 @@ async function getProducts() {
 // getProduct
 async function getProduct(id) {
     return new Promise((acc, rej) => {
-        pool.query('SELECT * FROM todo_items WHERE id=?', [id], (err, rows) => {
+        pool.query('SELECT * FROM tbl_product WHERE pt_id=?', [id], (err, rows) => {
             if (err) return rej(err);
             acc(
-                rows.map(item =>
-                    Object.assign({}, item, {
-                        completed: item.completed === 1,
-                    }),
+                rows.map(product =>
+                    Object.assign({}, product),
                 )[0],
             );
         });
@@ -208,11 +231,12 @@ async function getProduct(id) {
 }
 
 // addProduct
-async function addProduct(item) {
+// TODO
+async function addProduct(product) {
     return new Promise((acc, rej) => {
         pool.query(
-            'INSERT INTO todo_items (id, name, completed) VALUES (?, ?, ?)',
-            [item.id, item.name, item.completed ? 1 : 0],
+            'INSERT INTO tbl_product (pt_id, pt_name, pt_category_id, pt_vendor_id, pt_price, pt_qty_inv, pt_qty_unit, pt_mes_id, pt_format) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [product.id, product.name, product.category, product.vendor, product.price, product.qty_inv, product.qty_unit, product.mesurement, product.format],
             err => {
                 if (err) return rej(err);
                 acc();
@@ -222,11 +246,11 @@ async function addProduct(item) {
 }
 
 // updateProduct
-async function updateProduct(id, item) {
+async function updateProduct(id, product) {
     return new Promise((acc, rej) => {
         pool.query(
-            'UPDATE todo_items SET name=?, completed=? WHERE id=?',
-            [item.name, item.completed ? 1 : 0, id],
+            'UPDATE tbl_product SET pt_name=?, pt_category_id=?, pt_vendor_id=?, pt_price=?, pt_qty_inv=?, pt_qty_unit=?, pt_mes_id=?, pt_format=? WHERE pt_id=?',
+            [product.name, product.category, product.vendor, product.price, product.qty_inv, product.qty_unit, product.mesurement, product.format, id],
             err => {
                 if (err) return rej(err);
                 acc();
@@ -238,7 +262,7 @@ async function updateProduct(id, item) {
 // deleteProduct
 async function deleteProduct(id) {
     return new Promise((acc, rej) => {
-        pool.query('DELETE FROM todo_items WHERE id = ?', [id], err => {
+        pool.query('DELETE FROM tbl_product WHERE pt_id = ?', [id], err => {
             if (err) return rej(err);
             acc();
         });
@@ -313,6 +337,253 @@ async function deleteAccount(id) {
     });
 }
 
+/* *** Fournisseurs *** */
+
+// getVendors
+async function getVendors() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_vendor', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(vendor =>
+                    Object.assign({}, vendor),
+                ),
+            );
+        });
+    });
+}
+
+// getVendor
+async function getVendor(id) {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_vendor WHERE ven_id=?', [id], (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(vendor =>
+                    Object.assign({}, vendor),
+                )[0],
+            );
+        });
+    });
+}
+
+// addVendor
+async function addVendor(vendor) {
+    return new Promise((acc, rej) => {
+        pool.query(
+            'INSERT IGNORE INTO tbl_vendor (ven_id, ven_name, ven_phone, ven_email, ven_address) VALUES (?, ?, ?, ?, ?)',
+            [vendor.id, vendor.name, vendor.phone, vendor.email, vendor.address],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
+// deleteVendor
+async function deleteVendor(id) {
+    return new Promise((acc, rej) => {
+        pool.query('DELETE FROM tbl_vendor WHERE ven_id = ?', [id], err => {
+            if (err) return rej(err);
+            acc();
+        });
+    });
+}
+
+// updateVendor
+async function updateVendor(id, vendor) {
+    return new Promise((acc, rej) => {
+        pool.query(
+            'UPDATE tbl_vendor SET ven_name=?, ven_phone=?, ven_email=?, ven_address=? WHERE ven_id=?',
+            [vendor.name, vendor.phone, vendor.email, vendor.address, id],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
+// getMesurements
+async function getMesurements() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_mesurement', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(mesurement =>
+                    Object.assign({}, mesurement),
+                ),
+            );
+        });
+    });
+}
+
+// getVendor
+async function getMesurement(id) {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_mesurement WHERE mes_id=?', [id], (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(mesurement =>
+                    Object.assign({}, mesurement),
+                )[0],
+            );
+        });
+    });
+}
+
+// getRoles
+async function getRoles() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_role_account', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(role =>
+                    Object.assign({}, role),
+                ),
+            );
+        });
+    });
+}
+
+// getRole
+async function getRole(id) {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_role_account WHERE role_id=?', [id], (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(role =>
+                    Object.assign({}, role),
+                )[0],
+            );
+        });
+    });
+}
+
+// getStates
+async function getStates() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_state_account', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(state =>
+                    Object.assign({}, state),
+                ),
+            );
+        });
+    });
+}
+
+// getState
+async function getState(id) {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_state_account WHERE state_id=?', [id], (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(state =>
+                    Object.assign({}, state),
+                )[0],
+            );
+        });
+    });
+}
+
+// getProductCategories
+async function getProductCategories() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_category_product', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(category =>
+                    Object.assign({}, category),
+                ),
+            );
+        });
+    });
+}
+
+// getState
+async function getProductCategory(id) {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_category_product WHERE ctp_id=?', [id], (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(category =>
+                    Object.assign({}, category),
+                )[0],
+            );
+        });
+    });
+}
+
+// getChefPwds
+async function getChefPwds() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_teamleader_pw', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(pwd =>
+                    Object.assign({}, pwd),
+                ),
+            );
+        });
+    });
+}
+
+// getChefPwd
+async function getChefPwd(id) {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_teamleader_pw WHERE tpw_id=?', [id], (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(pwd =>
+                    Object.assign({}, pwd),
+                )[0],
+            );
+        });
+    });
+}
+
+// addChefPwd
+async function addChefPwd(pwd) {
+    return new Promise((acc, rej) => {
+        pool.query(
+            'INSERT IGNORE INTO tbl_teamleader_pw (tpw_id, tpw_name, tpw_password) VALUES (?, ?, ?)',
+            [pwd.id, pwd.name, pwd.password],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
+// deleteChefPwd
+async function deleteChefPwd(id) {
+    return new Promise((acc, rej) => {
+        pool.query('DELETE FROM tbl_teamleader_pw WHERE tpw_id = ?', [id], err => {
+            if (err) return rej(err);
+            acc();
+        });
+    });
+}
+
+// updateChefPwd
+async function updateChefPwd(id, pwd) {
+    return new Promise((acc, rej) => {
+        pool.query(
+            'UPDATE tbl_teamleader_pw SET tpw_name=?, tpw_password=? WHERE tpw_id=?',
+            [pwd.name, pwd.password, id],
+            err => {
+                if (err) return rej(err);
+                acc();
+            },
+        );
+    });
+}
+
+// EXPORTS
 module.exports = {
     init,
     teardown,
@@ -326,4 +597,22 @@ module.exports = {
     getAccount,
     updateAccount,
     deleteAccount,
+    getVendors,
+    getVendor,
+    addVendor,
+    deleteVendor,
+    updateVendor,
+    getMesurements,
+    getMesurement,
+    getRoles,
+    getRole,
+    getStates,
+    getState,
+    getProductCategories,
+    getProductCategory,
+    getChefPwds,
+    getChefPwd,
+    addChefPwd,
+    deleteChefPwd,
+    updateChefPwd,
 };

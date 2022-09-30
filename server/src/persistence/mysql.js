@@ -489,6 +489,34 @@ async function getState(id) {
     });
 }
 
+// getProductCategories
+async function getProductCategories() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_category_product', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(category =>
+                    Object.assign({}, category),
+                ),
+            );
+        });
+    });
+}
+
+// getState
+async function getProductCategory(id) {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_category_product WHERE ctp_id=?', [id], (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(category =>
+                    Object.assign({}, category),
+                )[0],
+            );
+        });
+    });
+}
+
 // EXPORTS
 module.exports = {
     init,
@@ -514,4 +542,6 @@ module.exports = {
     getRole,
     getStates,
     getState,
+    getProductCategories,
+    getProductCategory,
 };

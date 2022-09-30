@@ -6,12 +6,15 @@ const app = express();
 
 // BD
 import db from './persistence';
+
 import { getAccounts, getAccount, addAccount, updateAccount, deleteAccount } from './routes/accountOperations';
 import { getRoles, getRole } from './routes/roleOperations';
 import { getStates, getState } from './routes/stateOperations';
+
 import { getProducts, getProduct, addProduct, updateProduct, deleteProduct } from './routes/productOperations';
 import { getVendors, getVendor, addVendor, updateVendor, deleteVendor } from './routes/vendorOperations';
 import { getMesurements, getMesurement } from './routes/mesurementOperations';
+import { getProductCategories, getProductCategory } from './routes/categoryProductOperations';
 
 app.use(express.json({type: ['application/json', 'text/plain']}));
 app.use(express.urlencoded());
@@ -49,6 +52,9 @@ app.delete('/vendors/:id', deleteVendor);
 // routes mesures
 app.get('/mesurements', getMesurements);
 app.get('/mesurements/:id', getMesurement);
+
+app.get('/categories/products', getProductCategories);
+app.get('/categories/products/:id', getProductCategory);
 
 // initialise la BD
 db.init().then(() => {

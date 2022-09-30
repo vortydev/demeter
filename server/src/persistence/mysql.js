@@ -405,6 +405,90 @@ async function updateVendor(id, vendor) {
     });
 }
 
+// getMesurements
+async function getMesurements() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_mesurement', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(mesurement =>
+                    Object.assign({}, mesurement),
+                ),
+            );
+        });
+    });
+}
+
+// getVendor
+async function getMesurement(id) {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_mesurement WHERE mes_id=?', [id], (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(mesurement =>
+                    Object.assign({}, mesurement),
+                )[0],
+            );
+        });
+    });
+}
+
+// getRoles
+async function getRoles() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_role_account', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(role =>
+                    Object.assign({}, role),
+                ),
+            );
+        });
+    });
+}
+
+// getRole
+async function getRole(id) {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_role_account WHERE role_id=?', [id], (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(role =>
+                    Object.assign({}, role),
+                )[0],
+            );
+        });
+    });
+}
+
+// getStates
+async function getStates() {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_state_account', (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(state =>
+                    Object.assign({}, state),
+                ),
+            );
+        });
+    });
+}
+
+// getState
+async function getState(id) {
+    return new Promise((acc, rej) => {
+        pool.query('SELECT * FROM tbl_state_account WHERE state_id=?', [id], (err, rows) => {
+            if (err) return rej(err);
+            acc(
+                rows.map(state =>
+                    Object.assign({}, state),
+                )[0],
+            );
+        });
+    });
+}
+
 // EXPORTS
 module.exports = {
     init,
@@ -424,4 +508,10 @@ module.exports = {
     addVendor,
     deleteVendor,
     updateVendor,
+    getMesurements,
+    getMesurement,
+    getRoles,
+    getRole,
+    getStates,
+    getState,
 };

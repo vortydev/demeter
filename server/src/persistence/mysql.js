@@ -91,6 +91,7 @@ async function init() {
                 err => {
                     if (err) return rej(err);
 
+            // insert tbl_category_product
             conn.query(
                 'INSERT IGNORE INTO tbl_category_product (ctp_id, ctp_name) VALUES (1, "Non périssable"), (2, "Périssable")',
                 err => {
@@ -104,7 +105,13 @@ async function init() {
 
             // tbl_mesurement
             conn.query(
-                'CREATE TABLE IF NOT EXISTS tbl_mesurement (mes_id int(8) NOT NULL AUTO_INCREMENT, mes_name varchar(255) NOT NULL, CONSTRAINT PK_Mesurement PRIMARY KEY (mes_id)) DEFAULT CHARSET utf8mb4',
+                'CREATE TABLE IF NOT EXISTS tbl_mesurement (mes_id int(8) NOT NULL AUTO_INCREMENT, mes_name varchar(255) NOT NULL, mes_weight int(8) NOT NULL, CONSTRAINT PK_Mesurement PRIMARY KEY (mes_id)) DEFAULT CHARSET utf8mb4',
+                err => {
+                    if (err) return rej(err);
+
+            // insert tbl_mesurement
+            conn.query(
+                'INSERT IGNORE INTO tbl_mesurement (mes_id, mes_name, mes_weight) VALUES (1, "g", 1), (2, "kg", 1000), (3, "mL", 1), (4, "L", 1000)',
                 err => {
                     if (err) return rej(err);
 
@@ -139,6 +146,7 @@ async function init() {
                                                         
                     conn.release();
                     // callback();
+            });
             });
             });
             });

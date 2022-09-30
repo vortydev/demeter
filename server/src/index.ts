@@ -15,11 +15,11 @@ app.use(express.urlencoded());
 app.use(express.static(__dirname + '/static'));
 
 // définit les routes
-app.get('/items', getProducts);
-app.get('/items/:id', getProduct);
-app.post('/items', addProduct);
-app.put('/items/:id', updateProduct);
-app.delete('/items/:id', deleteProduct);
+app.get('/products', getProducts);
+app.get('/products/:id', getProduct);
+app.post('/products', addProduct);
+app.put('/products/:id', updateProduct);
+app.delete('/products/:id', deleteProduct);
 
 app.get('/accounts', getAccounts);
 app.get('/accounts/:id', getAccount);

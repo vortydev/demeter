@@ -14,7 +14,6 @@ const addProduct = async (req :any, res:any) => {
         mesurement: req.body.mesurement,
         format: req.body.format,
     };
-
     await db.addProduct(product);
     res.send(product);
 };
@@ -40,7 +39,6 @@ const getProduct = async (req:any, res:any) => {
 // mets à jour un produit
 const updateProduct = async (req:any, res:any) => {
     await db.updateProduct(req.params.id, {
-        id: req.body.id,
         name: req.body.name,
         category: req.body.category,
         vendor: req.body.vendor,

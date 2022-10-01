@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  # app service
+  app:
+    image: node:18-alpine
+    command: sh -c "npm install && npm run build && npm run start"
+    # command: sh -c "npm run start"
+    ports:
+      - 3000:3000
+    working_dir: /server
+    volumes:
+      - ./:/server
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: demeter
+
+  # MySQL service
+  mysql:
+    image: mysql:5.7
+    volumes: 
+      - demeter-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: demeter
+
+volumes:
+  demeter-mysql-data:

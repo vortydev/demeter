@@ -1,11 +1,13 @@
 import React from 'react';
 import logo from './static/img/logo.svg';
 import './static/css/App.css';
+import { Navbar } from './Navbar';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <Navbar/>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Bienvenu.e sur Demeter!

@@ -2,6 +2,8 @@ import React from 'react';
 import logo from './static/img/logo.svg';
 import './static/css/App.css';
 import { Navbar } from './Navbar';
+import { Footerbar } from './Footerbar';
+
 
 function App() {
   return (
@@ -21,6 +23,9 @@ function App() {
           Learn React
         </a>
       </header>
+      <body>this is where the body goes</body>
+     <Footerbar/>
+
     </div>
   );
 }

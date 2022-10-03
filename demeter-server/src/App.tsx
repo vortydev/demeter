@@ -1,7 +1,8 @@
 import React from 'react';
-import logo from './static/img/logo.svg';
 import './static/css/App.css';
 import { LoginPage } from './Login Page/LoginPage';
+import { Navbar } from './Templates/Navbar';
+import { Footerbar } from './Templates/Footerbar';
 
 function App() {
  const loggedIn = false;
@@ -11,21 +12,13 @@ function App() {
 return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Bienvenu.e sur Demeter!
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Navbar/>
       </header>
+      <body className="App-body">this is where the body goes</body>
+     <Footerbar/>
     </div>
-  );}
+  );
+  }
 }
 
 export default App;

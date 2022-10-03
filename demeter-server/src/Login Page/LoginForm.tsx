@@ -1,4 +1,5 @@
-import {Form, Button} from 'React-Bootstrap';
+import {Form, Button} from 'react-bootstrap';
+
 function LoginForm () : JSX.Element {
     return(
        <div>
@@ -9,7 +10,7 @@ function LoginForm () : JSX.Element {
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
-        <Form.Label>Mot de passe</Form.Label>
+        <Form.Label>Mot de passe :</Form.Label>
         <Form.Control type="password" placeholder="Password" />
       </Form.Group>
       <Button variant="dark" type="submit">

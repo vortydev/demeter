@@ -1,0 +1,9 @@
+.LoginPage{
+    display: flex;
+    flex-direction: row;
+}
+
+.LoginPage img {
+    height: 100vh;
+    width: auto;
+}

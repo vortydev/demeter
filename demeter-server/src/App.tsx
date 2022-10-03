@@ -1,8 +1,8 @@
 import React from 'react';
-import logo from './static/img/logo.svg';
+// import logo from './static/img/logo.svg';
 import './static/css/App.css';
-import { Navbar } from './Templates/Navbar';
-import { Footerbar } from './Templates/Footerbar';
+import { Navbar } from './templates/Navbar';
+import { Footerbar } from './templates/Footerbar';
 
 
 function App() {

@@ -1,0 +1,19 @@
+.App-footer{
+    background-color:#696969;
+    height: 10vh;
+    width: 100vw;
+    position: absolute;
+    bottom : 0;
+}
+
+.App-footer div{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    margin: 1.7% 3% 0 3%;
+}
+
+.LVR{
+    font-family: 'Spectral SC', serif;
+}

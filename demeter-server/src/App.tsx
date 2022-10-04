@@ -1,14 +1,17 @@
-import React from 'react';
-// import logo from './static/img/logo.svg';
+import React, { useState } from 'react';
 import './static/css/App.css';
-import { Navbar } from './templates/Navbar';
-import { Footerbar } from './templates/Footerbar';
-
+import { LoginPage } from './Login Page/LoginPage';
+import { Navbar } from './Templates/Navbar';
+import { Footerbar } from './Templates/Footerbar';
+import { getCookie } from 'typescript-cookie';
 
 function App() {
 
-
-  return (
+ const loggedIn = getCookie('account');
+  if(loggedIn == undefined){
+    return (<LoginPage/>);}
+  else {
+return (
     <div className="App">
       <header className="App-header">
         <Navbar/>
@@ -17,9 +20,7 @@ function App() {
      <Footerbar/>
     </div>
   );
-
-
-  
+  }
 }
 
 export default App;

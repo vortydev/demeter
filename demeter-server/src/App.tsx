@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./static/css/App.css";
 import { LoginPage } from "./Login Page/LoginPage";
-import { Navbar } from "./Templates/Navbar";
-import { Footerbar } from "./Templates/Footerbar";
+import { Navbar } from "./templates/Navbar";
+import { Footerbar } from "./templates/Footerbar";
 import { getCookie } from "typescript-cookie";
 
 function App() {

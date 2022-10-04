@@ -28,15 +28,18 @@ function handleLogin(e: SyntheticEvent): void {
 
 }
     return(
-       <div>
+       <div className='LoginForm'>
+        <h1>Demeter</h1>
+        <hr/>
+        <h2>Connexion</h2>
         {!valid && (<Alert variant="danger">Informations invalides !</Alert>)}
        <Form onSubmit={handleLogin}>
-      <Form.Group className="mb-3" controlId="account">
+      <Form.Group className="mb-3 loginField" controlId="account">
         <Form.Label>Compte : </Form.Label>
         <Form.Control type="text" />
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="password">
+      <Form.Group className="mb-3 loginField" controlId="password">
         <Form.Label>Mot de passe :</Form.Label>
         <Form.Control type="password"  />
       </Form.Group>

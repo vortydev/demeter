@@ -7,17 +7,22 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.11.62",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
     "bootstrap": "^5.2.1",
+    "express": "^4.18.1",
+    "mysql": "^2.18.1",
+    "net": "^1.0.2",
+    "process": "^0.11.10",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
+    "ts-node": "^10.9.1",
     "typescript": "^4.8.4",
     "typescript-cookie": "^1.0.4",
+    "wait-port": "^1.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -46,6 +51,10 @@
   },
   "devDependencies": {
     "@types/bootstrap": "^5.2.4",
-    "@types/react-bootstrap": "^0.32.30"
+    "@types/mysql": "^2.15.21",
+    "@types/node": "^18.8.2",
+    "@types/react-bootstrap": "^0.32.30",
+    "tsconfig-paths": "^4.1.0",
+    "tslib": "^2.4.0"
   }
 }

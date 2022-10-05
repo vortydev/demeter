@@ -2,6 +2,7 @@
   "name": "demeter-server",
   "version": "0.1.0",
   "private": true,
+  "main": "index.tsx",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -14,6 +15,7 @@
     "browserify-zlib": "^0.2.0",
     "crypto": "^1.0.1",
     "express": "^4.18.1",
+    "express-ws": "^5.0.2",
     "mysql": "^2.18.1",
     "net": "^1.0.2",
     "path": "^0.12.7",
@@ -71,6 +73,7 @@
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
     "tls": "^0.0.1",
-    "url": "^0.11.0"
+    "url": "^0.11.0",
+    "webpack-node-externals": "^3.0.0"
   }
 }

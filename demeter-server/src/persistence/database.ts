@@ -67,11 +67,11 @@ async function init() {
                                 if (err) return rej(err);
 
                                     // tbl_account
+                                    // eslint-disable-next-line no-sequences
                                     conn.query('CREATE TABLE IF NOT EXISTS tbl_account (acc_id int(8) NOT NULL AUTO_INCREMENT, acc_name varchar(255) NOT NULL, acc_pwd varchar(255) NOT NULL,acc_role_id int(8) NOT NULL, acc_state_id int(8) NOT NULL, acc_date_creation DATETIME, FOREIGN KEY (acc_role_id) REFERENCES tbl_role_account(role_id), FOREIGN KEY (acc_state_id) REFERENCES tbl_state_account(state_id), CONSTRAINT PK_Account PRIMARY KEY (acc_id)) DEFAULT CHARSET utf8mb4'),
                                     (err:any): void => {
                                         if (err) return rej(err);
                                             conn.release();
-                                            // eslint-disable-next-line no-undef
                                             // callback();
                                         };
                                         });

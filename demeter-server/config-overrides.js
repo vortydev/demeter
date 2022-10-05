@@ -1,6 +1,6 @@
 const webpack = require('webpack'); 
 module.exports = function override(config) { 
-    const fallback = config.resolve.fallback || {}; 
+    const fallback = config.resolve.fallback || {};
 		Object.assign(fallback, { 
     	"crypto": require.resolve("crypto-browserify"), 
       "stream": require.resolve("stream-browserify"), 
@@ -14,11 +14,18 @@ module.exports = function override(config) {
       "fs": false,
       "async_hooks": false
       }) 
-   config.resolve.fallback = fallback; 
+    config.resolve.fallback = fallback;
+    
+   const externals = config.externals || {};
+    Object.assign(externals, {
+      "express": "express"
+    })
+    config.externals = externals
+    
    config.plugins = (config.plugins || []).concat([ 
    	new webpack.ProvidePlugin({ 
     	process: 'process/browser', 
-      Buffer: ['buffer', 'Buffer'] 
+      Buffer: ['buffer', 'Buffer']
     }) 
    ]) 
    return config; }

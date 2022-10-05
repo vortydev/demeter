@@ -6,7 +6,7 @@ import { getCookie } from "typescript-cookie";
 
 function App() {
   const loggedIn = getCookie("account");
-  if (loggedIn == undefined) {
+  if (loggedIn === undefined) {
     return <LoginPage />;
   } else {
     return (

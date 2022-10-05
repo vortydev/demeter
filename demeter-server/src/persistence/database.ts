@@ -317,7 +317,7 @@ async function addAccount(account: any) {
     return new Promise<void>((acc, rej) => {
         pool.query(
             'INSERT IGNORE INTO tbl_account (acc_id, acc_name, acc_pwd, acc_role_id, acc_state_id, acc_date_creation) VALUES (?, ?, ?, ?, ?, ?)',
-            [account.id, account.name, account.password, account.role, account.state, account.date],
+            [account.id, account.name, account.password, account.role, account.state ? account.state : 2, account.date],
             (err: any) => {
                 if (err) return rej(err);
                 acc();

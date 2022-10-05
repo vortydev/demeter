@@ -4,8 +4,8 @@ services:
   # app service
   app:
     image: node:18-alpine
-    command: sh -c "npm install && npm run build && npm run start"
-    # command: sh -c "npm run start"
+    # command: sh -c "npm install && npm run build && npm run start"
+    command: sh -c "npm run start"
     ports:
       - 3000:3000
     working_dir: /server

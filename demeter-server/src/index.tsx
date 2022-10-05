@@ -8,7 +8,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import express from 'express';
 import process from 'process';
 
-import * as db from './persistence/database';
+import db from './persistence/';
 
 // importation des opérations SQL de la base de données
 import { getAccounts, getAccount, addAccount, updateAccount, deleteAccount } from './routes/accountOperations';

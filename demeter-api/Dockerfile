@@ -1,6 +1,6 @@
 FROM node:18
 
-WORKDIR /bezkoder-api
+WORKDIR /demeter-api
 COPY package.json .
 RUN npm install
 COPY . .

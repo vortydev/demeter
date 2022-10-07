@@ -1,5 +1,5 @@
 import http from "../http-common";
-import ITutorialData from "../types/tutorial.type"
+import ITutorialData from "../types/tutorial.type";
 
 class TutorialDataService {
   getAll() {

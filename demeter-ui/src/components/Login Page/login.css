@@ -1,0 +1,41 @@
+.LoginPage{
+    display: flex;
+    flex-direction: row;
+    font-family: 'Antic', serif;
+}
+
+.LoginPage img {
+    height: 100vh;
+    width: auto;
+}
+.LoginPage h1{
+    text-align: center;
+    font-family: 'Ovo', serif;
+}
+h2 {
+    text-align: center;
+}
+.LoginForm {
+    width: 100%;
+    height: 100vh;
+    padding : 10% 15%;
+}
+
+.LoginForm .loginField {
+    display :flex;
+    flex-direction: row;
+}
+
+.LoginForm Button {
+    display: block;
+    width: 30%;
+    margin: auto;
+}
+
+.LoginForm .form-label {
+    width: 25%; 
+}
+
+.LoginForm .form-control {
+    width: 75%;
+}

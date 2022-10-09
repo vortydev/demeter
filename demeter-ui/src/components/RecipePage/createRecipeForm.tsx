@@ -2,14 +2,15 @@ import { useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 
 interface CRFormProps {
+  show: boolean;
     close: () => void;
     success: ()=> void;
   }
  
-  function CreateRecipeForm({ close, success }: CRFormProps) {
+  function CreateRecipeForm({show, close, success }: CRFormProps) {
 
     return(
-      <Modal>
+      <Modal show={show} onHide={close}>
         <Form>
           <Form.Group className="mb-3" controlId="title">
             <Form.Label>TITRE : </Form.Label>

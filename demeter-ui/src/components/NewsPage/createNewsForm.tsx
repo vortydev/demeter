@@ -2,14 +2,15 @@ import { useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 
 interface CRFormProps {
+  show : boolean;
     close: () => void;
     success: ()=> void;
   }
 
-  function CreateAnnoncementForm({ close, success }: CRFormProps) {
+  function CreateNewsForm({ show, close, success }: CRFormProps) {
 
     return(
-      <Modal onHide={close}>
+      <Modal show={show} onHide={close}>
         <Form>
           <Form.Group className="mb-3" controlId="title">
             <Form.Label>TITRE : </Form.Label>
@@ -34,4 +35,4 @@ interface CRFormProps {
     );
   }
 
-  export { CreateAnnoncementForm };
+  export { CreateNewsForm };

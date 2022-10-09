@@ -3,11 +3,12 @@ import { Alert, Button, Form, Modal } from "react-bootstrap";
 import { createAccount } from "../../services/AccountEndpoint";
 
 interface CAFormProps {
+  show : boolean;
   close: () => void;
   success: ()=> void;
 }
 
-function CreateAccountForm({ close, success }: CAFormProps) {
+function CreateAccountForm({ show, close, success }: CAFormProps) {
   const [validPassword, setValidPassword] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const accountName = document.getElementById("account") as HTMLInputElement;
@@ -26,18 +27,16 @@ function CreateAccountForm({ close, success }: CAFormProps) {
       setValidPassword(false);
     } else {
       if(await createAccount(accountName.value, pw.value, parseInt(permissions.value))){
-        success;
-        close;
+        success();
       }else {
         setError(true);
-
       }
      
     }
   }
 
   return (
-    <Modal onHide={close}>
+    <Modal show={show} onHide={close}>
       <Form>
         <Form.Group className="mb-3" controlId="account">
           <Form.Label>NOM DU COMPTE: </Form.Label>

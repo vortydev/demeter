@@ -1,4 +1,5 @@
-import { Account } from "src/Types";
+import { Account } from "../types/Types";
+
 
 type CreateAccountResponse = {
     name: string;

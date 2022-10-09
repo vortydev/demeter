@@ -14,14 +14,17 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: #fff;
+  min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+.App-body{
+  height: 80vh;
 }
 
 .App-link {
@@ -36,20 +39,3 @@
     transform: rotate(360deg);
   }
 }
-
-.list {
-  text-align: left;
-  max-width: 750px;
-  margin: auto;
-}
-
-.submit-form {
-  max-width: 300px;
-  margin: auto;
-}
-
-.edit-form {
-  max-width: 300px;
-  margin: auto;
-}
-

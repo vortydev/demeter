@@ -11,6 +11,7 @@ function AccountPage(): JSX.Element {
 
   function success(): void {
     setSuccess(true);
+    close();
   }
 
   function close(): void {
@@ -30,7 +31,7 @@ function AccountPage(): JSX.Element {
       >
         Nouveau compte
       </Button>
-      {createAccount && <CreateAccountForm close={close} success={success} />}
+       <CreateAccountForm show={createAccount} close={close} success={success} />
     </div>
   );
 }

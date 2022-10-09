@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./static/css/App.css";
+import './App.css'
 import { getCookie } from "typescript-cookie";
 import { LoginPage } from "./components/Login Page/LoginPage";
 import { Navbar } from "./components/Templates/Navbar";

@@ -5,7 +5,7 @@ import { AccountNav } from "./AccountNav";
 import { CreateAccountForm } from "./CreateAccountForm";
 
 function AccountPage(): JSX.Element {
-  const [createAccount, setCreateAccount] = useState<boolean>(true);
+  const [createAccount, setCreateAccount] = useState<boolean>(false);
   const [createdSuccess, setSuccess] = useState<boolean>(false);
   const [subPage, setSubPage] = useState<string>("admin");
 

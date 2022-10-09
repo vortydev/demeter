@@ -37,7 +37,7 @@ function CreateAccountForm({ close, success }: CAFormProps) {
   }
 
   return (
-    <Modal>
+    <Modal onHide={close}>
       <Form>
         <Form.Group className="mb-3" controlId="account">
           <Form.Label>NOM DU COMPTE: </Form.Label>

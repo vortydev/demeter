@@ -9,7 +9,7 @@ interface CRFormProps {
   function CreateAnnoncementForm({ close, success }: CRFormProps) {
 
     return(
-      <Modal>
+      <Modal onHide={close}>
         <Form>
           <Form.Group className="mb-3" controlId="title">
             <Form.Label>TITRE : </Form.Label>

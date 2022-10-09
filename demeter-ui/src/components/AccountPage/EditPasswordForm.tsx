@@ -10,7 +10,7 @@ interface CRFormProps {
 
   function EditPasswordForm({ close, success }: CRFormProps) {
     return(
-      <Modal>
+      <Modal onHide ={close}>
         <Form>
           <Form.Group className="mb-3" controlId="password">
             <Form.Label>NOUVEAU MOT DE PASSE : </Form.Label>

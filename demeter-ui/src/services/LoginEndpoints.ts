@@ -1,4 +1,4 @@
-import { Account } from "src/Types";
+import { Account } from "../types/Types";
 
 type LoginResponse = {
     name: string;

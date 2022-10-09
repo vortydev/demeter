@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
-import { Account } from "src/Types";
-import { createAccount } from "./AccountEndpoint";
+import { createAccount } from "../../services/AccountEndpoint";
 
 interface CAFormProps {
   close: () => void;

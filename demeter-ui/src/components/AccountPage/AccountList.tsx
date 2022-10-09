@@ -1,6 +1,6 @@
 import { Button } from "react-bootstrap";
-import { Account } from "src/Types";
-import { getAccounts } from "./AccountEndpoint";
+import { getAccounts } from "../../services/AccountEndpoint";
+import { Account } from "../../types/Types";
 
 interface AccountListProps {
    currentRole : string;

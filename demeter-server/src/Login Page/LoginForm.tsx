@@ -14,7 +14,7 @@ function LoginForm(): JSX.Element {
     const account = document.getElementById("account") as HTMLInputElement;
     const pw = document.getElementById("password") as HTMLInputElement;
 
-    if (account.value == fakeAccount && pw.value == fakePW) {
+    if (account.value === fakeAccount && pw.value === fakePW) {
       setCookie("account", account.value); // to be change for account id when other verif are done
       window.location.reload();
     } else {

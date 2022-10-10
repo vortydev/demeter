@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Alert, Button } from "react-bootstrap";
-import { CreateNewsForm } from "./CreateNewsForm";
+import { CreateNewsForm } from "./createNewsForm";
 
 function NewsPage(): JSX.Element {
   const [createNews, setCreateNews] = useState<boolean>(false);

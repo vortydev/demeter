@@ -1,4 +1,5 @@
 const db = require("../models");
+const bcrypt = require("bcrypt");
 const Account = db.accounts;
 const Role = db.roles;
 const State = db.states;
@@ -204,6 +205,31 @@ exports.findOneState = (req, res) => {
     .catch(err => {
         res.status(500).send({
             message: "Error retrieving State with id=" + id
+        });
+    });
+};
+
+async function comparePwd(password, hashedPassword) {
+    return await bcrypt.compare(password, hashedPassword);
+}
+
+exports.verify = (req, res) => {
+    const user = req.body.user;
+
+    Account.findByPk(user)
+    .then(data => {
+        var valid = comparePwd(req.body.password, data.accPassword);
+        if (valid) {
+            res.send(data);
+        } else {
+            res.status(404).send({
+                message: `Cannot find Account with id=${id}.`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: "Error retrieving Account with id=" + id
         });
     });
 };

@@ -1,11 +1,18 @@
 import { useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 import { createAccount } from "../../services/AccountEndpoint";
+import bcrypt from 'bcrypt';
 
 interface CAFormProps {
   show : boolean;
   close: () => void;
   success: ()=> void;
+}
+
+async function hashIt(password: string) {
+  const salt = await bcrypt.genSalt(6);
+  const hashed = await bcrypt.hash(password, salt);
+  return hashed;
 }
 
 function CreateAccountForm({ show, close, success }: CAFormProps) {
@@ -26,6 +33,7 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
       // add regex at some point ?
       setValidPassword(false);
     } else {
+        const hashedPwd = hashIt(pw.value);
       if(await createAccount(accountName.value, pw.value, parseInt(role.value))){
         success();
       }else {

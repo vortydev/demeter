@@ -1,4 +1,5 @@
 const dbConfig = require("../config/db.config.js");
+const bcrypt = require("bcrypt");
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
@@ -14,6 +15,7 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 });
 
 const db = {};
+db.bcrypt = bcrypt;
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 

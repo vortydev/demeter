@@ -22,7 +22,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                 <DropdownButton title="hmmm">
                     <Dropdown.Item eventKey="1">insert category here</Dropdown.Item>
                 </DropdownButton>
-                <Button>NewType</Button>
+                <Button>Nouveau Type</Button>
             </Form.Group>
 
             <Form.Group controlId="vendor">
@@ -30,7 +30,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                 <DropdownButton title="hmmm">
                     <Dropdown.Item eventKey="1">insert vendor here</Dropdown.Item>
                 </DropdownButton>
-                <Button> NewVendor </Button>
+                <Button> Nouveau Fournisseur </Button>
             </Form.Group>
 
             <Form.Group controlId="qty_unit">

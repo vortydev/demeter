@@ -1,6 +1,5 @@
 import { Row, Col, Form } from 'react-bootstrap';
 import React from 'react';
-import { InventoryForm } from './inventoryAddForm';
 import { InventoryUpdate } from './inventoryUpdate';
 import { InventoryPage } from './inventoryPage';
 

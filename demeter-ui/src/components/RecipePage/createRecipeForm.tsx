@@ -35,6 +35,8 @@ interface CRFormProps {
             <Form.Label>NB PRODUIT : </Form.Label>
             <Form.Control type="text"/>
           </Form.Group>
+          <Button onClick={()=>{console.log("Click!")}}>Ajouter</Button>
+          <Button onClick={()=>{console.log("Cancel!")}}>Annuler</Button>
         </Form>
       </Modal>
     );

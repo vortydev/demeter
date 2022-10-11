@@ -2,7 +2,7 @@ import { Account } from "../types/Types";
 
 type LoginResponse = {
     name: string;
-    permission: string;
+    role: string;
   };
 
 async function validateLogin(accountName:string, password: string){
@@ -50,7 +50,8 @@ const getmethis = role;
     const accountList: Account[] = [
         {
             name:'admin1',
-            permission: 'admin',
+            password: '134',
+            role: 'admin',
             id: 4
         }
     ];

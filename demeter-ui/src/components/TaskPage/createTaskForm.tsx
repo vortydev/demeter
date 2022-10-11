@@ -7,10 +7,10 @@ import { Alert, Button, Form, Modal } from "react-bootstrap";
 interface CRFormProps {
   show :boolean;
     close: () => void;
-    success: ()=> void;
+    setSuccess: (succeed:boolean)=> void;
   }
 
-  function CreateTaskForm({ show ,close, success }: CRFormProps) {
+  function CreateTaskForm({ show ,close, setSuccess }: CRFormProps) {
     return(
       <Modal show={show} onHide={close}>
         <Form>
@@ -20,8 +20,8 @@ interface CRFormProps {
           </Form.Group>
           <Form.Select className="mb-3" aria-label="TYPE : ">
             <option></option>
-            <option value="1">Journalier</option>
-            <option value="2">Mensuelle</option>
+            <option value="1">Quotidiennes</option>
+            <option value="2">Hebdomadaires</option>
             <option value="3">Autre</option>
           </Form.Select>
           <Form.Select className="mb-3" aria-label="TACHE PARENT : ">
@@ -34,6 +34,8 @@ interface CRFormProps {
             <Form.Label>DESCRIPTION : </Form.Label>
             <Form.Control as="textarea" rows={3}/>
           </Form.Group>
+          <Button onClick={()=>{console.log("Click!")}}>Ajouter</Button>
+          <Button onClick={()=>{console.log("Cancel!")}}>Annuler</Button>
         </Form>
       </Modal>
     );

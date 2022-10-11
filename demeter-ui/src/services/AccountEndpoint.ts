@@ -3,12 +3,12 @@ import { Account } from "../types/Types";
 
 type CreateAccountResponse = {
     name: string;
-    permission: string;
+    role: string;
     password: string;
     id: Number;
   };
 
-async function createAccount(accountName:string, password: string, permission : Number){
+async function createAccount(accountName:string, password: string, role : Number){
     try {
         // 👇️ const response: Response
         const response = await fetch('/accounts', {
@@ -16,7 +16,7 @@ async function createAccount(accountName:string, password: string, permission : 
           body: JSON.stringify({
             name: accountName,
             password: password,
-            role: permission
+            role: role
           }),
           headers: {
             'Content-Type': 'application/json',
@@ -54,7 +54,8 @@ const getmethis = role;
     const accountList: Account[] = [
         {
             name:'admin1',
-            permission: 'admin',
+            role: 'admin',
+            password: '134',
             id: 4
         }
     ];

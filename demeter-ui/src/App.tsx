@@ -4,7 +4,6 @@ import { getCookie } from "typescript-cookie";
 import { LoginPage } from "./components/Login Page/LoginPage";
 import { Navbar } from "./components/Templates/Navbar";
 import { Footerbar } from "./components/Templates/Footerbar";
-import { AccountPage } from "./components/AccountPage/AccountPage";
 import { BodyDemeter } from "./components/Templates/BodyDemeter";
 
 function App() {

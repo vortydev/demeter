@@ -1,0 +1,9 @@
+.RecipePage .content{
+    display:flex;
+    flex-direction: row;
+}
+
+.filterButtons{
+    display:flex;
+    flex-direction: column;
+}

@@ -26,6 +26,7 @@ db.sequelize = sequelize;
 db.accounts = require("./account.model.js")(sequelize, Sequelize);
 db.roles = require("./role.model.js")(sequelize, Sequelize);
 db.states = require("./state.model.js")(sequelize, Sequelize);
+db.teamleadpwds = require("./teamleadpwd.model.js")(sequelize, Sequelize);
 
 db.roles.hasMany(db.accounts);
 db.accounts.belongsTo(db.roles, { foreignKey: "roleId" });

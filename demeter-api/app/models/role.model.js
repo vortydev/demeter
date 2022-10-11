@@ -4,12 +4,6 @@ module.exports = (sequelize, Sequelize) => {
         type: Sequelize.STRING
       }
     });
-
-    Role.bulkCreate([
-      {role: "Administrateur"},
-      {role: "Employé"},
-      {role: "Livreur"}
-    ], {ignoreDuplicates: true}).then(() => console.log("Roles inserted."));
   
     return Role;
   };

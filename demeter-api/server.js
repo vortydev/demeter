@@ -22,6 +22,7 @@ db.sequelize.sync()
   .then(() => {
     console.log("Synced db.");
 
+    // insertions dans les tables
     db.roles.bulkCreate([
       {id: "1", role: "Administrateur"},
       {id: "2", role: "Employé"},
@@ -35,6 +36,14 @@ db.sequelize.sync()
       {id: "3", state: "Banni"}
     ], {ignoreDuplicates: true})
     .then(() => console.log("States inserted."));
+
+    db.mesurements.bulkCreate([
+      {id: "1", mesurement: "g", weight: "1"},
+      {id: "2", mesurement: "kg", weight: "1000"},
+      {id: "3", mesurement: "mL", weight: "1"},
+      {id: "4", mesurement: "L", weight: "1000"},
+    ], {ignoreDuplicates: true})
+    .then(() => console.log("Mesurements inserted."));
   })
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);
@@ -51,9 +60,9 @@ app.get("/", (req, res) => {
 });
 
 // routes
-// require("./app/routes/tutorial.routes")(app);
 require("./app/routes/account.routes")(app);
-require("./app/routes/teamleadpwd.routes.js")(app);
+require("./app/routes/teamleadpwd.routes")(app);
+require("./app/routes/product.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.NODE_DOCKER_PORT || 8080;

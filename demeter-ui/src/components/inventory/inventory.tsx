@@ -81,12 +81,6 @@ function ProductsDisplayEdit (product:any): JSX.Element {
     );
 }
 
-function updateInventory(): JSX.Element{
-    return(
-        <InventoryUpdate/>
-    );
-}
-
 function editProducts(e: React.SyntheticEvent){
     e.preventDefault();
 
@@ -157,4 +151,4 @@ function addProduct(e: React.SyntheticEvent): JSX.Element{
     );
 }
 
-export {ListingProducts, ProductsDisplay, ProductsDisplayEdit, updateInventory, editProducts, addProduct};
+export {ListingProducts, ProductsDisplay, ProductsDisplayEdit, editProducts, addProduct};

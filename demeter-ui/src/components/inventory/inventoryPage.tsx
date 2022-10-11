@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { Container,Row, Col, Button, Alert } from 'react-bootstrap';
-import { ListingProducts, updateInventory} from './inventory';
+import { ListingProducts} from './inventory';
 import { InventoryForm } from './inventoryAddForm';
+import { InventoryUpdate } from './inventoryUpdate';
 
 function InventoryPage(): JSX.Element{
     const edit = false;
 
     const [createNewProduct, setCreateNewProduct] = useState<boolean>(false);
+    const [updateProduct, setUpdateProduct] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
   
     function success(): void {
@@ -16,6 +18,7 @@ function InventoryPage(): JSX.Element{
   
     function close(): void {
       setCreateNewProduct(false);
+      setUpdateProduct(false);
     }
 
     return (
@@ -38,7 +41,8 @@ function InventoryPage(): JSX.Element{
                     </Row>
                     <ListingProducts edit={edit}/>
                     <Row>
-                        <Button variant="dark" onClick={updateInventory}>Mettre à jour l'inventaire</Button>
+                        <Button variant="dark" onClick={()=>{setUpdateProduct(true);setSuccess(false)}}>Mettre à jour l'inventaire</Button>
+                        <InventoryUpdate show={updateProduct} close={close} success={success}/>
                     </Row>
                 </Container>
             </div>

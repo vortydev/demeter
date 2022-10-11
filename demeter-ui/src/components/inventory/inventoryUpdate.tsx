@@ -1,10 +1,17 @@
-import { Form, Button, Container, Row, Col} from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Modal} from 'react-bootstrap';
 import { ListingProducts, editProducts } from './inventory';
 
-function InventoryUpdate(): JSX.Element{
+interface CRFormProps {
+    show : boolean;
+      close: () => void;
+      success: ()=> void;
+    }
+
+function InventoryUpdate({ show, close, success }: CRFormProps){
     const edit = true;
 
     return (
+        <Modal show={show} onHide={close}>
         <div>
             <div>
                 <h1>Ajustement Des Quantités</h1>
@@ -31,6 +38,7 @@ function InventoryUpdate(): JSX.Element{
             </div>
 
         </div>
+        </Modal>
     );
 }
 

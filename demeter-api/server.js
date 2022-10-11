@@ -37,7 +37,8 @@ app.get("/", (req, res) => {
 });
 
 // routes
-require("./app/routes/tutorial.routes")(app);
+// require("./app/routes/tutorial.routes")(app);
+require("./app/routes/account.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.NODE_DOCKER_PORT || 8080;

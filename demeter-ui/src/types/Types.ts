@@ -18,4 +18,10 @@ id : Number;
 taskName: String;
 description : String;
 }
-export type {Account, News, Task}
+
+type Recipe = {
+    id : Number;
+    recipeName : String;
+
+}
+export type {Account, News, Task, Recipe}

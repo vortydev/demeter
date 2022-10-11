@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import { News } from "../../types/Types";
@@ -19,7 +20,7 @@ function NewsPreview({ news }: NewsPreviewProps) {
   const buttonText = fullText ? "Lire moins" : "Lire la suite";
 
   return (
-    <Alert className="newsPreview" variant="light">
+    <div className="newsPreview" >
       <div className="newsBox">
         {news.picture !== null &&(<div className="picture">
           <img src={news.picture} />
@@ -35,7 +36,7 @@ function NewsPreview({ news }: NewsPreviewProps) {
       </div>
       <Button onClick={()=>setFullText(!fullText)}>{buttonText}</Button>
       <hr />
-    </Alert>
+    </div>
   );
 }
 

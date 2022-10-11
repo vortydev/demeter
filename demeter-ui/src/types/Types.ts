@@ -13,4 +13,9 @@ type News ={
     picture: string | null;
 }
 
-export type {Account, News}
+type Task = {
+id : Number;
+taskName: String;
+description : String;
+}
+export type {Account, News, Task}

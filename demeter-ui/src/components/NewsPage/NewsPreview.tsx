@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import { News } from "../../types/Types";
 import "./news.css";
@@ -7,7 +8,15 @@ interface NewsPreviewProps {
 }
 
 function NewsPreview({ news }: NewsPreviewProps) {
-  const shortDescription = news.description; // à modifier pour que se soit la version courte (X premiers mots )
+  let shortDescription = news.description;
+  const [fullText, setFullText] = useState<boolean>(false);
+
+  if(news.description.length > 300 ){
+    shortDescription = news.description.substring(0, 300);
+}
+  
+  const text = fullText ? news.description : shortDescription;
+  const buttonText = fullText ? "Lire moins" : "Lire la suite";
 
   return (
     <Alert className="newsPreview" variant="light">
@@ -17,14 +26,14 @@ function NewsPreview({ news }: NewsPreviewProps) {
         </div>)}
         <p className="title-text">
           <h1>{news.title} </h1>
-          {shortDescription}
+          {text}
         </p>
-        <div className="delete">
-         <Button>delete</Button>
+        <div className="edit-delete">
+        <Button>edit</Button><Button>delete</Button>
         </div>{" "}
       
       </div>
-      <Button>Lire la suite</Button>
+      <Button onClick={()=>setFullText(!fullText)}>{buttonText}</Button>
       <hr />
     </Alert>
   );

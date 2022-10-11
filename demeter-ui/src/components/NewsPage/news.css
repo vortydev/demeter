@@ -3,3 +3,8 @@
     flex-direction: row;
 
 }
+
+.edit-delete{
+    display: flex;
+    flex-direction: row;
+}

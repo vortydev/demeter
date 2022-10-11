@@ -14,8 +14,8 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
   const accountName = document.getElementById("account") as HTMLInputElement;
   const pw = document.getElementById("password") as HTMLInputElement;
   const pwc = document.getElementById("passwordConfirm") as HTMLInputElement;
-  const permissions = document.getElementById(
-    "permissions"
+  const role = document.getElementById(
+    "role"
   ) as HTMLInputElement;
 
   async function handleSubmit(): Promise<void>{
@@ -26,7 +26,7 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
       // add regex at some point ?
       setValidPassword(false);
     } else {
-      if(await createAccount(accountName.value, pw.value, parseInt(permissions.value))){
+      if(await createAccount(accountName.value, pw.value, parseInt(role.value))){
         success();
       }else {
         setError(true);
@@ -62,7 +62,7 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
           <Form.Label>CONFIRMER MOT DE PASSE:</Form.Label>
           <Form.Control type="password" />
         </Form.Group>
-        <Form.Select aria-label="permissions">
+        <Form.Select aria-label="role" id="role">
           <option>Choisir le rôle</option>
           <option value="0">Gestion</option>
           <option value="1">Succursale</option>

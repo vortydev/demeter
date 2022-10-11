@@ -1,5 +1,6 @@
 import { Alert, Button } from "react-bootstrap";
 import { News } from "../../types/Types";
+import "./news.css";
 
 interface NewsPreviewProps {
   news: News;
@@ -9,7 +10,7 @@ function NewsPreview({ news }: NewsPreviewProps) {
   const shortDescription = news.description; // à modifier pour que se soit la version courte (X premiers mots )
 
   return (
-    <Alert variant="light">
+    <Alert className="newsPreview" variant="light">
       <div className="newsBox">
         {news.picture !== null &&(<div className="picture">
           <img src={news.picture} />
@@ -20,9 +21,9 @@ function NewsPreview({ news }: NewsPreviewProps) {
         </p>
         <div className="edit-delete">
           {" "}
-          <Button>edit</Button>
+          <Button >edit</Button>  <Button>delete</Button>
         </div>{" "}
-        <Button>delete</Button>
+      
       </div>
       <Button>Lire la suite</Button>
       <hr />

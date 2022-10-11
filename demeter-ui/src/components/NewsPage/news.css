@@ -1,0 +1,5 @@
+.newsPreview .newsBox{
+    display: flex;
+    flex-direction: row;
+
+}

@@ -151,4 +151,8 @@ function addProduct(e: React.SyntheticEvent): JSX.Element{
     );
 }
 
-export {ListingProducts, ProductsDisplay, ProductsDisplayEdit, editProducts, addProduct};
+function updateProducts() {
+    //do something so it shows up
+}
+
+export {ListingProducts, ProductsDisplay, ProductsDisplayEdit, editProducts, addProduct, updateProducts};

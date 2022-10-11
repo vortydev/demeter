@@ -33,15 +33,15 @@ db.accounts.belongsTo(db.states, { foreignKey: "stateId" });
 db.products = require("./product.model")(sequelize, Sequelize);
 db.categoryproducts = require("./categoryproduct.model")(sequelize, Sequelize);
 db.mesurements = require("./mesurement.model")(sequelize, Sequelize);
-db.vendor = require("./vendor.model")(sequelize, Sequelize);
+db.vendors = require("./vendor.model")(sequelize, Sequelize);
 
 db.categoryproducts.hasMany(db.products);
 db.mesurements.hasMany(db.products);
-db.vendor.hasMany(db.products);
+db.vendors.hasMany(db.products);
 
 db.products.belongsTo(db.categoryproducts, { foreignKey: "categoryId" });
 db.products.belongsTo(db.mesurements, { foreignKey: "mesurementId" });
-db.products.belongsTo(db.vendor, { foreignKey: "vendorId" });
+db.products.belongsTo(db.vendors, { foreignKey: "vendorId" });
 
 // CARNET
 

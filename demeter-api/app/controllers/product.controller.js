@@ -157,7 +157,7 @@ exports.findOneCategoryProduct = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: "Error retrieving Role with id=" + id
+            message: "Error retrieving CategoryProduct with id=" + id
         });
     });
 };
@@ -178,3 +178,37 @@ exports.findAllCategoryProduct = (req, res) => {
 };
 
 // mesurement
+exports.findOneMesurement = (req, res) => {
+    const id = req.params.id;
+
+    Mesurement.findByPk(id)
+    .then(data => {
+        if (data) {
+            res.send(data);
+        } else {
+            res.status(404).send({
+                message: `Cannot find Mesurement with id=${id}.`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: "Error retrieving Mesurement with id=" + id
+        });
+    });
+};
+
+exports.findAllMesurements = (req, res) => {
+    const mesurement = req.query.mesurement;
+    var condition = mesurement ? { mesurement: { [Op.like]: `%${mesurement}%` } } : null;
+  
+    Mesurement.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving Mesurement."
+        });
+    });
+};

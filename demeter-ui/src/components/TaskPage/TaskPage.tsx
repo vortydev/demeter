@@ -1,34 +1,22 @@
 import { useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import { CreateTaskForm } from "./createTaskForm";
+import { TaskNav } from "./TaskNav";
 
 function TaskPage(): JSX.Element {
-    const [createTask, setCreateTask] = useState<boolean>(false);
-    const [createdSuccess, setSuccess] = useState<boolean>(false);
-  
-    function success(): void {
-      setSuccess(true);
-      close();
-    }
-  
-    function close(): void {
-      setCreateTask(false);
-    }
+
+  const [createdSuccess, setSuccess] = useState<boolean>(false);
+  const [taskCategory, setTaskCategory] = useState<string>('daily');
   
     return (
       <div>
+        <TaskNav taskCategory={taskCategory} setTaskCategory={setTaskCategory} success={createdSuccess} setSuccess={setSuccess} />
         {createdSuccess && <Alert>La recette à été créer avec succès!</Alert>}
-        <h1>News Page</h1>
-        <Button
-          variant="secondary"
-          onClick={() => {
-            setCreateTask(true);
-            setSuccess(false);
-          }}
-        >
-          Nouvelle Tâche
-        </Button>
-        <CreateTaskForm show={createTask} close={close} success={success} />
+        <h1>Tasks Page</h1>
+        <p> Liste de tâches {taskCategory}</p>
+        <Button variant="outline-dark">Afficher L'Historique</Button>
+        <Button variant="dark">Compléter les tâches</Button>
+        
       </div>
     );
 }

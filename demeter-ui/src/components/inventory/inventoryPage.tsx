@@ -1,8 +1,23 @@
-import { Container,Row, Col, Button } from 'react-bootstrap';
-import { ListingProducts, openProductForm, updateInventory} from './inventory';
+import { useState } from 'react';
+import { Container,Row, Col, Button, Alert } from 'react-bootstrap';
+import { ListingProducts, updateInventory} from './inventory';
+import { InventoryForm } from './inventoryAddForm';
 
 function InventoryPage(): JSX.Element{
     const edit = false;
+
+    const [createNewProduct, setCreateNewProduct] = useState<boolean>(false);
+    const [createdSuccess, setSuccess] = useState<boolean>(false);
+  
+    function success(): void {
+      setSuccess(true);
+      close();
+    }
+  
+    function close(): void {
+      setCreateNewProduct(false);
+    }
+
     return (
         <div>
             <div>
@@ -14,6 +29,7 @@ function InventoryPage(): JSX.Element{
             </div>
 
             <div>
+            {createdSuccess && <Alert>Le produit à été créer avec succès!</Alert>}
                 <Container>
                     <Row>
                         <Col><h2>Produit</h2></Col>
@@ -28,9 +44,14 @@ function InventoryPage(): JSX.Element{
             </div>
 
             <div>
-                <Button variant="dark" onClick={openProductForm}>Nouveau Produit</Button>
+                <Button variant="dark" onClick={() => {
+                  setCreateNewProduct(true);
+                  setSuccess(false);
+                }}>
+                Nouveau Produit
+                </Button>
             </div>
-
+            <InventoryForm show={createNewProduct} close={close} success={success}/>
 
         </div>
     );

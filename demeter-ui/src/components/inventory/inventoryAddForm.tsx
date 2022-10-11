@@ -1,9 +1,16 @@
-import { Form, Button, Dropdown, DropdownButton } from 'react-bootstrap';
+import { Form, Button, Dropdown, DropdownButton, Modal } from 'react-bootstrap';
 import { addProduct } from './inventory';
 
-function InventoryForm(): JSX.Element {
+interface CRFormProps {
+    show : boolean;
+      close: () => void;
+      success: ()=> void;
+    }
+
+function InventoryForm({ show, close, success }: CRFormProps) {
 
     return (
+        <Modal show={show} onHide={close}>
         <Form onSubmit={addProduct}>
             <Form.Group controlId="name">
                 <Form.Label>NOM</Form.Label>
@@ -53,6 +60,7 @@ function InventoryForm(): JSX.Element {
 
             <Button variant="dark" type="submit">ENVOYER</Button>
         </Form>
+        </Modal>
     );
 }
 

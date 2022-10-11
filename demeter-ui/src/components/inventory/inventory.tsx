@@ -82,15 +82,7 @@ function ProductsDisplayEdit (product:any): JSX.Element {
     );
 }
 
-function openProductForm(): JSX.Element{
-    window.location.reload();
-    return(
-        <InventoryForm/>
-    );
-}
-
 function updateInventory(): JSX.Element{
-    window.location.reload();
     return(
         <InventoryUpdate/>
     );
@@ -128,8 +120,6 @@ function editProducts(e: React.SyntheticEvent){
             });
         }
     });
-
-    window.location.reload();
     
     return(
         <InventoryPage/>
@@ -162,12 +152,10 @@ function addProduct(e: React.SyntheticEvent): JSX.Element{
         }),
         headers: { 'Content-Type': 'application/json' },
     });
-
-    window.location.reload();
     
     return(
         <InventoryPage/>
     );
 }
 
-export {ListingProducts, ProductsDisplay, ProductsDisplayEdit, openProductForm, updateInventory, editProducts, addProduct};
+export {ListingProducts, ProductsDisplay, ProductsDisplayEdit, updateInventory, editProducts, addProduct};

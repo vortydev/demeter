@@ -1,11 +1,9 @@
 const dbConfig = require("../config/db.config.js");
-
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
   port: dbConfig.port,
-  // operatorsAliases: false,
 
   pool: {
     max: dbConfig.pool.max,
@@ -16,10 +14,39 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 });
 
 const db = {};
-
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.tutorials = require("./tutorial.model.js")(sequelize, Sequelize);
+// UTILISATEURS
+db.accounts = require("./account.model")(sequelize, Sequelize);
+db.roles = require("./role.model")(sequelize, Sequelize);
+db.states = require("./state.model")(sequelize, Sequelize);
+db.teamleadpwds = require("./teamleadpwd.model")(sequelize, Sequelize);
+
+db.roles.hasMany(db.accounts);
+db.states.hasMany(db.accounts);
+
+db.accounts.belongsTo(db.roles, { foreignKey: "roleId" });
+db.accounts.belongsTo(db.states, { foreignKey: "stateId" });
+
+// INVENTAIRE
+db.products = require("./product.model")(sequelize, Sequelize);
+db.categoryproducts = require("./categoryproduct.model")(sequelize, Sequelize);
+db.mesurements = require("./mesurement.model")(sequelize, Sequelize);
+db.vendors = require("./vendor.model")(sequelize, Sequelize);
+
+db.categoryproducts.hasMany(db.products);
+db.mesurements.hasMany(db.products);
+db.vendors.hasMany(db.products);
+
+db.products.belongsTo(db.categoryproducts, { foreignKey: "categoryId" });
+db.products.belongsTo(db.mesurements, { foreignKey: "mesurementId" });
+db.products.belongsTo(db.vendors, { foreignKey: "vendorId" });
+
+// CARNET
+
+// TÂCHES
+
+// ANNONCES
 
 module.exports = db;

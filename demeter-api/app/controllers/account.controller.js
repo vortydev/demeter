@@ -1,5 +1,4 @@
 const db = require("../models");
-const bcrypt = require("bcrypt");
 const Account = db.accounts;
 const Role = db.roles;
 const State = db.states;
@@ -209,6 +208,7 @@ exports.findOneState = (req, res) => {
     });
 };
 
+const bcrypt = db.bcrypt;
 async function comparePwd(password, hashedPassword) {
     return await bcrypt.compare(password, hashedPassword);
 }

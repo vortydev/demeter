@@ -1,7 +1,16 @@
 type Account = {
     name: string;
-    permission: string;
+    role: string;
+    password: string;
     id: Number;
 }
 
-export type {Account}
+type News ={
+    id: Number;
+    title : string;
+    description : string;
+    author: string;
+    picture: string | null;
+}
+
+export type {Account, News}

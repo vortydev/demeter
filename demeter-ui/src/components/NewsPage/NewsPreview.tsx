@@ -19,9 +19,8 @@ function NewsPreview({ news }: NewsPreviewProps) {
           <h1>{news.title} </h1>
           {shortDescription}
         </p>
-        <div className="edit-delete">
-          {" "}
-          <Button >edit</Button>  <Button>delete</Button>
+        <div className="delete">
+         <Button>delete</Button>
         </div>{" "}
       
       </div>

@@ -1,5 +1,7 @@
 const db = require("../models");
 const Product = db.products;
+const CategoryProduct = db.categoryproducts;
+const Mesurement = db.mesurements;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new account
@@ -15,7 +17,7 @@ exports.create = (req, res) => {
     // Create an account
     const product = {
         name: req.body.name,
-        categoryId: req.body.categoryId,
+        categoryproductId: req.body.categoryproductId,
         vendorId: req.body.vendorId,
         price: req.body.price,
         qtyInv: req.body.qtyInv,
@@ -138,3 +140,41 @@ exports.deleteAll = (req, res) => {
         });
     });
 };
+
+// category product
+exports.findOneCategoryProduct = (req, res) => {
+    const id = req.params.id;
+
+    CategoryProduct.findByPk(id)
+    .then(data => {
+        if (data) {
+            res.send(data);
+        } else {
+            res.status(404).send({
+                message: `Cannot find CategoryProduct with id=${id}.`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: "Error retrieving Role with id=" + id
+        });
+    });
+};
+
+exports.findAllCategoryProduct = (req, res) => {
+    const name = req.query.name;
+    var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+  
+    CategoryProduct.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving category product."
+        });
+    });
+};
+
+// mesurement

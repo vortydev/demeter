@@ -20,6 +20,14 @@ module.exports = app => {
   
     // Delete all Accounts
     router.delete("/", accounts.deleteAll);
-  
+
+    // roles
+    router.get("/roles", accounts.findAllRoles);
+    router.get("/roles/:id", accounts.findOneRole);
+
+    // states
+    router.get("/states", accounts.findAllStates);
+    router.get("/states/:id", accounts.findOneState);
+
     app.use('/api/accounts', router);
   };

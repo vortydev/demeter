@@ -1,7 +1,7 @@
 const db = require("../models");
 const Account = db.accounts;
 const Role = db.roles;
-const Sate = db.states;
+const State = db.states;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new account
@@ -133,6 +133,77 @@ exports.deleteAll = (req, res) => {
     .catch(err => {
         res.status(500).send({
             message: err.message || "Some error occurred while removing all accounts."
+        });
+    });
+};
+
+exports.findAllRoles = (req, res) => {
+    const role = req.query.role;
+    var condition = role ? { role: { [Op.like]: `%${role}%` } } : null;
+  
+    Role.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving roles."
+        });
+    });
+};
+
+// Find a single Account with an id
+exports.findOneRole = (req, res) => {
+    const id = req.params.id;
+
+    Role.findByPk(id)
+    .then(data => {
+        if (data) {
+            res.send(data);
+        } else {
+            res.status(404).send({
+                message: `Cannot find Role with id=${id}.`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: "Error retrieving Role with id=" + id
+        });
+    });
+};
+
+exports.findAllStates = (req, res) => {
+    const state = req.query.state;
+    var condition = state ? { rostatele: { [Op.like]: `%${state}%` } } : null;
+  
+    State.findAll({ where: condition })
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || "Some error occurred while retrieving states."
+        });
+    });
+};
+
+exports.findOneState = (req, res) => {
+    const id = req.params.id;
+
+    State.findByPk(id)
+    .then(data => {
+        if (data) {
+            res.send(data);
+        } else {
+            res.status(404).send({
+                message: `Cannot find State with id=${id}.`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: "Error retrieving State with id=" + id
         });
     });
 };

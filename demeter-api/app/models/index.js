@@ -43,7 +43,7 @@ db.mesurements.hasMany(db.products);
 db.vendor.hasMany(db.products);
 
 db.products.belongsTo(db.categoryproducts, { foreignKey: "categoryId" });
-db.products.belongsTo(db.mesurement, { foreignKey: "mesurementId" });
+db.products.belongsTo(db.mesurements, { foreignKey: "mesurementId" });
 db.products.belongsTo(db.vendor, { foreignKey: "vendorId" });
 
 // CARNET

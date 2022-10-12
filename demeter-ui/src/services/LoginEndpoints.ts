@@ -49,10 +49,10 @@ function getAccounts(role: string) : Account[]{
 const getmethis = role;
     const accountList: Account[] = [
         {
-            name:'admin1',
-            password: '134',
-            role: 'admin',
-            id: 4
+            accName:'admin1',
+            accPassword: '134',
+            roleId: 1,
+            stateId: 2
         }
     ];
     return accountList;

@@ -41,7 +41,7 @@ db.categoryproducts.hasMany(db.products);
 db.mesurements.hasMany(db.products);
 db.vendors.hasMany(db.products);
 
-db.products.belongsTo(db.categoryproducts, { foreignKey: "categoryId" });
+db.products.belongsTo(db.categoryproducts, { foreignKey: "categoryproductId" });
 db.products.belongsTo(db.mesurements, { foreignKey: "mesurementId" });
 db.products.belongsTo(db.vendors, { foreignKey: "vendorId" });
 

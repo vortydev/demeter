@@ -31,6 +31,10 @@ class AccountService {
     console.log(data);
     return http.get<Account>(`/verify`, data);
   }
+
+  verifyName(user: string) {
+    return http.get<Account>(`/verify/${user}`);
+  }
 }
 
 export default new AccountService();

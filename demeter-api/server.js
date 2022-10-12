@@ -56,7 +56,7 @@ db.sequelize.sync({force:true})                 // {force: true} drops the db
     db.accounts.create({
       id: "1", 
       accName: "dev", 
-      accPassword: "$2b$06$82sATCD9PpxTCt6n3podk.11j/9S/9BTiRCyMsVQ0MvEhvZXLfB6G", 
+      accPassword: "$2a$10$vytbqrffFfu5EKGP657yEu6soYC3diLemoILZLXtsJaSqHRB64YIy", 
       roleId: 4,
       stateId: 2
     }, { ignore: true });

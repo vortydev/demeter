@@ -21,7 +21,7 @@ module.exports = app => {
   // Delete all Accounts
   router.delete("/", accounts.deleteAll);
 
-  router.get("/verify", accounts.verify);
+  // router.get("/verify", accounts.verify);
 
   // roles
   router.get("/roles", accounts.findAllRoles);

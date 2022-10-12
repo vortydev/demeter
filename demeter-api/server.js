@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));  // parse application/x-www-for
 
 // initilizes the database
 const db = require("./app/models");
-db.sequelize.sync()                 // {force: true} drops the db
+db.sequelize.sync({force:true})                 // {force: true} drops the db
   .then(() => {
     console.log("Synced db.");
 
@@ -53,7 +53,13 @@ db.sequelize.sync()                 // {force: true} drops the db
       .then(() => console.log("Mesurements inserted."));
 
     // insert dev user
-    
+    db.accounts.create({
+      id: "1", 
+      accName: "dev", 
+      accPassword: "$2b$06$82sATCD9PpxTCt6n3podk.11j/9S/9BTiRCyMsVQ0MvEhvZXLfB6G", 
+      roleId: 4,
+      stateId: 2
+    }, { ignore: true });
   })
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);
@@ -66,6 +72,7 @@ app.get("/", (req, res) => {
 
 // routes
 require("./app/routes/account.routes")(app);
+require("./app/routes/verify.routes")(app);
 require("./app/routes/teamleadpwd.routes")(app);
 require("./app/routes/product.routes")(app);
 require("./app/routes/vendor.routes")(app);

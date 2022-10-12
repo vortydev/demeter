@@ -177,7 +177,7 @@ exports.findOneRole = (req, res) => {
 
 exports.findAllStates = (req, res) => {
     const state = req.query.state;
-    var condition = state ? { rostatele: { [Op.like]: `%${state}%` } } : null;
+    var condition = state ? { state: { [Op.like]: `%${state}%` } } : null;
   
     State.findAll({ where: condition })
     .then(data => {
@@ -222,22 +222,25 @@ async function hashPwd(password) {
 }
 
 exports.verify = (req, res) => {
-    const user = req.body.accName;
+    console.log("REQUETE IN VERIFY", req.body);
+    const accName = req.body.accName;
+    var condition = accName ? { accName: { [Op.like]: `%${accName}%` } } : null;
 
-    Account.findByPk(user)
-    .then(data => {
-        var valid = comparePwd(req.body.accPwd, data.accPassword);
+    Account.findAll({ where: condition })
+    .then(async data => {
+        console.log(req.body.accPwd, data.accPassword);
+        const valid = await comparePwd(req.body.accPwd, data.accPassword);
         if (valid) {
             res.send(data);
         } else {
             res.status(404).send({
-                message: `Cannot find Account with id=${id}.`
+                message: `Cannot find Account with name=${accName}.`
             });
         }
     })
     .catch(err => {
         res.status(500).send({
-            message: "Error retrieving Account with id=" + id
+            message: "Error retrieving Account with name=" + accName
         });
     });
 };

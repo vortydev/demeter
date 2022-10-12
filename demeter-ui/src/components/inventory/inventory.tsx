@@ -2,6 +2,7 @@ import { Row, Col, Form, Dropdown } from 'react-bootstrap';
 import React from 'react';
 import { InventoryUpdate } from './inventoryUpdate';
 import { InventoryPage } from './inventoryPage';
+import { getCategory } from '../../services/inventory.functions'
 
 function ListingProducts(edit: any): JSX.Element {
 
@@ -122,11 +123,13 @@ function editProducts(e: React.SyntheticEvent){
 function GetCategory(): JSX.Element {
     const [categories, setCategories] = React.useState<any>(null);
 
-    React.useEffect(() => {
-        fetch('/api/products/category/1')
-            //.then(r => r.json())
-            .then(setCategories);
-    }, []);
+    //React.useEffect(() => {
+    //    fetch('/api/products/category/1')
+    //        //.then(r => r.json())
+    //        .then(setCategories);
+    //}, []);
+
+    getCategory('1');
 
     return(
         <React.Fragment>

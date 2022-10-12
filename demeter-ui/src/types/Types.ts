@@ -20,4 +20,9 @@ taskName: String;
 description : String;
 }
 
-export type { Account, News, Task }
+type Category = {
+    id: Number;
+    catName: String;
+}
+
+export type { Account, News, Task, Category }

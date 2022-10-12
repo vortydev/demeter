@@ -21,35 +21,39 @@ db.sequelize.sync()                 // {force: true} drops the db
 
     // insert roles
     db.roles.bulkCreate([
-      {id: "1", role: "Administrateur"},
-      {id: "2", role: "Employé"},
-      {id: "3", role: "Livreur"}
-    ], {ignoreDuplicates: true})
-    .then(() => console.log("Roles inserted."));
+      { id: "1", role: "Administrateur" },
+      { id: "2", role: "Employé" },
+      { id: "3", role: "Livreur" },
+      { id: "4", role: "Developpeur" }
+    ], { ignoreDuplicates: true })
+      .then(() => console.log("Roles inserted."));
 
     // insert states
     db.states.bulkCreate([
-      {id: "1", state: "Inactif"},
-      {id: "2", state: "Actif"},
-      {id: "3", state: "Banni"}
-    ], {ignoreDuplicates: true})
-    .then(() => console.log("States inserted."));
+      { id: "1", state: "Inactif" },
+      { id: "2", state: "Actif" },
+      { id: "3", state: "Banni" }
+    ], { ignoreDuplicates: true })
+      .then(() => console.log("States inserted."));
 
     // insert category product
-    db.states.bulkCreate([
-      {id: "1", name: "Périssable"},
-      {id: "2", name: "Non-périssable"}
-    ], {ignoreDuplicates: true})
-    .then(() => console.log("Category products inserted."));
+    db.categoryproducts.bulkCreate([
+      { id: "1", category: "Périssable" },
+      { id: "2", category: "Non-périssable" }
+    ], { ignoreDuplicates: true })
+      .then(() => console.log("Category products inserted."));
 
     // insert mesurements
     db.mesurements.bulkCreate([
-      {id: "1", mesurement: "g", weight: "1"},
-      {id: "2", mesurement: "kg", weight: "1000"},
-      {id: "3", mesurement: "mL", weight: "1"},
-      {id: "4", mesurement: "L", weight: "1000"},
-    ], {ignoreDuplicates: true})
-    .then(() => console.log("Mesurements inserted."));
+      { id: "1", mesurement: "g", weight: "1" },
+      { id: "2", mesurement: "kg", weight: "1000" },
+      { id: "3", mesurement: "mL", weight: "1" },
+      { id: "4", mesurement: "L", weight: "1000" },
+    ], { ignoreDuplicates: true })
+      .then(() => console.log("Mesurements inserted."));
+
+    // insert dev user
+    
   })
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);

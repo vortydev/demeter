@@ -8,7 +8,7 @@ function ListingProducts(edit: any): JSX.Element {
     const [products, setProducts] = React.useState<any>(null);
 
     React.useEffect(() => {
-        fetch('/products')
+        fetch('/api/products')
             .then(r => r.json())
             .then(setProducts);
     }, []);
@@ -123,23 +123,21 @@ function GetCategory(): JSX.Element {
     const [categories, setCategories] = React.useState<any>(null);
 
     React.useEffect(() => {
-        fetch('/api/produits/category')
-            .then(r => r.json())
+        fetch('/api/products/category/1')
+            //.then(r => r.json())
             .then(setCategories);
     }, []);
 
     return(
         <React.Fragment>
-            {categories.map((category: any) => (
-                <CategoryDropDown category={category}/>
-            ))}
+            <CategoryDropDown category={categories}/>
         </React.Fragment>
     );
 }
 
 function CategoryDropDown(category:any):JSX.Element{
     return(
-        <Dropdown.Item eventKey={category.id}>{category.name}</Dropdown.Item>
+        <Dropdown.Item itemID={category.id}>{category.name}</Dropdown.Item>
     );
 }
 

@@ -8,18 +8,15 @@ function LoginForm(): JSX.Element {
   const fakeAccount: string = "Gotham";
   const fakePW: string = "batman";
 
-  function handleLogin(e: SyntheticEvent): void {
+  async function handleLogin(e: SyntheticEvent): Promise<void> {
     e.preventDefault();
     setValid(true);
 
     const accName = document.getElementById("account") as HTMLInputElement;
     const pw = document.getElementById("password") as HTMLInputElement;
 
-    // const loggedIn = validateLogin(account.value, pw.value);
-    // if(loggedIn){setCookie("account", loggedIn)} // can we stock an object ? if not 2 cookie, one with name, the other with permission
-    if (verifyLogin(accName.value, pw.value)) {
-      console.log("yo");
-      setCookie("account", accName.value); // to be change for account id when other verif are done
+    if (await verifyLogin(accName.value, pw.value)) {
+     setCookie("account", accName.value); 
       window.location.reload();
     } else {
       setValid(false);

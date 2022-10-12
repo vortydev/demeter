@@ -3,31 +3,24 @@ import { Account } from "../types/Types";
 import bcrypt from "bcryptjs";
 
 function createAccount(data: Account): boolean {
-    AccountService.create(data)
-    .catch((e: Error) => {
-        console.log(e);
-        return false;
-    });
-    return true;
+  AccountService.create(data).catch((e: Error) => {
+    console.log(e);
+    return false;
+  });
+  return true;
 }
 
-function verifyLogin(accName: string, accPwd: string): boolean {
-    // const data: any = {accName: accName, accPwd: accPwd};
-    // AccountService.verify(data)
-    AccountService.verifyName(accName)
-    .then(async (response: any)=> {
-        const valid = await bcrypt.compare(accPwd, response.data.accPassword);
-        console.log("COMPARESYNC", valid);
-        return valid;
+async function verifyLogin(accName: string, accPwd: string): Promise<boolean> {;
+  const fetchedPwd = await AccountService.verifyName(accName)
+    .then((response: any) => {
+      return response.data.accPassword;
     })
     .catch((e: Error) => {
-        console.log(e);
-        return false;
+      console.log(e);
+      return "";
     });
-    return false;
+
+  return await bcrypt.compare(accPwd, fetchedPwd);
 }
 
-export { 
-    createAccount,
-    verifyLogin,
-};
+export { createAccount, verifyLogin };

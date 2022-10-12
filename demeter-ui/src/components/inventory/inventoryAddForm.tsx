@@ -1,5 +1,5 @@
 import { Form, Button, Dropdown, DropdownButton, Modal } from 'react-bootstrap';
-import { addProduct } from './inventory';
+import { addProduct, GetCategory } from './inventory';
 
 interface CRFormProps {
     show : boolean;
@@ -19,10 +19,9 @@ function InventoryForm({ show, close, success }: CRFormProps) {
 
             <Form.Group controlId="category">
                 <Form.Label>TYPE</Form.Label>
-                <DropdownButton title="hmmm">
-                    <Dropdown.Item eventKey="1">insert category here</Dropdown.Item>
+                <DropdownButton title="Catégorie">
+                    <GetCategory/>
                 </DropdownButton>
-                <Button>Nouveau Type</Button>
             </Form.Group>
 
             <Form.Group controlId="vendor">

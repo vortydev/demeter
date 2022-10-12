@@ -1,4 +1,4 @@
-import { Row, Col, Form } from 'react-bootstrap';
+import { Row, Col, Form, Dropdown } from 'react-bootstrap';
 import React from 'react';
 import { InventoryUpdate } from './inventoryUpdate';
 import { InventoryPage } from './inventoryPage';
@@ -119,6 +119,30 @@ function editProducts(e: React.SyntheticEvent){
     );
 }
 
+function GetCategory(): JSX.Element {
+    const [categories, setCategories] = React.useState<any>(null);
+
+    React.useEffect(() => {
+        fetch('/api/produits/category')
+            .then(r => r.json())
+            .then(setCategories);
+    }, []);
+
+    return(
+        <React.Fragment>
+            {categories.map((category: any) => (
+                <CategoryDropDown category={category}/>
+            ))}
+        </React.Fragment>
+    );
+}
+
+function CategoryDropDown(category:any):JSX.Element{
+    return(
+        <Dropdown.Item eventKey={category.id}>{category.name}</Dropdown.Item>
+    );
+}
+
 function addProduct(e: React.SyntheticEvent): JSX.Element{
     e.preventDefault();
 
@@ -155,4 +179,4 @@ function updateProducts() {
     //do something so it shows up
 }
 
-export {ListingProducts, ProductsDisplay, ProductsDisplayEdit, editProducts, addProduct, updateProducts};
+export {ListingProducts, ProductsDisplay, ProductsDisplayEdit, editProducts, addProduct, updateProducts, GetCategory, CategoryDropDown};

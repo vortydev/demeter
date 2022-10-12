@@ -1,4 +1,5 @@
 const dbConfig = require("../config/db.config.js");
+const bcrypt = require("bcrypt");
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
@@ -14,6 +15,7 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 });
 
 const db = {};
+db.bcrypt = bcrypt;
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
@@ -39,7 +41,7 @@ db.categoryproducts.hasMany(db.products);
 db.mesurements.hasMany(db.products);
 db.vendors.hasMany(db.products);
 
-db.products.belongsTo(db.categoryproducts, { foreignKey: "categoryId" });
+db.products.belongsTo(db.categoryproducts, { foreignKey: "categoryproductId" });
 db.products.belongsTo(db.mesurements, { foreignKey: "mesurementId" });
 db.products.belongsTo(db.vendors, { foreignKey: "vendorId" });
 

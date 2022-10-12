@@ -5,7 +5,7 @@ const State = db.states;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new account
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
     // Validate request
     if (!req.body.accName) {
         res.status(400).send({ 
@@ -15,11 +15,12 @@ exports.create = (req, res) => {
     }
 
     // Create an account
+    const hashedPwd = await hashPwd(req.body.accPassword);
     const account = {
         accName: req.body.accName,
-        accPassword: req.body.accPassword,
-        accRoleId: req.body.accRoleId,
-        accStateId: req.body.accStateId
+        accPassword: hashedPwd,
+        roleId: req.body.roleId,
+        stateId: req.body.stateId
     };
 
     // Save account in the database
@@ -28,6 +29,7 @@ exports.create = (req, res) => {
       res.send(data);
     })
     .catch(err => {
+        console.log(err);
         res.status(500).send({
             message: err.message || "Some error occurred while creating the Account."
         });
@@ -204,6 +206,38 @@ exports.findOneState = (req, res) => {
     .catch(err => {
         res.status(500).send({
             message: "Error retrieving State with id=" + id
+        });
+    });
+};
+
+const bcrypt = db.bcrypt;
+async function comparePwd(password, hashedPassword) {
+    return await bcrypt.compare(password, hashedPassword);
+}
+
+async function hashPwd(password) {
+    const salt = await bcrypt.genSalt(6);
+    const hashed = await bcrypt.hash(password, salt);
+    return hashed;
+}
+
+exports.verify = (req, res) => {
+    const user = req.body.accName;
+
+    Account.findByPk(user)
+    .then(data => {
+        var valid = comparePwd(req.body.accPwd, data.accPassword);
+        if (valid) {
+            res.send(data);
+        } else {
+            res.status(404).send({
+                message: `Cannot find Account with id=${id}.`
+            });
+        }
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: "Error retrieving Account with id=" + id
         });
     });
 };

@@ -1,6 +1,5 @@
 import { Account } from "../types/Types";
 
-
 type CreateAccountResponse = {
     name: string;
     role: string;
@@ -53,10 +52,10 @@ function getAccounts(role: string) : Account[]{
 const getmethis = role;
     const accountList: Account[] = [
         {
-            name:'admin1',
-            role: 'admin',
-            password: '134',
-            id: 4
+            accName:'admin1',
+            accPassword: '134',
+            roleId: 1,
+            stateId: 2
         }
     ];
     return accountList;

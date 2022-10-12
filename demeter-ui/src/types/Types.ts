@@ -1,8 +1,9 @@
 type Account = {
-    name: string;
-    role: string;
-    password: string;
-    id: Number;
+    // id: Number;
+    accName: string;
+    accPassword: string;
+    roleId: Number;
+    stateId: Number;
 }
 
 type News ={
@@ -18,4 +19,5 @@ id : Number;
 taskName: String;
 description : String;
 }
-export type {Account, News, Task}
+
+export type { Account, News, Task }

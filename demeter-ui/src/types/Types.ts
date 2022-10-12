@@ -24,4 +24,9 @@ type Recipe = {
     recipeName : String;
 
 }
+
+type Ingredient ={
+    id:Number;
+    ingName: String;    
+}
 export type {Account, News, Task, Recipe}

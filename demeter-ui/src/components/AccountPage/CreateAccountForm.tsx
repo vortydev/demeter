@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 import { createAccount } from "../../services/account.functions";
 import { Account } from "../../types/Types";
+import bcrypt from "bcryptjs";
 
 interface CAFormProps {
   show: boolean;
@@ -23,20 +24,21 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
     setValidPassword(true);
     setError(false);
 
-    console.log(pw, pwc);
+    // TODO check the username is already taken
 
     if (pw.value !== pwc.value && pw.value !== null) {
       // add regex at some point ?
       setValidPassword(false);
-    } else {
+    } 
+    else {
       const newAccount: Account = {
         accName: accountName.value,
-        accPassword: pw.value,
+        accPassword: await bcrypt.hash(pw.value, 10),
         roleId: parseInt(role.value),
         stateId: 2
       };
 
-      if (createAccount(newAccount)) {
+      if (await createAccount(newAccount)) {
         success();
       } else {
         setError(true);

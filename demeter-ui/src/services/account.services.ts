@@ -26,9 +26,8 @@ class AccountService {
     return http.delete<any>(`/accounts`);
   }
 
-  verify(accName: string, accPwd: string) {
-    const data: any = {accName: accName, accPwd: accPwd};
-    return http.get<any>(`/accounts`, data);
+  verifyName(user: string) {
+    return http.get<Account>(`/verify/${user}`);
   }
 }
 

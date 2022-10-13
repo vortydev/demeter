@@ -11,7 +11,7 @@ module.exports = app => {
 
   // Retrieve a single Account with id
   router.get("/:id", accounts.findOne);
-
+  
   // Update an Account with id
   router.put("/:id", accounts.update);
 
@@ -21,7 +21,7 @@ module.exports = app => {
   // Delete all Accounts
   router.delete("/", accounts.deleteAll);
 
-  router.get("/verify", accounts.verify);
+  // router.get("/verify", accounts.verify);
 
   // roles
   router.get("/roles", accounts.findAllRoles);

@@ -1,5 +1,5 @@
 module.exports = app => {
-  const accounts = require("../controllers/account.controller.js");
+  const accounts = require("../controllers/account.controller");
 
   var router = require("express").Router();
 
@@ -11,7 +11,7 @@ module.exports = app => {
 
   // Retrieve a single Account with id
   router.get("/:id", accounts.findOne);
-
+  
   // Update an Account with id
   router.put("/:id", accounts.update);
 
@@ -21,15 +21,7 @@ module.exports = app => {
   // Delete all Accounts
   router.delete("/", accounts.deleteAll);
 
-  router.get("/verify", accounts.verify);
-
-  // roles
-  router.get("/roles", accounts.findAllRoles);
-  router.get("/roles/:id", accounts.findOneRole);
-
-  // states
-  router.get("/states", accounts.findAllStates);
-  router.get("/states/:id", accounts.findOneState);
+  // router.get("/verify", accounts.verify);
 
   app.use('/api/accounts', router);
 };

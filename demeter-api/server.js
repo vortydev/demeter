@@ -53,7 +53,13 @@ db.sequelize.sync()                 // {force: true} drops the db
       .then(() => console.log("Mesurements inserted."));
 
     // insert dev user
-    
+    db.accounts.create({
+      id: "1", 
+      accName: "dev", 
+      accPassword: "$2a$10$vytbqrffFfu5EKGP657yEu6soYC3diLemoILZLXtsJaSqHRB64YIy", 
+      roleId: 4,
+      stateId: 2
+    }, { ignore: true });
   })
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);
@@ -66,9 +72,11 @@ app.get("/", (req, res) => {
 
 // routes
 require("./app/routes/account.routes")(app);
+require("./app/routes/verify.routes")(app);
 require("./app/routes/teamleadpwd.routes")(app);
 require("./app/routes/product.routes")(app);
 require("./app/routes/vendor.routes")(app);
+require("./app/routes/categories.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.NODE_DOCKER_PORT || 8080;

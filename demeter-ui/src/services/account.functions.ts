@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 
 async function createAccount(data: Account): Promise<boolean> {
   const accountCreated = AccountService.create(data)
-    .then((account) => {
+    .then((response: any) => {
       return true;
     })
     .catch((e: Error) => {
@@ -13,6 +13,21 @@ async function createAccount(data: Account): Promise<boolean> {
     });
   return accountCreated;
 }
+
+async function updateAccount(data: Account, id:Number): Promise<boolean> {
+  const accountUpdated = AccountService.update(data, id)
+    .then((response: any) => {
+      return true;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return false;
+    });
+  return accountUpdated;
+}
+
+
+
 
 async function verifyLogin(accName: string, accPwd: string): Promise<boolean> {
   const fetchedPwd = await AccountService.verifyName(accName)
@@ -27,4 +42,4 @@ async function verifyLogin(accName: string, accPwd: string): Promise<boolean> {
   return await bcrypt.compare(accPwd, fetchedPwd);
 }
 
-export { createAccount, verifyLogin };
+export { createAccount, updateAccount, verifyLogin };

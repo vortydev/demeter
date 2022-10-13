@@ -24,6 +24,7 @@ interface AccountRowProps {
    }
 
 function AccountRow({currentAccount}:AccountRowProps){
+
     return(<div className="accountInfo">
 <span>{currentAccount.accName}</span> <Button>Edit</Button> <Button>Delete</Button>
     </div>)

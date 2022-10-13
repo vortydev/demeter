@@ -24,13 +24,16 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
     setValidPassword(true);
     setError(false);
 
+    // TODO check the username is already taken
+
     if (pw.value !== pwc.value && pw.value !== null) {
       // add regex at some point ?
       setValidPassword(false);
-    } else {
+    } 
+    else {
       const newAccount: Account = {
         accName: accountName.value,
-        accPassword: bcrypt.hashSync(pw.value),
+        accPassword: await bcrypt.hash(pw.value, 10),
         roleId: parseInt(role.value),
         stateId: 2
       };

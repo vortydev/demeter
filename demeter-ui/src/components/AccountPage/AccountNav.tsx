@@ -1,9 +1,9 @@
 interface AccountNavProps{
-    subPage: string;
-    setSubPage:(location : string) => void;
+    subPage: number;
+    setSubPage:(location : number) => void;
 }
 
-function AccountNav({subPage, setSubPage} :AccountNavProps) {
+const AccountNav = ({subPage, setSubPage} :AccountNavProps)=> {
 // use subPage to change the class of the a and make it green and pretty :3
   return (
     <nav className="navbar navbar-expand-sm navbar-light">
@@ -13,22 +13,22 @@ function AccountNav({subPage, setSubPage} :AccountNavProps) {
       >
         <ul className="navbar-nav">
           <li className="nav-item active">
-            <a className="nav-link" onClick={()=>setSubPage('admin')}>
+            <a className="nav-link" onClick={()=>setSubPage(1)}>
               Administration <span className="sr-only">(current)</span>
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" onClick={()=>setSubPage('shops')}>
+            <a className="nav-link" onClick={()=>setSubPage(2)}>
               Succursales
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" onClick={()=>setSubPage('delivery')}>
+            <a className="nav-link" onClick={()=>setSubPage(3)}>
               Livraison
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" onClick={()=>setSubPage('other')}>
+            <a className="nav-link" onClick={()=>setSubPage(4)}>
               Autres
             </a>
           </li>

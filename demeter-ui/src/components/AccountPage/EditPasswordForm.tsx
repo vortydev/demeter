@@ -17,11 +17,13 @@ function EditPasswordForm({
   close,
   setEditSuccess,
 }: CRFormProps) {
+  const [validPassword, setValidPassword] = useState<boolean>(true);
+
+
   function handleSubmit() {
-    const [validPassword, setValidPassword] = useState<boolean>(true);
     const pw = document.getElementById("password") as HTMLInputElement;
     const pwc = document.getElementById("passwordConfirm") as HTMLInputElement;
-  
+
     if (pw.value !== pwc.value && pw.value !== null) {
       // add regex at some point ?
       setValidPassword(false);
@@ -33,7 +35,6 @@ function EditPasswordForm({
         stateId: account.stateId, // must be change at somepoint
       };
       updateAccount(editedAccount, account.accName);
-
     }
 
     setEditSuccess(true);
@@ -42,6 +43,7 @@ function EditPasswordForm({
   return (
     <Modal show={show} onHide={close}>
       <Form>
+        {validPassword && (<Alert variant="danger"> Les mots de passe ne correspondent pas !</Alert>)}
         <Form.Group className="mb-3" controlId="password">
           <Form.Label>NOUVEAU MOT DE PASSE : </Form.Label>
           <Form.Control type="text" />

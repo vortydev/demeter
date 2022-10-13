@@ -1,18 +1,26 @@
-import { useState } from "react";
+import { render } from "@testing-library/react";
+import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { getAccounts } from "../../services/AccountEndpoint";
+import { getAccountsByRole } from "../../services/account.functions";
 import { Account } from "../../types/Types";
 import { EditPasswordForm } from "./EditPasswordForm";
 
 interface AccountListProps {
-  currentRole: string;
+  currentRole: number;
   setEditSuccess: (success: boolean) => void;
 }
 
 function AccountList({ currentRole, setEditSuccess }: AccountListProps) {
-  const listAccount: Account[] = getAccounts(currentRole);
-  // make get account work
+  const [listAccount, setListAccount] = useState<Account[]>([]);
 
+  useEffect(() => {
+    async function getList() {
+      setListAccount(await getAccountsByRole(currentRole));
+    }
+    getList();
+  }, [currentRole]);
+
+  // make get account work
   return (
     <div className="accountList">
       {listAccount.map((account) => (
@@ -56,4 +64,3 @@ function AccountRow({ currentAccount, setEditSuccess }: AccountRowProps) {
 }
 
 export { AccountList };
-

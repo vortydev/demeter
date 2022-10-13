@@ -6,6 +6,10 @@ class AccountService {
     return http.get<Array<Account>>("/accounts");
   }
 
+  getByRole(roleId: number){
+    return http.get<Account>(`/accounts?roleId=${roleId}`);
+  }
+
   get(id: string) {
     return http.get<Account>(`/accounts/${id}`);
   }

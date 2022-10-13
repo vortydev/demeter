@@ -8,7 +8,7 @@ function AccountPage(): JSX.Element {
   const [createAccount, setCreateAccount] = useState<boolean>(false);
   const [createdSuccess, setSuccess] = useState<boolean>(false);
   const [editedSuccess, setEditSuccess]= useState<boolean>(false);
-  const [subPage, setSubPage] = useState<string>("admin");
+  const [subPage, setSubPage] = useState<number>(1);
   
 
   function success(): void {

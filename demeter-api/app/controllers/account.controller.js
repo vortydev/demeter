@@ -38,8 +38,10 @@ exports.create = async (req, res) => {
 
 // Retrieve all Accounts from the database.
 exports.findAll = (req, res) => {
-    const accName = req.query.accName;
-    var condition = accName ? { accName: { [Op.like]: `%${accName}%` } } : null;
+    //const accName = req.query.accName;
+    const roleId = req.query.roleId;
+    //var condition = accName ? { accName: { [Op.like]: `%${accName}%` } } : null;
+    var condition = roleId ? { roleId: { [Op.eq]: roleId } } : null;
 
     Account.findAll({ where: condition })
         .then(data => {

@@ -14,7 +14,7 @@ async function createAccount(data: Account): Promise<boolean> {
   return accountCreated;
 }
 
-async function updateAccount(data: Account, accName:String): Promise<boolean> {
+async function updateAccount(data: Account, accName: String): Promise<boolean> {
   const accountUpdated = AccountService.update(data, accName)
     .then((response: any) => {
       return true;
@@ -26,11 +26,19 @@ async function updateAccount(data: Account, accName:String): Promise<boolean> {
   return accountUpdated;
 }
 
-
-
+async function getAccountsByRole(role: number) {
+  const accounts = AccountService.getByRole(role)
+    .then((response: any) => {
+      return response.data;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return [];
+    });
+  return accounts;
+}
 
 async function verifyLogin(accName: string, accPwd: string): Promise<boolean> {
-
   // retourne le mot de passe encrypté de l'utilisateur en paramètre
   const fetchedPwd = await AccountService.verifyName(accName)
     .then((response: any) => {
@@ -50,4 +58,4 @@ async function verifyLogin(accName: string, accPwd: string): Promise<boolean> {
   }
 }
 
-export { createAccount, updateAccount, verifyLogin };
+export { createAccount, updateAccount, getAccountsByRole, verifyLogin };

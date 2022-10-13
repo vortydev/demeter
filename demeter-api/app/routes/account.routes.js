@@ -1,5 +1,5 @@
 module.exports = app => {
-  const accounts = require("../controllers/account.controller.js");
+  const accounts = require("../controllers/account.controller");
 
   var router = require("express").Router();
 
@@ -22,14 +22,6 @@ module.exports = app => {
   router.delete("/", accounts.deleteAll);
 
   // router.get("/verify", accounts.verify);
-
-  // roles
-  router.get("/roles", accounts.findAllRoles);
-  router.get("/roles/:id", accounts.findOneRole);
-
-  // states
-  router.get("/states", accounts.findAllStates);
-  router.get("/states/:id", accounts.findOneState);
 
   app.use('/api/accounts', router);
 };

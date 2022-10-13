@@ -38,7 +38,7 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
         stateId: 2
       };
 
-      if (createAccount(newAccount)) {
+      if (await createAccount(newAccount)) {
         success();
       } else {
         setError(true);

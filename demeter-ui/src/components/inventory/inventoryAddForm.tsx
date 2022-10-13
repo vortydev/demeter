@@ -1,5 +1,5 @@
 import { Form, Button, Modal } from 'react-bootstrap';
-import { addProduct, GetCategory } from './inventory';
+import { addProduct, GetCategory, GetVendors } from './inventory';
 
 interface CRFormProps {
     show : boolean;
@@ -25,7 +25,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
             <Form.Group controlId="vendor">
                 <Form.Label>FOURNISSEUR</Form.Label>
                 <Form.Select aria-label="vendor" id="vendor">
-                    <option value="1">insert vendor here</option>
+                    <GetVendors/>
                 </Form.Select>
                 <Button> Nouveau Fournisseur </Button>
             </Form.Group>

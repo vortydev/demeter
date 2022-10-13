@@ -3,6 +3,7 @@ import React from 'react';
 import { InventoryUpdate } from './inventoryUpdate';
 import { InventoryPage } from './inventoryPage';
 import { getAllCategories, getCategory } from '../../services/inventory.functions'
+import { getAllVendor } from '../../services/vendor.functions';
 
 function ListingProducts(edit: any): JSX.Element {
 
@@ -141,9 +142,24 @@ function GetCategory(): JSX.Element {
     );
 }
 
+function GetVendors():JSX.Element {
+    getAllVendor();
+    return(
+        <React.Fragment>
+            <option value='1'>waiting for it</option>
+        </React.Fragment>
+    );
+}
+
 function CategoryDropDown(category:any):JSX.Element{
     return(
         <option value={category.id}>{category.name}</option>
+    );
+}
+
+function vendorDropDown(vendor:any):JSX.Element{
+    return(
+        <option value={vendor.id}>{vendor.name}</option>
     );
 }
 
@@ -183,4 +199,4 @@ function updateProducts() {
     //do something so it shows up
 }
 
-export {ListingProducts, ProductsDisplay, ProductsDisplayEdit, editProducts, addProduct, updateProducts, GetCategory, CategoryDropDown};
+export {ListingProducts, ProductsDisplay, ProductsDisplayEdit, editProducts, addProduct, updateProducts, GetCategory, CategoryDropDown, GetVendors, vendorDropDown};

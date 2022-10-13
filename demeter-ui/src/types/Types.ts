@@ -25,4 +25,12 @@ type Category = {
     catName: String;
 }
 
-export type { Account, News, Task, Category }
+type Vendor = {
+    id: Number;
+    vendorName: String;
+    phone: String;
+    email: String;
+    address: String;
+}
+
+export type { Account, News, Task, Category, Vendor }

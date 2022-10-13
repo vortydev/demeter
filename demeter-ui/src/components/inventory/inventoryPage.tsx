@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { Container,Row, Col, Button, Alert } from 'react-bootstrap';
-import { ListingProducts, updateProducts} from './inventory';
+import { ListingProducts } from './inventory';
 import { InventoryForm } from './inventoryAddForm';
+import { InventoryUpdate } from './inventoryUpdate';
 
 function InventoryPage(): JSX.Element{
     const edit = false;
 
     const [createNewProduct, setCreateNewProduct] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
+    const [updateProducts, setUpdatedProducts] = useState<boolean>(false);
   
     function success(): void {
       setSuccess(true);
@@ -38,7 +40,10 @@ function InventoryPage(): JSX.Element{
                     </Row>
                     <ListingProducts edit={edit}/>
                     <Row>
-                        <Button variant="dark" onClick={updateProducts}>Mettre à jour l'inventaire</Button>
+                        <Button variant="dark" onClick={() => {
+                          setUpdatedProducts(true);
+                          setSuccess(false);
+                        }}>Mettre à jour l'inventaire</Button>
                     </Row>
                 </Container>
             </div>
@@ -52,6 +57,7 @@ function InventoryPage(): JSX.Element{
                 </Button>
             </div>
             <InventoryForm show={createNewProduct} close={close} success={success}/>
+            <InventoryUpdate show={updateProducts} close={close} success={success}/>
 
         </div>
     );
@@ -66,14 +72,10 @@ export { InventoryPage };
 // edit delete buttons
 // filter products
 // add vendor
-// add category
-// view category
-// correct inventoryAddForm for vendor and category
-// delete category
+// correct inventoryAddForm category
+// correct inventory display
 // sleep
 // eat
 // drink water
 // breathe
 // exist
-
-//replace html element inventory page by inventory update document.getElementById

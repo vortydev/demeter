@@ -1,5 +1,15 @@
 import InventoryService from "./inventory.services";
-import { Category } from "../types/Types";
+import { Product, Category } from "../types/Types";
+
+function getAll(){
+    InventoryService.getAll()
+    .then((response: any)=>{
+        console.log(response.data);
+   })
+   .catch((e: Error) => {
+        console.log(e);
+    });
+}
 
 function getCategory(id: string) {
    InventoryService.getCategory(id)
@@ -22,6 +32,7 @@ function getAllCategories() {
 }
 
 export {
+    getAll,
     getCategory,
     getAllCategories,
 };

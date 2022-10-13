@@ -1,7 +1,17 @@
 import http from "../http-common";
-import { Category } from "../types/Types";
+import { Product, Category } from "../types/Types";
 
 class InventoryService {
+
+    getAll(){
+        return http.get<Array<Product>>("/products");
+    }
+
+
+
+
+
+
 
     getAllCategories(){
         return http.get<Array<Category>>("/products/category");

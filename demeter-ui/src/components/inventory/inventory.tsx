@@ -1,19 +1,14 @@
 import { Row, Col, Form } from 'react-bootstrap';
 import React from 'react';
-import { InventoryUpdate } from './inventoryUpdate';
 import { InventoryPage } from './inventoryPage';
-import { getAllCategories, getCategory } from '../../services/inventory.functions'
+import { getAll, getAllCategories, getCategory } from '../../services/inventory.functions'
 import { getAllVendor } from '../../services/vendor.functions';
 
 function ListingProducts(edit: any): JSX.Element {
 
     const [products, setProducts] = React.useState<any>(null);
 
-    React.useEffect(() => {
-        fetch('/api/products')
-            .then(r => r.json())
-            .then(setProducts);
-    }, []);
+    getAll();
 
     if (products !== null) {  
         if (edit == false) {

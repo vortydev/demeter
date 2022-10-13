@@ -1,8 +1,12 @@
+import { useState } from "react";
+
+
 interface RecipeListProps {
   filter: Number | null;
 }
 
 function RecipeList({ filter }: RecipeListProps) {
+
   let filterSelected = "";
   switch (filter) {
     case null:
@@ -22,7 +26,22 @@ function RecipeList({ filter }: RecipeListProps) {
       break;
   }
 
-  return <div>Liste de {filterSelected} ici !</div>;
+  const recipeList = [
+    { id: 1, recipeName: "Pain aux bananes" },
+    { id: 2, recipeName: "Pain au chocolat" },
+    { id: 3, recipeName: "Croissant aux amandes" },
+  ];
+
+  return (
+    <div className="recipeList">
+      Liste de {filterSelected} ici !
+      {recipeList.map((recipe) => (
+        <span>
+          {recipe.recipeName} 
+        </span>
+      ))}
+    </div>
+  );
 }
 
 export { RecipeList };

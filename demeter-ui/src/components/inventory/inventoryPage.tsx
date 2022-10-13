@@ -18,6 +18,7 @@ function InventoryPage(): JSX.Element{
   
     function close(): void {
       setCreateNewProduct(false);
+      setUpdatedProducts(false);
     }
 
     return (

@@ -2,8 +2,9 @@
     background-color:#696969;
     height: 10vh;
     width: 100vw;
-    position: absolute;
-    bottom : 0;
+    position: fixed;
+    left: 0;
+    bottom: 0;
 }
 
 .App-footer div{
@@ -17,3 +18,5 @@
 .LVR{
     font-family: 'Spectral SC', serif;
 }
+
+

@@ -19,4 +19,4 @@ taskName: String;
 description : String;
 }
 
-export type { Account, News, Task }
+export type { Account, News, Task };

@@ -7,7 +7,7 @@ type CreateAccountResponse = {
     id: Number;
   };
 
-async function createAccount(accountName:string, password: string, role : Number){
+async function createAccount(accountName:string, password: string, role : Number) {
     try {
         // 👇️ const response: Response
         const response = await fetch('/accounts', {

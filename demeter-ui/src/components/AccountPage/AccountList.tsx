@@ -12,14 +12,12 @@ interface AccountListProps {
 function AccountList({ currentRole, setEditSuccess }: AccountListProps) {
   const listAccount: Account[] = getAccounts(currentRole);
   // make get account work
-  // map the list with the accountRow
 
   return (
     <div className="accountList">
-      <AccountRow
-        currentAccount={listAccount[0]}
-        setEditSuccess={setEditSuccess}
-      />
+      {listAccount.map((account) => (
+        <AccountRow currentAccount={account} setEditSuccess={setEditSuccess} />
+      ))}
     </div>
   );
 }
@@ -58,3 +56,4 @@ function AccountRow({ currentAccount, setEditSuccess }: AccountRowProps) {
 }
 
 export { AccountList };
+

@@ -30,8 +30,11 @@ async function updateAccount(data: Account, accName:String): Promise<boolean> {
 
 
 async function verifyLogin(accName: string, accPwd: string): Promise<boolean> {
+
+  // retourne le mot de passe encrypté de l'utilisateur en paramètre
   const fetchedPwd = await AccountService.verifyName(accName)
     .then((response: any) => {
+      // réponse de la base de données
       return response.data.accPassword;
     })
     .catch((e: Error) => {
@@ -39,7 +42,12 @@ async function verifyLogin(accName: string, accPwd: string): Promise<boolean> {
       return "";
     });
 
-  return await bcrypt.compare(accPwd, fetchedPwd);
+  // compare les deux mots de passe
+  if (fetchedPwd) {
+    return await bcrypt.compare(accPwd, fetchedPwd);
+  } else {
+    return false;
+  }
 }
 
 export { createAccount, updateAccount, verifyLogin };

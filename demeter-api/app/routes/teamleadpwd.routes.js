@@ -1,5 +1,5 @@
 module.exports = app => {
-  const teamleadpwds = require("../controllers/teamleadpwd.controller.js");
+  const teamleadpwds = require("../controllers/teamleadpwd.controller");
 
   var router = require("express").Router();
 

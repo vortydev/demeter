@@ -210,47 +210,14 @@ exports.findOneState = (req, res) => {
         });
 };
 
-const bcrypt = db.bcrypt;
-async function comparePwd(password, hashedPassword) {
-    return await bcrypt.compare(password, hashedPassword);
-}
-
-async function hashPwd(password) {
-    const salt = await bcrypt.genSalt(6);
-    const hashed = await bcrypt.hash(password, salt);
-    return hashed;
-}
-
-exports.verify = (req, res) => {
-    console.log("REQUETE IN VERIFY", req.body);
-    const accName = req.body.accName;
-    var condition = accName ? { accName: { [Op.like]: `%${accName}%` } } : null;
-
-    Account.findAll({ where: condition })
-        .then(async data => {
-            console.log(req.body.accPwd, data.accPassword);
-            const valid = await comparePwd(req.body.accPwd, data.accPassword);
-            if (valid) {
-                res.send(data);
-            } else {
-                res.status(404).send({
-                    message: `Cannot find Account with name=${accName}.`
-                });
-            }
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error retrieving Account with name=" + accName
-            });
-        });
-};
-
 exports.findByName = (req, res) => {
-    const user = req.query.user;
+    const user = req.params.user;
     var condition = user ? { accName: { [Op.like]: `%${user}%` } } : null;
 
+    // cherche l'utilisateur avec le nom en paramètre
     Account.findAll({ where: condition })
         .then(data => {
+            // retourne l'utilisateur
             res.send(data[0]);
         })
         .catch(err => {

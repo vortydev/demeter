@@ -7,7 +7,9 @@ import { CreateAccountForm } from "./CreateAccountForm";
 function AccountPage(): JSX.Element {
   const [createAccount, setCreateAccount] = useState<boolean>(false);
   const [createdSuccess, setSuccess] = useState<boolean>(false);
+  const [editedSuccess, setEditSuccess]= useState<boolean>(false);
   const [subPage, setSubPage] = useState<string>("admin");
+  
 
   function success(): void {
     setSuccess(true);
@@ -22,7 +24,8 @@ function AccountPage(): JSX.Element {
     <div>
       <AccountNav subPage={subPage} setSubPage={setSubPage} />
       {createdSuccess && (<Alert>Le compte à été créer avec succès!</Alert>)}
-      <AccountList currentRole={subPage} />
+      {editedSuccess && (<Alert>Le compte à été modifier avec succès!</Alert>)}
+      <AccountList currentRole={subPage} setEditSuccess={setEditSuccess} />
       <Button
         variant="secondary"
         onClick={() => {

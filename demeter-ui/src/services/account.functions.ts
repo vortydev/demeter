@@ -14,8 +14,8 @@ async function createAccount(data: Account): Promise<boolean> {
   return accountCreated;
 }
 
-async function updateAccount(data: Account, id:Number): Promise<boolean> {
-  const accountUpdated = AccountService.update(data, id)
+async function updateAccount(data: Account, accName:String): Promise<boolean> {
+  const accountUpdated = AccountService.update(data, accName)
     .then((response: any) => {
       return true;
     })

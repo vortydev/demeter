@@ -14,8 +14,8 @@ class AccountService {
     return http.post<Account>("/accounts", data);
   }
 
-  update(data: Account, id: Number) {
-    return http.put<any>(`/accounts/${id}`, data);
+  update(data: Account, user: String) {
+    return http.put<any>(`/accounts/${user}`, data);
   }
 
   delete(id: any) {

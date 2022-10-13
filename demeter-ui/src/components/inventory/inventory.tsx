@@ -1,4 +1,4 @@
-import { Row, Col, Form, Dropdown } from 'react-bootstrap';
+import { Row, Col, Form } from 'react-bootstrap';
 import React from 'react';
 import { InventoryUpdate } from './inventoryUpdate';
 import { InventoryPage } from './inventoryPage';
@@ -136,14 +136,14 @@ function GetCategory(): JSX.Element {
     //<CategoryDropDown category={categories}/>
     return(
         <React.Fragment>
-            <Dropdown.Item itemID={'1'}>waiting for it</Dropdown.Item>
+            <option value='1'>waiting for it</option>
         </React.Fragment>
     );
 }
 
 function CategoryDropDown(category:any):JSX.Element{
     return(
-        <Dropdown.Item itemID={category.id}>{category.name}</Dropdown.Item>
+        <option value={category.id}>{category.name}</option>
     );
 }
 

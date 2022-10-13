@@ -1,4 +1,4 @@
-import { Form, Button, Dropdown, DropdownButton, Modal } from 'react-bootstrap';
+import { Form, Button, Modal } from 'react-bootstrap';
 import { addProduct, GetCategory } from './inventory';
 
 interface CRFormProps {
@@ -17,18 +17,16 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                 <Form.Control type="text" />
             </Form.Group>
 
-            <Form.Group controlId="category">
-                <Form.Label>TYPE</Form.Label>
-                <DropdownButton title="Catégorie">
-                    <GetCategory/>
-                </DropdownButton>
-            </Form.Group>
+            <Form.Label>TYPE</Form.Label>
+            <Form.Select aria-label="categorie" id="category">
+                <GetCategory/>
+            </Form.Select>
 
             <Form.Group controlId="vendor">
                 <Form.Label>FOURNISSEUR</Form.Label>
-                <DropdownButton title="hmmm">
-                    <Dropdown.Item eventKey="1">insert vendor here</Dropdown.Item>
-                </DropdownButton>
+                <Form.Select aria-label="vendor" id="vendor">
+                    <option value="1">insert vendor here</option>
+                </Form.Select>
                 <Button> Nouveau Fournisseur </Button>
             </Form.Group>
 

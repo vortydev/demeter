@@ -1,13 +1,11 @@
 import { useState } from "react";
-import { Recipe } from "../../types/Types";
-import { SingleRecipe } from "./SingleRecipe";
+
 
 interface RecipeListProps {
   filter: Number | null;
 }
 
 function RecipeList({ filter }: RecipeListProps) {
-const [clickedRecipe, setRecipe] = useState<Recipe | null>(null);
 
   let filterSelected = "";
   switch (filter) {
@@ -38,11 +36,10 @@ const [clickedRecipe, setRecipe] = useState<Recipe | null>(null);
     <div className="recipeList">
       Liste de {filterSelected} ici !
       {recipeList.map((recipe) => (
-        <span onClick={()=>setRecipe(recipe)}>
+        <span>
           {recipe.recipeName} 
         </span>
       ))}
-      <SingleRecipe recipe={clickedRecipe} setRecipe={setRecipe} />
     </div>
   );
 }

@@ -1,8 +1,9 @@
 type Account = {
-    name: string;
-    role: string;
-    password: string;
-    id: Number;
+    // id: Number;
+    accName: string;
+    accPassword: string;
+    roleId: Number;
+    stateId: Number;
 }
 
 type News ={
@@ -19,14 +20,4 @@ taskName: String;
 description : String;
 }
 
-type Recipe = {
-    id : Number;
-    recipeName : String;
-
-}
-
-type Ingredient ={
-    id:Number;
-    ingName: String;    
-}
-export type {Account, News, Task, Recipe}
+export type { Account, News, Task };

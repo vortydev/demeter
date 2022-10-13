@@ -17,10 +17,11 @@ function AccountPage(): JSX.Element {
   function close(): void {
     setCreateAccount(false);
   }
+
   return (
     <div>
       <AccountNav subPage={subPage} setSubPage={setSubPage} />
-      {createdSuccess && <Alert>Le compte à été créer avec succès!</Alert>}
+      {createdSuccess && (<Alert>Le compte à été créer avec succès!</Alert>)}
       <AccountList currentRole={subPage} />
       <Button
         variant="secondary"

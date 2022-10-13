@@ -1,6 +1,5 @@
 import { Account } from "../types/Types";
 
-
 type CreateAccountResponse = {
     name: string;
     role: string;
@@ -8,7 +7,7 @@ type CreateAccountResponse = {
     id: Number;
   };
 
-async function createAccount(accountName:string, password: string, role : Number){
+async function createAccount(accountName:string, password: string, role : Number) {
     try {
         // 👇️ const response: Response
         const response = await fetch('/accounts', {
@@ -53,23 +52,11 @@ function getAccounts(role: string) : Account[]{
 const getmethis = role;
     const accountList: Account[] = [
         {
-            name:'admin1',
-            role: 'admin',
-            password: '134',
-            id: 4
-        },
-        {
-          name:'SUCC1',
-          role: 'admin',
-          password: '134',
-          id: 5
-      },
-      {
-        name:'ba1',
-        role: 'admin',
-        password: '134',
-        id: 7
-    }
+            accName:'admin1',
+            accPassword: '134',
+            roleId: 1,
+            stateId: 2
+        }
     ];
     return accountList;
 }

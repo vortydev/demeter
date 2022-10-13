@@ -27,10 +27,8 @@ interface AccountRowProps {
 function AccountRow({ currentAccount }: AccountRowProps) {
   return (
     <div className="accountInfo">
-      <span>{currentAccount.name}</span> <Button>Edit</Button>{" "}
-      <Button>Delete</Button>
-    </div>
-  );
+      <span>{currentAccount.accName}</span> <Button>Edit</Button> <Button>Delete</Button>
+    </div>)
 }
 
 export { AccountList };

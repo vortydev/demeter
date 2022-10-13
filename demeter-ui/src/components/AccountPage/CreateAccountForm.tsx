@@ -1,37 +1,48 @@
 import { useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
-import { createAccount } from "../../services/AccountEndpoint";
+import { createAccount } from "../../services/account.functions";
+import { Account } from "../../types/Types";
+import bcrypt from "bcryptjs";
 
 interface CAFormProps {
-  show : boolean;
+  show: boolean;
   close: () => void;
-  success: ()=> void;
+  success: () => void;
 }
 
 function CreateAccountForm({ show, close, success }: CAFormProps) {
   const [validPassword, setValidPassword] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
-  const accountName = document.getElementById("account") as HTMLInputElement;
-  const pw = document.getElementById("password") as HTMLInputElement;
-  const pwc = document.getElementById("passwordConfirm") as HTMLInputElement;
-  const role = document.getElementById(
-    "role"
-  ) as HTMLInputElement;
 
-  async function handleSubmit(): Promise<void>{
+
+  async function handleSubmit(): Promise<void> {
+    const accountName = document.getElementById("account") as HTMLInputElement;
+    const pw = document.getElementById("password") as HTMLInputElement;
+    const pwc = document.getElementById("passwordConfirm") as HTMLInputElement;
+    const role = document.getElementById("role") as HTMLInputElement;
+
     setValidPassword(true);
     setError(false);
 
-    if (pw.value !== pwc.value) {
+    // TODO check the username is already taken
+
+    if (pw.value !== pwc.value && pw.value !== null) {
       // add regex at some point ?
       setValidPassword(false);
-    } else {
-      if(await createAccount(accountName.value, pw.value, parseInt(role.value))){
+    } 
+    else {
+      const newAccount: Account = {
+        accName: accountName.value,
+        accPassword: await bcrypt.hash(pw.value, 10),
+        roleId: parseInt(role.value),
+        stateId: 2
+      };
+
+      if (await createAccount(newAccount)) {
         success();
-      }else {
+      } else {
         setError(true);
       }
-     
     }
   }
 
@@ -51,7 +62,7 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
         {error && (
           <Alert variant="danger">
             {" "}
-            Une erreure est survenue. Le compte n'a pas été créer.
+            Une erreur est survenue. Le compte n'a pas été créé.
           </Alert>
         )}
         <Form.Group className="mb-3" controlId="password">
@@ -64,10 +75,9 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
         </Form.Group>
         <Form.Select aria-label="role" id="role">
           <option>Choisir le rôle</option>
-          <option value="0">Gestion</option>
-          <option value="1">Succursale</option>
-          <option value="2">Livreur</option>
-          <option value="3">Autre</option>
+          <option value="1">Administrateur</option>
+          <option value="2">Employé</option>
+          <option value="3">Livreur</option>
         </Form.Select>
         <Button onClick={handleSubmit}>AJOUTER</Button>{" "}
         <Button onClick={close}>ANNULER</Button>

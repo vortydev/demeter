@@ -4,13 +4,24 @@ import { Category } from "../types/Types";
 function getCategory(id: string) {
    InventoryService.getCategory(id)
    .then((response: any)=>{
-    console.log(response.data);
+        console.log(response.data);
    })
    .catch((e: Error) => {
         console.log(e);
     });
 }
 
+function getAllCategories() {
+    InventoryService.getAllCategories()
+    .then((response: any)=>{
+        console.log(response.data);
+    })
+    .catch((e: Error) => {
+        console.log(e);
+    });
+}
+
 export {
     getCategory,
+    getAllCategories,
 };

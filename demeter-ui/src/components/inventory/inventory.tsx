@@ -2,7 +2,7 @@ import { Row, Col, Form, Dropdown } from 'react-bootstrap';
 import React from 'react';
 import { InventoryUpdate } from './inventoryUpdate';
 import { InventoryPage } from './inventoryPage';
-import { getCategory } from '../../services/inventory.functions'
+import { getAllCategories, getCategory } from '../../services/inventory.functions'
 
 function ListingProducts(edit: any): JSX.Element {
 
@@ -129,11 +129,14 @@ function GetCategory(): JSX.Element {
     //        .then(setCategories);
     //}, []);
 
-    getCategory('1');
+    //getCategory('1');
 
+    getAllCategories();
+
+    //<CategoryDropDown category={categories}/>
     return(
         <React.Fragment>
-            <CategoryDropDown category={categories}/>
+            <Dropdown.Item itemID={'1'}>waiting for it</Dropdown.Item>
         </React.Fragment>
     );
 }

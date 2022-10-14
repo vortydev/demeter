@@ -24,7 +24,8 @@ const [selectedIng, setSelectedIng] = useState<Product|null>(null);
       function addToRecipeList(){
         const ingredient = document.getElementById("ingredient") as HTMLInputElement; // this return the id not the whole thing, make a fin on list 
         const quantity = document.getElementById("quantity") as HTMLInputElement;
-        const mesurement = document.getElementById("mesurement") as HTMLInputElement;
+
+        console.log(ingredient, quantity);
 
       }
 

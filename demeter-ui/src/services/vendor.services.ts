@@ -5,6 +5,10 @@ class VendorService {
     getAll() {
         return http.get<Array<Vendor>>("/vendors");
     }
+    
+    create(data: Vendor){
+        return http.post<Vendor>("/vendors", data);
+    }
 }
 
 export default new VendorService();

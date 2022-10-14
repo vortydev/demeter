@@ -11,6 +11,19 @@ function getAllVendor(){
     });
 }
 
+async function createVendor(data: Vendor): Promise<boolean>{
+    const vendorCreated = VendorService.create(data)
+    .then((vendor) => {
+        return true;
+    })
+    .catch((e: Error) => {
+        console.log(e);
+        return false;
+    });
+    return vendorCreated;
+}
+
 export {
     getAllVendor,
+    createVendor,
 };

@@ -1,13 +1,29 @@
+import { useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { addProduct, GetCategory, GetVendors } from './inventory';
+import { VendorForm } from './inventoryAddVendorForm';
 
 interface CRFormProps {
     show : boolean;
       close: () => void;
-      success: ()=> void;
+      success: () => void;
     }
 
 function InventoryForm({ show, close, success }: CRFormProps) {
+
+    const [createNewVendor, setCreateNewVendor] = useState<boolean>(false);
+    const [createdSuccess, setSuccess] = useState<boolean>(false);
+
+    function successVendor(): void {
+        setSuccess(true);
+        close();
+      }
+    
+      function closeVendor(): void {
+        //setCreateNewProduct(false);
+        //setUpdatedProducts(false);
+        setCreateNewVendor(false);
+      }
 
     return (
         <Modal show={show} onHide={close}>
@@ -27,7 +43,10 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                 <Form.Select aria-label="vendor" id="vendor">
                     <GetVendors/>
                 </Form.Select>
-                <Button> Nouveau Fournisseur </Button>
+                <Button variant="dark" onClick={() => {
+                    setCreateNewVendor(true);
+                    setSuccess(false);
+                }}> Nouveau Fournisseur </Button>
             </Form.Group>
 
             <Form.Group controlId="qty_unit">
@@ -57,6 +76,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
 
             <Button variant="dark" type="submit">ENVOYER</Button>
         </Form>
+        <VendorForm show={createNewVendor} close={closeVendor} success={successVendor}/>
         </Modal>
     );
 }

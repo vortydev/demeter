@@ -3,6 +3,8 @@ import React from 'react';
 import { InventoryPage } from './inventoryPage';
 import { getAll, getAllCategories, getCategory } from '../../services/inventory.functions'
 import { getAllVendor } from '../../services/vendor.functions';
+import { Vendor } from '../../types/Types';
+import { setDefaultResultOrder } from 'dns';
 
 function ListingProducts(edit: any): JSX.Element {
 

@@ -35,7 +35,7 @@ type Category = {
 }
 
 type Vendor = {
-    id: Number;
+    //id: Number;
     vendorName: String;
     phone: String;
     email: String;

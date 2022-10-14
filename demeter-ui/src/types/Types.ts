@@ -30,13 +30,13 @@ type Product = {
 }
 
 type Category = {
-    id: Number;
-    catName: String;
+    id: number;
+    category: String;
 }
 
 type Vendor = {
     id: number;
-    name: String;
+    vendor: String;
     phone: String;
     email: String;
     address: String;

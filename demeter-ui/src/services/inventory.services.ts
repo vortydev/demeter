@@ -14,11 +14,11 @@ class InventoryService {
 
 
     getAllCategories(){
-        return http.get<Array<Category>>("/products/category");
+        return http.get<Array<Category>>("/categories/products");
     }
 
     getCategory(id: string) {
-        return http.get<Category>(`/products/category/${id}`);
+        return http.get<Category>(`/categories/products/${id}`);
     }
 
 }

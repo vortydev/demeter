@@ -22,13 +22,16 @@ function getCategory(id: string) {
 }
 
 function getAllCategories() {
-    InventoryService.getAllCategories()
-    .then((response: any)=>{
-        console.log(response.data);
+    const categories = InventoryService.getAllCategories()
+    .then((response)=>{
+        return response.data;
     })
     .catch((e: Error) => {
         console.log(e);
+        return [];
     });
+
+    return categories;
 }
 
 export {

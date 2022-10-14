@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { InventoryPage } from './inventoryPage';
 import { getAll, getAllCategories, getCategory } from '../../services/inventory.functions'
 import { getAllVendor } from '../../services/vendor.functions';
-import { Vendor } from '../../types/Types';
+import { Category, Vendor } from '../../types/Types';
 import { setDefaultResultOrder } from 'dns';
 
 function ListingProducts(edit: any): JSX.Element {
@@ -119,22 +119,20 @@ function editProducts(e: React.SyntheticEvent){
 }
 
 function GetCategory(): JSX.Element {
-    const [categories, setCategories] = React.useState<any>(null);
+    const [categories, setCategories] = useState<Category[]>([]);
 
-    //React.useEffect(() => {
-    //    fetch('/api/products/category/1')
-    //        //.then(r => r.json())
-    //        .then(setCategories);
-    //}, []);
-
-    //getCategory('1');
-
-    getAllCategories();
-
-    //<CategoryDropDown category={categories}/>
+    useEffect(()=>{
+        async function getList() {
+            setCategories(await getAllCategories());
+        }
+        getList();
+    });
+    
     return(
         <React.Fragment>
-            <option value='1'>waiting for it</option>
+            {categories.map((category) => (
+                <CategoryDropDown category={category}/>
+            ))}
         </React.Fragment>
     );
 }
@@ -158,9 +156,13 @@ function GetVendors():JSX.Element {
     );
 }
 
-function CategoryDropDown(category:any):JSX.Element{
+interface CategorySelect {
+    category: Category;
+}
+
+function CategoryDropDown({category}:CategorySelect):JSX.Element{
     return(
-        <option value={category.id}>{category.name}</option>
+        <option value={category.id}>{category.category}</option>
     );
 }
 
@@ -170,7 +172,7 @@ interface VendorSelect {
 
 function VendorDropDown({vendor}:VendorSelect):JSX.Element{
     return(
-        <option value={vendor.id}>{vendor.name}</option>
+        <option value={vendor.id}>{vendor.vendor}</option>
     );
 }
 

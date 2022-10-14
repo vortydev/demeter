@@ -1,9 +1,9 @@
 import { Row, Col, Form } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
 import { InventoryPage } from './inventoryPage';
-import { getAll, getAllCategories, getCategory } from '../../services/inventory.functions'
+import { getAll, getAllCategories, getAllMesurements, getCategory } from '../../services/inventory.functions'
 import { getAllVendor } from '../../services/vendor.functions';
-import { Category, Product, Vendor } from '../../types/Types';
+import { Category, Mesurement, Product, Vendor } from '../../types/Types';
 import { setDefaultResultOrder } from 'dns';
 
 function ListingProducts(edit: any): JSX.Element {
@@ -185,33 +185,33 @@ function VendorDropDown({vendor}:VendorSelect):JSX.Element{
     );
 }
 
-function addProduct(e: React.SyntheticEvent){
-    e.preventDefault();
+function GetMesurements():JSX.Element {
+    const [ mesurements, setMesurements ] = useState<Mesurement[]>([]);
 
-    const name = document.getElementById("name") as HTMLInputElement;
-    const category = document.getElementById("category") as HTMLInputElement;
-    const vendor = document.getElementById("vendor") as HTMLInputElement;
-    const qtyUnit = document.getElementById("qty_unit") as HTMLInputElement;
-    const mesurement = document.getElementById("mesurement") as HTMLInputElement;
-    const format = document.getElementById("format") as HTMLInputElement;
-    const price = document.getElementById("price") as HTMLInputElement;
-    const qtyInv = document.getElementById("qty_inv") as HTMLInputElement;
-
-    fetch('/products',{
-        method: 'POST',
-        body: JSON.stringify({
-            name: name.value, 
-            category: category.value, 
-            vendor: vendor.value, 
-            qtyUnit: qtyUnit.value,
-            mesurement: mesurement.value,
-            format: format.value,
-            price: price.value,
-            qtyInv: qtyInv.value
-        }),
-        headers: { 'Content-Type': 'application/json' },
+    useEffect(() => {
+        async function getList() {
+            setMesurements(await getAllMesurements());
+        }
+        getList();
     });
-    
+
+    return(
+        <React.Fragment>
+            {mesurements.map((mesurement) => (
+                <MesurementDropDown mesurement={mesurement}/>
+            ))}
+        </React.Fragment>
+    );
 }
 
-export {ListingProducts, ProductsDisplay, ProductsDisplayEdit, editProducts, addProduct, GetCategory, CategoryDropDown, GetVendors, VendorDropDown};
+interface MesurementSelect {
+    mesurement: Mesurement;
+}
+
+function MesurementDropDown({mesurement}:MesurementSelect):JSX.Element{
+    return(
+        <option value={mesurement.id}>{mesurement.mesurement}</option>
+    );
+}
+
+export {ListingProducts, ProductsDisplay, ProductsDisplayEdit, editProducts, GetCategory, CategoryDropDown, GetVendors, VendorDropDown, GetMesurements};

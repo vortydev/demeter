@@ -23,13 +23,13 @@ description : String;
 type Product = {
     id: number;
     name: String;
-    category: string;
-    vendor: string;
+    categoryproductId: string;
+    vendorId: string;
     price: string;
     qtyInv: string;
     qtyUnit: string;
     format: String;
-    mesurement: string;
+    mesurementId: string;
 }
 
 type Category = {
@@ -45,4 +45,10 @@ type Vendor = {
     address: String;
 }
 
-export type { Account, News, Task, Product, Category, Vendor }
+type Mesurement = {
+    id: number;
+    mesurement: string;
+    weight: number;
+}
+
+export type { Account, News, Task, Product, Category, Vendor, Mesurement }

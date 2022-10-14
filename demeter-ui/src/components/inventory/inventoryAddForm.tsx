@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
 import { Product } from '../../types/Types';
-import { GetCategory, GetVendors } from './inventory';
+import { GetCategory, GetMesurements, GetVendors } from './inventory';
 import { VendorForm } from './inventoryAddVendorForm';
 import { createProduct } from '../../services/inventory.functions';
 
@@ -33,14 +33,16 @@ function InventoryForm({ show, close, success }: CRFormProps) {
         const newProduct: Product = {
             id: 1,
             name: name.value, 
-            category: category.value, 
-            vendor: vendor.value, 
+            categoryproductId: category.value, 
+            vendorId: vendor.value, 
             qtyUnit: qtyUnit.value,
-            mesurement: mesurement.value,
+            mesurementId: mesurement.value,
             format: format.value,
             price: price.value,
             qtyInv: qtyInv.value
         };
+
+        console.log(newProduct);
 
         if (await createProduct(newProduct)){
             success();
@@ -61,7 +63,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
 
     return (
         <Modal show={show} onHide={close}>
-        <Form onSubmit={addProduct}>
+        <Form>
             <Form.Group controlId="name">
                 <Form.Label>NOM</Form.Label>
                 <Form.Control type="text" />
@@ -90,7 +92,9 @@ function InventoryForm({ show, close, success }: CRFormProps) {
 
             <Form.Group controlId="mesurement">
                 <Form.Label>MESURE</Form.Label>
-                <Form.Control type="text"/>
+                <Form.Select aria-label="mesurement" id="mesurement">
+                    <GetMesurements/>
+                </Form.Select>
             </Form.Group>
 
             <Form.Group controlId="format">
@@ -99,7 +103,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
             </Form.Group>
 
             <Form.Group controlId="price">
-                <Form.Label>PRIX</Form.Label>
+                <Form.Label>PRIX (Mettre un point pour la décimale)</Form.Label>
                 <Form.Control type="text"/>
             </Form.Group>
 
@@ -108,7 +112,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                 <Form.Control type="text"/>
             </Form.Group>
 
-            <Button variant="dark" type="submit">ENVOYER</Button>
+            <Button variant="dark" onClick={addProduct}>ENVOYER</Button>
         </Form>
         <VendorForm show={createNewVendor} close={closeVendor} success={successVendor}/>
         </Modal>

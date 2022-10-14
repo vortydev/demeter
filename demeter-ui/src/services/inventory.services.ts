@@ -1,5 +1,5 @@
 import http from "../http-common";
-import { Product, Category } from "../types/Types";
+import { Product, Category, Mesurement } from "../types/Types";
 
 class InventoryService {
 
@@ -21,6 +21,10 @@ class InventoryService {
 
     getCategory(id: string) {
         return http.get<Category>(`/categories/products/${id}`);
+    }
+
+    getAllMesurements(){
+        return http.get<Array<Mesurement>>("/categories/mesurements");
     }
 
 }

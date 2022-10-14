@@ -50,9 +50,23 @@ function getAllCategories() {
     return categories;
 }
 
+function getAllMesurements() {
+    const mesurements = InventoryService.getAllMesurements()
+    .then((response)=>{
+        return response.data;
+    })
+    .catch((e: Error) => {
+        console.log(e);
+        return [];
+    });
+
+    return mesurements;
+}
+
 export {
     getAll,
     createProduct,
     getCategory,
     getAllCategories,
+    getAllMesurements,
 };

@@ -132,7 +132,7 @@ exports.deleteAll = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some error occurred while removing all vendors."
+            message: err.message || "Some error occurred while removing all tasks."
         });
     });
 };
@@ -147,13 +147,13 @@ exports.findOneCategoryTask = (req, res) => {
             res.send(data);
         } else {
             res.status(404).send({
-                message: `Cannot find CategoryTask with id=${id}.`
+                message: `Cannot find task category with id=${id}.`
             });
         }
     })
     .catch(err => {
         res.status(500).send({
-            message: "Error retrieving CategoryTask with id=" + id
+            message: "Error retrieving task category with id=" + id
         });
     });
 };
@@ -168,7 +168,7 @@ exports.findAllCategoryTask = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some error occurred while retrieving Mesurement."
+            message: err.message || "Some error occurred while retrieving task categories."
         });
     });
 };

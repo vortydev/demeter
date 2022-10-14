@@ -41,7 +41,7 @@ db.sequelize.sync()                 // {force: true} drops the db
       { id: "1", category: "Périssable" },
       { id: "2", category: "Non-périssable" }
     ], { ignoreDuplicates: true })
-      .then(() => console.log("Category products inserted."));
+      .then(() => console.log("Product categories inserted."));
 
     // insert mesurements
     db.mesurements.bulkCreate([
@@ -59,9 +59,16 @@ db.sequelize.sync()                 // {force: true} drops the db
       { id: "3", category: "Mensuelle", occurence: "30" },
       { id: "4", category: "Autre", occurence: "0" },
     ], { ignoreDuplicates: true })
-      .then(() => console.log("Category tasks inserted."));
+      .then(() => console.log("Task categories inserted."));
 
     // insert category recipe
+    db.categoryrecipes.bulkCreate([
+      { id: "1", category: "Boulangerie" },
+      { id: "2", category: "Pâtisserie" },
+      { id: "3", category: "Viennoiserie" },
+      { id: "4", category: "Cuisine" },
+    ], { ignoreDuplicates: true })
+      .then(() => console.log("Recipe categories inserted."));
 
     // insert dev user
     db.accounts.bulkCreate([
@@ -89,6 +96,8 @@ require("./app/routes/account.routes")(app);      // utilisateurs
 require("./app/routes/announcement.routes")(app); // annonces
 require("./app/routes/categories.routes")(app);   // catégories et autres tables de "typage"
 require("./app/routes/product.routes")(app);      // produits
+require("./app/routes/recipe.routes")(app);       // recettes
+require("./app/routes/rel_productrecipe.routes")(app);
 require("./app/routes/task.routes")(app);         // tâches
 require("./app/routes/teamleadpwd.routes")(app);  // mdp de chefs
 require("./app/routes/vendor.routes")(app);       // fournisseurs

@@ -22,7 +22,8 @@ function VendorForm({ show, close, success }: CRFormProps) {
         setError(false);
 
         const newVendor: Vendor = {
-            vendorName: vendorName.value,
+            id: 1,
+            name: vendorName.value,
             phone: phone.value,
             email: email.value,
             address: address.value

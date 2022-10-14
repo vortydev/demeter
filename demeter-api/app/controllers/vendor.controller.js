@@ -14,7 +14,7 @@ exports.create = (req, res) => {
 
     // Create a Vendor
     const vendor = {
-        name: req.body.vendorName,
+        name: req.body.name,
         phone: req.body.phone,
         email: req.body.email,
         address: req.body.address

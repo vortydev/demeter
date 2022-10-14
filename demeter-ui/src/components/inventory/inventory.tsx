@@ -1,5 +1,5 @@
 import { Row, Col, Form } from 'react-bootstrap';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { InventoryPage } from './inventoryPage';
 import { getAll, getAllCategories, getCategory } from '../../services/inventory.functions'
 import { getAllVendor } from '../../services/vendor.functions';
@@ -140,18 +140,23 @@ function GetCategory(): JSX.Element {
 }
 
 function GetVendors():JSX.Element {
-    const vendors = getAllVendor();
-    console.log(vendors);
+    const [ vendors, setVendors ] = useState<Vendor[]>([]);
+
+    useEffect(()=>{
+        async function getList() {
+            setVendors(await getAllVendor());
+        }
+        getList();
+    });
+
     return(
         <React.Fragment>
-            <VendorDropDown vendor={vendors[0]}/>
+            {vendors.map((vendor) => (
+                <VendorDropDown vendor={vendor}/>
+            ))}
         </React.Fragment>
     );
 }
-
-//{vendors.map((vendor: any) => (
-//    <VendorDropDown vendor={vendor}/>
-//))}
 
 function CategoryDropDown(category:any):JSX.Element{
     return(
@@ -159,7 +164,11 @@ function CategoryDropDown(category:any):JSX.Element{
     );
 }
 
-function VendorDropDown(vendor: any):JSX.Element{
+interface VendorSelect {
+    vendor: Vendor;
+}
+
+function VendorDropDown({vendor}:VendorSelect):JSX.Element{
     return(
         <option value={vendor.id}>{vendor.name}</option>
     );

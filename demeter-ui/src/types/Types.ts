@@ -19,4 +19,26 @@ taskName: String;
 description : String;
 }
 
-export type { Account, News, Task };
+type Product = {
+    id: Number;
+    prodName: String;
+    price: Number;
+    qtyInv: Number;
+    qtyUnit: Number;
+    format: String;
+}
+
+type Category = {
+    id: Number;
+    catName: String;
+}
+
+type Vendor = {
+    //id: Number;
+    vendorName: String;
+    phone: String;
+    email: String;
+    address: String;
+}
+
+export type { Account, News, Task, Product, Category, Vendor }

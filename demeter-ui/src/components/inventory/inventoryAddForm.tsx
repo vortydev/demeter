@@ -1,29 +1,52 @@
-import { Form, Button, Dropdown, DropdownButton } from 'react-bootstrap';
-import { addProduct } from './inventory';
+import { useState } from 'react';
+import { Form, Button, Modal } from 'react-bootstrap';
+import { addProduct, GetCategory, GetVendors } from './inventory';
+import { VendorForm } from './inventoryAddVendorForm';
 
-function InventoryForm(): JSX.Element {
+interface CRFormProps {
+    show : boolean;
+      close: () => void;
+      success: () => void;
+    }
+
+function InventoryForm({ show, close, success }: CRFormProps) {
+
+    const [createNewVendor, setCreateNewVendor] = useState<boolean>(false);
+    const [createdSuccess, setSuccess] = useState<boolean>(false);
+
+    function successVendor(): void {
+        setSuccess(true);
+        close();
+      }
+    
+      function closeVendor(): void {
+        //setCreateNewProduct(false);
+        //setUpdatedProducts(false);
+        setCreateNewVendor(false);
+      }
 
     return (
+        <Modal show={show} onHide={close}>
         <Form onSubmit={addProduct}>
             <Form.Group controlId="name">
                 <Form.Label>NOM</Form.Label>
                 <Form.Control type="text" />
             </Form.Group>
 
-            <Form.Group controlId="category">
-                <Form.Label>TYPE</Form.Label>
-                <DropdownButton title="hmmm">
-                    <Dropdown.Item eventKey="1">insert category here</Dropdown.Item>
-                </DropdownButton>
-                <Button>NewType</Button>
-            </Form.Group>
+            <Form.Label>TYPE</Form.Label>
+            <Form.Select aria-label="categorie" id="category">
+                <GetCategory/>
+            </Form.Select>
 
             <Form.Group controlId="vendor">
                 <Form.Label>FOURNISSEUR</Form.Label>
-                <DropdownButton title="hmmm">
-                    <Dropdown.Item eventKey="1">insert vendor here</Dropdown.Item>
-                </DropdownButton>
-                <Button> NewVendor </Button>
+                <Form.Select aria-label="vendor" id="vendor">
+                    <GetVendors/>
+                </Form.Select>
+                <Button variant="dark" onClick={() => {
+                    setCreateNewVendor(true);
+                    setSuccess(false);
+                }}> Nouveau Fournisseur </Button>
             </Form.Group>
 
             <Form.Group controlId="qty_unit">
@@ -53,6 +76,8 @@ function InventoryForm(): JSX.Element {
 
             <Button variant="dark" type="submit">ENVOYER</Button>
         </Form>
+        <VendorForm show={createNewVendor} close={closeVendor} success={successVendor}/>
+        </Modal>
     );
 }
 

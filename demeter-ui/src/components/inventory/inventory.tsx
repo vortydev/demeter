@@ -1,18 +1,16 @@
 import { Row, Col, Form } from 'react-bootstrap';
 import React from 'react';
-import { InventoryForm } from './inventoryAddForm';
-import { InventoryUpdate } from './inventoryUpdate';
 import { InventoryPage } from './inventoryPage';
+import { getAll, getAllCategories, getCategory } from '../../services/inventory.functions'
+import { getAllVendor } from '../../services/vendor.functions';
+import { Vendor } from '../../types/Types';
+import { setDefaultResultOrder } from 'dns';
 
 function ListingProducts(edit: any): JSX.Element {
 
     const [products, setProducts] = React.useState<any>(null);
 
-    React.useEffect(() => {
-        fetch('/products')
-            .then(r => r.json())
-            .then(setProducts);
-    }, []);
+    getAll();
 
     if (products !== null) {  
         if (edit == false) {
@@ -82,20 +80,6 @@ function ProductsDisplayEdit (product:any): JSX.Element {
     );
 }
 
-function openProductForm(): JSX.Element{
-    window.location.reload();
-    return(
-        <InventoryForm/>
-    );
-}
-
-function updateInventory(): JSX.Element{
-    window.location.reload();
-    return(
-        <InventoryUpdate/>
-    );
-}
-
 function editProducts(e: React.SyntheticEvent){
     e.preventDefault();
 
@@ -128,11 +112,51 @@ function editProducts(e: React.SyntheticEvent){
             });
         }
     });
-
-    window.location.reload();
     
     return(
         <InventoryPage/>
+    );
+}
+
+function GetCategory(): JSX.Element {
+    const [categories, setCategories] = React.useState<any>(null);
+
+    //React.useEffect(() => {
+    //    fetch('/api/products/category/1')
+    //        //.then(r => r.json())
+    //        .then(setCategories);
+    //}, []);
+
+    //getCategory('1');
+
+    getAllCategories();
+
+    //<CategoryDropDown category={categories}/>
+    return(
+        <React.Fragment>
+            <option value='1'>waiting for it</option>
+        </React.Fragment>
+    );
+}
+
+function GetVendors():JSX.Element {
+    getAllVendor();
+    return(
+        <React.Fragment>
+            <option value='1'>waiting for it</option>
+        </React.Fragment>
+    );
+}
+
+function CategoryDropDown(category:any):JSX.Element{
+    return(
+        <option value={category.id}>{category.name}</option>
+    );
+}
+
+function vendorDropDown(vendor:any):JSX.Element{
+    return(
+        <option value={vendor.id}>{vendor.name}</option>
     );
 }
 
@@ -162,12 +186,10 @@ function addProduct(e: React.SyntheticEvent): JSX.Element{
         }),
         headers: { 'Content-Type': 'application/json' },
     });
-
-    window.location.reload();
     
     return(
         <InventoryPage/>
     );
 }
 
-export {ListingProducts, ProductsDisplay, ProductsDisplayEdit, openProductForm, updateInventory, editProducts, addProduct};
+export {ListingProducts, ProductsDisplay, ProductsDisplayEdit, editProducts, addProduct, GetCategory, CategoryDropDown, GetVendors, vendorDropDown};

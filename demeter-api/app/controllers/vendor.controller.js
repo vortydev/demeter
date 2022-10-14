@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Vendor
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.name) {
+    if (!req.body.vendorName) {
         res.status(400).send({ 
             message: "Content can not be empty!" 
         });
@@ -14,7 +14,7 @@ exports.create = (req, res) => {
 
     // Create a Vendor
     const vendor = {
-        name: req.body.name,
+        name: req.body.vendorName,
         phone: req.body.phone,
         email: req.body.email,
         address: req.body.address
@@ -34,7 +34,7 @@ exports.create = (req, res) => {
 
 // Retrieve all Vendors from the database.
 exports.findAll = (req, res) => {
-    const name = req.query.name;
+    const name = req.query.vendorName;
     var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
   
     Vendor.findAll({ where: condition })

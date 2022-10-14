@@ -32,15 +32,34 @@ type RawRecipe ={
     nbProductCreated: number;
 }
 
-type Ingredient={
-id: number;
-ingName: string;
-
-}
-
 type IngForRecipe ={
-    ingredient: Ingredient;
+    ingredient: Product;
     quantity : number;
 }
 
-export type { Account, News, Task, Recipe, RawRecipe, Ingredient, IngForRecipe };
+
+type Product = {
+    id: Number;
+    prodName: String;
+    price: Number;
+    qtyInv: Number;
+    qtyUnit: Number;
+    format: String;
+}
+
+type Category = {
+    id: Number;
+    catName: String;
+}
+
+type Vendor = {
+    //id: Number;
+    vendorName: String;
+    phone: String;
+    email: String;
+    address: String;
+}
+
+export type { Account, News, Task, Product, Category, Vendor, Recipe, RawRecipe, IngForRecipe  }
+
+

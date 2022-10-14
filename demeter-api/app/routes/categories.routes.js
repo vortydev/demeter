@@ -1,6 +1,8 @@
 module.exports = app => {
     const accounts = require("../controllers/account.controller");
     const products = require("../controllers/product.controller");
+    const recipes = require("../controllers/recipe.controller");
+    const tasks = require ("../controllers/task.controller");
 
     var router = require("express").Router();
 
@@ -19,6 +21,14 @@ module.exports = app => {
     // mesurements
     router.get("/mesurements", products.findAllMesurements);
     router.get("/mesurements/:id", products.findOneMesurement);
+
+    // category task
+    router.get("/tasks", tasks.findAllCategoryTask);
+    router.get("/tasks/:id", tasks.findOneCategoryTask);
+
+    // category recipe
+    router.get("/recipes", recipes.findAllCategoryRecipe);
+    router.get("/recipes/:id", recipes.findOneCategoryRecipe);
 
     app.use('/api/categories', router); // la racine des routes
 }

@@ -41,7 +41,7 @@ db.sequelize.sync()                 // {force: true} drops the db
       { id: "1", category: "Périssable" },
       { id: "2", category: "Non-périssable" }
     ], { ignoreDuplicates: true })
-      .then(() => console.log("Category products inserted."));
+      .then(() => console.log("Product categories inserted."));
 
     // insert mesurements
     db.mesurements.bulkCreate([
@@ -52,14 +52,35 @@ db.sequelize.sync()                 // {force: true} drops the db
     ], { ignoreDuplicates: true })
       .then(() => console.log("Mesurements inserted."));
 
+    // insert category task
+    db.categorytasks.bulkCreate([
+      { id: "1", category: "Quotidienne", occurence: "1" },
+      { id: "2", category: "Hebdomadaire", occurence: "7" },
+      { id: "3", category: "Mensuelle", occurence: "30" },
+      { id: "4", category: "Autre", occurence: "0" },
+    ], { ignoreDuplicates: true })
+      .then(() => console.log("Task categories inserted."));
+
+    // insert category recipe
+    db.categoryrecipes.bulkCreate([
+      { id: "1", category: "Boulangerie" },
+      { id: "2", category: "Pâtisserie" },
+      { id: "3", category: "Viennoiserie" },
+      { id: "4", category: "Cuisine" },
+    ], { ignoreDuplicates: true })
+      .then(() => console.log("Recipe categories inserted."));
+
     // insert dev user
-    db.accounts.create({
-      id: "1", 
-      accName: "dev", 
-      accPassword: "$2a$10$vytbqrffFfu5EKGP657yEu6soYC3diLemoILZLXtsJaSqHRB64YIy", 
-      roleId: 4,
-      stateId: 2
-    }, { ignore: true });
+    db.accounts.bulkCreate([
+      {
+        id: "1",
+        accName: "dev",
+        accPassword: "$2a$10$vytbqrffFfu5EKGP657yEu6soYC3diLemoILZLXtsJaSqHRB64YIy",
+        roleId: 4,
+        stateId: 2
+      }
+    ], { ignoreDuplicates: true })
+      .then(() => console.log("\"dev\" user inserted."));
   })
   .catch((err) => {
     console.log("Failed to sync db: " + err.message);
@@ -71,12 +92,16 @@ app.get("/", (req, res) => {
 });
 
 // routes
-require("./app/routes/account.routes")(app);
-require("./app/routes/verify.routes")(app);
-require("./app/routes/teamleadpwd.routes")(app);
-require("./app/routes/product.routes")(app);
-require("./app/routes/vendor.routes")(app);
-require("./app/routes/categories.routes")(app);
+require("./app/routes/account.routes")(app);      // utilisateurs
+require("./app/routes/announcement.routes")(app); // annonces
+require("./app/routes/categories.routes")(app);   // catégories et autres tables de "typage"
+require("./app/routes/product.routes")(app);      // produits
+require("./app/routes/recipe.routes")(app);       // recettes
+require("./app/routes/rel_productrecipe.routes")(app);
+require("./app/routes/task.routes")(app);         // tâches
+require("./app/routes/teamleadpwd.routes")(app);  // mdp de chefs
+require("./app/routes/vendor.routes")(app);       // fournisseurs
+require("./app/routes/verify.routes")(app);       // vérification de login
 
 // set port, listen for requests
 const PORT = process.env.NODE_DOCKER_PORT || 8080;

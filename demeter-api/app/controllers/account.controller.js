@@ -15,7 +15,6 @@ exports.create = async (req, res) => {
     }
 
     // Create an account
-    const hashedPwd = await hashPwd(req.body.accPassword);
     const account = {
         accName: req.body.accName,
         accPassword: req.body.accPassword,

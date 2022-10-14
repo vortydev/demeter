@@ -13,6 +13,18 @@ function getAll(){
     return products;
 }
 
+async function createProduct(data:Product): Promise<boolean>{
+    const productCreated = InventoryService.create(data)
+    .then((product) => {
+        return true;
+    })
+    .catch((e: Error) => {
+        console.log(e);
+        return false;
+    });
+    return productCreated;
+}
+
 function getCategory(id: string) {
    const category = InventoryService.getCategory(id)
    .then((response)=>{
@@ -40,6 +52,7 @@ function getAllCategories() {
 
 export {
     getAll,
+    createProduct,
     getCategory,
     getAllCategories,
 };

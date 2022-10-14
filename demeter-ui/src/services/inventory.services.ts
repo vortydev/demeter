@@ -7,7 +7,9 @@ class InventoryService {
         return http.get<Array<Product>>("/products");
     }
 
-
+    create(data: Product){
+        return http.post<Product>("/products", data);
+    }
 
 
 

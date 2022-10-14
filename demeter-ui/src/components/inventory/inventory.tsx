@@ -185,7 +185,7 @@ function VendorDropDown({vendor}:VendorSelect):JSX.Element{
     );
 }
 
-function addProduct(e: React.SyntheticEvent): JSX.Element{
+function addProduct(e: React.SyntheticEvent){
     e.preventDefault();
 
     const name = document.getElementById("name") as HTMLInputElement;
@@ -203,18 +203,15 @@ function addProduct(e: React.SyntheticEvent): JSX.Element{
             name: name.value, 
             category: category.value, 
             vendor: vendor.value, 
-            qty_unit: qtyUnit.value,
+            qtyUnit: qtyUnit.value,
             mesurement: mesurement.value,
             format: format.value,
             price: price.value,
-            qty_inv: qtyInv.value
+            qtyInv: qtyInv.value
         }),
         headers: { 'Content-Type': 'application/json' },
     });
     
-    return(
-        <InventoryPage/>
-    );
 }
 
 export {ListingProducts, ProductsDisplay, ProductsDisplayEdit, editProducts, addProduct, GetCategory, CategoryDropDown, GetVendors, VendorDropDown};

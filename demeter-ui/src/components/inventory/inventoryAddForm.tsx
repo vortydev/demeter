@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
-import { addProduct, GetCategory, GetVendors } from './inventory';
+import { Product } from '../../types/Types';
+import { GetCategory, GetVendors } from './inventory';
 import { VendorForm } from './inventoryAddVendorForm';
+import { createProduct } from '../../services/inventory.functions';
 
 interface CRFormProps {
     show : boolean;
@@ -13,6 +15,40 @@ function InventoryForm({ show, close, success }: CRFormProps) {
 
     const [createNewVendor, setCreateNewVendor] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
+
+    const [error, setError] = useState<boolean>(false);
+
+    async function addProduct(): Promise<void>{
+        const name = document.getElementById("name") as HTMLInputElement;
+        const category = document.getElementById("category") as HTMLInputElement;
+        const vendor = document.getElementById("vendor") as HTMLInputElement;
+        const qtyUnit = document.getElementById("qty_unit") as HTMLInputElement;
+        const mesurement = document.getElementById("mesurement") as HTMLInputElement;
+        const format = document.getElementById("format") as HTMLInputElement;
+        const price = document.getElementById("price") as HTMLInputElement;
+        const qtyInv = document.getElementById("qty_inv") as HTMLInputElement;
+
+        setError(false);
+
+        const newProduct: Product = {
+            id: 1,
+            name: name.value, 
+            category: category.value, 
+            vendor: vendor.value, 
+            qtyUnit: qtyUnit.value,
+            mesurement: mesurement.value,
+            format: format.value,
+            price: price.value,
+            qtyInv: qtyInv.value
+        };
+
+        if (await createProduct(newProduct)){
+            success();
+        }
+        else {
+            setError(true);
+        }
+    }
 
     function successVendor(): void {
         setSuccess(true);

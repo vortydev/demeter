@@ -6,6 +6,10 @@ class AccountService {
     return http.get<Array<Account>>("/accounts");
   }
 
+  getByRole(roleId: number){
+    return http.get<Account>(`/accounts?roleId=${roleId}`);
+  }
+
   get(id: string) {
     return http.get<Account>(`/accounts/${id}`);
   }
@@ -18,8 +22,8 @@ class AccountService {
     return http.put<any>(`/accounts/${user}`, data);
   }
 
-  delete(id: any) {
-    return http.delete<any>(`/accounts/${id}`);
+  delete(user: string) {
+    return http.delete<any>(`/accounts/${user}`);
   }
 
   deleteAll() {

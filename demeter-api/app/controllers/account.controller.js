@@ -15,7 +15,6 @@ exports.create = async (req, res) => {
     }
 
     // Create an account
-    const hashedPwd = await hashPwd(req.body.accPassword);
     const account = {
         accName: req.body.accName,
         accPassword: req.body.accPassword,
@@ -38,8 +37,10 @@ exports.create = async (req, res) => {
 
 // Retrieve all Accounts from the database.
 exports.findAll = (req, res) => {
-    const accName = req.query.accName;
-    var condition = accName ? { accName: { [Op.like]: `%${accName}%` } } : null;
+    //const accName = req.query.accName;
+    const roleId = req.query.roleId;
+    //var condition = accName ? { accName: { [Op.like]: `%${accName}%` } } : null;
+    var condition = roleId ? { roleId: { [Op.eq]: roleId } } : null;
 
     Account.findAll({ where: condition })
         .then(data => {
@@ -73,7 +74,7 @@ exports.findOne = (req, res) => {
         });
 };
 
-// Update a Tutorial by the id in the request
+// Update a Account by the name in the request
 exports.update = (req, res) => {
     const user = req.params.user;
 
@@ -100,10 +101,10 @@ exports.update = (req, res) => {
 
 // Delete an Account with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.params.id;
+    const user = req.params.user;
 
     Account.destroy({
-        where: { id: id }
+        where: { accName: user }
     })
         .then(num => {
             if (num == 1) {

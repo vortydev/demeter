@@ -46,7 +46,22 @@ db.products.belongsTo(db.vendors, { foreignKey: "vendorId" });
 // CARNET
 
 // TÂCHES
+db.tasks = require("./task.model")(sequelize, Sequelize);
+db.categorytasks = require("./categorytask.model")(sequelize, Sequelize);
+
+db.categorytasks.hasMany(db.tasks);
+db.tasks.hasMany(db.tasks);
+
+db.tasks.belongsTo(db.categorytasks, { foreignKey: "categorytaskId" });
+db.tasks.belongsTo(db.tasks, { foreignKey: "parentId" });
 
 // ANNONCES
+db.annoucements = require("./announcement.model")(sequelize, Sequelize);
+
+db.roles.hasMany(db.annoucements);
+db.tasks.hasMany(db.annoucements);
+
+db.annoucements.belongsTo(db.roles, { foreignKey: "roleId" });
+db.annoucements.belongsTo(db.tasks, { foreignKey: "taskId" });
 
 module.exports = db;

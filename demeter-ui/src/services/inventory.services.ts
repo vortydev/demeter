@@ -7,11 +7,9 @@ class InventoryService {
         return http.get<Array<Product>>("/products");
     }
 
-
-
-
-
-
+    getByCategory(category: number){
+        return http.get<Product>(`/products?categoryId=${category}`);
+      }
 
     getAllCategories(){
         return http.get<Array<Category>>("/products/category");

@@ -11,6 +11,19 @@ function getAll(){
     });
 }
 
+
+async function getProductByCategory(category: number) {
+    const products = InventoryService.getByCategory(category)
+      .then((response: any) => {
+        return response.data;
+      })
+      .catch((e: Error) => {
+        console.log(e);
+        return [];
+      });
+    return products;
+  }
+
 function getCategory(id: string) {
    InventoryService.getCategory(id)
    .then((response: any)=>{
@@ -35,4 +48,5 @@ export {
     getAll,
     getCategory,
     getAllCategories,
+    getProductByCategory,
 };

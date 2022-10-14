@@ -37,7 +37,6 @@ type IngForRecipe ={
     quantity : number;
 }
 
-
 type Product = {
     id: Number;
     prodName: String;
@@ -45,7 +44,12 @@ type Product = {
     qtyInv: Number;
     qtyUnit: Number;
     format: String;
+    mesurementId: number;
+    categoryId: number;
+    vendorId: number;
+
 }
+
 
 type Category = {
     id: Number;

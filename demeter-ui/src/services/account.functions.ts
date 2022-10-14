@@ -26,6 +26,19 @@ async function updateAccount(data: Account, accName: String): Promise<boolean> {
   return accountUpdated;
 }
 
+async function deleteAccount(accName: string) {
+  const deleted = AccountService.delete(accName)
+    .then((response: any) => {
+      return true;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return false;
+    });
+
+  return deleted;
+}
+
 async function getAccountsByRole(role: number) {
   const accounts = AccountService.getByRole(role)
     .then((response: any) => {
@@ -58,4 +71,4 @@ async function verifyLogin(accName: string, accPwd: string): Promise<boolean> {
   }
 }
 
-export { createAccount, updateAccount, getAccountsByRole, verifyLogin };
+export { createAccount, updateAccount, getAccountsByRole, verifyLogin, deleteAccount };

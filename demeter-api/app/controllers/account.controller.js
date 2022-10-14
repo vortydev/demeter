@@ -74,7 +74,7 @@ exports.findOne = (req, res) => {
         });
 };
 
-// Update a Tutorial by the id in the request
+// Update a Account by the name in the request
 exports.update = (req, res) => {
     const user = req.params.user;
 
@@ -101,10 +101,10 @@ exports.update = (req, res) => {
 
 // Delete an Account with the specified id in the request
 exports.delete = (req, res) => {
-    const id = req.params.id;
+    const user = req.params.user;
 
     Account.destroy({
-        where: { id: id }
+        where: { accName: user }
     })
         .then(num => {
             if (num == 1) {

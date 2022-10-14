@@ -7,9 +7,9 @@ import { CreateAccountForm } from "./CreateAccountForm";
 function AccountPage(): JSX.Element {
   const [createAccount, setCreateAccount] = useState<boolean>(false);
   const [createdSuccess, setSuccess] = useState<boolean>(false);
-  const [editedSuccess, setEditSuccess]= useState<boolean>(false);
+  const [editedSuccess, setEditSuccess] = useState<boolean>(false);
+  const [deletedSuccess, setDeleted] = useState<boolean>(false);
   const [subPage, setSubPage] = useState<number>(1);
-  
 
   function success(): void {
     setSuccess(true);
@@ -23,9 +23,16 @@ function AccountPage(): JSX.Element {
   return (
     <div>
       <AccountNav subPage={subPage} setSubPage={setSubPage} />
-      {createdSuccess && (<Alert>Le compte à été créer avec succès!</Alert>)}
-      {editedSuccess && (<Alert>Le compte à été modifier avec succès!</Alert>)}
-      <AccountList currentRole={subPage} setEditSuccess={setEditSuccess} />
+      {createdSuccess && <Alert>Le compte a été créé avec succès!</Alert>}
+      {editedSuccess && <Alert>Le compte a été modifié avec succès!</Alert>}
+      {deletedSuccess && <Alert>Le compte a été supprimé avec succès!</Alert>}
+      <AccountList
+        currentRole={subPage}
+        setEditSuccess={setEditSuccess}
+        createSuccess={createdSuccess}
+        deleteSuccess={deletedSuccess}
+        setDeleteSuccess={setDeleted}
+      />
       <Button
         variant="secondary"
         onClick={() => {
@@ -35,7 +42,7 @@ function AccountPage(): JSX.Element {
       >
         Nouveau compte
       </Button>
-       <CreateAccountForm show={createAccount} close={close} success={success} />
+      <CreateAccountForm show={createAccount} close={close} success={success} />
     </div>
   );
 }

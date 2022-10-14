@@ -20,7 +20,7 @@ function EditPasswordForm({
   const [validPassword, setValidPassword] = useState<boolean>(true);
 
 
-  function handleSubmit() {
+  async function handleSubmit() {
     const pw = document.getElementById("password") as HTMLInputElement;
     const pwc = document.getElementById("passwordConfirm") as HTMLInputElement;
 
@@ -32,25 +32,27 @@ function EditPasswordForm({
         accName: account.accName,
         accPassword: bcrypt.hashSync(pw.value),
         roleId: account.roleId,
-        stateId: account.stateId, // must be change at somepoint
+        stateId: account.stateId, // must be change at somepoint for a field value
       };
-      updateAccount(editedAccount, account.accName);
+      if(await updateAccount(editedAccount, account.accName)){
+        setEditSuccess(true);
+        close();
+      }
     }
 
-    setEditSuccess(true);
-    close();
+  
   }
   return (
     <Modal show={show} onHide={close}>
       <Form>
-        {validPassword && (<Alert variant="danger"> Les mots de passe ne correspondent pas !</Alert>)}
+        {!validPassword && (<Alert variant="danger"> Les mots de passe ne correspondent pas !</Alert>)}
         <Form.Group className="mb-3" controlId="password">
           <Form.Label>NOUVEAU MOT DE PASSE : </Form.Label>
-          <Form.Control type="text" />
+          <Form.Control type="password" />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="ConfirmPassword">
+        <Form.Group className="mb-3" controlId="passwordConfirm">
           <Form.Label>CONFIRMATION MOT DE PASSE : </Form.Label>
-          <Form.Control as="text" />
+          <Form.Control type="password" />
         </Form.Group>
       </Form>
       <Button onClick={handleSubmit}> Yeah !</Button>

@@ -1,5 +1,5 @@
 import { Form, Button, Container, Row, Col, Modal} from 'react-bootstrap';
-import { ListingProducts, editProducts } from './inventory';
+import { editProducts, ListingProductsEdit } from './inventory';
 
 interface CRFormProps {
     show : boolean;
@@ -8,7 +8,6 @@ interface CRFormProps {
     }
 
 function InventoryUpdate({ show, close, success }: CRFormProps) {
-    const edit = true;
 
     return (
         <Modal show={show} onHide={close}>
@@ -22,16 +21,16 @@ function InventoryUpdate({ show, close, success }: CRFormProps) {
             </div>
 
             <div>
-                <Form id="formMAJ" onSubmit={editProducts}>
+                <Form id="formMAJ">
                 <Container>
                     <Row>
                         <Col><h2>Produit</h2></Col>
                         <Col><h2>Format</h2></Col>
                         <Col><h2>Quantité</h2></Col>
                     </Row>
-                        <ListingProducts edit={edit}/>
+                        <ListingProductsEdit/>
                     <Row>
-                        <Button variant="dark" type="submit">Envoyer</Button>
+                        <Button variant="dark" onClick={editProducts}>Envoyer</Button>
                     </Row>
                 </Container>
                 </Form>

@@ -6,7 +6,7 @@ import { getAllVendor } from '../../services/vendor.functions';
 import { Category, Mesurement, Product, Vendor } from '../../types/Types';
 import { setDefaultResultOrder } from 'dns';
 
-function ListingProducts(edit: any): JSX.Element {
+function ListingProducts(): JSX.Element {
 
     const [products, setProducts] = useState<Product[]>([]);
 
@@ -17,29 +17,33 @@ function ListingProducts(edit: any): JSX.Element {
         getList();
     });
 
-    if (products !== null) {  
-        if (edit == false) {
-            return (
-                <React.Fragment>
-                    {products.map((product) => (
-                        <ProductsDisplay product={product}/>
-                    ))}
-                </React.Fragment>
-            );
+    return (
+        <React.Fragment>
+            {products.map((product) => (
+                <ProductsDisplay product={product}/>
+            ))}
+        </React.Fragment>
+    );
+    
+}
+
+function ListingProductsEdit(): JSX.Element {
+
+    const [products, setProducts] = useState<Product[]>([]);
+
+    useEffect(() => {
+        async function getList() {
+            setProducts(await getAll());
         }
-        else if(edit == true){
-            return (
-                <React.Fragment>
-                    {products.map((product) => (
-                        <ProductsDisplayEdit product={product}/>
-                    ))}
-                </React.Fragment>
-            );
-        }
-    }
+        getList();
+    });
 
     return (
-        <p className="text-center">You have no products item yet!</p>
+        <React.Fragment>
+            {products.map((product) => (
+                <ProductsDisplayEdit product={product}/>
+            ))}
+        </React.Fragment>
     );
     
 }
@@ -214,4 +218,4 @@ function MesurementDropDown({mesurement}:MesurementSelect):JSX.Element{
     );
 }
 
-export {ListingProducts, ProductsDisplay, ProductsDisplayEdit, editProducts, GetCategory, CategoryDropDown, GetVendors, VendorDropDown, GetMesurements};
+export {ListingProducts, ListingProductsEdit, ProductsDisplay, ProductsDisplayEdit, editProducts, GetCategory, CategoryDropDown, GetVendors, VendorDropDown, GetMesurements};

@@ -3,20 +3,25 @@ import React, { useEffect, useState } from 'react';
 import { InventoryPage } from './inventoryPage';
 import { getAll, getAllCategories, getCategory } from '../../services/inventory.functions'
 import { getAllVendor } from '../../services/vendor.functions';
-import { Category, Vendor } from '../../types/Types';
+import { Category, Product, Vendor } from '../../types/Types';
 import { setDefaultResultOrder } from 'dns';
 
 function ListingProducts(edit: any): JSX.Element {
 
-    const [products, setProducts] = React.useState<any>(null);
+    const [products, setProducts] = useState<Product[]>([]);
 
-    getAll();
+    useEffect(() => {
+        async function getList() {
+            setProducts(await getAll());
+        }
+        getList();
+    });
 
     if (products !== null) {  
         if (edit == false) {
             return (
                 <React.Fragment>
-                    {products.map((product: any) => (
+                    {products.map((product) => (
                         <ProductsDisplay product={product}/>
                     ))}
                 </React.Fragment>
@@ -25,7 +30,7 @@ function ListingProducts(edit: any): JSX.Element {
         else if(edit == true){
             return (
                 <React.Fragment>
-                    {products.map((product: any) => (
+                    {products.map((product) => (
                         <ProductsDisplayEdit product={product}/>
                     ))}
                 </React.Fragment>
@@ -39,7 +44,11 @@ function ListingProducts(edit: any): JSX.Element {
     
 }
 
-function ProductsDisplay(product:any): JSX.Element {
+interface ProductDisplayProps {
+    product: Product;
+}
+
+function ProductsDisplay({product}:ProductDisplayProps): JSX.Element {
 
     return(
         <Row>
@@ -50,17 +59,17 @@ function ProductsDisplay(product:any): JSX.Element {
                 {product.format}
             </Col>
             <Col>
-                {product.qty_inv}
+                {product.qtyInv}
             </Col>
         </Row>
     );
 }
 
-function ProductsDisplayEdit (product:any): JSX.Element {
+function ProductsDisplayEdit ({product}:ProductDisplayProps): JSX.Element {
 
     return(
         <Row>
-            <Form.Group controlId={product.id}>
+            <Form.Group controlId={`product${product.id}`}>
                 <Col>
                     <Form.Group controlId="id">
                         <Form.Control type="hidden" value={product.id}/>
@@ -72,7 +81,7 @@ function ProductsDisplayEdit (product:any): JSX.Element {
                 </Col>
                 <Col>
                     <Form.Group controlId="qty_inv">
-                        <Form.Control type="text" placeholder={product.qty_inv}/>
+                        <Form.Control type="text" placeholder={`${product.qtyInv}`}/>
                     </Form.Group>
                 </Col>
             </Form.Group>
@@ -121,7 +130,7 @@ function editProducts(e: React.SyntheticEvent){
 function GetCategory(): JSX.Element {
     const [categories, setCategories] = useState<Category[]>([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         async function getList() {
             setCategories(await getAllCategories());
         }
@@ -140,7 +149,7 @@ function GetCategory(): JSX.Element {
 function GetVendors():JSX.Element {
     const [ vendors, setVendors ] = useState<Vendor[]>([]);
 
-    useEffect(()=>{
+    useEffect(() => {
         async function getList() {
             setVendors(await getAllVendor());
         }

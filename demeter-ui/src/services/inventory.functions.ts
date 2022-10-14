@@ -2,23 +2,27 @@ import InventoryService from "./inventory.services";
 import { Product, Category } from "../types/Types";
 
 function getAll(){
-    InventoryService.getAll()
-    .then((response: any)=>{
-        console.log(response.data);
+    const products = InventoryService.getAll()
+    .then((response)=>{
+        return response.data;
    })
    .catch((e: Error) => {
         console.log(e);
+        return [];
     });
+    return products;
 }
 
 function getCategory(id: string) {
-   InventoryService.getCategory(id)
-   .then((response: any)=>{
-        console.log(response.data);
+   const category = InventoryService.getCategory(id)
+   .then((response)=>{
+        return response.data;
    })
    .catch((e: Error) => {
         console.log(e);
+        return [];
     });
+    return category;
 }
 
 function getAllCategories() {

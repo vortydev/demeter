@@ -72,7 +72,6 @@ export { InventoryPage };
 // delete 1 product
 // edit delete buttons
 // filter products
-// correct inventoryAddForm category
 // correct inventory display
 // sleep
 // eat

@@ -21,10 +21,10 @@ description : String;
 }
 
 type Product = {
-    id: Number;
-    prodName: String;
-    price: Number;
-    qtyInv: Number;
+    id: number;
+    name: String;
+    price: number;
+    qtyInv: number;
     qtyUnit: Number;
     format: String;
 }

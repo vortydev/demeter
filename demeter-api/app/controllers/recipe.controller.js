@@ -204,8 +204,8 @@ exports.createRPR = (req, res) => {
 exports.findAllRPR = (req, res) => {
     const recipe = req.query.recipeId;
     const product = req.query.productId;
-    var conditionR = recipe ? { recipeId: { [Op.like]: `%${recipe}%` }, } : null;
-    var conditionP = product ? { productId: { [Op.like]: `%${product}%` }, } : null;
+    var conditionR = recipe ? { recipeId: { [Op.like]: `%${recipe}%` } } : null;
+    var conditionP = product ? { productId: { [Op.like]: `%${product}%` } } : null;
 
     Rel_ProductRecipe.findAll({ where: { conditionR, conditionP } })
         .then(data => {
@@ -240,7 +240,7 @@ exports.updateRPR = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Rel_ProductRecipe with recipeId=" + recipe 
+                message: "Error updating Rel_ProductRecipe with recipeId=" + recipe
             });
         });
 };

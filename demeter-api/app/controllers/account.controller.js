@@ -75,10 +75,10 @@ exports.findOne = (req, res) => {
 
 // Update a Tutorial by the id in the request
 exports.update = (req, res) => {
-    const id = req.params.id;
+    const user = req.params.user;
 
     Account.update(req.body, {
-        where: { id: id }
+        where: { accName: user }
     })
         .then(num => {
             if (num == 1) {

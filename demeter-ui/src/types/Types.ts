@@ -1,5 +1,4 @@
 type Account = {
-    // id: Number;
     accName: string;
     accPassword: string;
     roleId: Number;

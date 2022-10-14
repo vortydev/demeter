@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 
 async function createAccount(data: Account): Promise<boolean> {
   const accountCreated = AccountService.create(data)
-    .then((account) => {
+    .then((response: any) => {
       return true;
     })
     .catch((e: Error) => {
@@ -12,6 +12,18 @@ async function createAccount(data: Account): Promise<boolean> {
       return false;
     });
   return accountCreated;
+}
+
+async function updateAccount(data: Account, accName:String): Promise<boolean> {
+  const accountUpdated = AccountService.update(data, accName)
+    .then((response: any) => {
+      return true;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return false;
+    });
+  return accountUpdated;
 }
 
 // vérifies que le mot de passe correspond au mot de passe dans la base de données
@@ -36,4 +48,4 @@ async function verifyLogin(accName: string, accPwd: string): Promise<boolean> {
   }
 }
 
-export { createAccount, verifyLogin };
+export { createAccount, updateAccount, verifyLogin };

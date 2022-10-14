@@ -140,13 +140,18 @@ function GetCategory(): JSX.Element {
 }
 
 function GetVendors():JSX.Element {
-    getAllVendor();
+    const vendors = getAllVendor();
+    console.log(vendors);
     return(
         <React.Fragment>
-            <option value='1'>waiting for it</option>
+            <VendorDropDown vendor={vendors[0]}/>
         </React.Fragment>
     );
 }
+
+//{vendors.map((vendor: any) => (
+//    <VendorDropDown vendor={vendor}/>
+//))}
 
 function CategoryDropDown(category:any):JSX.Element{
     return(
@@ -154,7 +159,7 @@ function CategoryDropDown(category:any):JSX.Element{
     );
 }
 
-function vendorDropDown(vendor:any):JSX.Element{
+function VendorDropDown(vendor: any):JSX.Element{
     return(
         <option value={vendor.id}>{vendor.name}</option>
     );
@@ -192,4 +197,4 @@ function addProduct(e: React.SyntheticEvent): JSX.Element{
     );
 }
 
-export {ListingProducts, ProductsDisplay, ProductsDisplayEdit, editProducts, addProduct, GetCategory, CategoryDropDown, GetVendors, vendorDropDown};
+export {ListingProducts, ProductsDisplay, ProductsDisplayEdit, editProducts, addProduct, GetCategory, CategoryDropDown, GetVendors, VendorDropDown};

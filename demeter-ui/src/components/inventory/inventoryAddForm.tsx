@@ -20,8 +20,6 @@ function InventoryForm({ show, close, success }: CRFormProps) {
       }
     
       function closeVendor(): void {
-        //setCreateNewProduct(false);
-        //setUpdatedProducts(false);
         setCreateNewVendor(false);
       }
 

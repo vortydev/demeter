@@ -8,8 +8,8 @@ const Op = db.Sequelize.Op;
 exports.create = (req, res) => {
     // Validate request
     if (!req.body.name) {
-        res.status(400).send({ 
-            message: "Content can not be empty!" 
+        res.status(400).send({
+            message: "Content can not be empty!"
         });
         return;
     }
@@ -28,30 +28,30 @@ exports.create = (req, res) => {
 
     // Save account in the database
     Product.create(product)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while creating the Account."
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while creating the Account."
+            });
         });
-    });
 };
 
 // Retrieve all Accounts from the database.
 exports.findAll = (req, res) => {
     const name = req.query.name;
     var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
-  
+
     Product.findAll({ where: condition })
-    .then(data => {
-        res.send(data);
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while retrieving products."
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving products."
+            });
         });
-    });
 };
 
 // Find a single Account with an id
@@ -59,20 +59,20 @@ exports.findOne = (req, res) => {
     const id = req.params.id;
 
     Product.findByPk(id)
-    .then(data => {
-        if (data) {
-            res.send(data);
-        } else {
-            res.status(404).send({
-                message: `Cannot find Product with id=${id}.`
+        .then(data => {
+            if (data) {
+                res.send(data);
+            } else {
+                res.status(404).send({
+                    message: `Cannot find Product with id=${id}.`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving Product with id=" + id
             });
-        }
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: "Error retrieving Product with id=" + id
         });
-    });
 };
 
 // Update a Tutorial by the id in the request
@@ -82,22 +82,22 @@ exports.update = (req, res) => {
     Product.update(req.body, {
         where: { id: id }
     })
-    .then(num => {
-        if (num == 1) {
-            res.send({
-                message: "Product was updated successfully."
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Product was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update Product with id=${id}. Maybe Product was not found or req.body is empty!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error updating Product with id=" + id
             });
-        } else {
-            res.send({
-                message: `Cannot update Product with id=${id}. Maybe Product was not found or req.body is empty!`
-            });
-        }
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: "Error updating Product with id=" + id
         });
-    });
 };
 
 // Delete an Account with the specified id in the request
@@ -107,22 +107,22 @@ exports.delete = (req, res) => {
     Product.destroy({
         where: { id: id }
     })
-    .then(num => {
-        if (num == 1) {
-            res.send({
-                message: "Product was deleted successfully!"
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Product was deleted successfully!"
+                });
+            } else {
+                res.send({
+                    message: `Cannot delete Product with id=${id}. Maybe Product was not found!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Could not delete Product with id=" + id
             });
-        } else {
-            res.send({
-                message: `Cannot delete Product with id=${id}. Maybe Product was not found!`
-            });
-        }
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: "Could not delete Product with id=" + id
         });
-    });
 };
 
 // Delete all Accounts from the database.
@@ -131,14 +131,14 @@ exports.deleteAll = (req, res) => {
         where: {},
         truncate: false
     })
-    .then(nums => {
-        res.send({ message: `${nums} Product were deleted successfully!` });
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while removing all products."
+        .then(nums => {
+            res.send({ message: `${nums} Product were deleted successfully!` });
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while removing all products."
+            });
         });
-    });
 };
 
 // category product
@@ -146,35 +146,35 @@ exports.findOneCategoryProduct = (req, res) => {
     const id = req.params.id;
 
     CategoryProduct.findByPk(id)
-    .then(data => {
-        if (data) {
-            res.send(data);
-        } else {
-            res.status(404).send({
-                message: `Cannot find CategoryProduct with id=${id}.`
+        .then(data => {
+            if (data) {
+                res.send(data);
+            } else {
+                res.status(404).send({
+                    message: `Cannot find CategoryProduct with id=${id}.`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving CategoryProduct with id=" + id
             });
-        }
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: "Error retrieving CategoryProduct with id=" + id
         });
-    });
 };
 
 exports.findAllCategoryProduct = (req, res) => {
     const name = req.query.name;
     var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
-  
+
     CategoryProduct.findAll({ where: condition })
-    .then(data => {
-        res.send(data);
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while retrieving category product."
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving category product."
+            });
         });
-    });
 };
 
 // mesurement
@@ -182,33 +182,33 @@ exports.findOneMesurement = (req, res) => {
     const id = req.params.id;
 
     Mesurement.findByPk(id)
-    .then(data => {
-        if (data) {
-            res.send(data);
-        } else {
-            res.status(404).send({
-                message: `Cannot find Mesurement with id=${id}.`
+        .then(data => {
+            if (data) {
+                res.send(data);
+            } else {
+                res.status(404).send({
+                    message: `Cannot find Mesurement with id=${id}.`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving Mesurement with id=" + id
             });
-        }
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: "Error retrieving Mesurement with id=" + id
         });
-    });
 };
 
 exports.findAllMesurements = (req, res) => {
     const mesurement = req.query.mesurement;
     var condition = mesurement ? { mesurement: { [Op.like]: `%${mesurement}%` } } : null;
-  
+
     Mesurement.findAll({ where: condition })
-    .then(data => {
-        res.send(data);
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: err.message || "Some error occurred while retrieving Mesurement."
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving Mesurement."
+            });
         });
-    });
 };

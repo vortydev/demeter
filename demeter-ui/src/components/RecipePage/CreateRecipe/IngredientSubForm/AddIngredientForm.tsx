@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
-import { Modal, Form } from "react-bootstrap";
-import { Button } from "react-bootstrap/lib/InputGroup";
+import { Modal, Form, Button } from "react-bootstrap";
 import { getProductByCategory } from "../../../../services/inventory.functions";
 import { Product } from "../../../../types/Types";
 
 interface AIFProps {
     show : boolean;
+    setShow: (show:boolean) => void;
 }
 
-function AddIngredientForm({show}: AIFProps){
+function AddIngredientForm({show, setShow}: AIFProps){
 const [ingList, setListIng] = useState<Product[]>([]);
 const [selectedIng, setSelectedIng] = useState<Product|null>(null);
    
@@ -40,7 +40,7 @@ const [selectedIng, setSelectedIng] = useState<Product|null>(null);
          <Form.Label controlId="quantity">QUANTITÉ</Form.Label>
           <Form.Control type="number" />
         </Form>  
-        <Button onClick={addToRecipeList}>Ajouter</Button><Button>Annuler</Button>
+        <Button onClick={addToRecipeList}>Ajouter</Button><Button onClick={()=>setShow(false)}>Annuler</Button>
     </Modal>)
 }
 

@@ -3,7 +3,6 @@ import { Container,Row, Col, Button, Alert } from 'react-bootstrap';
 import { ListingProducts } from './inventory';
 import { InventoryForm } from './inventoryAddForm';
 import { InventoryUpdate } from './inventoryUpdate';
-import { InventoryEditProductForm } from './inventoryUpdateProduct';
 
 function InventoryPage(): JSX.Element{
     const edit = false;

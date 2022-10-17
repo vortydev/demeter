@@ -3,7 +3,7 @@ import { Form, Button, Modal } from 'react-bootstrap';
 import { Product } from '../../types/Types';
 import { GetCategory, GetMesurements, GetVendors } from './inventory';
 import { VendorForm } from './inventoryAddVendorForm';
-import { getProduct, updateProduct } from '../../services/inventory.functions';
+import { updateProduct } from '../../services/inventory.functions';
 
 interface CRFormProps {
     show : boolean;

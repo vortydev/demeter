@@ -1,6 +1,5 @@
 import InventoryService from "./inventory.services";
-import { Product, Category } from "../types/Types";
-import { ProductsDisplay } from "../components/inventory/inventory";
+import { Product } from "../types/Types";
 
 function getAll(){
     const products = InventoryService.getAll()

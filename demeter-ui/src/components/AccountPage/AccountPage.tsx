@@ -23,9 +23,9 @@ function AccountPage(): JSX.Element {
   return (
     <div>
       <AccountNav subPage={subPage} setSubPage={setSubPage} />
-      {createdSuccess && <Alert>Le compte a été créé avec succès!</Alert>}
-      {editedSuccess && <Alert>Le compte a été modifié avec succès!</Alert>}
-      {deletedSuccess && <Alert>Le compte a été supprimé avec succès!</Alert>}
+      {createdSuccess && <Alert variant="success">Le compte a été créé avec succès!</Alert>}
+      {editedSuccess && <Alert variant="success">Le compte a été modifié avec succès!</Alert>}
+      {deletedSuccess && <Alert variant="success">Le compte a été supprimé avec succès!</Alert>}
       <AccountList
         currentRole={subPage}
         setEditSuccess={setEditSuccess}

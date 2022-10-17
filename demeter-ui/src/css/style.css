@@ -1,0 +1,30 @@
+.cursor {
+    cursor: pointer;
+}
+
+[class*="flex"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    flex-direction: row;
+}
+
+.accountList {
+    margin: auto;
+    margin-right: 45%;
+    width: fit-content;
+}
+
+.accountInfo {
+    width: 350px;
+}
+
+.accountName {
+    padding: 5px;
+    margin-right: auto;
+    max-width: 80%;
+}
+
+.accountIcon {
+    padding: 5px;
+}

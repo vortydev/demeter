@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.64558ab8.css",
+    "main.js": "/static/js/main.b4c122f5.js",
+    "static/js/787.c1c0bd42.chunk.js": "/static/js/787.c1c0bd42.chunk.js",
+    "static/media/logoLVR.jpg": "/static/media/logoLVR.2ab9811aedde94b9648e.jpg",
+    "index.html": "/index.html",
+    "main.64558ab8.css.map": "/static/css/main.64558ab8.css.map",
+    "main.b4c122f5.js.map": "/static/js/main.b4c122f5.js.map",
+    "787.c1c0bd42.chunk.js.map": "/static/js/787.c1c0bd42.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.64558ab8.css",
+    "static/js/main.b4c122f5.js"
+  ]
+}

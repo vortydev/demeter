@@ -9,7 +9,6 @@ function InventoryPage(): JSX.Element{
     const [createNewProduct, setCreateNewProduct] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
     const [updateProducts, setUpdatedProducts] = useState<boolean>(false);
-    const [updateProduct, setUpdatedProduct] = useState<boolean>(false);
   
     function success(): void {
       setSuccess(true);
@@ -19,7 +18,6 @@ function InventoryPage(): JSX.Element{
     function close(): void {
       setCreateNewProduct(false);
       setUpdatedProducts(false);
-      setUpdatedProduct(false);
     }
 
     return (

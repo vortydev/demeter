@@ -17,10 +17,11 @@ const [mesure, setMesure] = useState<Mesurement | undefined>(undefined);
       }, [ingredient, mesure]);
 
   const cost = pricePerQuantity(ingredient);
+  console.log("cost", cost);
   return (
     <div>
       {ingredient.ingredient.name}{ingredient.quantity}
-      {mesure}{cost}$
+      {mesure?.mesurement}{cost}$
     </div>
   );
 }

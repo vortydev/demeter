@@ -49,6 +49,18 @@ async function updateProduct(data: Product, id: any): Promise<boolean>{
     return productUpdated;
 }
 
+function deleteProduct(id: any): Promise<boolean>{
+    const productDeleted = InventoryService.delete(id)
+    .then((response)=>{
+        return true;
+    })
+    .catch((e: Error)=>{
+        console.log(e);
+        return false;
+    });
+    return productDeleted;
+}
+
 function getCategory(id: string) {
    const category = InventoryService.getCategory(id)
    .then((response)=>{
@@ -92,6 +104,7 @@ export {
     getProduct,
     createProduct,
     updateProduct,
+    deleteProduct,
     getCategory,
     getAllCategories,
     getAllMesurements,

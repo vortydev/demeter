@@ -19,7 +19,9 @@ class InventoryService {
         return http.put<any>(`/products/${id}`, data);
     }
 
-
+    delete(id: any){
+        return http.delete<any>(`/products/${id}`);
+    }
 
     getAllCategories(){
         return http.get<Array<Category>>("/categories/products");

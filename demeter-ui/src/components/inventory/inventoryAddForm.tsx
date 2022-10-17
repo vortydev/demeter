@@ -7,9 +7,9 @@ import { createProduct } from '../../services/inventory.functions';
 
 interface CRFormProps {
     show : boolean;
-      close: () => void;
-      success: () => void;
-    }
+    close: () => void;
+    success: () => void;
+}
 
 function InventoryForm({ show, close, success }: CRFormProps) {
 

@@ -1,6 +1,6 @@
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
-import { getAll, getAllCategories, getAllMesurements, getCategory } from '../../services/inventory.functions'
+import { deleteProduct, getAll, getAllCategories, getAllMesurements, getCategory } from '../../services/inventory.functions'
 import { getAllVendor } from '../../services/vendor.functions';
 import { Category, Mesurement, Product, Vendor } from '../../types/Types';
 import { setDefaultResultOrder } from 'dns';
@@ -64,7 +64,7 @@ function ProductsDisplay({product}:ProductDisplayProps): JSX.Element {
             <Col>
                 {product.qtyInv}
                 <Button>edit</Button>
-                <Button>delete</Button>
+                <Button onClick={()=>deleteProductById(product.id)}>delete</Button>
             </Col>
         </Row>
     );
@@ -92,6 +92,12 @@ function ProductsDisplayEdit ({product}:ProductDisplayProps): JSX.Element {
             </Form.Group>
         </Row>
     );
+}
+
+function deleteProductById(id: any){
+    if (window.confirm('Êtes-vous sur de vouloir supprimer ce produit?')){
+        deleteProduct(id);
+    }
 }
 
 function GetCategory(): JSX.Element {

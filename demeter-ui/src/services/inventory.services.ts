@@ -11,6 +11,10 @@ class InventoryService {
         return http.get<Product>(`/products/${id}`)
     }
 
+    getByCategory(categoryId:string){
+        return http.get<Array<Product>>(`/products?categoryId=${categoryId}`);
+    }
+
     create(data: Product){
         return http.post<Product>("/products", data);
     }
@@ -18,8 +22,6 @@ class InventoryService {
     update(data: Product, id: any) {
         return http.put<any>(`/products/${id}`, data);
     }
-
-
 
     getAllCategories(){
         return http.get<Array<Category>>("/categories/products");

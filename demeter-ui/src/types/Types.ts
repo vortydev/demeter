@@ -68,4 +68,4 @@ type Mesurement = {
     weight: number;
 }
 
-export type { Account, News, Task, Product, Category, Vendor, Mesurement }
+export type { Account, News, Task, Product, Category, Recipe, RawRecipe, Vendor, Mesurement, IngForRecipe }

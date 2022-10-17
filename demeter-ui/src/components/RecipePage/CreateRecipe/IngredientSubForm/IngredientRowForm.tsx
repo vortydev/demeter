@@ -5,7 +5,7 @@ interface IRFProps{
 }
 function IngredientRowForm({ingredient}: IRFProps){
     return(<div>
-        {ingredient.ingredient.prodName}{ingredient.quantity}
+        {ingredient.ingredient.name}{ingredient.quantity}
     </div>)
 }
 export {IngredientRowForm};

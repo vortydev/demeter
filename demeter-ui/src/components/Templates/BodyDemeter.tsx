@@ -1,4 +1,3 @@
-import { Recipe } from "../../types/Types";
 import { AccountPage } from "../AccountPage/AccountPage";
 import { InventoryPage } from "../inventory/inventoryPage";
 import { NewsPage } from "../NewsPage/NewsPage";
@@ -6,6 +5,7 @@ import { CreateRecipePage } from "../RecipePage/CreateRecipe/CreateRecipePage";
 import { RecipePage } from "../RecipePage/RecipePage";
 import { SingleRecipePage } from "../RecipePage/SingleRecipe/SingleRecipePage";
 import { TaskPage } from "../TaskPage/TaskPage";
+import {Recipe} from "../../types/Types";
 
 
 interface BodyDemeterProps {

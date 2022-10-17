@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
-import { getProductByCategory } from "../../../../services/inventory.functions";
+import { getProductsByCategory } from "../../../../services/inventory.functions";
 import { Product } from "../../../../types/Types";
 
 interface AIFProps {
@@ -14,13 +14,13 @@ const [selectedIng, setSelectedIng] = useState<Product|null>(null);
    
     useEffect(() => {
         async function getList() {
-          setListIng(await getProductByCategory(1));
+          setListIng(await getProductsByCategory("1"));
         }
         getList();
-      }, [ingList]);
+        console.log("ingredientList",ingList);
+      }, [show]);
 
-
-
+    
       function addToRecipeList(){
         const ingredient = document.getElementById("ingredient") as HTMLInputElement; // this return the id not the whole thing, make a fin on list 
         const quantity = document.getElementById("quantity") as HTMLInputElement;
@@ -34,7 +34,7 @@ const [selectedIng, setSelectedIng] = useState<Product|null>(null);
         <Form>
         <Form.Select  id="ingredient">
         {ingList.map((ing) => (
-            <option value={ing.id.toString()}>{ing.prodName}</option>
+            <option value={ing.id.toString()}>{ing.name}</option>
         ))}
          </Form.Select>
          <Form.Label controlId="quantity">QUANTITÉ</Form.Label>

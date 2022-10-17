@@ -25,6 +25,18 @@ function getProduct(id: string) {
      return Product;
  }
 
+ async function getProductsByCategory(category: string){
+    const products = InventoryService.getByCategory(category)
+    .then((response: any) => {
+      return response.data;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return [];
+    });
+  return products; 
+ }
+
 async function createProduct(data:Product): Promise<boolean>{
     const productCreated = InventoryService.create(data)
     .then((product) => {
@@ -95,4 +107,5 @@ export {
     getCategory,
     getAllCategories,
     getAllMesurements,
+    getProductsByCategory
 };

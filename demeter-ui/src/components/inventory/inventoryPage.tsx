@@ -5,7 +5,6 @@ import { InventoryForm } from './inventoryAddForm';
 import { InventoryUpdate } from './inventoryUpdate';
 
 function InventoryPage(): JSX.Element{
-    const edit = false;
 
     const [createNewProduct, setCreateNewProduct] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);

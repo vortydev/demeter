@@ -24,19 +24,6 @@ type Recipe = {
   recipeName: string;
 };
 
-type RawRecipe ={
-    title : string;
-    category : number;
-    instructions : string;
-    otherCost: number;
-    nbProductCreated: number;
-}
-
-type IngForRecipe ={
-    ingredient: Product;
-    quantity : number;
-}
-
 type Product = {
     id: number;
     name: String;
@@ -68,4 +55,4 @@ type Mesurement = {
     weight: number;
 }
 
-export type { Account, News, Task, Product, Category, Recipe, RawRecipe, Vendor, Mesurement, IngForRecipe }
+export type { Account, News, Task, Product, Category, Recipe, Vendor, Mesurement }

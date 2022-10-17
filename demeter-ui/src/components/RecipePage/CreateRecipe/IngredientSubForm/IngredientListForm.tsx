@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-import { IngForRecipe } from "../../../../types/Types";
+import { IngForRecipe } from "../../../../types/RecipeTypes.types";
 import { AddIngredientForm } from "./AddIngredientForm";
 import { IngredientRowForm } from "./IngredientRowForm";
 
@@ -18,7 +18,7 @@ function IngredientListForm({ listIng, setListIng }: ILFProps) {
         <IngredientRowForm ingredient={ing} />
       ))}</div>
       <Button onClick={()=>setAddIngredient(true)} variant="outline-secondary">+ Ingrédient</Button>
-      <AddIngredientForm show={addIngredient} setShow={setAddIngredient}/>
+      <AddIngredientForm show={addIngredient} setShow={setAddIngredient} currentList={listIng} setListIngAdded={setListIng}/>
    
     </div>
   );

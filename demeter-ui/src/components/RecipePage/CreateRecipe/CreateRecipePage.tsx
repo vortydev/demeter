@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
-import { IngForRecipe, RawRecipe } from "../../../types/Types";
+import { IngForRecipe, RawRecipe } from "../../../types/RecipeTypes.types";
 import { CreateRecipeForm } from "./createRecipeForm";
 import { IngredientListForm } from "./IngredientSubForm/IngredientListForm";
 

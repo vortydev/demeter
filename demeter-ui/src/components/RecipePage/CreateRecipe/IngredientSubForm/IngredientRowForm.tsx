@@ -1,4 +1,4 @@
-import { IngForRecipe } from "../../../../types/Types";
+import { IngForRecipe } from "../../../../types/RecipeTypes.types";
 
 interface IRFProps{
     ingredient : IngForRecipe;

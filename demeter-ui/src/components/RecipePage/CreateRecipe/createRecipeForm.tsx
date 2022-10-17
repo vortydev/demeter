@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
-import { RawRecipe } from "../../../types/Types";
+import { RawRecipe } from "../../../types/RecipeTypes.types";
+
 
 interface CRFProps{
   setRecipeInfo: (recipe: RawRecipe)=>void;

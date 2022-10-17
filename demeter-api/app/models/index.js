@@ -43,10 +43,37 @@ db.products.belongsTo(db.categoryproducts, { foreignKey: "categoryproductId" });
 db.products.belongsTo(db.mesurements, { foreignKey: "mesurementId" });
 db.products.belongsTo(db.vendors, { foreignKey: "vendorId" });
 
-// CARNET
-
 // TÂCHES
+db.tasks = require("./task.model")(sequelize, Sequelize);
+db.categorytasks = require("./categorytask.model")(sequelize, Sequelize);
+
+db.categorytasks.hasMany(db.tasks);
+db.tasks.hasMany(db.tasks);
+
+db.tasks.belongsTo(db.categorytasks, { foreignKey: "categorytaskId" });
+db.tasks.belongsTo(db.tasks, { foreignKey: "parentId" });
 
 // ANNONCES
+db.annoucements = require("./announcement.model")(sequelize, Sequelize);
+
+db.roles.hasMany(db.annoucements);
+db.tasks.hasMany(db.annoucements);
+
+db.annoucements.belongsTo(db.roles, { foreignKey: "roleId" });
+db.annoucements.belongsTo(db.tasks, { foreignKey: "taskId" });
+
+// CARNET DE RECETTES
+db.recipes = require("./recipe.model")(sequelize, Sequelize);
+db.categoryrecipes = require("./categoryrecipe.model")(sequelize, Sequelize);
+db.rel_productrecipe = require("./rel_productrecipe.model")(sequelize, Sequelize);
+
+db.categoryrecipes.hasMany(db.recipes);
+db.recipes.belongsTo(db.categoryrecipes, { foreignKey: "categoryrecipeId" });
+
+db.products.belongsToMany(db.recipes, { through: db.rel_productrecipe });
+db.recipes.belongsToMany(db.products, { through: db.rel_productrecipe });
+
+db.mesurements.hasMany(db.rel_productrecipe);
+db.rel_productrecipe.belongsTo(db.mesurements, { foreignKey: "mesurementId" });
 
 module.exports = db;

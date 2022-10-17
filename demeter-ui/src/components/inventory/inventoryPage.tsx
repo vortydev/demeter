@@ -71,8 +71,8 @@ export { InventoryPage };
 // edit 1 product
 // delete 1 product
 // edit delete buttons
+// correct edit all products
 // filter products
-// correct inventory display
 // sleep
 // eat
 // drink water

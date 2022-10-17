@@ -13,6 +13,18 @@ function getAll(){
     return products;
 }
 
+function getProduct(id: string) {
+    const Product = InventoryService.getProduct(id)
+    .then((response)=>{
+         return response.data;
+    })
+    .catch((e: Error) => {
+         console.log(e);
+         return [];
+     });
+     return Product;
+ }
+
 async function createProduct(data:Product): Promise<boolean>{
     const productCreated = InventoryService.create(data)
     .then((product) => {
@@ -23,6 +35,18 @@ async function createProduct(data:Product): Promise<boolean>{
         return false;
     });
     return productCreated;
+}
+
+async function updateProduct(data: Product, id: any): Promise<boolean>{
+    const productUpdated = InventoryService.update(data, id)
+    .then((response)=>{
+        return true;
+    })
+    .catch ((e: Error)=>{
+        console.log(e);
+        return false;
+    });
+    return productUpdated;
 }
 
 function getCategory(id: string) {
@@ -65,7 +89,9 @@ function getAllMesurements() {
 
 export {
     getAll,
+    getProduct,
     createProduct,
+    updateProduct,
     getCategory,
     getAllCategories,
     getAllMesurements,

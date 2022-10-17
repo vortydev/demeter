@@ -7,11 +7,17 @@ class InventoryService {
         return http.get<Array<Product>>("/products");
     }
 
+    getProduct(id: any){
+        return http.get<Product>(`/products/${id}`)
+    }
+
     create(data: Product){
         return http.post<Product>("/products", data);
     }
 
-
+    update(data: Product, id: any) {
+        return http.put<any>(`/products/${id}`, data);
+    }
 
 
 

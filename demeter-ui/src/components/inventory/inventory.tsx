@@ -1,6 +1,5 @@
-import { Row, Col, Form } from 'react-bootstrap';
+import { Row, Col, Form, Button } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
-import { InventoryPage } from './inventoryPage';
 import { getAll, getAllCategories, getAllMesurements, getCategory } from '../../services/inventory.functions'
 import { getAllVendor } from '../../services/vendor.functions';
 import { Category, Mesurement, Product, Vendor } from '../../types/Types';
@@ -64,6 +63,8 @@ function ProductsDisplay({product}:ProductDisplayProps): JSX.Element {
             </Col>
             <Col>
                 {product.qtyInv}
+                <Button>edit</Button>
+                <Button>delete</Button>
             </Col>
         </Row>
     );
@@ -84,50 +85,12 @@ function ProductsDisplayEdit ({product}:ProductDisplayProps): JSX.Element {
                     {product.format}
                 </Col>
                 <Col>
-                    <Form.Group controlId="qty_inv">
+                    <Form.Group controlId={`qty_inv${product.id}`}>
                         <Form.Control type="text" placeholder={`${product.qtyInv}`}/>
                     </Form.Group>
                 </Col>
             </Form.Group>
         </Row>
-    );
-}
-
-function editProducts(e: React.SyntheticEvent){
-    e.preventDefault();
-
-    var form = document.getElementById("formMAJ") as HTMLFormElement;
-    
-    form.forEach((productUpdated: { id: any; qty_inv: any; }) => {
-        
-        const [product, setProduct] = React.useState<any>(null);
-
-        React.useEffect(() => {
-            fetch('/products/'+ productUpdated.id)
-                .then(r => r.json())
-                .then(setProduct);
-        }, []);
-
-        if (product !== null) {
-            fetch('/products/' + productUpdated.id,{
-                method: 'PUT',
-                body: JSON.stringify({
-                    name: product.name,
-                    category: product.category,
-                    vendor: product.vendor,
-                    price: product.price,
-                    qty_inv: productUpdated.qty_inv,
-                    qty_unit: product.qty_unit,
-                    mesurement: product.mesurement,
-                    format: product.format
-                }),
-                headers: { 'Content-Type': 'application/json' },
-            });
-        }
-    });
-    
-    return(
-        <InventoryPage/>
     );
 }
 
@@ -218,4 +181,4 @@ function MesurementDropDown({mesurement}:MesurementSelect):JSX.Element{
     );
 }
 
-export {ListingProducts, ListingProductsEdit, ProductsDisplay, ProductsDisplayEdit, editProducts, GetCategory, CategoryDropDown, GetVendors, VendorDropDown, GetMesurements};
+export {ListingProducts, ListingProductsEdit, ProductsDisplay, ProductsDisplayEdit, GetCategory, CategoryDropDown, GetVendors, VendorDropDown, GetMesurements};

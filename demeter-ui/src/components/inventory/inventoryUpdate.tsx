@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Form, Button, Container, Row, Col, Modal} from 'react-bootstrap';
 import { Product } from '../../types/Types';
 import { ListingProductsEdit } from './inventory';
-import { getProduct, updateProduct, getAll } from '../../services/inventory.functions'
+import { updateProduct, getAll } from '../../services/inventory.functions'
 
 interface CRFormProps {
     show : boolean;

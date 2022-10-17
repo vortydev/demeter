@@ -5,9 +5,7 @@ import { verifyLogin } from "../../services/account.functions";
 
 function LoginForm(): JSX.Element {
   const [valid, setValid] = useState<boolean>(true);
-  const fakeAccount: string = "Gotham";
-  const fakePW: string = "batman";
-
+  
   async function handleLogin(e: SyntheticEvent): Promise<void> {
     e.preventDefault();
     setValid(true);

@@ -1,5 +1,5 @@
 import http from "../http-common";
-import { Product, Category } from "../types/Types";
+import { Product, Category, Mesurement } from "../types/Types";
 
 class InventoryService {
 
@@ -7,16 +7,30 @@ class InventoryService {
         return http.get<Array<Product>>("/products");
     }
 
-    getByCategory(category: number){
-        return http.get<Product>(`/products?categoryId=${category}`);
-      }
+    getProduct(id: any){
+        return http.get<Product>(`/products/${id}`)
+    }
+
+    create(data: Product){
+        return http.post<Product>("/products", data);
+    }
+
+    update(data: Product, id: any) {
+        return http.put<any>(`/products/${id}`, data);
+    }
+
+
 
     getAllCategories(){
-        return http.get<Array<Category>>("/products/category");
+        return http.get<Array<Category>>("/categories/products");
     }
 
     getCategory(id: string) {
-        return http.get<Category>(`/products/category/${id}`);
+        return http.get<Category>(`/categories/products/${id}`);
+    }
+
+    getAllMesurements(){
+        return http.get<Array<Mesurement>>("/categories/mesurements");
     }
 
 }

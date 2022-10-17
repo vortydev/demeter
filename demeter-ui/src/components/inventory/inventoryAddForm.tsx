@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { Form, Button, Modal } from 'react-bootstrap';
-import { addProduct, GetCategory, GetVendors } from './inventory';
+import { Product } from '../../types/Types';
+import { GetCategory, GetMesurements, GetVendors } from './inventory';
 import { VendorForm } from './inventoryAddVendorForm';
+import { createProduct } from '../../services/inventory.functions';
 
 interface CRFormProps {
     show : boolean;
@@ -14,20 +16,54 @@ function InventoryForm({ show, close, success }: CRFormProps) {
     const [createNewVendor, setCreateNewVendor] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
 
+    const [error, setError] = useState<boolean>(false);
+
+    async function addProduct(): Promise<void>{
+        const name = document.getElementById("name") as HTMLInputElement;
+        const category = document.getElementById("category") as HTMLInputElement;
+        const vendor = document.getElementById("vendor") as HTMLInputElement;
+        const qtyUnit = document.getElementById("qty_unit") as HTMLInputElement;
+        const mesurement = document.getElementById("mesurement") as HTMLInputElement;
+        const format = document.getElementById("format") as HTMLInputElement;
+        const price = document.getElementById("price") as HTMLInputElement;
+        const qtyInv = document.getElementById("qty_inv") as HTMLInputElement;
+
+        setError(false);
+
+        const newProduct: Product = {
+            id: 1,
+            name: name.value, 
+            categoryproductId: category.value, 
+            vendorId: vendor.value, 
+            qtyUnit: qtyUnit.value,
+            mesurementId: mesurement.value,
+            format: format.value,
+            price: price.value,
+            qtyInv: qtyInv.value
+        };
+
+        console.log(newProduct);
+
+        if (await createProduct(newProduct)){
+            success();
+        }
+        else {
+            setError(true);
+        }
+    }
+
     function successVendor(): void {
         setSuccess(true);
         close();
       }
     
       function closeVendor(): void {
-        //setCreateNewProduct(false);
-        //setUpdatedProducts(false);
         setCreateNewVendor(false);
       }
 
     return (
         <Modal show={show} onHide={close}>
-        <Form onSubmit={addProduct}>
+        <Form>
             <Form.Group controlId="name">
                 <Form.Label>NOM</Form.Label>
                 <Form.Control type="text" />
@@ -56,7 +92,9 @@ function InventoryForm({ show, close, success }: CRFormProps) {
 
             <Form.Group controlId="mesurement">
                 <Form.Label>MESURE</Form.Label>
-                <Form.Control type="text"/>
+                <Form.Select aria-label="mesurement" id="mesurement">
+                    <GetMesurements/>
+                </Form.Select>
             </Form.Group>
 
             <Form.Group controlId="format">
@@ -65,7 +103,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
             </Form.Group>
 
             <Form.Group controlId="price">
-                <Form.Label>PRIX</Form.Label>
+                <Form.Label>PRIX (Mettre un point pour la décimale)</Form.Label>
                 <Form.Control type="text"/>
             </Form.Group>
 
@@ -74,7 +112,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                 <Form.Control type="text"/>
             </Form.Group>
 
-            <Button variant="dark" type="submit">ENVOYER</Button>
+            <Button variant="dark" onClick={addProduct}>ENVOYER</Button>
         </Form>
         <VendorForm show={createNewVendor} close={closeVendor} success={successVendor}/>
         </Modal>

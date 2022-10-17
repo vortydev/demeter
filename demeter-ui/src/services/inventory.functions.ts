@@ -2,51 +2,97 @@ import InventoryService from "./inventory.services";
 import { Product, Category } from "../types/Types";
 
 function getAll(){
-    InventoryService.getAll()
-    .then((response: any)=>{
-        console.log(response.data);
+    const products = InventoryService.getAll()
+    .then((response)=>{
+        return response.data;
    })
    .catch((e: Error) => {
-        console.log(e);
-    });
-}
-
-
-async function getProductByCategory(category: number) {
-    const products = InventoryService.getByCategory(category)
-      .then((response: any) => {
-        return response.data;
-      })
-      .catch((e: Error) => {
         console.log(e);
         return [];
-      });
-    return products;
-  }
-
-function getCategory(id: string) {
-   InventoryService.getCategory(id)
-   .then((response: any)=>{
-        console.log(response.data);
-   })
-   .catch((e: Error) => {
-        console.log(e);
     });
+    return products;
 }
 
-function getAllCategories() {
-    InventoryService.getAllCategories()
-    .then((response: any)=>{
-        console.log(response.data);
+function getProduct(id: string) {
+    const Product = InventoryService.getProduct(id)
+    .then((response)=>{
+         return response.data;
+    })
+    .catch((e: Error) => {
+         console.log(e);
+         return [];
+     });
+     return Product;
+ }
+
+async function createProduct(data:Product): Promise<boolean>{
+    const productCreated = InventoryService.create(data)
+    .then((product) => {
+        return true;
     })
     .catch((e: Error) => {
         console.log(e);
+        return false;
     });
+    return productCreated;
+}
+
+async function updateProduct(data: Product, id: any): Promise<boolean>{
+    const productUpdated = InventoryService.update(data, id)
+    .then((response)=>{
+        return true;
+    })
+    .catch ((e: Error)=>{
+        console.log(e);
+        return false;
+    });
+    return productUpdated;
+}
+
+function getCategory(id: string) {
+   const category = InventoryService.getCategory(id)
+   .then((response)=>{
+        return response.data;
+   })
+   .catch((e: Error) => {
+        console.log(e);
+        return [];
+    });
+    return category;
+}
+
+function getAllCategories() {
+    const categories = InventoryService.getAllCategories()
+    .then((response)=>{
+        return response.data;
+    })
+    .catch((e: Error) => {
+        console.log(e);
+        return [];
+    });
+
+    return categories;
+}
+
+function getAllMesurements() {
+    const mesurements = InventoryService.getAllMesurements()
+    .then((response)=>{
+        return response.data;
+    })
+    .catch((e: Error) => {
+        console.log(e);
+        return [];
+    });
+
+    return mesurements;
 }
 
 export {
     getAll,
+    getProduct,
+    createProduct,
+    updateProduct,
     getCategory,
     getAllCategories,
-    getProductByCategory,
+    getAllMesurements,
 };

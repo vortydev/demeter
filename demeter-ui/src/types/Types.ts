@@ -38,32 +38,34 @@ type IngForRecipe ={
 }
 
 type Product = {
-    id: Number;
-    prodName: String;
-    price: Number;
-    qtyInv: Number;
-    qtyUnit: Number;
+    id: number;
+    name: String;
+    categoryproductId: string;
+    vendorId: string;
+    price: string;
+    qtyInv: string;
+    qtyUnit: string;
     format: String;
-    mesurementId: number;
-    categoryId: number;
-    vendorId: number;
-
+    mesurementId: string;
 }
 
-
 type Category = {
-    id: Number;
-    catName: String;
+    id: number;
+    category: String;
 }
 
 type Vendor = {
-    //id: Number;
-    vendorName: String;
+    id: number;
+    vendor: String;
     phone: String;
     email: String;
     address: String;
 }
 
-export type { Account, News, Task, Product, Category, Vendor, Recipe, RawRecipe, IngForRecipe  }
+type Mesurement = {
+    id: number;
+    mesurement: string;
+    weight: number;
+}
 
-
+export type { Account, News, Task, Product, Category, Vendor, Mesurement }

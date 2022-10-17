@@ -4,6 +4,7 @@ import { deleteProduct, getAll, getAllCategories, getAllMesurements, getCategory
 import { getAllVendor } from '../../services/vendor.functions';
 import { Category, Mesurement, Product, Vendor } from '../../types/Types';
 import { setDefaultResultOrder } from 'dns';
+import { InventoryEditProductForm } from './inventoryUpdateProduct';
 
 function ListingProducts(): JSX.Element {
 
@@ -51,7 +52,18 @@ interface ProductDisplayProps {
     product: Product;
 }
 
-function ProductsDisplay({product}:ProductDisplayProps): JSX.Element {
+function ProductsDisplay({product}:ProductDisplayProps): JSX.Element{
+    const [updateProduct, setUpdatedProduct] = useState<boolean>(false);
+    const [createdSuccess, setSuccess] = useState<boolean>(false);
+
+    function success(): void {
+      setSuccess(true);
+      close();
+    }
+
+    function close(): void {
+      setUpdatedProduct(false);
+    }
 
     return(
         <Row>
@@ -63,8 +75,9 @@ function ProductsDisplay({product}:ProductDisplayProps): JSX.Element {
             </Col>
             <Col>
                 {product.qtyInv}
-                <Button>edit</Button>
+                <Button onClick={()=>{setUpdatedProduct(true)}}>edit</Button>
                 <Button onClick={()=>deleteProductById(product.id)}>delete</Button>
+                <InventoryEditProductForm show={updateProduct} close={close} success={success} product={product}/>
             </Col>
         </Row>
     );

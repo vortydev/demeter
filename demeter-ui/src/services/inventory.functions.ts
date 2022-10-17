@@ -1,5 +1,6 @@
 import InventoryService from "./inventory.services";
 import { Product, Category } from "../types/Types";
+import { ProductsDisplay } from "../components/inventory/inventory";
 
 function getAll(){
     const products = InventoryService.getAll()
@@ -13,8 +14,8 @@ function getAll(){
     return products;
 }
 
-function getProduct(id: string) {
-    const Product = InventoryService.getProduct(id)
+function getProduct(id: string): any {
+    const product = InventoryService.getProduct(id)
     .then((response)=>{
          return response.data;
     })
@@ -22,7 +23,7 @@ function getProduct(id: string) {
          console.log(e);
          return [];
      });
-     return Product;
+     return product;
  }
 
 async function createProduct(data:Product): Promise<boolean>{

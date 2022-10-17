@@ -22,13 +22,13 @@ description : String;
 
 type Product = {
     id: number;
-    name: String;
+    name: string;
     categoryproductId: string;
     vendorId: string;
     price: string;
     qtyInv: string;
     qtyUnit: string;
-    format: String;
+    format: string;
     mesurementId: string;
 }
 

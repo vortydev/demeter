@@ -86,7 +86,7 @@ function ProductsDisplayEdit ({product}:ProductDisplayProps): JSX.Element {
                 </Col>
                 <Col>
                     <Form.Group controlId={`qty_inv${product.id}`}>
-                        <Form.Control type="text" placeholder={`${product.qtyInv}`}/>
+                        <Form.Control type="text" defaultValue={`${product.qtyInv}`}/>
                     </Form.Group>
                 </Col>
             </Form.Group>

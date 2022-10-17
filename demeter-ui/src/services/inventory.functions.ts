@@ -99,6 +99,21 @@ function getAllMesurements() {
     return mesurements;
 }
 
+function getMesurementById(id:string){
+    const mesurement = InventoryService.getMesurement(id)
+    .then((response)=>{
+        return response.data;
+    })
+    .catch((e: Error) => {
+        console.log(e);
+        return undefined;
+    });
+
+    return mesurement;
+}
+
+
+
 export {
     getAll,
     getProduct,
@@ -107,5 +122,6 @@ export {
     getCategory,
     getAllCategories,
     getAllMesurements,
+    getMesurementById,
     getProductsByCategory
 };

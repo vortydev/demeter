@@ -11,7 +11,7 @@ type RawRecipe ={
 type IngForRecipe ={
     ingredient: Product;
     quantity : number;
-    mesure: Mesurement;
+    mesurementId: string;
 }
 
 export type { RawRecipe, IngForRecipe }

@@ -45,19 +45,17 @@ function AddIngredientForm({
     const productSelected: Product | undefined = ingList.find(
       (x) => x.id === parseInt(ingredient)
     );
-    const mesureSelected: Mesurement | undefined = mesureList.find(
-      (x) => x.id === parseInt(mesurement)
-    );
+
 
     if (
       productSelected !== undefined &&
-      mesureSelected !== undefined &&
+      mesurement!== undefined &&
       quantity > 0
     ) {
       const toAdd: IngForRecipe = {
         ingredient: productSelected,
         quantity: quantity,
-        mesure: mesureSelected,
+        mesurementId: mesurement,
       };
 
       currentList.push(toAdd);

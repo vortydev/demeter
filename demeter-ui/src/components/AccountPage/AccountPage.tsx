@@ -37,7 +37,7 @@ function AccountPage(): JSX.Element {
         />
         <Button
           className="addAcc"
-          variant="secondary"
+          variant="demeter-dark"
           onClick={() => {
             setCreateAccount(true);
             setSuccess(false);

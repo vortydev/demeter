@@ -29,7 +29,7 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
     if (pw.value !== pwc.value && pw.value !== null) {
       // add regex at some point ?
       setValidPassword(false);
-    } 
+    }
     else {
       const newAccount: Account = {
         accName: accountName.value,
@@ -48,39 +48,39 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
 
   return (
     <Modal show={show} onHide={close}>
-      <Form>
+      <Form className="popupForm">
         <Form.Group className="mb-3" controlId="account">
-          <Form.Label>NOM DU COMPTE: </Form.Label>
+          <Form.Label>Nom d'utilisateur</Form.Label>
           <Form.Control type="text" />
         </Form.Group>
-        {!validPassword && (
-          <Alert variant="danger">
-            {" "}
-            Les mots de passe ne correspondent pas.
-          </Alert>
-        )}
-        {error && (
-          <Alert variant="danger">
-            {" "}
-            Une erreur est survenue. Le compte n'a pas été créé.
-          </Alert>
-        )}
         <Form.Group className="mb-3" controlId="password">
-          <Form.Label>MOT DE PASSE:</Form.Label>
+          <Form.Label>Mot de passe</Form.Label>
           <Form.Control type="password" />
         </Form.Group>
         <Form.Group className="mb-3" controlId="passwordConfirm">
-          <Form.Label>CONFIRMER MOT DE PASSE:</Form.Label>
+          <Form.Label>Confirmer le mot de passe</Form.Label>
           <Form.Control type="password" />
         </Form.Group>
-        <Form.Select aria-label="role" id="role">
+        <Form.Select className="cursor mb-3" aria-label="role" id="role">
           <option>Choisir le rôle</option>
           <option value="1">Administrateur</option>
           <option value="2">Employé</option>
           <option value="3">Livreur</option>
         </Form.Select>
-        <Button onClick={handleSubmit}>AJOUTER</Button>{" "}
-        <Button onClick={close}>ANNULER</Button>
+        {!validPassword && (
+          <Alert variant="danger">
+            Les mots de passe ne correspondent pas.
+          </Alert>
+        )}
+        {error && (
+          <Alert variant="danger">
+            Une erreur est survenue. Le compte n'a pas été créé.
+          </Alert>
+        )}
+        <div className="mt-3 popupBtnBox">
+          <Button variant="demeter-dark" onClick={close}>Annuler</Button>
+          <Button variant="demeter" onClick={handleSubmit}>Ajouter</Button>
+        </div>
       </Form>
     </Modal>
   );

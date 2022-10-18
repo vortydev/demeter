@@ -63,7 +63,7 @@ function AccountRow({
   }
 
   return (
-    <div className="accountInfo flex">
+    <div className="flex">
       <span className="accountName">{currentAccount.accName}</span>{" "}
       <FontAwesomeIcon className="accountIcon cursor" icon={faEdit} size="lg" onClick={() => {
         setEditAccount(true);

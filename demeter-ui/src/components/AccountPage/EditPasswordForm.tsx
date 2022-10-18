@@ -44,18 +44,18 @@ function EditPasswordForm({
   }
   return (
     <Modal show={show} onHide={close}>
-      <Form>
+      <Form className="popupForm">
         {!validPassword && (<Alert variant="danger"> Les mots de passe ne correspondent pas !</Alert>)}
         <Form.Group className="mb-3" controlId="password">
-          <Form.Label>NOUVEAU MOT DE PASSE : </Form.Label>
+          <Form.Label>Nouveau mot de passe</Form.Label>
           <Form.Control type="password" />
         </Form.Group>
         <Form.Group className="mb-3" controlId="passwordConfirm">
-          <Form.Label>CONFIRMATION MOT DE PASSE : </Form.Label>
+          <Form.Label>Confirmer le mot de passe</Form.Label>
           <Form.Control type="password" />
         </Form.Group>
       </Form>
-      <Button onClick={handleSubmit}> Yeah !</Button>
+      <Button className="popupBtn" variant="demeter" onClick={handleSubmit}>Confirmer</Button>
     </Modal>
   );
 }

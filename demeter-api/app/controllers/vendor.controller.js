@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Vendor
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.vendorName) {
+    if (!req.body.vendor) {
         res.status(400).send({ 
             message: "Content can not be empty!" 
         });
@@ -14,7 +14,7 @@ exports.create = (req, res) => {
 
     // Create a Vendor
     const vendor = {
-        name: req.body.vendorName,
+        vendor: req.body.vendor,
         phone: req.body.phone,
         email: req.body.email,
         address: req.body.address

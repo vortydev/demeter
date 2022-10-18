@@ -20,25 +20,34 @@ description : String;
 }
 
 type Product = {
-    id: Number;
-    prodName: String;
-    price: Number;
-    qtyInv: Number;
-    qtyUnit: Number;
-    format: String;
+    id: number;
+    name: string;
+    categoryproductId: string;
+    vendorId: string;
+    price: string;
+    qtyInv: string;
+    qtyUnit: string;
+    format: string;
+    mesurementId: string;
 }
 
 type Category = {
-    id: Number;
-    catName: String;
+    id: number;
+    category: String;
 }
 
 type Vendor = {
-    //id: Number;
-    vendorName: String;
+    id: number;
+    vendor: String;
     phone: String;
     email: String;
     address: String;
 }
 
-export type { Account, News, Task, Product, Category, Vendor }
+type Mesurement = {
+    id: number;
+    mesurement: string;
+    weight: number;
+}
+
+export type { Account, News, Task, Product, Category, Vendor, Mesurement }

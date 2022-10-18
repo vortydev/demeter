@@ -1,6 +1,9 @@
 import { render } from "@testing-library/react";
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+
 import {
   deleteAccount,
   getAccountsByRole,
@@ -60,23 +63,15 @@ function AccountRow({
   }
 
   return (
-    <div className="accountInfo">
-      <span>{currentAccount.accName}</span>{" "}
-      <Button
-        onClick={() => {
-          setEditAccount(true);
-        }}
-      >
-        Edit
-      </Button>{" "}
-      <Button
-        onClick={() => {
-          deleteAccount(currentAccount.accName);
-          setDeleteSuccess(true);
-        }}
-      >
-        Delete
-      </Button>
+    <div className="flex">
+      <span className="accountName">{currentAccount.accName}</span>{" "}
+      <FontAwesomeIcon className="accountIcon cursor" icon={faEdit} size="lg" onClick={() => {
+        setEditAccount(true);
+      }} />
+      <FontAwesomeIcon className="accountIcon cursor" icon={faTrashAlt} size="lg" onClick={() => {
+        deleteAccount(currentAccount.accName);
+        setDeleteSuccess(true);
+      }} />
       <EditPasswordForm
         show={editAccount}
         account={currentAccount}

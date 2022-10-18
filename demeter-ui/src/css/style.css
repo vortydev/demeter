@@ -1,0 +1,94 @@
+:root {
+    --demeter-black: #201B1A;
+    --demeter-black-v: #000000;
+    --demeter-green: #439e75;
+    --demeter-green-v: #3E8E6A;
+    --demeter-orange: #bc5f04;
+    --demeter-grey: #696969;
+    --demeter-mint: #00c79a;
+}
+
+::selection {
+    color: white;
+    background: var(--demeter-green);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Antic', sans-serif;
+    font-size: 1.25rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+    font-size: 1.25rem !important;
+}
+
+.alert {
+    font-size: 1rem !important;
+}
+
+.cursor,
+select {
+    cursor: pointer;
+}
+
+[class*="flex"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    flex-direction: row;
+}
+
+.flexCol {
+    flex-direction: column;
+}
+
+.center {
+    margin: auto;
+}
+
+.popupForm {
+    padding: 1rem;
+    /* font-size: 1.25rem; */
+}
+
+.popupBtn {
+    margin: 0 1rem 1rem 1rem;
+    /* font-size: 1.25rem; */
+}
+
+.popupBtnBox {
+    margin: auto;
+    text-align: center;
+}
+
+.popupBtnBox>button {
+    /* font-size: 1.25rem; */
+    width: 10rem;
+    margin: 0 1rem 0 1rem;
+}
+
+.btn-demeter {
+    background-color: var(--demeter-green);
+    color: white;
+    transition: all 0.25s;
+}
+
+.btn-demeter:hover {
+    background-color: var(--demeter-green-v);
+    color: white;
+}
+
+.btn-demeter-dark {
+    background-color: var(--demeter-black);
+    color: white;
+    transition: all 0.25s;
+}
+
+.btn-demeter-dark:hover {
+    background-color: var(--demeter-black-v);
+    color: white;
+}

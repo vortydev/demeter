@@ -3,22 +3,23 @@ import { Form, Button, Modal } from 'react-bootstrap';
 import { Product } from '../../types/Types';
 import { GetCategory, GetMesurements, GetVendors } from './inventory';
 import { VendorForm } from './inventoryAddVendorForm';
-import { createProduct } from '../../services/inventory.functions';
+import { updateProduct } from '../../services/inventory.functions';
 
 interface CRFormProps {
     show : boolean;
+    product : Product;
     close: () => void;
     success: () => void;
 }
 
-function InventoryForm({ show, close, success }: CRFormProps) {
+function InventoryEditProductForm({ show, close, success, product }: CRFormProps) {
 
     const [createNewVendor, setCreateNewVendor] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
 
     const [error, setError] = useState<boolean>(false);
 
-    async function addProduct(): Promise<void>{
+    async function editProduct(): Promise<void>{
         const name = document.getElementById("name") as HTMLInputElement;
         const category = document.getElementById("category") as HTMLInputElement;
         const vendor = document.getElementById("vendor") as HTMLInputElement;
@@ -30,8 +31,8 @@ function InventoryForm({ show, close, success }: CRFormProps) {
 
         setError(false);
 
-        const newProduct: Product = {
-            id: 1,
+        const editedProduct: Product = {
+            id: product.id,
             name: name.value, 
             categoryproductId: category.value, 
             vendorId: vendor.value, 
@@ -42,9 +43,9 @@ function InventoryForm({ show, close, success }: CRFormProps) {
             qtyInv: qtyInv.value
         };
 
-        console.log(newProduct);
+        console.log(editedProduct);
 
-        if (await createProduct(newProduct)){
+        if (await updateProduct(editedProduct, product.id)){
             success();
         }
         else {
@@ -66,17 +67,17 @@ function InventoryForm({ show, close, success }: CRFormProps) {
         <Form>
             <Form.Group controlId="name">
                 <Form.Label>NOM</Form.Label>
-                <Form.Control type="text" />
+                <Form.Control type="text" defaultValue={product.name}/>
             </Form.Group>
 
             <Form.Label>TYPE</Form.Label>
-            <Form.Select aria-label="categorie" id="category">
+            <Form.Select aria-label="categorie" id="category" defaultValue={product.categoryproductId}>
                 <GetCategory/>
             </Form.Select>
 
             <Form.Group controlId="vendor">
                 <Form.Label>FOURNISSEUR</Form.Label>
-                <Form.Select aria-label="vendor" id="vendor">
+                <Form.Select aria-label="vendor" id="vendor" defaultValue={product.vendorId}>
                     <GetVendors/>
                 </Form.Select>
                 <Button variant="dark" onClick={() => {
@@ -85,38 +86,41 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                 }}> Nouveau Fournisseur </Button>
             </Form.Group>
 
-            <Form.Group controlId="qty_unit">
+            <Form.Group controlId="qty_unit" defaultValue={product.qtyUnit}>
                 <Form.Label>FORMAT (Qt)</Form.Label>
-                <Form.Control type="text"/>
+                <Form.Control type="text" defaultValue={product.qtyUnit}/>
             </Form.Group>
 
             <Form.Group controlId="mesurement">
                 <Form.Label>MESURE</Form.Label>
-                <Form.Select aria-label="mesurement" id="mesurement">
+                <Form.Select aria-label="mesurement" id="mesurement" defaultValue={product.mesurementId}>
                     <GetMesurements/>
                 </Form.Select>
             </Form.Group>
 
             <Form.Group controlId="format">
                 <Form.Label>FORMAT (Nom)</Form.Label>
-                <Form.Control type="text"/>
+                <Form.Control type="text" defaultValue={product.format}/>
             </Form.Group>
 
             <Form.Group controlId="price">
                 <Form.Label>PRIX (Mettre un point pour la décimale)</Form.Label>
-                <Form.Control type="text"/>
+                <Form.Control type="text" defaultValue={product.price}/>
             </Form.Group>
 
             <Form.Group controlId="qty_inv">
                 <Form.Label>Qt EN STOCK</Form.Label>
-                <Form.Control type="text"/>
+                <Form.Control type="text" defaultValue={product.qtyInv}/>
             </Form.Group>
 
-            <Button variant="dark" onClick={addProduct}>ENVOYER</Button>
+            <Button variant="dark" onClick={editProduct}>ENVOYER</Button>
         </Form>
         <VendorForm show={createNewVendor} close={closeVendor} success={successVendor}/>
         </Modal>
     );
 }
 
-export { InventoryForm };
+export { InventoryEditProductForm };
+
+
+

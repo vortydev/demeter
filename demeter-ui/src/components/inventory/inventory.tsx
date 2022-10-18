@@ -1,45 +1,69 @@
-import { Row, Col, Form } from 'react-bootstrap';
-import React from 'react';
-import { InventoryPage } from './inventoryPage';
-import { getAll, getAllCategories, getCategory } from '../../services/inventory.functions'
+import { Row, Col, Form, Button } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
+import { deleteProduct, getAll, getAllCategories, getAllMesurements, getCategory } from '../../services/inventory.functions'
 import { getAllVendor } from '../../services/vendor.functions';
-import { Vendor } from '../../types/Types';
+import { Category, Mesurement, Product, Vendor } from '../../types/Types';
 import { setDefaultResultOrder } from 'dns';
+import { InventoryEditProductForm } from './inventoryUpdateProduct';
 
-function ListingProducts(edit: any): JSX.Element {
+function ListingProducts(): JSX.Element {
 
-    const [products, setProducts] = React.useState<any>(null);
+    const [products, setProducts] = useState<Product[]>([]);
 
-    getAll();
-
-    if (products !== null) {  
-        if (edit == false) {
-            return (
-                <React.Fragment>
-                    {products.map((product: any) => (
-                        <ProductsDisplay product={product}/>
-                    ))}
-                </React.Fragment>
-            );
+    useEffect(() => {
+        async function getList() {
+            setProducts(await getAll());
         }
-        else if(edit == true){
-            return (
-                <React.Fragment>
-                    {products.map((product: any) => (
-                        <ProductsDisplayEdit product={product}/>
-                    ))}
-                </React.Fragment>
-            );
-        }
-    }
+        getList();
+    });
 
     return (
-        <p className="text-center">You have no products item yet!</p>
+        <React.Fragment>
+            {products.map((product) => (
+                <ProductsDisplay product={product}/>
+            ))}
+        </React.Fragment>
     );
     
 }
 
-function ProductsDisplay(product:any): JSX.Element {
+function ListingProductsEdit(): JSX.Element {
+
+    const [products, setProducts] = useState<Product[]>([]);
+
+    useEffect(() => {
+        async function getList() {
+            setProducts(await getAll());
+        }
+        getList();
+    });
+
+    return (
+        <React.Fragment>
+            {products.map((product) => (
+                <ProductsDisplayEdit product={product}/>
+            ))}
+        </React.Fragment>
+    );
+    
+}
+
+interface ProductDisplayProps {
+    product: Product;
+}
+
+function ProductsDisplay({product}:ProductDisplayProps): JSX.Element{
+    const [updateProduct, setUpdatedProduct] = useState<boolean>(false);
+    const [createdSuccess, setSuccess] = useState<boolean>(false);
+
+    function success(): void {
+      setSuccess(true);
+      close();
+    }
+
+    function close(): void {
+      setUpdatedProduct(false);
+    }
 
     return(
         <Row>
@@ -50,17 +74,20 @@ function ProductsDisplay(product:any): JSX.Element {
                 {product.format}
             </Col>
             <Col>
-                {product.qty_inv}
+                {product.qtyInv}
+                <Button onClick={()=>{setUpdatedProduct(true)}}>edit</Button>
+                <Button onClick={()=>deleteProductById(product.id)}>delete</Button>
+                <InventoryEditProductForm show={updateProduct} close={close} success={success} product={product}/>
             </Col>
         </Row>
     );
 }
 
-function ProductsDisplayEdit (product:any): JSX.Element {
+function ProductsDisplayEdit ({product}:ProductDisplayProps): JSX.Element {
 
     return(
         <Row>
-            <Form.Group controlId={product.id}>
+            <Form.Group controlId={`product${product.id}`}>
                 <Col>
                     <Form.Group controlId="id">
                         <Form.Control type="hidden" value={product.id}/>
@@ -71,8 +98,8 @@ function ProductsDisplayEdit (product:any): JSX.Element {
                     {product.format}
                 </Col>
                 <Col>
-                    <Form.Group controlId="qty_inv">
-                        <Form.Control type="text" placeholder={product.qty_inv}/>
+                    <Form.Group controlId={`qty_inv${product.id}`}>
+                        <Form.Control type="text" defaultValue={`${product.qtyInv}`}/>
                     </Form.Group>
                 </Col>
             </Form.Group>
@@ -80,116 +107,97 @@ function ProductsDisplayEdit (product:any): JSX.Element {
     );
 }
 
-function editProducts(e: React.SyntheticEvent){
-    e.preventDefault();
-
-    var form = document.getElementById("formMAJ") as HTMLFormElement;
-    
-    form.forEach((productUpdated: { id: any; qty_inv: any; }) => {
-        
-        const [product, setProduct] = React.useState<any>(null);
-
-        React.useEffect(() => {
-            fetch('/products/'+ productUpdated.id)
-                .then(r => r.json())
-                .then(setProduct);
-        }, []);
-
-        if (product !== null) {
-            fetch('/products/' + productUpdated.id,{
-                method: 'PUT',
-                body: JSON.stringify({
-                    name: product.name,
-                    category: product.category,
-                    vendor: product.vendor,
-                    price: product.price,
-                    qty_inv: productUpdated.qty_inv,
-                    qty_unit: product.qty_unit,
-                    mesurement: product.mesurement,
-                    format: product.format
-                }),
-                headers: { 'Content-Type': 'application/json' },
-            });
-        }
-    });
-    
-    return(
-        <InventoryPage/>
-    );
+function deleteProductById(id: any){
+    if (window.confirm('Êtes-vous sur de vouloir supprimer ce produit?')){
+        deleteProduct(id);
+    }
 }
 
 function GetCategory(): JSX.Element {
-    const [categories, setCategories] = React.useState<any>(null);
+    const [categories, setCategories] = useState<Category[]>([]);
 
-    //React.useEffect(() => {
-    //    fetch('/api/products/category/1')
-    //        //.then(r => r.json())
-    //        .then(setCategories);
-    //}, []);
-
-    //getCategory('1');
-
-    getAllCategories();
-
-    //<CategoryDropDown category={categories}/>
+    useEffect(() => {
+        async function getList() {
+            setCategories(await getAllCategories());
+        }
+        getList();
+    });
+    
     return(
         <React.Fragment>
-            <option value='1'>waiting for it</option>
+            {categories.map((category) => (
+                <CategoryDropDown category={category}/>
+            ))}
         </React.Fragment>
     );
 }
 
 function GetVendors():JSX.Element {
-    getAllVendor();
+    const [ vendors, setVendors ] = useState<Vendor[]>([]);
+
+    useEffect(() => {
+        async function getList() {
+            setVendors(await getAllVendor());
+        }
+        getList();
+    });
+
     return(
         <React.Fragment>
-            <option value='1'>waiting for it</option>
+            {vendors.map((vendor) => (
+                <VendorDropDown vendor={vendor}/>
+            ))}
         </React.Fragment>
     );
 }
 
-function CategoryDropDown(category:any):JSX.Element{
+interface CategorySelect {
+    category: Category;
+}
+
+function CategoryDropDown({category}:CategorySelect):JSX.Element{
     return(
-        <option value={category.id}>{category.name}</option>
+        <option value={category.id}>{category.category}</option>
     );
 }
 
-function vendorDropDown(vendor:any):JSX.Element{
+interface VendorSelect {
+    vendor: Vendor;
+}
+
+function VendorDropDown({vendor}:VendorSelect):JSX.Element{
     return(
-        <option value={vendor.id}>{vendor.name}</option>
+        <option value={vendor.id}>{vendor.vendor}</option>
     );
 }
 
-function addProduct(e: React.SyntheticEvent): JSX.Element{
-    e.preventDefault();
+function GetMesurements():JSX.Element {
+    const [ mesurements, setMesurements ] = useState<Mesurement[]>([]);
 
-    const name = document.getElementById("name") as HTMLInputElement;
-    const category = document.getElementById("category") as HTMLInputElement;
-    const vendor = document.getElementById("vendor") as HTMLInputElement;
-    const qtyUnit = document.getElementById("qty_unit") as HTMLInputElement;
-    const mesurement = document.getElementById("mesurement") as HTMLInputElement;
-    const format = document.getElementById("format") as HTMLInputElement;
-    const price = document.getElementById("price") as HTMLInputElement;
-    const qtyInv = document.getElementById("qty_inv") as HTMLInputElement;
-
-    fetch('/products',{
-        method: 'POST',
-        body: JSON.stringify({
-            name: name.value, 
-            category: category.value, 
-            vendor: vendor.value, 
-            qty_unit: qtyUnit.value,
-            mesurement: mesurement.value,
-            format: format.value,
-            price: price.value,
-            qty_inv: qtyInv.value
-        }),
-        headers: { 'Content-Type': 'application/json' },
+    useEffect(() => {
+        async function getList() {
+            setMesurements(await getAllMesurements());
+        }
+        getList();
     });
-    
+
     return(
-        <InventoryPage/>
+        <React.Fragment>
+            {mesurements.map((mesurement) => (
+                <MesurementDropDown mesurement={mesurement}/>
+            ))}
+        </React.Fragment>
     );
 }
 
-export {ListingProducts, ProductsDisplay, ProductsDisplayEdit, editProducts, addProduct, GetCategory, CategoryDropDown, GetVendors, vendorDropDown};
+interface MesurementSelect {
+    mesurement: Mesurement;
+}
+
+function MesurementDropDown({mesurement}:MesurementSelect):JSX.Element{
+    return(
+        <option value={mesurement.id}>{mesurement.mesurement}</option>
+    );
+}
+
+export {ListingProducts, ListingProductsEdit, ProductsDisplay, ProductsDisplayEdit, GetCategory, CategoryDropDown, GetVendors, VendorDropDown, GetMesurements};

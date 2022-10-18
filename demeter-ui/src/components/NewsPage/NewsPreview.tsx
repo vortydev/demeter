@@ -22,8 +22,8 @@ function NewsPreview({ news }: NewsPreviewProps) {
   return (
     <div className="newsPreview" >
       <div className="newsBox">
-        {news.picture !== null &&(<div className="picture">
-          <img src={news.picture} />
+        {news.img !== null &&(<div className="picture">
+          <img src={news.img} />
         </div>)}
         <p className="title-text">
           <h1>{news.title} </h1>

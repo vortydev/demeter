@@ -2,7 +2,7 @@ import AnnouncementsService from "./news.services";
 import { News} from "../types/Types";
 import bcrypt from "bcryptjs";
 
-async function createAnnouncement(data: News): Promise<boolean> {
+async function createNews(data: News): Promise<boolean> {
   const announcementCreated = AnnouncementsService.create(data)
     .then((response: any) => {
       return true;
@@ -40,4 +40,4 @@ async function deleteAnnouncement(announcementName: string) {
 }
 
 
-export { createAnnouncement, updateAnnouncement,deleteAnnouncement };
+export { createNews, updateAnnouncement,deleteAnnouncement };

@@ -6,11 +6,14 @@ type Account = {
 }
 
 type News ={
-    id: Number;
     title : string;
     description : string;
     author: string;
-    picture: string | null;
+    img: string | null;
+    active: boolean;
+    roleId: string;
+    taskId: number | null;
+
 }
 
 type Task = {

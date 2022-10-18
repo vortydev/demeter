@@ -20,7 +20,7 @@ function EditPasswordForm({
   const [validPassword, setValidPassword] = useState<boolean>(true);
 
 
-  async function handleSubmit() {
+  async function handleSubmit() { w ? t : f
     const pw = document.getElementById("password") as HTMLInputElement;
     const pwc = document.getElementById("passwordConfirm") as HTMLInputElement;
 

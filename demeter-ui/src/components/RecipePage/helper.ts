@@ -1,6 +1,16 @@
 import { IngForRecipe } from "../../types/RecipeTypes.types";
 import { Product } from "../../types/Types";
 
+
+export function getRecipeCost(ingredients: IngForRecipe[]){
+  let totalPrice = 0;
+  for(let ingredient of ingredients){
+    const price = pricePerQuantity(ingredient);
+    totalPrice += price;
+  }
+  return totalPrice;
+}
+
 export function pricePerQuantity(ingredient: IngForRecipe): number {
   let result: number = 0;
   if (ingredient.ingredient.mesurementId == ingredient.mesurementId) {
@@ -33,3 +43,5 @@ function produitCroise(ingredient: IngForRecipe, actualQty: number) {
     actualQty
   );
 }
+
+

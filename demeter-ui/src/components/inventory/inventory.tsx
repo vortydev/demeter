@@ -6,7 +6,10 @@ import { Category, Mesurement, Product, Vendor } from '../../types/Types';
 import { setDefaultResultOrder } from 'dns';
 import { InventoryEditProductForm } from './inventoryUpdateProduct';
 
-function ListingProducts(): JSX.Element {
+interface Getting {
+    createdSuccess: boolean,
+}
+function ListingProducts(createdSuccess: Getting): JSX.Element {
 
     const [products, setProducts] = useState<Product[]>([]);
 
@@ -15,7 +18,7 @@ function ListingProducts(): JSX.Element {
             setProducts(await getAll());
         }
         getList();
-    });
+    },[createdSuccess]);
 
     return (
         <React.Fragment>

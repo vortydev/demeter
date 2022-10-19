@@ -38,7 +38,7 @@ function InventoryPage(): JSX.Element{
                         <Col><h2>Format</h2></Col>
                         <Col><h2>Quantité</h2></Col>
                     </Row>
-                    <ListingProducts />
+                    <ListingProducts createdSuccess={createdSuccess}/>
                     <Row>
                         <Button variant="dark" onClick={() => {
                           setUpdatedProducts(true);

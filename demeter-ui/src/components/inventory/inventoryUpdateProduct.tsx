@@ -29,27 +29,44 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
         const price = document.getElementById("price") as HTMLInputElement;
         const qtyInv = document.getElementById("qty_inv") as HTMLInputElement;
 
+        var regexPrice = new RegExp (/[0-9]+[.][0-9]{2}/);
+        var regexNumber = new RegExp(/[0-9]+/);
+
         setError(false);
 
-        const editedProduct: Product = {
-            id: product.id,
-            name: name.value, 
-            categoryproductId: category.value, 
-            vendorId: vendor.value, 
-            qtyUnit: qtyUnit.value,
-            mesurementId: mesurement.value,
-            format: format.value,
-            price: price.value,
-            qtyInv: qtyInv.value
-        };
-
-        console.log(editedProduct);
-
-        if (await updateProduct(editedProduct, product.id)){
-            success();
+        if (!name.value || !qtyUnit.value || !format.value || !price.value || !qtyInv.value){
+            alert("Veuillez remplir tout les champs");
+        }
+        else if(!regexPrice.test(price.value)){
+            alert("Veuillez entrer le prix au format #.##");
+        }
+        else if(!regexNumber.test(qtyInv.value)){
+            alert("Veuillez entrer un nombre");
+        }
+        else if(!regexNumber.test(qtyUnit.value)){
+            alert("Veuillez entrer un nombre");
         }
         else {
-            setError(true);
+            const editedProduct: Product = {
+                id: product.id,
+                name: name.value, 
+                categoryproductId: category.value, 
+                vendorId: vendor.value, 
+                qtyUnit: qtyUnit.value,
+                mesurementId: mesurement.value,
+                format: format.value,
+                price: price.value,
+                qtyInv: qtyInv.value
+            };
+
+            console.log(editedProduct);
+
+            if (await updateProduct(editedProduct, product.id)){
+                success();
+            }
+            else {
+                setError(true);
+            }
         }
     }
 

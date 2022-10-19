@@ -66,7 +66,7 @@ function InventoryPage(): JSX.Element{
 export { InventoryPage };
 
 // wtf do I have to do now: 
-// regex + not empty
+// useEffect sur les requetes
 // searchbar
 // filter products
 // sleep

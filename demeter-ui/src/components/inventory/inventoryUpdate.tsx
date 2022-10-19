@@ -28,30 +28,38 @@ function InventoryUpdate({ show, close, success }: CRFormProps) {
             setError(false);
 
             var product = document.getElementById(`qty_inv${productUpdated.id}`) as HTMLInputElement;
+
+            var regexNumber = new RegExp(/[0-9]+/);
     
-            if (productUpdated !== null) {
-                const updatedProduct: Product = {
-                    id: productUpdated.id,
-                    name: productUpdated.name,
-                    categoryproductId: productUpdated.categoryproductId,
-                    vendorId: productUpdated.vendorId,
-                    price: productUpdated.price,
-                    qtyInv: product.value,
-                    qtyUnit: productUpdated.qtyUnit,
-                    mesurementId: productUpdated.mesurementId,
-                    format: productUpdated.format
-                };
-    
-                if (await updateProduct(updatedProduct, productUpdated.id)){
-                    success();
+            if(!product.value){
+                alert("Veuillez entrer une quantité");
+            }
+            else if(!regexNumber.test(product.value)){
+                alert("Veuillez entrer un nombre valide");
+            }else{
+                if (productUpdated !== null) {
+                    const updatedProduct: Product = {
+                        id: productUpdated.id,
+                        name: productUpdated.name,
+                        categoryproductId: productUpdated.categoryproductId,
+                        vendorId: productUpdated.vendorId,
+                        price: productUpdated.price,
+                        qtyInv: product.value,
+                        qtyUnit: productUpdated.qtyUnit,
+                        mesurementId: productUpdated.mesurementId,
+                        format: productUpdated.format
+                    };
+        
+                    if (await updateProduct(updatedProduct, productUpdated.id)){
+                        success();
+                    }
+                    else {
+                        setError(true);
+                    }
+        
                 }
-                else {
-                    setError(true);
-                }
-    
             }
         });
-        
     }
 
     return (

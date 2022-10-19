@@ -19,14 +19,14 @@ function InventoryForm({ show, close, success }: CRFormProps) {
     const [error, setError] = useState<boolean>(false);
 
     async function addProduct(): Promise<void>{
-        const name = document.getElementById("name") as HTMLInputElement; //check if empty
+        const name = document.getElementById("name") as HTMLInputElement;
         const category = document.getElementById("category") as HTMLInputElement;
         const vendor = document.getElementById("vendor") as HTMLInputElement;
-        const qtyUnit = document.getElementById("qty_unit") as HTMLInputElement; // check if empty need to be number
+        const qtyUnit = document.getElementById("qty_unit") as HTMLInputElement;
         const mesurement = document.getElementById("mesurement") as HTMLInputElement;
-        const format = document.getElementById("format") as HTMLInputElement; //check if empty
-        const price = document.getElementById("price") as HTMLInputElement; //check if empty need to be #.##
-        const qtyInv = document.getElementById("qty_inv") as HTMLInputElement;  //check if empty need to be number
+        const format = document.getElementById("format") as HTMLInputElement;
+        const price = document.getElementById("price") as HTMLInputElement;
+        const qtyInv = document.getElementById("qty_inv") as HTMLInputElement;
 
         var regexPrice = new RegExp (/[0-9]+[.][0-9]{2}/);
         var regexNumber = new RegExp(/[0-9]+/);
@@ -71,7 +71,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
 
     function successVendor(): void {
         setSuccess(true);
-        close();
+        closeVendor();
       }
     
       function closeVendor(): void {

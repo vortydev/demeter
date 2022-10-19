@@ -11,22 +11,32 @@ interface ILFProps {
 }
 
 function IngredientListForm({ listIng, setListIng }: ILFProps) {
-  const [addIngredient, setAddIngredient]= useState<boolean>(false);
+  const [addIngredient, setAddIngredient] = useState<boolean>(false);
 
-
-const totalCost = getRecipeCost(listIng);
-
+  const totalCost = getRecipeCost(listIng);
 
   return (
     <div className="IngListForm">
-           <span>NOM | QUANTITÉ | PRIX</span>
-     <div> {listIng.map((ing) => (
-        <IngredientRowForm ingredient={ing} />
-      ))}</div>
+      <span>NOM | QUANTITÉ | PRIX</span>
+      <div>
+        {" "}
+        {listIng.map((ing) => (
+          <IngredientRowForm ingredient={ing} />
+        ))}
+      </div>
       <span>Cout Total : {totalCost}$</span>
-      <Button onClick={()=>setAddIngredient(true)} variant="outline-secondary">+ Ingrédient</Button>
-      <AddIngredientForm show={addIngredient} setShow={setAddIngredient} currentList={listIng} setListIngAdded={setListIng}/>
-   
+      <Button
+        onClick={() => setAddIngredient(true)}
+        variant="outline-secondary"
+      >
+        + Ingrédient
+      </Button>
+      <AddIngredientForm
+        show={addIngredient}
+        setShow={setAddIngredient}
+        currentList={listIng}
+        setListIngAdded={setListIng}
+      />
     </div>
   );
 }

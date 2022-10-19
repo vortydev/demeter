@@ -17,7 +17,7 @@ function IngredientRowForm({ ingredient }: IRFProps) {
   }, [ingredient, mesure]);
 
   const cost = pricePerQuantity(ingredient);
-  console.log("cost", cost);
+ 
   return (
     <div>
       <span>{ingredient.ingredient.name}</span>

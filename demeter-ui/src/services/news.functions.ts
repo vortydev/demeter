@@ -14,8 +14,8 @@ async function createNews(data: News): Promise<boolean> {
   return announcementCreated;
 }
 
-async function updateAnnouncement(data: News, announcementName: String): Promise<boolean> {
-  const announcementUpdated = AnnouncementsService.update(data, announcementName)
+async function updateNews(data: News, newsName: String): Promise<boolean> {
+  const announcementUpdated = AnnouncementsService.update(data, newsName)
     .then((response: any) => {
       return true;
     })
@@ -26,8 +26,8 @@ async function updateAnnouncement(data: News, announcementName: String): Promise
   return announcementUpdated;
 }
 
-async function deleteAnnouncement(announcementName: string) {
-  const deleted = AnnouncementsService.delete(announcementName)
+async function deleteNews(newsName: string) {
+  const deleted = AnnouncementsService.delete(newsName)
     .then((response: any) => {
       return true;
     })
@@ -40,4 +40,4 @@ async function deleteAnnouncement(announcementName: string) {
 }
 
 
-export { createNews, updateAnnouncement,deleteAnnouncement };
+export { createNews, updateNews,deleteNews };

@@ -53,11 +53,11 @@ interface CRFormProps {
             <option value="3">Livreur</option>
           </Form.Select>
           <Form.Group className="mb-3" controlId="description">
-            <Form.Label>DESCRIPTION : </Form.Label>
+            <Form.Label>MESSAGE : </Form.Label>
             <Form.Control as="textarea" rows={3}/>
           </Form.Group>
           <Button onClick={handlesubmit}>Ajouter</Button>
-          <Button onClick={()=>{console.log("Cancel!")}}>Annuler</Button>
+          <Button onClick={close}>Annuler</Button>
         </Form>
       </Modal>
     );

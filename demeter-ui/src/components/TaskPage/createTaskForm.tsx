@@ -25,7 +25,7 @@ interface CRFormProps {
             <option value="3">Autre</option>
           </Form.Select>
           <Form.Select className="mb-3" aria-label="TACHE PARENT : ">
-            <option>Aucune</option>
+            <option value="0">Aucune</option>
             <option value="1"></option>
             <option value="2"></option>
             <option value="3"></option>

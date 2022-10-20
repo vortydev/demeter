@@ -89,13 +89,13 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
 
             <Form.Label>TYPE</Form.Label>
             <Form.Select aria-label="categorie" id="category" defaultValue={product.categoryproductId}>
-                <GetCategory/>
+                <GetCategory get={show}/>
             </Form.Select>
 
             <Form.Group controlId="vendor">
                 <Form.Label>FOURNISSEUR</Form.Label>
                 <Form.Select aria-label="vendor" id="vendor" defaultValue={product.vendorId}>
-                    <GetVendors/>
+                    <GetVendors get={show}/>
                 </Form.Select>
                 <Button variant="dark" onClick={() => {
                     setCreateNewVendor(true);
@@ -111,7 +111,7 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
             <Form.Group controlId="mesurement">
                 <Form.Label>MESURE</Form.Label>
                 <Form.Select aria-label="mesurement" id="mesurement" defaultValue={product.mesurementId}>
-                    <GetMesurements/>
+                    <GetMesurements get={show}/>
                 </Form.Select>
             </Form.Group>
 

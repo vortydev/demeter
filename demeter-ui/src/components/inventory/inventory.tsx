@@ -7,9 +7,9 @@ import { setDefaultResultOrder } from 'dns';
 import { InventoryEditProductForm } from './inventoryUpdateProduct';
 
 interface Getting {
-    createdSuccess: boolean,
+    get: boolean,
 }
-function ListingProducts(createdSuccess: Getting): JSX.Element {
+function ListingProducts(get: Getting): JSX.Element {
 
     const [products, setProducts] = useState<Product[]>([]);
 
@@ -18,7 +18,7 @@ function ListingProducts(createdSuccess: Getting): JSX.Element {
             setProducts(await getAll());
         }
         getList();
-    },[createdSuccess]);
+    },[get]);
 
     return (
         <React.Fragment>
@@ -30,7 +30,7 @@ function ListingProducts(createdSuccess: Getting): JSX.Element {
     
 }
 
-function ListingProductsEdit(): JSX.Element {
+function ListingProductsEdit(get: Getting): JSX.Element {
 
     const [products, setProducts] = useState<Product[]>([]);
 
@@ -39,7 +39,7 @@ function ListingProductsEdit(): JSX.Element {
             setProducts(await getAll());
         }
         getList();
-    });
+    },[get]);
 
     return (
         <React.Fragment>
@@ -116,7 +116,7 @@ function deleteProductById(id: any){
     }
 }
 
-function GetCategory(): JSX.Element {
+function GetCategory(get: Getting): JSX.Element {
     const [categories, setCategories] = useState<Category[]>([]);
 
     useEffect(() => {
@@ -124,7 +124,7 @@ function GetCategory(): JSX.Element {
             setCategories(await getAllCategories());
         }
         getList();
-    });
+    },[get]);
     
     return(
         <React.Fragment>
@@ -135,7 +135,7 @@ function GetCategory(): JSX.Element {
     );
 }
 
-function GetVendors():JSX.Element {
+function GetVendors(get: Getting):JSX.Element {
     const [ vendors, setVendors ] = useState<Vendor[]>([]);
 
     useEffect(() => {
@@ -143,7 +143,7 @@ function GetVendors():JSX.Element {
             setVendors(await getAllVendor());
         }
         getList();
-    });
+    },[get]);
 
     return(
         <React.Fragment>
@@ -174,7 +174,7 @@ function VendorDropDown({vendor}:VendorSelect):JSX.Element{
     );
 }
 
-function GetMesurements():JSX.Element {
+function GetMesurements(get: Getting):JSX.Element {
     const [ mesurements, setMesurements ] = useState<Mesurement[]>([]);
 
     useEffect(() => {
@@ -182,7 +182,7 @@ function GetMesurements():JSX.Element {
             setMesurements(await getAllMesurements());
         }
         getList();
-    });
+    },[get]);
 
     return(
         <React.Fragment>

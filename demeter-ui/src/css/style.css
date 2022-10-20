@@ -1,18 +1,14 @@
+/* color palette */
 :root {
     --demeter-black: #201B1A;
-    --demeter-black-v: #000000;
+    --demeter-black-v: #111111;
     --demeter-green: #439e75;
     --demeter-green-v: #3E8E6A;
     --demeter-orange: #bc5f04;
     --demeter-grey: #696969;
-    --demeter-mint: #00c79a;
 }
 
-::selection {
-    color: white;
-    background: var(--demeter-green);
-}
-
+/* defaults */
 body {
     margin: 0;
     padding: 0;
@@ -26,15 +22,25 @@ button {
     font-size: 1.25rem !important;
 }
 
+.cursor, select {
+    cursor: pointer;
+}
+
+/* ui */
+::selection {
+    color: white;
+    background: var(--demeter-green);
+}
+
 .alert {
     font-size: 1rem !important;
 }
 
-.cursor,
-select {
-    cursor: pointer;
+.loginText {
+    color: var(--demeter-grey);
 }
 
+/* flex */
 [class*="flex"] {
     display: flex;
     flex-wrap: wrap;
@@ -46,10 +52,30 @@ select {
     flex-direction: column;
 }
 
-.center {
-    margin: auto;
+/* ui icons */
+[class*="icon"] {
+    font-size: 2.125rem;
 }
 
+.editIcon {
+    padding: 5px;
+    transition: all .2s;
+}
+
+.editIcon:hover {
+    color: var(--demeter-green);
+}
+
+.trashIcon {
+    padding: 5px;
+    transition: all .2s;
+}
+
+.trashIcon:hover {
+    color: var(--demeter-orange);
+}
+
+/* popup ui */
 .popupForm {
     padding: 1rem;
     /* font-size: 1.25rem; */
@@ -66,11 +92,13 @@ select {
 }
 
 .popupBtnBox>button {
-    /* font-size: 1.25rem; */
     width: 10rem;
     margin: 0 1rem 0 1rem;
+    /* font-size: 1.25rem; */
+
 }
 
+/* buttons with Demeter theme */
 .btn-demeter {
     background-color: var(--demeter-green);
     color: white;

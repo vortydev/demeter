@@ -21,7 +21,7 @@ function BodyDemeter({ selected }: BodyDemeterProps) {
     case "accounts":
       return (<AccountPage />);
     default:
-        return (<div>Uh... that's weird</div>);
+        return (<div>404 Uh... that's weird. Page not found.</div>);
   }
 }
 

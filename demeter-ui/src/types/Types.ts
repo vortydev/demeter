@@ -11,6 +11,7 @@ type News ={
     description : string;
     author: string;
     picture: string | null;
+    date: string;
 }
 
 type Task = {

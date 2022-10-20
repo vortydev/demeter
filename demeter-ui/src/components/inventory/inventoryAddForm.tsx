@@ -28,33 +28,50 @@ function InventoryForm({ show, close, success }: CRFormProps) {
         const price = document.getElementById("price") as HTMLInputElement;
         const qtyInv = document.getElementById("qty_inv") as HTMLInputElement;
 
+        var regexPrice = new RegExp (/[0-9]+[.][0-9]{2}/);
+        var regexNumber = new RegExp(/[0-9]+/);
+
         setError(false);
 
-        const newProduct: Product = {
-            id: 1,
-            name: name.value, 
-            categoryproductId: category.value, 
-            vendorId: vendor.value, 
-            qtyUnit: qtyUnit.value,
-            mesurementId: mesurement.value,
-            format: format.value,
-            price: price.value,
-            qtyInv: qtyInv.value
-        };
-
-        console.log(newProduct);
-
-        if (await createProduct(newProduct)){
-            success();
+        if (!name.value || !qtyUnit.value || !format.value || !price.value || !qtyInv.value){
+            alert("Veuillez remplir tout les champs");
         }
-        else {
-            setError(true);
+        else if(!regexPrice.test(price.value)){
+            alert("Veuillez entrer le prix au format #.##");
+        }
+        else if(!regexNumber.test(qtyInv.value)){
+            alert("Veuillez entrer un nombre");
+        }
+        else if(!regexNumber.test(qtyUnit.value)){
+            alert("Veuillez entrer un nombre");
+        }
+        else{
+            const newProduct: Product = {
+                id: 1,
+                name: name.value, 
+                categoryproductId: category.value, 
+                vendorId: vendor.value, 
+                qtyUnit: qtyUnit.value,
+                mesurementId: mesurement.value,
+                format: format.value,
+                price: price.value,
+                qtyInv: qtyInv.value
+            };
+    
+            console.log(newProduct);
+    
+            if (await createProduct(newProduct)){
+                success();
+            }
+            else {
+                setError(true);
+            }
         }
     }
 
     function successVendor(): void {
         setSuccess(true);
-        close();
+        closeVendor();
       }
     
       function closeVendor(): void {
@@ -71,13 +88,13 @@ function InventoryForm({ show, close, success }: CRFormProps) {
 
             <Form.Label>TYPE</Form.Label>
             <Form.Select aria-label="categorie" id="category">
-                <GetCategory/>
+                <GetCategory get={show}/>
             </Form.Select>
 
             <Form.Group controlId="vendor">
                 <Form.Label>FOURNISSEUR</Form.Label>
                 <Form.Select aria-label="vendor" id="vendor">
-                    <GetVendors/>
+                    <GetVendors get={show}/>
                 </Form.Select>
                 <Button variant="dark" onClick={() => {
                     setCreateNewVendor(true);
@@ -93,7 +110,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
             <Form.Group controlId="mesurement">
                 <Form.Label>MESURE</Form.Label>
                 <Form.Select aria-label="mesurement" id="mesurement">
-                    <GetMesurements/>
+                    <GetMesurements get={show}/>
                 </Form.Select>
             </Form.Group>
 

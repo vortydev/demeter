@@ -38,7 +38,7 @@ function InventoryPage(): JSX.Element{
                         <Col><h2>Format</h2></Col>
                         <Col><h2>Quantité</h2></Col>
                     </Row>
-                    <ListingProducts />
+                    <ListingProducts get={createdSuccess}/>
                     <Row>
                         <Button variant="dark" onClick={() => {
                           setUpdatedProducts(true);
@@ -66,6 +66,7 @@ function InventoryPage(): JSX.Element{
 export { InventoryPage };
 
 // wtf do I have to do now: 
+// useEffect sur les requetes
 // searchbar
 // filter products
 // sleep

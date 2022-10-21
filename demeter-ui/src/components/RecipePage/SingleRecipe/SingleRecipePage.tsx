@@ -9,7 +9,7 @@ interface SingleRecipePageProps {
 function SingleRecipePage({ recipe, setSelectedPage }: SingleRecipePageProps) {
   return (
     <div>
-      woot woot {recipe!.recipeName}
+      woot woot {recipe!.title}
       <Button onClick={() => setSelectedPage("recipe")} variant="dark"> 
         RETOUR
       </Button>

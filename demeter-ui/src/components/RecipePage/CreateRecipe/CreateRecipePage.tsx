@@ -1,30 +1,42 @@
 import { useState } from "react";
-import { Button } from "react-bootstrap";
-import { IngForRecipe, RawRecipe } from "../../../types/RecipeTypes.types";
+import { Alert, Button } from "react-bootstrap";
+import { createRecipe } from "../../../services/Recipe.functions";
+import { IngForRecipe } from "../../../types/RecipeTypes.types";
+import { Recipe } from "../../../types/Types";
 import { CreateRecipeForm } from "./createRecipeForm";
 import { IngredientListForm } from "./IngredientSubForm/IngredientListForm";
 
-interface CRPProps{
-    setSelectedPage: (page: string)=> void;
+interface CRPProps {
+  setSelectedPage: (page: string) => void;
 }
 
+function CreateRecipePage({ setSelectedPage }: CRPProps) {
+  const emptyRecipe = {
+    id: 1,
+    title: "change me",
+    category: 99,
+    instructions: "Change me",
+    otherCost: 0,
+    nbProductCreated: 0,
+  };
 
-function CreateRecipePage({setSelectedPage}:CRPProps){
-const [listIng, setListIng] = useState<IngForRecipe[]>([]);
-const [recipeInfo, setRecipeInfo] = useState<RawRecipe>();
+  const [listIng, setListIng] = useState<IngForRecipe[]>([]);
+  const [recipeInfo, setRecipeInfo] = useState<Recipe>(emptyRecipe);
+  const [created, setCreated] = useState<boolean>(false);
 
-function handleSubmit(){
-    // First Create the recipe with basic info
-    // create the rel table, with recipe id +ing id
+  async function handleSubmit() {
+    setCreated(await createRecipe(recipeInfo, listIng));
+  }
+
+  return (
+    <div className="createRecipePage">
+        {created && <Alert>La recette à été créer avec succès!</Alert>}
+      <CreateRecipeForm setRecipeInfo={setRecipeInfo} />
+      <IngredientListForm listIng={listIng} setListIng={setListIng} />
+      <Button onClick={handleSubmit}>CRÉER LA RECETTE</Button>
+      <Button onClick={() => setSelectedPage("recipe")}>RETOUR</Button>
+    </div>
+  );
 }
 
-    return(
-        <div className="createRecipePage">
-            <CreateRecipeForm setRecipeInfo={setRecipeInfo}/><IngredientListForm listIng={listIng} setListIng={setListIng}/>
-            <Button onClick={handleSubmit}>CRÉER LA RECETTE</Button>
-        <Button onClick={()=>setSelectedPage('recipe')}>RETOUR</Button>
-        </div>
-    )
-}
-
-export {CreateRecipePage};
+export { CreateRecipePage };

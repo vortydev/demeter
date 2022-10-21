@@ -13,7 +13,7 @@ setRecipePage : (recipe: Recipe | null) => void;
 function RecipePage({ setSelectedPage, setRecipePage}:RecipePageProps): JSX.Element {
   const [createRecipe, setCreateRecipe] = useState<boolean>(false);
   const [createdSuccess, setSuccess] = useState<boolean>(false);
-  const [filter, setFilter] = useState<Number | null>(null);
+  const [filter, setFilter] = useState<number | null>(null);
 
   function success(): void {
     setSuccess(true);

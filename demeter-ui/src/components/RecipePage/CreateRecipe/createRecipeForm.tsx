@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
-import { RawRecipe } from "../../../types/RecipeTypes.types";
+import { Recipe } from "../../../types/Types";
 
 
 interface CRFProps{
-  setRecipeInfo: (recipe: RawRecipe)=>void;
+  setRecipeInfo: (recipe: Recipe)=>void;
 }
 
   function CreateRecipeForm({setRecipeInfo}: CRFProps) {
@@ -16,7 +16,8 @@ interface CRFProps{
       const otherExpenses = document.getElementById("otherExpenses") as HTMLInputElement;
       const nbProduct = document.getElementById("nbProduct") as HTMLInputElement;
 
-      const recipe :RawRecipe={
+      const recipe :Recipe={
+        id: 1,
         title : title.value,
         category : parseInt(category.value),
         instructions : instructions.value,

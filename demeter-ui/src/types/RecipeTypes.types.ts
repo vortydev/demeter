@@ -1,12 +1,4 @@
-import { Mesurement, Product } from "./Types";
-
-type RawRecipe ={
-    title : string;
-    category : number;
-    instructions : string;
-    otherCost: number;
-    nbProductCreated: number;
-}
+import { Product } from "./Types";
 
 type IngForRecipe ={
     ingredient: Product;
@@ -14,4 +6,4 @@ type IngForRecipe ={
     mesurementId: string;
 }
 
-export type { RawRecipe, IngForRecipe }
+export type {  IngForRecipe }

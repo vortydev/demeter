@@ -21,7 +21,11 @@ type Task = {
 
 type Recipe = {
   id: number;
-  recipeName: string;
+  title : string;
+  category : number;
+  instructions : string;
+  otherCost: number;
+  nbProductCreated: number;
 };
 
 type Product = {
@@ -55,4 +59,11 @@ type Mesurement = {
     weight: number;
 }
 
-export type { Account, News, Task, Product, Category, Recipe, Vendor, Mesurement }
+type Ingredient ={
+  recipeId: number;
+  productId: number;
+  qty: number;
+  mesurementId: number;
+}
+
+export type { Account, News, Task, Product, Category, Recipe, Vendor, Mesurement, Ingredient }

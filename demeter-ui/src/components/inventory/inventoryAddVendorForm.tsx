@@ -22,6 +22,7 @@ function VendorForm({ show, close, success }: CRFormProps) {
         var regexPhone1 = new RegExp(/[0-9]{3} [0-9]{3} [0-9]{4}/);
         var regexPhone2 = new RegExp(/[0-9]{3}-[0-9]{3}-[0-9]{4}/);
         var regexPhone3 = new RegExp(/\([0-9]{3}\)[0-9]{3}-[0-9]{4}/);
+        var regexPhone4 = new RegExp(/[0-9]{10}/);
         var regexEmail = new RegExp(/[0-9a-z]+@[a-z]+(.[a-z]+){1,2}/);
 
         setError(false);
@@ -32,7 +33,7 @@ function VendorForm({ show, close, success }: CRFormProps) {
         }
         
         if(phone.value){
-            if(!regexPhone1.test(phone.value)&&!regexPhone2.test(phone.value)&&!regexPhone3.test(phone.value)){
+            if(!regexPhone1.test(phone.value)&&!regexPhone2.test(phone.value)&&!regexPhone3.test(phone.value)&&!regexPhone4.test(phone.value)){
                 alert("Veuillez entrer le numéro de téléphone aux formats suivants: ###-###-####, (###)###-#### ou ### ### ####")
                 return;
             }

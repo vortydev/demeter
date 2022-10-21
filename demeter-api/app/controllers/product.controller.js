@@ -40,10 +40,10 @@ exports.create = (req, res) => {
 
 // Retrieve all Accounts from the database.
 exports.findAll = (req, res) => {
-    const name = req.query.name;
-    var condition = name ? { name: { [Op.like]: `%${name}%` } } : null;
+    const categoryId = req.query.categoryId;
+    var category = categoryId ? { categoryproductId: { [Op.like]: `%${categoryId}%` } } : null;
 
-    Product.findAll({ where: condition })
+    Product.findAll({ where: category })
         .then(data => {
             res.send(data);
         })

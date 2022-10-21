@@ -1,9 +1,9 @@
 type Account = {
-    accName: string;
-    accPassword: string;
-    roleId: Number;
-    stateId: Number;
-}
+  accName: string;
+  accPassword: string;
+  roleId: Number;
+  stateId: Number;
+};
 
 type News ={
     id: Number;
@@ -15,10 +15,15 @@ type News ={
 }
 
 type Task = {
-id : Number;
-taskName: String;
-description : String;
-}
+  id: Number;
+  taskName: String;
+  description: String;
+};
+
+type Recipe = {
+  id: number;
+  recipeName: string;
+};
 
 type Product = {
     id: number;
@@ -51,4 +56,4 @@ type Mesurement = {
     weight: number;
 }
 
-export type { Account, News, Task, Product, Category, Vendor, Mesurement }
+export type { Account, News, Task, Product, Category, Recipe, Vendor, Mesurement }

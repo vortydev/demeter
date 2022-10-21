@@ -60,7 +60,7 @@ function InventoryPage(): JSX.Element{
             <InventoryUpdate show={updateProducts} close={close} success={success}/>
             
         </div>
-    );
+    );//<VendorForm show={createNewVendor} close={close} success={success}/>
 }
 
 export { InventoryPage };

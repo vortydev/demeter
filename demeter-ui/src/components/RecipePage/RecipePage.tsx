@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { Alert, Button } from "react-bootstrap";
-import { CreateRecipeForm } from "./createRecipeForm";
+import { Recipe } from "../../types/Types";
+import { CreateRecipeForm } from "./CreateRecipe/createRecipeForm";
 import './recipe.css';
 import { RecipeList } from "./RecipeList";
 
+interface RecipePageProps{
+setSelectedPage : (page:string) => void;
+setRecipePage : (recipe: Recipe | null) => void;
 
-function RecipePage(): JSX.Element {
+}
+function RecipePage({ setSelectedPage, setRecipePage}:RecipePageProps): JSX.Element {
   const [createRecipe, setCreateRecipe] = useState<boolean>(false);
   const [createdSuccess, setSuccess] = useState<boolean>(false);
   const [filter, setFilter] = useState<Number | null>(null);
@@ -27,13 +32,12 @@ function RecipePage(): JSX.Element {
           <Button
             variant="dark"
             onClick={() => {
-              setCreateRecipe(true);
-              setSuccess(false);
+            setSelectedPage("CreateRecipe")
             }}
           >
             Nouvelle Recette
           </Button>
-          <RecipeList filter={filter}/>
+          <RecipeList filter={filter} setSelectedPage={setSelectedPage}  setRecipePage={setRecipePage}  />
         </div>
 
         <div className="filterButtons">
@@ -79,8 +83,6 @@ function RecipePage(): JSX.Element {
           </Button>
         </div>
       </div>
-
-      <CreateRecipeForm show={createRecipe} close={close} success={success} />
     </div>
   );
 }

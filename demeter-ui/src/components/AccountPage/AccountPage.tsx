@@ -43,7 +43,7 @@ function AccountPage(): JSX.Element {
             setSuccess(false);
           }}
         >
-          Nouveau compte
+          Nouveau Compte
         </Button>
       </div>
       <CreateAccountForm show={createAccount} close={close} success={success} />

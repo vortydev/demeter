@@ -49,3 +49,10 @@
     border-radius: 5px;
     margin: .5rem auto 2rem;
 }
+
+.newsAdd {
+    text-align: right;
+    width: 60%;
+    margin: auto;
+    margin-bottom: .5rem;
+}

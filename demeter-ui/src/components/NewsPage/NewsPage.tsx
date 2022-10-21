@@ -45,16 +45,13 @@ function NewsPage(): JSX.Element {
     <div>
       {createdSuccess && <Alert>L'annonce à été créer avec succès!</Alert>}
       <p className="loginText">Vous êtes connecté en tant que {connected}</p>
-      {newsList.map(news => (<NewsPreview news={news} />))}
-      <Button
-        variant="demeter-dark"
-        onClick={() => {
+      <div className="newsAdd">
+        <Button variant="outline-dark" onClick={() => {
           setCreateNews(true);
           setSuccess(false);
-        }}
-      >
-        Nouvelle Annonce
-      </Button>
+        }}>Nouvelle Annonce</Button>
+      </div>
+      {newsList.map(news => (<NewsPreview news={news} />))}
       <CreateNewsForm show={createNews} close={close} success={success} />
     </div>
   );

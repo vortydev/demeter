@@ -17,9 +17,13 @@ function NewsPreview({ news }: NewsPreviewProps) {
   if (news.description.length > 200) {
     shortDescription = news.description.substring(0, 200);
   }
+  else {
+    shortDescription = news.description;
+  }
 
   const text = fullText ? news.description : shortDescription;
   const buttonText = fullText ? "Lire moins" : "Lire la suite";
+  const dotdotdot = fullText ? "" : " ...";
 
   return (
     <div className="flexNewsPreview" >
@@ -27,7 +31,7 @@ function NewsPreview({ news }: NewsPreviewProps) {
       <h3 className="newsDate">{news.date}</h3>
       <div className="flexNewsBox">
         {news.picture !== null && (<div className="picture"><img src={news.picture} /></div>)}
-        <p className="newsContent"> {text}{<span><b>...</b></span>} </p>
+        <p className="newsContent">{text}<b>{dotdotdot}</b></p>
         <div className="flexNewsEdit">
           <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
             // TODO setEditNews(true); 

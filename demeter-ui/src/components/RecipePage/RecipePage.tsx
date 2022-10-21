@@ -41,7 +41,7 @@ function RecipePage({ setSelectedPage, setRecipePage}:RecipePageProps): JSX.Elem
           </Button>
           <Button
             onClick={() => {
-              setFilter(0);
+              setFilter(1);
             }}
             variant="secondary"
           >
@@ -49,7 +49,7 @@ function RecipePage({ setSelectedPage, setRecipePage}:RecipePageProps): JSX.Elem
           </Button>
           <Button
             onClick={() => {
-              setFilter(1);
+              setFilter(2);
             }}
             variant="secondary"
           >
@@ -57,7 +57,7 @@ function RecipePage({ setSelectedPage, setRecipePage}:RecipePageProps): JSX.Elem
           </Button>
           <Button
             onClick={() => {
-              setFilter(2);
+              setFilter(3);
             }}
             variant="secondary"
           >
@@ -65,7 +65,7 @@ function RecipePage({ setSelectedPage, setRecipePage}:RecipePageProps): JSX.Elem
           </Button>
           <Button
             onClick={() => {
-              setFilter(3);
+              setFilter(4);
             }}
             variant="secondary"
           >

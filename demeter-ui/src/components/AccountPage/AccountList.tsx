@@ -65,10 +65,10 @@ function AccountRow({
   return (
     <div className="flex">
       <span className="accountName">{currentAccount.accName}</span>{" "}
-      <FontAwesomeIcon className="editIcon cursor" icon={faEdit} size="lg" onClick={() => {
+      <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
         setEditAccount(true);
       }} />
-      <FontAwesomeIcon className="trashIcon cursor" icon={faTrashAlt} size="lg" onClick={() => {
+      <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
         deleteAccount(currentAccount.accName);
         setDeleteSuccess(true);
       }} />

@@ -54,24 +54,16 @@ button {
 
 /* ui icons */
 [class*="icon"] {
-    font-size: 2.125rem;
-}
-
-.editIcon {
+    color: var(--demeter-grey);
     padding: 5px;
-    transition: all .2s;
+    transition: all 0.2s;
 }
 
-.editIcon:hover {
+.iconEdit:hover {
     color: var(--demeter-green);
 }
 
-.trashIcon {
-    padding: 5px;
-    transition: all .2s;
-}
-
-.trashIcon:hover {
+.iconTrash:hover {
     color: var(--demeter-orange);
 }
 
@@ -99,10 +91,13 @@ button {
 }
 
 /* buttons with Demeter theme */
+.btn {
+    transition: all 0.2s;
+}
+
 .btn-demeter {
     background-color: var(--demeter-green);
     color: white;
-    transition: all 0.25s;
 }
 
 .btn-demeter:hover {
@@ -113,10 +108,17 @@ button {
 .btn-demeter-dark {
     background-color: var(--demeter-black);
     color: white;
-    transition: all 0.25s;
 }
 
 .btn-demeter-dark:hover {
     background-color: var(--demeter-black-v);
     color: white;
+}
+
+.btn-link {
+    color: var(--demeter-green);
+}
+
+.btn-link:hover {
+    color: var(--demeter-green-v);
 }

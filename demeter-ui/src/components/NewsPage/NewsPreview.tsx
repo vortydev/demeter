@@ -29,16 +29,16 @@ function NewsPreview({ news }: NewsPreviewProps) {
         {news.picture !== null && (<div className="picture"><img src={news.picture} /></div>)}
         <p className="newsContent"> {text}{<span><b>...</b></span>} </p>
         <div className="flexNewsEdit">
-          <FontAwesomeIcon className="editIcon cursor" icon={faEdit} size="lg" onClick={() => {
+          <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
             // TODO setEditNews(true); 
           }} />
-          <FontAwesomeIcon className="trashIcon cursor" icon={faTrashAlt} size="lg" onClick={() => {
+          <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
             // TODO deleteNews(currentNews.id);
             // TODO setDeleteSuccess(true);
           }} />
         </div>
       </div>
-      <Button className="newsBtn" variant="demeter-dark" onClick={() => setFullText(!fullText)}>{buttonText}</Button>
+      <Button className="newsBtn" variant="link" onClick={() => setFullText(!fullText)}>{buttonText}</Button>
       <hr className="newsLine" />
     </div>
   );

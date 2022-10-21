@@ -3,7 +3,8 @@ import { Task} from "../types/Types";
 import bcrypt from "bcryptjs";
 
 async function createTask(data: Task): Promise<boolean> {
-  const accountCreated = TaskService.create(data)
+  console.log(`in create task`,data)
+  const taskCreated = TaskService.create(data)
     .then((response: any) => {
       return true;
     })
@@ -11,11 +12,11 @@ async function createTask(data: Task): Promise<boolean> {
       console.log(e);
       return false;
     });
-  return accountCreated;
+  return taskCreated;
 }
 
 async function updateTask(data: Task, tkName: String): Promise<boolean> {
-  const accountUpdated = TaskService.update(data, tkName)
+  const taskUpdated = TaskService.update(data, tkName)
     .then((response: any) => {
       return true;
     })
@@ -23,11 +24,11 @@ async function updateTask(data: Task, tkName: String): Promise<boolean> {
       console.log(e);
       return false;
     });
-  return accountUpdated;
+  return taskUpdated;
 }
 
 async function deleteTask(tkName: string) {
-  const deleted = TaskService.delete(tkName)
+  const taskdeleted = TaskService.delete(tkName)
     .then((response: any) => {
       return true;
     })
@@ -36,7 +37,7 @@ async function deleteTask(tkName: string) {
       return false;
     });
 
-  return deleted;
+  return taskdeleted;
 }
 
 

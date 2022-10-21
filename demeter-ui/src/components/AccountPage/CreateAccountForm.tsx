@@ -80,7 +80,7 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
           <option value="2">Employé</option>
           <option value="3">Livreur</option>
         </Form.Select>
-        <Button onClick={handleSubmit}>AJOUTER</Button>{" "}
+        <Button onClick={handleSubmit}>AJOUTER</Button>
         <Button onClick={close}>ANNULER</Button>
       </Form>
     </Modal>

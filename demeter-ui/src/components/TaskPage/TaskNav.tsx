@@ -19,6 +19,7 @@ function TaskNav({taskCategory, setTaskCategory, success, setSuccess} :TaskNavPr
     function close(): void {
         setCreateTask(false);
       }
+      
   return (
     
     <nav className="navbar navbar-expand-sm navbar-light">
@@ -55,7 +56,7 @@ function TaskNav({taskCategory, setTaskCategory, success, setSuccess} :TaskNavPr
           </li>
         </ul>
       </div>
-      <CreateTaskForm show={createTask} close={close} setSuccess={setSuccess} />
+      <CreateTaskForm show={createTask} close={close} success={setSuccess} />
     </nav>
   );
 }

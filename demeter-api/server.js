@@ -27,6 +27,7 @@ db.sequelize.sync({})                 // {force: true} drops the db
       { id: "4", role: "Developpeur" }
     ], { ignoreDuplicates: true })
       .then(() => console.log("Roles inserted."));
+      
 
     // insert states
     db.states.bulkCreate([

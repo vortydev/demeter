@@ -11,10 +11,14 @@ function TaskPage(): JSX.Element {
 
   const fakeTask: Task = {
     id: 5,
-    taskName: "passer le balais",
+    title: "passer le balais",
     description: "prendre le balais et balayer",
+    taskType: 1,
+    parentId: null,
+    completed: false,
   };
 
+  
   return (
     <div>
       <TaskNav
@@ -23,7 +27,7 @@ function TaskPage(): JSX.Element {
         success={createdSuccess}
         setSuccess={setSuccess}
       />
-      {createdSuccess && <Alert>La recette à été créer avec succès!</Alert>}
+      {createdSuccess && <Alert>La tâche à été créer avec succès!</Alert>}
       <h1>Tasks Page</h1>
       <p> Liste de tâches {taskCategory}</p>
 

@@ -17,10 +17,12 @@ type News ={
 }
 
 type Task = {
-    // id : Number;
-    taskName: String;
+    id : Number;
+    title: String;
     description : String;
-    
+    taskType: number;
+    parentId: number|null;
+    completed: boolean;
 }
 
 type Product = {

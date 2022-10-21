@@ -9,7 +9,7 @@ interface TaskRowProps {
 function TaskRow ({task}: TaskRowProps){
 
     return(
-       <div className="taskRow"><Button variant="outline-dark">This is a checkbox</Button> {task.taskName} <Button>edit</Button> <Button>delete</Button></div>
+       <div className="taskRow"><Button variant="outline-dark">This is a checkbox</Button> {task.title} <Button>edit</Button> <Button>delete</Button></div>
     );
 }
 

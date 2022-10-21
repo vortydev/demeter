@@ -1,23 +1,24 @@
 import { useState } from 'react';
-import { Container,Row, Col, Button, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Button, Alert } from 'react-bootstrap';
 import { ListingProducts } from './inventory';
 import { InventoryForm } from './inventoryAddForm';
 import { InventoryUpdate } from './inventoryUpdate';
+import "../../css/inventory.css";
 
-function InventoryPage(): JSX.Element{
+function InventoryPage(): JSX.Element {
 
     const [createNewProduct, setCreateNewProduct] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
     const [updateProducts, setUpdatedProducts] = useState<boolean>(false);
-  
+
     function success(): void {
-      setSuccess(true);
-      close();
+        setSuccess(true);
+        close();
     }
-  
+
     function close(): void {
-      setCreateNewProduct(false);
-      setUpdatedProducts(false);
+        setCreateNewProduct(false);
+        setUpdatedProducts(false);
     }
 
     return (
@@ -31,41 +32,39 @@ function InventoryPage(): JSX.Element{
             </div>
 
             <div>
-            {createdSuccess && <Alert>Le produit à été créer avec succès!</Alert>}
+                {createdSuccess && <Alert>Le produit à été créer avec succès!</Alert>}
                 <Container>
                     <Row>
                         <Col><h2>Produit</h2></Col>
                         <Col><h2>Format</h2></Col>
                         <Col><h2>Quantité</h2></Col>
                     </Row>
-                    <ListingProducts get={createdSuccess}/>
+                    <ListingProducts get={createdSuccess} />
                     <Row>
-                        <Button variant="dark" onClick={() => {
-                          setUpdatedProducts(true);
-                          setSuccess(false);
+                        <Button variant="demeter-dark" onClick={() => {
+                            setUpdatedProducts(true);
+                            setSuccess(false);
                         }}>Mettre à jour l'inventaire</Button>
                     </Row>
                 </Container>
             </div>
 
             <div>
-                <Button variant="dark" onClick={() => {
-                  setCreateNewProduct(true);
-                  setSuccess(false);
-                }}>
-                Nouveau Produit
-                </Button>
+                <Button variant="demeter-dark" onClick={() => {
+                    setCreateNewProduct(true);
+                    setSuccess(false);
+                }}>Nouveau Produit</Button>
             </div>
-            <InventoryForm show={createNewProduct} close={close} success={success}/>
-            <InventoryUpdate show={updateProducts} close={close} success={success}/>
-            
+            <InventoryForm show={createNewProduct} close={close} success={success} />
+            <InventoryUpdate show={updateProducts} close={close} success={success} />
+
         </div>
     );//<VendorForm show={createNewVendor} close={close} success={success}/>
 }
 
 export { InventoryPage };
 
-// wtf do I have to do now: 
+// wtf do I have to do now:
 // useEffect sur les requetes
 // searchbar
 // filter products

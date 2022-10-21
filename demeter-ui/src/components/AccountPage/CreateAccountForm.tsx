@@ -49,19 +49,19 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
   return (
     <Modal show={show} onHide={close}>
       <Form className="popupForm">
-        <Form.Group className="mb-3" controlId="account">
+        <Form.Group className="mb-2" controlId="account">
           <Form.Label>Nom d'utilisateur</Form.Label>
           <Form.Control type="text" />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="password">
+        <Form.Group className="mb-2" controlId="password">
           <Form.Label>Mot de passe</Form.Label>
           <Form.Control type="password" />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="passwordConfirm">
+        <Form.Group className="mb-2" controlId="passwordConfirm">
           <Form.Label>Confirmer le mot de passe</Form.Label>
           <Form.Control type="password" />
         </Form.Group>
-        <Form.Select className="cursor mb-3" aria-label="role" id="role">
+        <Form.Select className="mb-2 mt-2" aria-label="role" id="role">
           <option>Choisir le rôle</option>
           <option value="1">Administrateur</option>
           <option value="2">Employé</option>

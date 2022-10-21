@@ -12,19 +12,19 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
   return (
     <Modal show={show} onHide={close}>
       <Form className="popupForm">
-        <Form.Group className="mb-3" controlId="title">
+        <Form.Group className="mb-2" controlId="title">
           <Form.Label>Titre</Form.Label>
           <Form.Control type="text" />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="author">
+        <Form.Group className="mb-2" controlId="author">
           <Form.Label>Auteur</Form.Label>
           <Form.Control type="text" />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="description">
+        <Form.Group className="mb-2" controlId="description">
           <Form.Label>Description</Form.Label>
           <Form.Control as="textarea" rows={3} />
         </Form.Group>
-        <Form.Select className="mb-3" aria-label="DESTINATAIRES : ">
+        <Form.Select className="mb-2 mt-2" aria-label="DESTINATAIRES : ">
           <option>Choisir les destinataires</option>
           <option value="1">Administrateurs</option>
           <option value="2">Employés</option>

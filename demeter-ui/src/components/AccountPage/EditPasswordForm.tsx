@@ -45,12 +45,12 @@ function EditPasswordForm({
   return (
     <Modal show={show} onHide={close}>
       <Form className="popupForm">
-        {!validPassword && (<Alert variant="danger"> Les mots de passe ne correspondent pas !</Alert>)}
-        <Form.Group className="mb-3" controlId="password">
+        {!validPassword && (<Alert variant="danger">Les mots de passe ne correspondent pas !</Alert>)}
+        <Form.Group className="mb-2" controlId="password">
           <Form.Label>Nouveau mot de passe</Form.Label>
           <Form.Control type="password" />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="passwordConfirm">
+        <Form.Group className="mb-2" controlId="passwordConfirm">
           <Form.Label>Confirmer le mot de passe</Form.Label>
           <Form.Control type="password" />
         </Form.Group>

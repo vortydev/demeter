@@ -16,7 +16,7 @@ exports.create = (req, res) => {
 
     // Create a Recipe
     const recipe = {
-        title: req.body.recipe,
+        title: req.body.title,
         categoryrecipeId: req.body.categoryrecipeId,
         available: req.body.completed | true,
         instruction: req.body.instruction,

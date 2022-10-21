@@ -14,16 +14,6 @@ function RecipePage({ setSelectedPage, setRecipePage}:RecipePageProps): JSX.Elem
   const [createRecipe, setCreateRecipe] = useState<boolean>(false);
   const [createdSuccess, setSuccess] = useState<boolean>(false);
   const [filter, setFilter] = useState<number | null>(null);
-
-  function success(): void {
-    setSuccess(true);
-    close();
-  }
-
-  function close(): void {
-    setCreateRecipe(false);
-  }
-
   return (
     <div className="RecipePage">
       {createdSuccess && <Alert>La recette à été créer avec succès!</Alert>}

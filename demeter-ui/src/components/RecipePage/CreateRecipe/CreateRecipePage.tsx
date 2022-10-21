@@ -11,13 +11,14 @@ interface CRPProps {
 }
 
 function CreateRecipePage({ setSelectedPage }: CRPProps) {
-  const emptyRecipe = {
+  const emptyRecipe :Recipe = {
     id: 1,
     title: "change me",
-    category: 99,
-    instructions: "Change me",
+    categoryrecipeId: 99,
+    instruction: "Change me",
     otherCost: 0,
-    nbProductCreated: 0,
+    nbUnitCreated: 0,
+    available : false,
   };
 
   const [listIng, setListIng] = useState<IngForRecipe[]>([]);
@@ -25,6 +26,7 @@ function CreateRecipePage({ setSelectedPage }: CRPProps) {
   const [created, setCreated] = useState<boolean>(false);
 
   async function handleSubmit() {
+    console.log("recipeINfo", recipeInfo);
     setCreated(await createRecipe(recipeInfo, listIng));
   }
 

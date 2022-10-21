@@ -16,9 +16,12 @@ exports.create = (req, res) => {
 
     // Create a Recipe
     const recipe = {
-        recipe: req.body.recipe,
+        title: req.body.recipe,
         categoryrecipeId: req.body.categoryrecipeId,
-        available: req.body.completed | true
+        available: req.body.completed | true,
+        instruction: req.body.instruction,
+        nbUnitCreated:req.body.nbUnitCreated,
+        otherCost: req.body.otherCost,
     };
 
     // Save Recipe in the database

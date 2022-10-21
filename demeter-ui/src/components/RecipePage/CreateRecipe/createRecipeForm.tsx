@@ -19,10 +19,11 @@ interface CRFProps{
       const recipe :Recipe={
         id: 1,
         title : title.value,
-        category : parseInt(category.value),
-        instructions : instructions.value,
+        categoryrecipeId : parseInt(category.value),
+        instruction : instructions.value,
         otherCost: parseFloat(otherExpenses.value),
-        nbProductCreated: parseInt(nbProduct.value),
+        nbUnitCreated: parseInt(nbProduct.value),
+        available:true,
       }
 
       setRecipeInfo(recipe);

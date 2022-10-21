@@ -7,12 +7,15 @@ async function createRecipe(
   data: Recipe,
   listIng: IngForRecipe[]
 ): Promise<boolean> {
+    console.log("in create recipe");
   const recipeCreated: Recipe | null = await RecipeService.create(data)
     .then((response: any) => {
+        console.log("no error, here is the response", response.data);
       return response.data;
     })
     .catch((e: Error) => {
       console.log(e);
+      console.log("There was an error in create Recipe");
       return null;
     });
 
@@ -37,7 +40,7 @@ async function createRecipe(
 }
 
 async function getRecipesByCategory(category: number | null) {
-  if (category) {
+  if (category !== null) {
     const recipes = RecipeService.getByCategory(category)
       .then((response: any) => {
         return response.data;

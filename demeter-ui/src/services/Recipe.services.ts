@@ -7,7 +7,7 @@ class RecipeService {
   }
 
   getByCategory(categoryId: number){
-    return http.get<Recipe>(`/recipes?roleId=${categoryId}`);
+    return http.get<Recipe>(`/recipes?categoryrecipeId=${categoryId}`);
   }
 
   get(id: string) {

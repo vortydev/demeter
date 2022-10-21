@@ -22,10 +22,11 @@ type Task = {
 type Recipe = {
   id: number;
   title : string;
-  category : number;
-  instructions : string;
+  categoryrecipeId : number;
+  instruction : string;
   otherCost: number;
-  nbProductCreated: number;
+  nbUnitCreated: number;
+  available:boolean;
 };
 
 type Product = {

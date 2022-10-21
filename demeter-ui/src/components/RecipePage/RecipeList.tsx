@@ -15,7 +15,9 @@ function RecipeList({ filter, setSelectedPage, setRecipePage }: RecipeListProps)
 
   useEffect(() => {
     async function getList() {
+      
       setListRecipe(await getRecipesByCategory(filter));
+      console.log(listRecipe);
     }
     getList();
   }, [filter]);
@@ -30,6 +32,7 @@ function RecipeList({ filter, setSelectedPage, setRecipePage }: RecipeListProps)
 
   return (
     <div className="recipeList">
+      {listRecipe.length === 0 && <p>Cette liste est vide</p>}
       {listRecipe.map((recipe) => (
         <span onClick={()=>goToRecipePage(recipe)}>
           {recipe.title} 

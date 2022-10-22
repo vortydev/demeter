@@ -1,6 +1,6 @@
 import { IngForRecipe } from "../types/RecipeTypes.types";
 import { Ingredient, Recipe } from "../types/Types";
-import { createIngredient } from "./Ingredients.functions";
+import { createIngredient, deleteIngredientsByRecipe } from "./Ingredients.functions";
 import RecipeService from "./Recipe.services";
 
 async function createRecipe(
@@ -63,4 +63,26 @@ async function getRecipesByCategory(category: number | null) {
   }
 }
 
-export { createRecipe, getRecipesByCategory };
+async function deleteRecipe(id: number) {
+const deletedAllIngredients = deleteIngredientsByRecipe(id)
+      .then((response: any) => {
+        return true;
+      })
+      .catch((e: Error) => {
+        console.log(e);
+        return false;
+      });
+
+    const deleted = RecipeService.delete(id.toString())
+      .then((response: any) => {
+        return true;
+      })
+      .catch((e: Error) => {
+        console.log(e);
+        return false;
+      });
+  
+    return await deleted && await deletedAllIngredients;
+  }
+
+export { createRecipe, getRecipesByCategory, deleteRecipe };

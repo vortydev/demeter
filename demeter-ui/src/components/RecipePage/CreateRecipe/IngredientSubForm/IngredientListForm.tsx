@@ -13,7 +13,6 @@ interface ILFProps {
 function IngredientListForm({ listIng, setListIng }: ILFProps) {
   const [addIngredient, setAddIngredient] = useState<boolean>(false);
 
-  const totalCost = getRecipeCost(listIng);
 
   return (
     <div className="IngListForm">
@@ -24,7 +23,7 @@ function IngredientListForm({ listIng, setListIng }: ILFProps) {
           <IngredientRowForm ingredient={ing} />
         ))}
       </div>
-      <span>Cout Total : {totalCost}$</span>
+
       <Button
         onClick={() => setAddIngredient(true)}
         variant="outline-secondary"

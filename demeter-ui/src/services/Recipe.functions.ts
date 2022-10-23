@@ -1,16 +1,19 @@
 import { IngForRecipe } from "../types/RecipeTypes.types";
 import { Ingredient, Recipe } from "../types/Types";
-import { createIngredient, deleteIngredientsByRecipe } from "./Ingredients.functions";
+import {
+  createIngredient,
+  deleteIngredientsByRecipe,
+} from "./Ingredients.functions";
 import RecipeService from "./Recipe.services";
 
 async function createRecipe(
   data: Recipe,
   listIng: IngForRecipe[]
 ): Promise<boolean> {
-    console.log("in create recipe");
+  console.log("in create recipe");
   const recipeCreated: Recipe | null = await RecipeService.create(data)
     .then((response: any) => {
-        console.log("no error, here is the response", response.data);
+      console.log("no error, here is the response", response.data);
       return response.data;
     })
     .catch((e: Error) => {
@@ -64,25 +67,23 @@ async function getRecipesByCategory(category: number | null) {
 }
 
 async function deleteRecipe(id: number) {
-const deletedAllIngredients = deleteIngredientsByRecipe(id)
-      .then((response: any) => {
-        return true;
-      })
-      .catch((e: Error) => {
-        console.log(e);
-        return false;
-      });
+  console.log("in delete recipe");
 
-    const deleted = RecipeService.delete(id.toString())
-      .then((response: any) => {
-        return true;
-      })
-      .catch((e: Error) => {
-        console.log(e);
-        return false;
-      });
-  
-    return await deleted && await deletedAllIngredients;
-  }
+  const deletedAllIngredients = deleteIngredientsByRecipe(id);
+  console.log("all INg", deletedAllIngredients);
+
+  const deleted = RecipeService.delete(id.toString())
+    .then((response: any) => {
+      console.log("the recipe was deleted");
+      return true;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return false;
+    });
+
+    console.log("compare",await deleted && deletedAllIngredients);
+  return await deleted && deletedAllIngredients;
+}
 
 export { createRecipe, getRecipesByCategory, deleteRecipe };

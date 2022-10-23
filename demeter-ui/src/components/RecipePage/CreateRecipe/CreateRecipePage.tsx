@@ -8,9 +8,10 @@ import { IngredientListForm } from "./IngredientSubForm/IngredientListForm";
 
 interface CRPProps {
   setSelectedPage: (page: string) => void;
+  setCreated: (created: boolean)=>void;
 }
 
-function CreateRecipePage({ setSelectedPage }: CRPProps) {
+function CreateRecipePage({ setSelectedPage, setCreated }: CRPProps) {
   const emptyRecipe :Recipe = {
     id: 1,
     title: "change me",
@@ -23,16 +24,13 @@ function CreateRecipePage({ setSelectedPage }: CRPProps) {
 
   const [listIng, setListIng] = useState<IngForRecipe[]>([]);
   const [recipeInfo, setRecipeInfo] = useState<Recipe>(emptyRecipe);
-  const [created, setCreated] = useState<boolean>(false);
-
   async function handleSubmit() {
-    console.log("recipeINfo", recipeInfo);
     setCreated(await createRecipe(recipeInfo, listIng));
+    setSelectedPage("recipe");
   }
 
   return (
     <div className="createRecipePage">
-        {created && <Alert>La recette à été créer avec succès!</Alert>}
       <CreateRecipeForm setRecipeInfo={setRecipeInfo} />
       <IngredientListForm listIng={listIng} setListIng={setListIng} />
       <Button onClick={handleSubmit}>CRÉER LA RECETTE</Button>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Alert, Button } from "react-bootstrap";
 import { deleteRecipe } from "../../../services/Recipe.functions";
 import { Recipe } from "../../../types/Types";
 import { InstructionModal } from "./InstructionModal";
@@ -7,28 +7,36 @@ import { InstructionModal } from "./InstructionModal";
 interface SingleRecipePageProps {
   recipe: Recipe | null;
   setSelectedPage: (page: string) => void;
+  recipeDeleted : boolean;
+  setRecipeDeleted: (deleted: boolean) => void;
 }
 //add setRecipe null on retour
-function SingleRecipePage({ recipe, setSelectedPage }: SingleRecipePageProps) {
+function SingleRecipePage({ recipe, setSelectedPage, recipeDeleted, setRecipeDeleted }: SingleRecipePageProps) {
   const [showInstruction, setShowInstruction] = useState<boolean>(false);
-
-  async function handleDelete(){
-    await deleteRecipe(recipe!.id);
-    //add setdeletesuccess
-    setSelectedPage("recipe");
-  }
 
   return (
     <div>
       {recipe!.title}
-      <Button onClick={()=>setShowInstruction(true)}>Instructions</Button>
-      <Button onClick={handleDelete}>DELETE</Button>
-      <Button onClick={() => setSelectedPage("recipe")} variant="dark"> 
+      <Button onClick={() => setShowInstruction(true)}>Instructions</Button>
+      <Button
+        onClick={() => {
+          deleteRecipe(recipe!.id);
+          setRecipeDeleted(true);
+          setSelectedPage("recipe");
+        }}
+      >
+        DELETE
+      </Button>
+      <Button onClick={() => setSelectedPage("recipe")} variant="dark">
         RETOUR
       </Button>
-      <InstructionModal show={showInstruction} setShow={setShowInstruction} recipe={recipe!}/>
+      <InstructionModal
+        show={showInstruction}
+        setShow={setShowInstruction}
+        recipe={recipe!}
+      />
     </div>
   );
 }
 
-export {SingleRecipePage};
+export { SingleRecipePage };

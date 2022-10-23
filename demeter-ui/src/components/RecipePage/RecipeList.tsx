@@ -5,22 +5,21 @@ import { Recipe } from "../../types/Types";
 
 interface RecipeListProps {
   filter: number | null;
+  selectedPage : string;
   setSelectedPage: (page:string) => void;
   setRecipePage: (recipe :Recipe)=> void; 
 }
 
-function RecipeList({ filter, setSelectedPage, setRecipePage }: RecipeListProps) {
+function RecipeList({ filter, selectedPage, setSelectedPage, setRecipePage }: RecipeListProps) {
 
   const [listRecipe, setListRecipe] = useState<Recipe[]>([]);
 
   useEffect(() => {
     async function getList() {
-      
       setListRecipe(await getRecipesByCategory(filter));
-      console.log(listRecipe);
     }
     getList();
-  }, [filter]);
+  }, [filter, selectedPage]);
 
 
 

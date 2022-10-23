@@ -7,7 +7,7 @@ interface InstructionModalProps {
   recipe: Recipe;
 }
 
-function instructionModal({ show, setShow, recipe }: instructionModalProps) {
+function InstructionModal({ show, setShow, recipe }: InstructionModalProps) {
   return (
     <Modal show={show}>
       <p>{recipe!.instruction}</p>

@@ -1,39 +1,63 @@
 import { useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import { Recipe } from "../../types/Types";
-import { CreateRecipeForm } from "./CreateRecipe/createRecipeForm";
-import './recipe.css';
+import "./recipe.css";
 import { RecipeList } from "./RecipeList";
 
-interface RecipePageProps{
-setSelectedPage : (page:string) => void;
-setRecipePage : (recipe: Recipe | null) => void;
-
+interface RecipePageProps {
+  selectedPage: string;
+  createdSuccess: boolean;
+  deletedSuccess:boolean;
+  setCreatedSuccess : (success: boolean) => void;
+  setDeletedSuccess : (deleted: boolean) => void;
+  setSelectedPage: (page: string) => void;
+  setRecipePage: (recipe: Recipe | null) => void;
 }
-function RecipePage({ setSelectedPage, setRecipePage}:RecipePageProps): JSX.Element {
-  const [createRecipe, setCreateRecipe] = useState<boolean>(false);
-  const [createdSuccess, setSuccess] = useState<boolean>(false);
+function RecipePage({
+  selectedPage,
+  createdSuccess,
+  deletedSuccess,
+  setSelectedPage,
+  setCreatedSuccess,
+  setDeletedSuccess,
+  setRecipePage,
+}: RecipePageProps): JSX.Element {
   const [filter, setFilter] = useState<number | null>(null);
+
+  function closeAllAlerts() {
+    setCreatedSuccess(false);
+    setDeletedSuccess(false);
+  }
+
   return (
     <div className="RecipePage">
-      {createdSuccess && <Alert>La recette à été créer avec succès!</Alert>}
+      {createdSuccess && <Alert variant="success">La recette à été créée avec succès!</Alert>}
+      {deletedSuccess && <Alert variant="success">La recette à été suprimée avec succès!</Alert>}
       <div className="content">
         <div>
           <Button
             variant="dark"
             onClick={() => {
-            setSelectedPage("CreateRecipe")
+              {
+                setSelectedPage("CreateRecipe");
+                closeAllAlerts();
+              }
             }}
           >
             Nouvelle Recette
           </Button>
-          <RecipeList filter={filter} setSelectedPage={setSelectedPage}  setRecipePage={setRecipePage}  />
+          <RecipeList
+            filter={filter}
+            selectedPage={selectedPage}
+            setSelectedPage={setSelectedPage}
+            setRecipePage={setRecipePage}
+          />
         </div>
 
         <div className="filterButtons">
           <Button
             onClick={() => {
-              setFilter(null);
+              setFilter(null);closeAllAlerts();
             }}
             variant="secondary"
           >
@@ -41,7 +65,7 @@ function RecipePage({ setSelectedPage, setRecipePage}:RecipePageProps): JSX.Elem
           </Button>
           <Button
             onClick={() => {
-              setFilter(1);
+              setFilter(1);closeAllAlerts();
             }}
             variant="secondary"
           >
@@ -49,7 +73,7 @@ function RecipePage({ setSelectedPage, setRecipePage}:RecipePageProps): JSX.Elem
           </Button>
           <Button
             onClick={() => {
-              setFilter(2);
+              setFilter(2);closeAllAlerts();
             }}
             variant="secondary"
           >
@@ -57,7 +81,7 @@ function RecipePage({ setSelectedPage, setRecipePage}:RecipePageProps): JSX.Elem
           </Button>
           <Button
             onClick={() => {
-              setFilter(3);
+              setFilter(3);closeAllAlerts();
             }}
             variant="secondary"
           >
@@ -65,7 +89,7 @@ function RecipePage({ setSelectedPage, setRecipePage}:RecipePageProps): JSX.Elem
           </Button>
           <Button
             onClick={() => {
-              setFilter(4);
+              setFilter(4);closeAllAlerts();
             }}
             variant="secondary"
           >

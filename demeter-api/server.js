@@ -49,6 +49,7 @@ db.sequelize.sync()                 // {force: true} drops the db
       { id: "2", mesurement: "kg", weight: "1000" },
       { id: "3", mesurement: "mL", weight: "1" },
       { id: "4", mesurement: "L", weight: "1000" },
+      { id: "5", mesurement: "Unité", weight: "1" },
     ], { ignoreDuplicates: true })
       .then(() => console.log("Mesurements inserted."));
 

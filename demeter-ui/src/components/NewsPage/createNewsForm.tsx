@@ -12,6 +12,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
   return (
     <Modal show={show} onHide={close}>
       <Form className="popupForm">
+        <h3 className="popupTitle">Nouvelle Annonce</h3>
         <Form.Group className="mb-2" controlId="title">
           <Form.Label>Titre</Form.Label>
           <Form.Control type="text" />
@@ -24,12 +25,14 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
           <Form.Label>Description</Form.Label>
           <Form.Control as="textarea" rows={3} />
         </Form.Group>
-        <Form.Select className="mb-2 mt-2" aria-label="DESTINATAIRES : ">
-          <option>Choisir les destinataires</option>
-          <option value="1">Administrateurs</option>
-          <option value="2">Employés</option>
-          <option value="3">Livreurs</option>
-        </Form.Select>
+        <Form.Group className="mb-2" controlId="target">
+          <Form.Label className="popupSelectLabel">Destinataires</Form.Label>
+          <Form.Select aria-label="target">
+            <option value="1">Administrateurs</option>
+            <option value="2">Employés</option>
+            <option value="3">Livreurs</option>
+          </Form.Select>
+        </Form.Group>
         <div className="mt-3 popupBtnBox">
           <Button variant="demeter-dark" onClick={() => { console.log("CANCEL ADD NEWS") }}>Annuler</Button>
           <Button variant="demeter" onClick={() => { console.log("ADD NEWS") }}>Ajouter</Button>

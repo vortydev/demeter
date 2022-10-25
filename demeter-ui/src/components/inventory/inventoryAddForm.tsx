@@ -81,17 +81,22 @@ function InventoryForm({ show, close, success }: CRFormProps) {
         <Modal show={show} onHide={close}>
             <Form className="popupForm">
                 <h3 className="popupTitle">Nouveau Produit</h3>
-                <Form.Group controlId="name">
-                    <Form.Label>Nom</Form.Label>
-                    <Form.Control type="text" />
-                </Form.Group>
 
-                <Form.Label>Type</Form.Label>
-                <Form.Select aria-label="categorie" id="category">
-                    <GetCategory get={show} />
-                </Form.Select>
+                <div className="popupRowSplit mb-2">
+                    <Form.Group controlId="name">
+                        <Form.Label>Nom</Form.Label>
+                        <Form.Control type="text" />
+                    </Form.Group>
 
-                <Form.Group controlId="vendor">
+                    <Form.Group controlId="category">
+                        <Form.Label className="popupSelectLabel">Type</Form.Label>
+                        <Form.Select aria-label="categorie" id="category">
+                            <GetCategory get={show} />
+                        </Form.Select>
+                    </Form.Group>
+                </div>
+
+                {/* <Form.Group controlId="vendor">
                     <Form.Label>Fournisseur</Form.Label>
                     <Form.Select aria-label="vendor" id="vendor">
                         <GetVendors get={show} />
@@ -100,38 +105,43 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                         setCreateNewVendor(true);
                         setSuccess(false);
                     }}>Nouveau Fournisseur</Button>
-                </Form.Group>
+                </Form.Group> */}
 
-                <div>
+                <div className="popupRowSplit mb-2">
                     <Form.Group controlId="qty_unit">
                         <Form.Label>Format (Qt)</Form.Label>
                         <Form.Control type="text" />
                     </Form.Group>
 
                     <Form.Group controlId="mesurement">
-                        <Form.Label>Mesure</Form.Label>
+                        <Form.Label className="popupSelectLabel">Mesure</Form.Label>
                         <Form.Select aria-label="mesurement" id="mesurement">
                             <GetMesurements get={show} />
                         </Form.Select>
                     </Form.Group>
                 </div>
 
-                <Form.Group controlId="format">
+                <Form.Group className="mb-2" controlId="format">
                     <Form.Label>Format (Nom)</Form.Label>
                     <Form.Control type="text" />
                 </Form.Group>
 
-                <Form.Group controlId="price">
-                    <Form.Label>Prix (Mettre un point pour la décimale)</Form.Label>
-                    <Form.Control type="text" />
-                </Form.Group>
+                <div className="popupRowSplit mb-2">
+                    <Form.Group controlId="price">
+                        <Form.Label>Prix</Form.Label>
+                        <Form.Control type="text" />
+                    </Form.Group>
 
-                <Form.Group controlId="qty_inv">
-                    <Form.Label>Qt EN STOCK</Form.Label>
-                    <Form.Control type="text" />
-                </Form.Group>
+                    <Form.Group controlId="qty_inv">
+                        <Form.Label>Quantité en stock</Form.Label>
+                        <Form.Control type="text" />
+                    </Form.Group>
+                </div>
 
-                <Button variant="dark" onClick={addProduct}>ENVOYER</Button>
+                <div className="mt-3 popupBtnBox">
+                    <Button variant="demeter-dark" onClick={close}>Annuler</Button>
+                    <Button variant="demeter" onClick={addProduct}>Ajouter</Button>
+                </div>
             </Form>
             <VendorForm show={createNewVendor} close={closeVendor} success={successVendor} />
         </Modal>

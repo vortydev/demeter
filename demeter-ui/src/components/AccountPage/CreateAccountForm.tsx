@@ -49,6 +49,16 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
   return (
     <Modal show={show} onHide={close}>
       <Form className="popupForm">
+      {!validPassword && (
+          <Alert variant="danger">
+            Les mots de passe ne correspondent pas.
+          </Alert>
+        )}
+        {error && (
+          <Alert variant="danger">
+            Une erreur est survenue. Le compte n'a pas été créé.
+          </Alert>
+        )}
         <Form.Group className="mb-2" controlId="account">
           <Form.Label>Nom d'utilisateur</Form.Label>
           <Form.Control type="text" />
@@ -67,16 +77,6 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
           <option value="2">Employé</option>
           <option value="3">Livreur</option>
         </Form.Select>
-        {!validPassword && (
-          <Alert variant="danger">
-            Les mots de passe ne correspondent pas.
-          </Alert>
-        )}
-        {error && (
-          <Alert variant="danger">
-            Une erreur est survenue. Le compte n'a pas été créé.
-          </Alert>
-        )}
         <div className="mt-3 popupBtnBox">
           <Button variant="demeter-dark" onClick={close}>Annuler</Button>
           <Button variant="demeter" onClick={handleSubmit}>Ajouter</Button>

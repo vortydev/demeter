@@ -64,14 +64,16 @@ function AccountRow({
 
   return (
     <div className="flex">
-      <span className="accountName">{currentAccount.accName}</span>{" "}
-      <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
-        setEditAccount(true);
-      }} />
-      <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
-        deleteAccount(currentAccount.accName);
-        setDeleteSuccess(true);
-      }} />
+      <span className="accountName">{currentAccount.accName}</span>
+      <div className="accountEditBox">
+        <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
+          setEditAccount(true);
+        }} />
+        <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
+          deleteAccount(currentAccount.accName);
+          setDeleteSuccess(true);
+        }} />
+      </div>
       <EditPasswordForm
         show={editAccount}
         account={currentAccount}

@@ -30,7 +30,7 @@ function NewsPage(): JSX.Element {
     author: "val",
     picture: null,
     date: "20-10-2022"
-  }]; // fake data, need to be a api call
+  }]; // TODO: fake data, need to be a api call
 
   function success(): void {
     setSuccess(true);
@@ -45,7 +45,7 @@ function NewsPage(): JSX.Element {
     <div>
       {createdSuccess && <Alert>L'annonce à été créer avec succès!</Alert>}
       <p className="loginText">Vous êtes connecté en tant que {connected}</p>
-      <div className="newsAdd">
+      <div className="newsAdd mb-2">
         <Button variant="outline-dark" onClick={() => {
           setCreateNews(true);
           setSuccess(false);

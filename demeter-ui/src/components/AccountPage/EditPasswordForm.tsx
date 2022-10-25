@@ -34,14 +34,13 @@ function EditPasswordForm({
         roleId: account.roleId,
         stateId: account.stateId, // must be change at somepoint for a field value
       };
-      if(await updateAccount(editedAccount, account.accName)){
+      if (await updateAccount(editedAccount, account.accName)) {
         setEditSuccess(true);
         close();
       }
     }
-
-  
   }
+
   return (
     <Modal show={show} onHide={close}>
       <Form className="popupForm">
@@ -54,8 +53,11 @@ function EditPasswordForm({
           <Form.Label>Confirmer le mot de passe</Form.Label>
           <Form.Control type="password" />
         </Form.Group>
+        <div className="mt-3 popupBtnBox">
+          <Button variant="demeter-dark" onClick={close}>Annuler</Button>
+          <Button variant="demeter" onClick={handleSubmit}>Confirmer</Button>
+        </div>
       </Form>
-      <Button className="popupBtn" variant="demeter" onClick={handleSubmit}>Confirmer</Button>
     </Modal>
   );
 }

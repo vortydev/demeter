@@ -22,17 +22,18 @@ function InventoryPage(): JSX.Element {
     }
 
     return (
-        <div>
-            <div>
-                <h1>Inventaire à l'entrepot</h1>
+        <section className="invPage">
+            <div className="mt-2 mb-2 invAdd">
+                <Button variant="outline-dark" onClick={() => {
+                    setCreateNewProduct(true);
+                    setSuccess(false);
+                }}>Nouveau Produit</Button>
             </div>
-
-            <div>
-                <p> truc de barre de recherche </p>
+            <div className="invFilterBox mb-2">
+                <span>filtres de l'inventaire</span>
             </div>
-
-            <div>
-                {createdSuccess && <Alert>Le produit à été créer avec succès!</Alert>}
+            <div className="invTable">
+                {createdSuccess && <Alert>Le produit à été ajouté avec succès!</Alert>}
                 <Container>
                     <Row>
                         <Col><h2>Produit</h2></Col>
@@ -40,37 +41,18 @@ function InventoryPage(): JSX.Element {
                         <Col><h2>Quantité</h2></Col>
                     </Row>
                     <ListingProducts get={createdSuccess} />
-                    <Row>
-                        <Button variant="demeter-dark" onClick={() => {
-                            setUpdatedProducts(true);
-                            setSuccess(false);
-                        }}>Mettre à jour l'inventaire</Button>
-                    </Row>
                 </Container>
             </div>
-
-            <div>
+            <div className="mt-3 invUpdate">
                 <Button variant="demeter-dark" onClick={() => {
-                    setCreateNewProduct(true);
+                    setUpdatedProducts(true);
                     setSuccess(false);
-                }}>Nouveau Produit</Button>
+                }}>Mettre à jour l'inventaire</Button>
             </div>
             <InventoryForm show={createNewProduct} close={close} success={success} />
             <InventoryUpdate show={updateProducts} close={close} success={success} />
-
-        </div>
+        </section>
     );//<VendorForm show={createNewVendor} close={close} success={success}/>
 }
 
 export { InventoryPage };
-
-// wtf do I have to do now:
-// useEffect sur les requetes
-// searchbar
-// filter products
-// sleep
-// eat
-// drink water
-// go to the bathroom
-// breathe
-// exist

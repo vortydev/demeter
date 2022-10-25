@@ -1,0 +1,23 @@
+.invPage {
+    width: 60%;
+    margin: auto;
+}
+
+.invAdd {
+    width: 100%;
+    text-align: right;
+}
+
+.invFilterBox {
+    text-align: center;
+}
+
+.invTable {
+    /* width: 60%;
+    margin: auto; */
+}
+
+.invUpdate {
+    text-align: center;
+    width: 100%;
+}

@@ -34,6 +34,7 @@ button {
 
 .alert {
     font-size: 1rem !important;
+    margin-bottom: .5rem !important;
 }
 
 .loginText {
@@ -85,6 +86,8 @@ button {
 .popupBtnBox {
     margin: auto;
     text-align: center;
+    display: inline-block;
+    width: 100%;
 }
 
 .popupBtnBox>button {
@@ -126,9 +129,11 @@ button {
 }
 
 .btn-outline-dark {
-    border-width: 2px;
+    color: var(--demeter-black);
+    border: 2px solid var(--demeter-black);
 }
 
 .btn-outline-dark:hover {
     background-color: var(--demeter-black);
+    border-color: var(--demeter-black);
 }

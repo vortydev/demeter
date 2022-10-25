@@ -59,6 +59,7 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
             Une erreur est survenue. Le compte n'a pas été créé.
           </Alert>
         )}
+        <h3 className="popupTitle">Nouveau Compte</h3>
         <Form.Group className="mb-2" controlId="account">
           <Form.Label>Nom d'utilisateur</Form.Label>
           <Form.Control type="text" />

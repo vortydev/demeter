@@ -45,6 +45,7 @@ function EditPasswordForm({
     <Modal show={show} onHide={close}>
       <Form className="popupForm">
         {!validPassword && (<Alert variant="danger">Les mots de passe ne correspondent pas !</Alert>)}
+        <h3 className="popupTitle">Édition du Compte</h3>
         <Form.Group className="mb-2" controlId="password">
           <Form.Label>Nouveau mot de passe</Form.Label>
           <Form.Control type="password" />

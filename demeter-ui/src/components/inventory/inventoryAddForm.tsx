@@ -80,6 +80,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
     return (
         <Modal show={show} onHide={close}>
             <Form className="popupForm">
+                <h3 className="popupTitle">Nouveau Produit</h3>
                 <Form.Group controlId="name">
                     <Form.Label>Nom</Form.Label>
                     <Form.Control type="text" />

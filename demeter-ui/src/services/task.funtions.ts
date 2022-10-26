@@ -6,6 +6,7 @@ async function createTask(data: Task): Promise<boolean> {
   console.log(`in create task`,data)
   const taskCreated = TaskService.create(data)
     .then((response: any) => {
+      console.log('the response was good !');
       return true;
     })
     .catch((e: Error) => {

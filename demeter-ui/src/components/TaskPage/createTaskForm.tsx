@@ -26,12 +26,16 @@ function CreateTaskForm({ show ,close, success }: CRFormProps) {
       title: taskName.value,
       description: description.value,
       taskType: parseInt(typeTask.value),
-      parentId: null,
+      parentId: 0 ? null : parseInt(taskParent.value),
       completed: false,
+      picture: null,
+      date: new Date(),
     };
 
     if (await createTask(newTask)) {
+      console.log('it worked !!!!');
       success(true);
+      close();
     } else {
       setError(true);
     }
@@ -49,13 +53,14 @@ function CreateTaskForm({ show ,close, success }: CRFormProps) {
           <option value="1">Quotidiennes</option>
           <option value="2">Hebdomadaires</option>
           <option value="3">Mensuelle</option>
-          <option value="3">Autre</option>
+          <option value="4">Autre</option>
         </Form.Select>
         <Form.Select className="mb-3" id="parentId" aria-label="TACHE PARENT : ">
-          <option > Aucune</option>
-          <option value="1"></option>
-          <option value="2"></option>
-          <option value="3"></option>
+        <option>Choisir</option>
+          <option value="0"> Aucune</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
         </Form.Select>
         <Form.Group className="mb-3" controlId="description">
           <Form.Label>DESCRIPTION : </Form.Label>

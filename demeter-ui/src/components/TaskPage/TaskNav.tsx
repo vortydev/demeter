@@ -12,9 +12,6 @@ interface TaskNavProps{
 function TaskNav({taskCategory, setTaskCategory, success, setSuccess} :TaskNavProps) {
     const [createTask, setCreateTask] = useState<boolean>(false);
 
-    if(success){
-        close();
-    }
 
     function close(): void {
         setCreateTask(false);

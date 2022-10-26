@@ -21,12 +21,7 @@ function NewsPreview({ news }: NewsPreviewProps) {
   const [EditSuccess, setEditSuccess] = useState<boolean>(false);
   
 
-<<<<<<< HEAD
-  if(news.description.length > 300 ){
-    shortDescription = news.description.substring(0, 300);
-  }
-  
-=======
+
   if (news.description.length > 200) {
     shortDescription = news.description.substring(0, 200);
   }
@@ -34,10 +29,10 @@ function NewsPreview({ news }: NewsPreviewProps) {
     shortDescription = news.description;
   }
 
->>>>>>> origin/dev
   const text = fullText ? news.description : shortDescription;
   const buttonText = fullText ? "Lire moins" : "Lire la suite";
   const dotdotdot = fullText ? "" : " ...";
+  const dateCreated = news.date.toDateString();
 
   function success(){
     setEditSuccess(true);
@@ -48,28 +43,9 @@ function NewsPreview({ news }: NewsPreviewProps) {
   }
 
   return (
-<<<<<<< HEAD
-    <div className="newsPreview" >
-      <div className="newsBox">
-        {news.img !== null &&(<div className="picture">
-          <img src={news.img} />
-        </div>)}
-        <p className="title-text">
-          <h1>{news.title} </h1>
-          {text}
-        </p>
-        <div className="edit-delete">
-        <Button onClick={() => setEditNews(true)}>edit</Button><Button onClick={() => deleteNews(news.title)}>delete</Button>
-        </div>{" "}
-      
-      </div>
-      <Button onClick={()=>setFullText(!fullText)}>{buttonText}</Button>
-      <hr />
-      <EditNewsForm show={EditNews} close={close} success={success}/>
-=======
     <div className="flexNewsPreview" >
       <h2 className="newsTitle">{news.title}</h2>
-      <h3 className="newsDate">{news.date}</h3>
+      <h3 className="newsDate">{dateCreated}</h3>
       <div className="flexNewsBox">
         {news.picture !== null && (<div className="picture"><img src={news.picture} /></div>)}
         <p className="newsContent">{text}<b>{dotdotdot}</b></p>
@@ -85,7 +61,6 @@ function NewsPreview({ news }: NewsPreviewProps) {
       </div>
       <Button className="newsBtn" variant="link" onClick={() => setFullText(!fullText)}>{buttonText}</Button>
       <hr className="newsLine" />
->>>>>>> origin/dev
     </div>
   );
 }

@@ -25,7 +25,10 @@ interface CRFormProps {
         img: null,
         active: true,
         roleId: receiver.value,
-        taskId: null
+        taskId: null,
+        picture:null,
+        date: new Date(),
+
       };
   
       if (await createNews(newNews)) {

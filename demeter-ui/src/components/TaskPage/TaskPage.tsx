@@ -16,6 +16,8 @@ function TaskPage(): JSX.Element {
     taskType: 1,
     parentId: null,
     completed: false,
+    picture :null,
+    date :new Date(),
   };
 
   

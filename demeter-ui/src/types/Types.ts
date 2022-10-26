@@ -13,6 +13,8 @@ type News ={
     active: boolean;
     roleId: string;
     taskId: number | null;
+    picture: string | null;
+    date: Date;
 
 }
 
@@ -24,7 +26,7 @@ type Task = {
     parentId: number|null;
     completed: boolean;
     picture: string | null;
-    date: string;
+    date: Date;
 }
 
 type Recipe = {

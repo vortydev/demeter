@@ -49,24 +49,6 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
   return (
     <Modal show={show} onHide={close}>
       <Form className="popupForm">
-        <Form.Group className="mb-3" controlId="account">
-          <Form.Label>Nom d'utilisateur</Form.Label>
-          <Form.Control type="text" />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="password">
-          <Form.Label>Mot de passe</Form.Label>
-          <Form.Control type="password" />
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="passwordConfirm">
-          <Form.Label>Confirmer le mot de passe</Form.Label>
-          <Form.Control type="password" />
-        </Form.Group>
-        <Form.Select className="cursor mb-3" aria-label="role" id="role">
-          <option>Choisir le rôle</option>
-          <option value="1">Administrateur</option>
-          <option value="2">Employé</option>
-          <option value="3">Livreur</option>
-        </Form.Select>
         {!validPassword && (
           <Alert variant="danger">
             Les mots de passe ne correspondent pas.
@@ -77,6 +59,27 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
             Une erreur est survenue. Le compte n'a pas été créé.
           </Alert>
         )}
+        <h3 className="popupTitle">Nouveau Compte</h3>
+        <Form.Group className="mb-2" controlId="account">
+          <Form.Label>Nom d'utilisateur</Form.Label>
+          <Form.Control type="text" />
+        </Form.Group>
+        <Form.Group className="mb-2" controlId="password">
+          <Form.Label>Mot de passe</Form.Label>
+          <Form.Control type="password" />
+        </Form.Group>
+        <Form.Group className="mb-2" controlId="passwordConfirm">
+          <Form.Label>Confirmer le mot de passe</Form.Label>
+          <Form.Control type="password" />
+        </Form.Group>
+        <Form.Group className="mb-2" controlId="role">
+          <Form.Label className="popupSelectLabel">Rôle</Form.Label>
+          <Form.Select aria-label="role" id="role">
+            <option value="1">Administrateur</option>
+            <option value="2">Employé</option>
+            <option value="3">Livreur</option>
+          </Form.Select>
+        </Form.Group>
         <div className="mt-3 popupBtnBox">
           <Button variant="demeter-dark" onClick={close}>Annuler</Button>
           <Button variant="demeter" onClick={handleSubmit}>Ajouter</Button>

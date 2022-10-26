@@ -26,3 +26,8 @@
 .accountNav a {
     padding: inherit .75rem inherit .75rem !important;
 }
+
+.accountEditBox {
+    font-size: 1.5rem;
+    padding-left: .5rem;
+}

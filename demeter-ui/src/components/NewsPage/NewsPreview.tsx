@@ -34,9 +34,11 @@ function NewsPreview({ news }: NewsPreviewProps) {
         <p className="newsContent">{text}<b>{dotdotdot}</b></p>
         <div className="flexNewsEdit">
           <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
+            console.log("EDIT NEWS");
             // TODO setEditNews(true); 
           }} />
           <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
+            console.log("DELETE NEWS");
             // TODO deleteNews(currentNews.id);
             // TODO setDeleteSuccess(true);
           }} />

@@ -1,0 +1,58 @@
+.flexNewsPreview {
+    width: 60%;
+    margin: auto;
+    text-align: center;
+    flex-direction: column;
+    /* margin-bottom: 1rem; */
+}
+
+.flexNewsBox {
+    /* text-align: left; */
+    justify-content: space-between;
+    /* margin-bottom: .75rem; */
+}
+
+.flexNewsEdit {
+    margin-left: auto;
+    margin-bottom: auto;
+    width: 15%;
+    display: block;
+    font-size: 1.5rem;
+    text-align: right;
+}
+
+.newsTitle {
+    width: 100%;
+    margin-bottom: unset;
+}
+
+.newsContent {
+    text-align: left;
+    max-width: 85%;
+    margin-bottom: unset;
+}
+
+.newsBtn {
+    margin: auto;
+    width: 10rem;
+}
+
+.newsDate {
+    color: var(--demeter-grey);
+    font-size: 1.25rem;
+    margin-top: .25rem;
+}
+
+.newsLine {
+    border: 2px solid #EEE;
+    width: 50%;
+    border-radius: 5px;
+    margin: .5rem auto 2rem;
+}
+
+.newsAdd {
+    text-align: right;
+    width: 60%;
+    margin: auto;
+    margin-bottom: .5rem;
+}

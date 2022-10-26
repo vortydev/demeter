@@ -4,10 +4,10 @@ import { createNews } from "../../services/news.functions";
 import { News } from "../../types/Types";
 
 interface CRFormProps {
-  show : boolean;
-    close: () => void;
-    success: ()=> void;
-  }
+  show: boolean;
+  close: () => void;
+  success: () => void;
+}
 
   function CreateNewsForm({ show, close, success }: CRFormProps) {
     const [error, setError] = useState<boolean>(false);
@@ -63,4 +63,5 @@ interface CRFormProps {
     );
   }
 
-  export { CreateNewsForm };
+
+export { CreateNewsForm };

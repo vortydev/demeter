@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import { removeCookie } from "typescript-cookie";
-import "./template.css";
+import "../../css/template.css";
 
 function handleLogout(): void {
   removeCookie("account");
@@ -14,7 +14,7 @@ class Footerbar extends React.Component {
       <footer className="App-footer">
         <div>
           <p>Cette application est une propriété de <span className="LVR">Les Vraies Richesses</span></p>{" "}
-          <Button className="deco btn-secondary" onClick={handleLogout}>
+          <Button className="deco btn-demeter-dark" onClick={handleLogout}>
             Déconnexion
           </Button>
         </div>

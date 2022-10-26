@@ -1,9 +1,9 @@
 type Account = {
-    accName: string;
-    accPassword: string;
-    roleId: Number;
-    stateId: Number;
-}
+  accName: string;
+  accPassword: string;
+  roleId: Number;
+  stateId: Number;
+};
 
 type News ={
     title : string;
@@ -23,28 +23,44 @@ type Task = {
     taskType: number;
     parentId: number|null;
     completed: boolean;
+    picture: string | null;
+    date: string;
 }
 
+type Recipe = {
+  id: number;
+  recipeName: string;
+};
+
 type Product = {
-    id: Number;
-    prodName: String;
-    price: Number;
-    qtyInv: Number;
-    qtyUnit: Number;
-    format: String;
+    id: number;
+    name: string;
+    categoryproductId: string;
+    vendorId: string;
+    price: string;
+    qtyInv: string;
+    qtyUnit: string;
+    format: string;
+    mesurementId: string;
 }
 
 type Category = {
-    id: Number;
-    catName: String;
+    id: number;
+    category: String;
 }
 
 type Vendor = {
-    //id: Number;
-    vendorName: String;
+    id: number;
+    vendor: String;
     phone: String;
     email: String;
     address: String;
 }
 
-export type { Account, News, Task, Product, Category, Vendor }
+type Mesurement = {
+    id: number;
+    mesurement: string;
+    weight: number;
+}
+
+export type { Account, News, Task, Product, Category, Recipe, Vendor, Mesurement }

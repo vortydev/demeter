@@ -1,6 +1,6 @@
 import { LoginForm } from "./LoginForm";
 import logoLVR from "./logoLVR.jpg";
-import "./login.css";
+import "../../css/login.css";
 
 function LoginPage(): JSX.Element {
   return (

@@ -1,12 +1,15 @@
 import { useState } from "react";
-import { RecipeDetails } from "./RecipeDetails";
+import { Recipe } from "../../types/Types";
+
 
 
 interface RecipeListProps {
   filter: Number | null;
+  setSelectedPage: (page:string) => void;
+  setRecipePage: (recipe :Recipe)=> void; 
 }
 
-function RecipeList({ filter }: RecipeListProps) {
+function RecipeList({ filter, setSelectedPage, setRecipePage }: RecipeListProps) {
 
   let filterSelected = "";
   switch (filter) {
@@ -27,6 +30,14 @@ function RecipeList({ filter }: RecipeListProps) {
       break;
   }
 
+
+
+  function goToRecipePage(recipe : Recipe){
+    setRecipePage(recipe)
+    setSelectedPage("SingleRecipe");
+
+  }
+
   const recipeList = [
     { id: 1, recipeName: "Pain aux bananes" },
     { id: 2, recipeName: "Pain au chocolat" },
@@ -37,7 +48,7 @@ function RecipeList({ filter }: RecipeListProps) {
     <div className="recipeList">
       Liste de {filterSelected} ici !
       {recipeList.map((recipe) => (
-        <span>
+        <span onClick={()=>goToRecipePage(recipe)}>
           {recipe.recipeName} 
         </span>
       ))}

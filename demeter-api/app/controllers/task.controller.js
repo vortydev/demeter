@@ -18,6 +18,7 @@ exports.create = (req, res) => {
         name: req.body.name,
         categorytaskId: req.body.categorytaskId,
         parentId: req.body.parentId | null,
+        description: req.body.description,
         completed: req.body.completed | false,
         responsable: req.body.responsable | null
     };

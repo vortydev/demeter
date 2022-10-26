@@ -1,0 +1,28 @@
+.accountList {
+    margin: auto;
+    width: fit-content;
+}
+
+.accountName {
+    padding: 5px;
+    margin-right: auto;
+}
+
+.addAcc {
+    height: min-content;
+    margin: .5rem 2rem .5rem 2rem;
+}
+
+.accountContent {
+    width: fit-content;
+    margin: auto;
+}
+
+.accountNav {
+    font-size: 1.75rem;
+    margin-bottom: .5rem;
+}
+
+.accountNav a {
+    padding: inherit .75rem inherit .75rem !important;
+}

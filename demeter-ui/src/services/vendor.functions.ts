@@ -1,14 +1,19 @@
 import VendorService from "./vendor.services";
 import { Vendor } from "../types/Types";
 
-function getAllVendor(){
-    VendorService.getAll()
-    .then((response: any)=>{
-        console.log(response.data);
+function getAllVendor() {
+    
+    const vendors = VendorService.getAll()
+    .then((response)=>{
+        return response.data;
     })
-   .catch((e: Error) => {
+    .catch((e: Error) => {
         console.log(e);
+        return [];
     });
+
+    return vendors;
+
 }
 
 async function createVendor(data: Vendor): Promise<boolean>{

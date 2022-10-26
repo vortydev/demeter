@@ -5,7 +5,10 @@ import { deleteNews } from "../../services/news.functions";
 import { News } from "../../types/Types";
 import { CreateNewsForm } from "./createNewsForm";
 import { EditNewsForm } from "./EditNewsForm";
-import "./news.css";
+import "../../css/news.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+
 
 interface NewsPreviewProps {
   news: News;
@@ -18,12 +21,23 @@ function NewsPreview({ news }: NewsPreviewProps) {
   const [EditSuccess, setEditSuccess] = useState<boolean>(false);
   
 
+<<<<<<< HEAD
   if(news.description.length > 300 ){
     shortDescription = news.description.substring(0, 300);
   }
   
+=======
+  if (news.description.length > 200) {
+    shortDescription = news.description.substring(0, 200);
+  }
+  else {
+    shortDescription = news.description;
+  }
+
+>>>>>>> origin/dev
   const text = fullText ? news.description : shortDescription;
   const buttonText = fullText ? "Lire moins" : "Lire la suite";
+  const dotdotdot = fullText ? "" : " ...";
 
   function success(){
     setEditSuccess(true);
@@ -34,6 +48,7 @@ function NewsPreview({ news }: NewsPreviewProps) {
   }
 
   return (
+<<<<<<< HEAD
     <div className="newsPreview" >
       <div className="newsBox">
         {news.img !== null &&(<div className="picture">
@@ -51,6 +66,26 @@ function NewsPreview({ news }: NewsPreviewProps) {
       <Button onClick={()=>setFullText(!fullText)}>{buttonText}</Button>
       <hr />
       <EditNewsForm show={EditNews} close={close} success={success}/>
+=======
+    <div className="flexNewsPreview" >
+      <h2 className="newsTitle">{news.title}</h2>
+      <h3 className="newsDate">{news.date}</h3>
+      <div className="flexNewsBox">
+        {news.picture !== null && (<div className="picture"><img src={news.picture} /></div>)}
+        <p className="newsContent">{text}<b>{dotdotdot}</b></p>
+        <div className="flexNewsEdit">
+          <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
+            // TODO setEditNews(true); 
+          }} />
+          <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
+            // TODO deleteNews(currentNews.id);
+            // TODO setDeleteSuccess(true);
+          }} />
+        </div>
+      </div>
+      <Button className="newsBtn" variant="link" onClick={() => setFullText(!fullText)}>{buttonText}</Button>
+      <hr className="newsLine" />
+>>>>>>> origin/dev
     </div>
   );
 }

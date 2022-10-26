@@ -1,0 +1,134 @@
+/* color palette */
+:root {
+    --demeter-black: #201B1A;
+    --demeter-black-v: #111111;
+    --demeter-green: #439e75;
+    --demeter-green-v: #3E8E6A;
+    --demeter-orange: #bc5f04;
+    --demeter-grey: #696969;
+}
+
+/* defaults */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Antic', sans-serif;
+    font-size: 1.25rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+    font-size: 1.25rem !important;
+}
+
+.cursor, select {
+    cursor: pointer;
+}
+
+/* ui */
+::selection {
+    color: white;
+    background: var(--demeter-green);
+}
+
+.alert {
+    font-size: 1rem !important;
+}
+
+.loginText {
+    color: var(--demeter-grey);
+    text-align: center;
+}
+
+/* flex */
+[class*="flex"] {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    flex-direction: row;
+}
+
+.flexCol {
+    flex-direction: column;
+}
+
+/* ui icons */
+[class*="icon"] {
+    color: var(--demeter-grey);
+    padding: 5px;
+    transition: all 0.2s;
+}
+
+.iconEdit:hover {
+    color: var(--demeter-green);
+}
+
+.iconTrash:hover {
+    color: var(--demeter-orange);
+}
+
+/* popup ui */
+.popupForm {
+    padding: 1rem;
+}
+
+.popupForm label {
+    margin-bottom: 0;
+    padding-left: .1rem;
+}
+
+.popupBtn {
+    margin: 0 1rem 1rem 1rem;
+}
+
+.popupBtnBox {
+    margin: auto;
+    text-align: center;
+}
+
+.popupBtnBox>button {
+    width: 10rem;
+    margin: 0 1rem 0 1rem;
+}
+
+/* buttons with Demeter theme */
+.btn {
+    transition: all 0.15s;
+}
+
+.btn-demeter {
+    background-color: var(--demeter-green);
+    color: white;
+}
+
+.btn-demeter:hover {
+    background-color: var(--demeter-green-v);
+    color: white;
+}
+
+.btn-demeter-dark {
+    background-color: var(--demeter-black);
+    color: white;
+}
+
+.btn-demeter-dark:hover {
+    background-color: var(--demeter-black-v);
+    color: white;
+}
+
+.btn-link {
+    color: var(--demeter-green);
+}
+
+.btn-link:hover {
+    color: var(--demeter-green-v);
+}
+
+.btn-outline-dark {
+    border-width: 2px;
+}
+
+.btn-outline-dark:hover {
+    background-color: var(--demeter-black);
+}

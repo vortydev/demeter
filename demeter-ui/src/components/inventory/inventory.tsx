@@ -5,11 +5,16 @@ import { getAllVendor } from '../../services/vendor.functions';
 import { Category, Mesurement, Product, Vendor } from '../../types/Types';
 import { setDefaultResultOrder } from 'dns';
 import { InventoryEditProductForm } from './inventoryUpdateProduct';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 interface Getting {
-    get: boolean,
+    createSuccess: boolean;
+    setDeleteSuccess: (success: boolean) => void;
+    deleteSuccess: boolean;
 }
-function ListingProducts(get: Getting): JSX.Element {
+
+function ListingProducts({createSuccess, setDeleteSuccess, deleteSuccess}: Getting): JSX.Element {
 
     const [products, setProducts] = useState<Product[]>([]);
 
@@ -18,19 +23,27 @@ function ListingProducts(get: Getting): JSX.Element {
             setProducts(await getAll());
         }
         getList();
-    },[get]);
+    },[createSuccess, deleteSuccess]);
+
+    //  allows the system to refresh after deleting a second product
+    setTimeout(() => {
+        setDeleteSuccess(false);
+    }, 5000);
 
     return (
         <React.Fragment>
             {products.map((product) => (
-                <ProductsDisplay product={product}/>
+                <ProductsDisplay product={product} setDeleteSuccess={setDeleteSuccess}/>
             ))}
         </React.Fragment>
     );
     
 }
 
-function ListingProductsEdit(get: Getting): JSX.Element {
+interface GettingShow {
+    show: boolean,
+}
+function ListingProductsEdit(show: GettingShow): JSX.Element {
 
     const [products, setProducts] = useState<Product[]>([]);
 
@@ -39,7 +52,7 @@ function ListingProductsEdit(get: Getting): JSX.Element {
             setProducts(await getAll());
         }
         getList();
-    },[get]);
+    },[show]);
 
     return (
         <React.Fragment>
@@ -53,9 +66,10 @@ function ListingProductsEdit(get: Getting): JSX.Element {
 
 interface ProductDisplayProps {
     product: Product;
+    setDeleteSuccess: (success: boolean) => void;
 }
 
-function ProductsDisplay({product}:ProductDisplayProps): JSX.Element{
+function ProductsDisplay({product, setDeleteSuccess}:ProductDisplayProps): JSX.Element{
     const [updateProduct, setUpdatedProduct] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
 
@@ -79,14 +93,17 @@ function ProductsDisplay({product}:ProductDisplayProps): JSX.Element{
             <Col>
                 {product.qtyInv}
                 <Button onClick={()=>{setUpdatedProduct(true)}}>edit</Button>
-                <Button onClick={()=>deleteProductById(product.id)}>delete</Button>
+                <Button onClick={()=>{deleteProductById(product.id); setDeleteSuccess(true)}}>delete</Button>
                 <InventoryEditProductForm show={updateProduct} close={close} success={success} product={product}/>
             </Col>
         </Row>
     );
 }
 
-function ProductsDisplayEdit ({product}:ProductDisplayProps): JSX.Element {
+interface ProductDisplayEditProps {
+    product: Product;
+}
+function ProductsDisplayEdit ({product}:ProductDisplayEditProps): JSX.Element {
 
     return(
         <Row>
@@ -111,12 +128,23 @@ function ProductsDisplayEdit ({product}:ProductDisplayProps): JSX.Element {
 }
 
 function deleteProductById(id: any){
-    if (window.confirm('Êtes-vous sur de vouloir supprimer ce produit?')){
-        deleteProduct(id);
-    }
+    confirmAlert({
+        title: 'Confirmation',
+        message: 'Êtes-vous sur de vouloir supprimer ce produit?',
+        buttons: [
+          {
+            label: 'Oui',
+            onClick: () => {deleteProduct(id);}
+          },
+          {
+            label: 'Non',
+            onClick: () => {}
+          }
+        ]
+      });
 }
 
-function GetCategory(get: Getting): JSX.Element {
+function GetCategory(show: GettingShow): JSX.Element {
     const [categories, setCategories] = useState<Category[]>([]);
 
     useEffect(() => {
@@ -124,7 +152,7 @@ function GetCategory(get: Getting): JSX.Element {
             setCategories(await getAllCategories());
         }
         getList();
-    },[get]);
+    },[show]);
     
     return(
         <React.Fragment>
@@ -135,7 +163,7 @@ function GetCategory(get: Getting): JSX.Element {
     );
 }
 
-function GetVendors(get: Getting):JSX.Element {
+function GetVendors(show: GettingShow):JSX.Element {
     const [ vendors, setVendors ] = useState<Vendor[]>([]);
 
     useEffect(() => {
@@ -143,7 +171,7 @@ function GetVendors(get: Getting):JSX.Element {
             setVendors(await getAllVendor());
         }
         getList();
-    },[get]);
+    },[show]);
 
     return(
         <React.Fragment>
@@ -174,7 +202,7 @@ function VendorDropDown({vendor}:VendorSelect):JSX.Element{
     );
 }
 
-function GetMesurements(get: Getting):JSX.Element {
+function GetMesurements(show: GettingShow):JSX.Element {
     const [ mesurements, setMesurements ] = useState<Mesurement[]>([]);
 
     useEffect(() => {
@@ -182,7 +210,7 @@ function GetMesurements(get: Getting):JSX.Element {
             setMesurements(await getAllMesurements());
         }
         getList();
-    },[get]);
+    },[show]);
 
     return(
         <React.Fragment>

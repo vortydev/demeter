@@ -81,7 +81,7 @@ function InventoryUpdate({ show, close, success }: CRFormProps) {
                         <Col><h2>Format</h2></Col>
                         <Col><h2>Quantité</h2></Col>
                     </Row>
-                        <ListingProductsEdit get={show}/>
+                        <ListingProductsEdit show={show}/>
                     <Row>
                         <Button variant="dark" onClick={editProducts}>Envoyer</Button>
                     </Row>

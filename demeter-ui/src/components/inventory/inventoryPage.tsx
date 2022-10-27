@@ -8,6 +8,7 @@ function InventoryPage(): JSX.Element{
 
     const [createNewProduct, setCreateNewProduct] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
+    const [deletedSuccess, setDeleted] = useState<boolean>(false);
     const [updateProducts, setUpdatedProducts] = useState<boolean>(false);
   
     function success(): void {
@@ -31,14 +32,15 @@ function InventoryPage(): JSX.Element{
             </div>
 
             <div>
-            {createdSuccess && <Alert>Le produit à été créer avec succès!</Alert>}
+            {createdSuccess && <Alert variant="success">Le produit à été créer avec succès!</Alert>}
+            {deletedSuccess && <Alert variant="success">Le produit a été supprimé avec succès!</Alert>}
                 <Container>
                     <Row>
                         <Col><h2>Produit</h2></Col>
                         <Col><h2>Format</h2></Col>
                         <Col><h2>Quantité</h2></Col>
                     </Row>
-                    <ListingProducts get={createdSuccess}/>
+                    <ListingProducts createSuccess={createdSuccess} setDeleteSuccess={setDeleted} deleteSuccess={deletedSuccess}/>
                     <Row>
                         <Button variant="dark" onClick={() => {
                           setUpdatedProducts(true);
@@ -51,7 +53,7 @@ function InventoryPage(): JSX.Element{
             <div>
                 <Button variant="dark" onClick={() => {
                   setCreateNewProduct(true);
-                  setSuccess(false);
+                  setSuccess(false);    // might be interesting
                 }}>
                 Nouveau Produit
                 </Button>
@@ -66,7 +68,10 @@ function InventoryPage(): JSX.Element{
 export { InventoryPage };
 
 // wtf do I have to do now: 
-// useEffect sur les requetes
+// updating list when delete twice
+// alerts typescript
+// accept and edit string price
+// edit display delete vendor
 // searchbar
 // filter products
 // sleep

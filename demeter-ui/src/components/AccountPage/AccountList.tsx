@@ -33,7 +33,13 @@ function AccountList({
       setListAccount(await getAccountsByRole(currentRole));
     }
     getList();
+
   }, [currentRole, createSuccess, deleteSuccess]);
+
+  //  allows the system to refresh after deleting a second account
+  setTimeout(() => {
+    setDeleteSuccess(false);
+  }, 5000);
 
   // make get account work
   return (

@@ -25,7 +25,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
           <Form.Label>Description</Form.Label>
           <Form.Control as="textarea" rows={3} />
         </Form.Group>
-        <Form.Group className="mb-2" controlId="target">
+        <Form.Group className="popupSelectBox mb-2" controlId="target">
           <Form.Label className="popupSelectLabel">Destinataires</Form.Label>
           <Form.Select aria-label="target">
             <option value="1">Administrateurs</option>

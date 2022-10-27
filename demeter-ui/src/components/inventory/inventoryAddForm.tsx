@@ -4,6 +4,8 @@ import { Product } from '../../types/Types';
 import { GetCategory, GetMesurements, GetVendors } from './inventory';
 import { VendorForm } from './inventoryAddVendorForm';
 import { createProduct } from '../../services/inventory.functions';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faList } from "@fortawesome/free-solid-svg-icons";
 
 interface CRFormProps {
     show: boolean;
@@ -89,23 +91,42 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                     </Form.Group>
 
                     <Form.Group controlId="category">
-                        <Form.Label className="popupSelectLabel">Type</Form.Label>
+                        <Form.Label className="popupSelectLabelFull">Type</Form.Label>
                         <Form.Select aria-label="categorie" id="category">
                             <GetCategory get={show} />
                         </Form.Select>
                     </Form.Group>
                 </div>
 
-                {/* <Form.Group controlId="vendor">
-                    <Form.Label>Fournisseur</Form.Label>
+                <Form.Group className="vendorBox mb-2" controlId="vendor">
+                    <Form.Label className="popupSelectLabel">Fournisseur</Form.Label>
                     <Form.Select aria-label="vendor" id="vendor">
                         <GetVendors get={show} />
                     </Form.Select>
-                    <Button variant="demeter-dark" onClick={() => {
-                        setCreateNewVendor(true);
-                        setSuccess(false);
-                    }}>Nouveau Fournisseur</Button>
-                </Form.Group> */}
+
+                    <div className="vendorListBox">
+                        <FontAwesomeIcon className="iconList iconEdit cursor" icon={faList} size="lg" onClick={() => {
+                            setSuccess(false);
+                            console.log("liste fournisseurs");
+                        }} />
+                        <FontAwesomeIcon className="iconAdd iconEdit cursor" icon={faPlus} size="lg" onClick={() => {
+                            setCreateNewVendor(true);
+                            setSuccess(false);
+                        }} />
+                    </div>
+
+                    {/* <div className="popupBtnBox mt-2 mb-2">
+                        <Button variant="demeter-dark" onClick={() => {
+                            // setCreateNewVendor(true);
+                            setSuccess(false);
+                            console.log("liste fournisseurs");
+                        }}>Liste des Fournisseurs</Button>
+                        <Button variant="demeter-dark" onClick={() => {
+                            setCreateNewVendor(true);
+                            setSuccess(false);
+                        }}>Nouveau Fournisseur</Button>
+                    </div> */}
+                </Form.Group>
 
                 <div className="popupRowSplit mb-2">
                     <Form.Group controlId="qty_unit">
@@ -114,7 +135,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                     </Form.Group>
 
                     <Form.Group controlId="mesurement">
-                        <Form.Label className="popupSelectLabel">Mesure</Form.Label>
+                        <Form.Label className="popupSelectLabelFull">Mesure</Form.Label>
                         <Form.Select aria-label="mesurement" id="mesurement">
                             <GetMesurements get={show} />
                         </Form.Select>

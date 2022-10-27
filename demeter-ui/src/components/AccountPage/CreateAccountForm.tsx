@@ -72,7 +72,7 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
           <Form.Label>Confirmer le mot de passe</Form.Label>
           <Form.Control type="password" />
         </Form.Group>
-        <Form.Group className="mb-2" controlId="role">
+        <Form.Group className="popupSelectBox mb-2" controlId="role">
           <Form.Label className="popupSelectLabel">Rôle</Form.Label>
           <Form.Select aria-label="role" id="role">
             <option value="1">Administrateur</option>

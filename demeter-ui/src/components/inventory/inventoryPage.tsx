@@ -68,7 +68,6 @@ function InventoryPage(): JSX.Element{
 export { InventoryPage };
 
 // wtf do I have to do now: 
-// updating list when delete twice
 // alerts typescript
 // accept and edit string price
 // edit display delete vendor

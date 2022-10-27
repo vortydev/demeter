@@ -93,7 +93,7 @@ function ProductsDisplay({product, setDeleteSuccess}:ProductDisplayProps): JSX.E
             <Col>
                 {product.qtyInv}
                 <Button onClick={()=>{setUpdatedProduct(true)}}>edit</Button>
-                <Button onClick={()=>{deleteProductById(product.id); setDeleteSuccess(true)}}>delete</Button>
+                <Button onClick={()=>{deleteProductById(product.id); setTimeout(() => {setDeleteSuccess(true);}, 2500);}}>delete</Button>
                 <InventoryEditProductForm show={updateProduct} close={close} success={success} product={product}/>
             </Col>
         </Row>

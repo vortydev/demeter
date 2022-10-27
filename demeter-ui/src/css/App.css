@@ -21,5 +21,30 @@
 }
 
 .App-body{
-  height: 80vh;
+  height: max-content;
+  margin-bottom: 2.5rem;
+}
+
+.App-footer{
+  background-color:#696969;
+  height: fit-content;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+
+.flexFooter {
+  align-items: baseline;
+  justify-content: space-between;
+  margin: .5rem 1rem;
+}
+
+.App-footer p {
+  color: white;
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+.LVR {
+  font-family: 'Spectral SC', serif;
 }

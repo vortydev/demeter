@@ -16,6 +16,7 @@ body {
     font-size: 1.25rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow: scroll;
 }
 
 button {
@@ -31,6 +32,11 @@ button {
     color: white;
     background: var(--demeter-green);
 }
+
+/* input:focus, select:focus {
+    border-color: var(--demeter-green);
+    border-radius: inherit;
+} */
 
 .alert {
     font-size: 1rem !important;

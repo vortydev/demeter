@@ -1,5 +1,4 @@
 import React from 'react';
-import '../../css/template.css';
 
 interface NavBarProps {
     navigateTo : (choice: string) => void;

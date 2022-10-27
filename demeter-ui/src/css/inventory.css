@@ -39,3 +39,13 @@
 .invMAJrowThin {
     width: 12%;
 }
+
+.cellCenter {
+    line-height: 1;
+    align-self: center;
+    text-align: center;
+}
+
+.cellShade:hover {
+    background-color: var(--demeter-green-v) 10%;
+}

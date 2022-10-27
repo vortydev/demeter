@@ -29,10 +29,10 @@ function InventoryPage(): JSX.Element {
                     setSuccess(false);
                 }}>Nouveau Produit</Button>
             </div>
-            <div className="invFilterBox mb-2">
+            {/* <div className="invFilterBox mb-2">
                 <span>filtres de l'inventaire</span>
-            </div>
-            <div className="invTable">
+            </div> */}
+            <div className="invTable mb-2">
                 {createdSuccess && <Alert>Le produit à été ajouté avec succès!</Alert>}
                 <Container>
                     <Row>

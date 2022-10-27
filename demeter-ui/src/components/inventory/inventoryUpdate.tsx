@@ -66,21 +66,19 @@ function InventoryUpdate({ show, close, success }: CRFormProps) {
         <Modal show={show} onHide={close}>
             <Form className="popupForm" id="formMAJ">
                 <h3 className="popupTitle">Mise à jour de l'inventaire</h3>
-                <span className="loginText"> truc de barre de recherche </span>
-                <Container>
-                    <Row>
-                        <Col><h2>Produit</h2></Col>
-                        <Col><h2>Format</h2></Col>
-                        <Col><h2>Quantité</h2></Col>
-                    </Row>
-                    <ListingProductsEdit get={show} />
-                </Container>
+                {/* truc de barre de recherche */}
+                <div className="flex invUpdateHeader mb-2 mt-2">
+                    <h4 className="invMAJrowLarge">Produit</h4>
+                    <h4 className="invMAJrowLarge">Format</h4>
+                    <h4 className="invMAJrowThin">Qt</h4>
+                </div>
+                <ListingProductsEdit get={show} />
                 <div className="mt-3 popupBtnBox">
                     <Button variant="demeter-dark" onClick={close}>Annuler</Button>
                     <Button variant="demeter" onClick={editProducts}>Confirmer</Button>
                 </div>
             </Form>
-        </Modal>
+        </Modal >
     );
 }
 

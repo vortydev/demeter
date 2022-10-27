@@ -94,24 +94,21 @@ function ProductsDisplay({ product }: ProductDisplayProps): JSX.Element {
 function ProductsDisplayEdit({ product }: ProductDisplayProps): JSX.Element {
 
     return (
-        <Row>
-            <Form.Group controlId={`product${product.id}`}>
-                <Col>
-                    <Form.Group controlId="id">
-                        <Form.Control type="hidden" value={product.id} />
-                    </Form.Group>
-                    {product.name}
-                </Col>
-                <Col>
-                    {product.format}
-                </Col>
-                <Col>
-                    <Form.Group controlId={`qty_inv${product.id}`}>
-                        <Form.Control type="text" defaultValue={`${product.qtyInv}`} />
-                    </Form.Group>
-                </Col>
+        <Form.Group className="flex" controlId={`product${product.id}`}>
+            <Form.Group controlId="id">
+                <Form.Control type="hidden" value={product.id} />
             </Form.Group>
-        </Row>
+            <div className="invMAJrowLarge center mb-2">
+                {product.name}
+            </div>
+
+            <div className="invMAJrowLarge center mb-2">
+                {product.format}
+            </div>
+            <Form.Group className="invMAJrowThin mb-2" controlId={`qty_inv${product.id}`}>
+                <Form.Control type="text" defaultValue={`${product.qtyInv}`} />
+            </Form.Group>
+        </Form.Group>
     );
 }
 

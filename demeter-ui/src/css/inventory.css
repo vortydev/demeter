@@ -25,3 +25,17 @@
 .vendorListBox {
     margin-left: .75rem;
 }
+
+.invUpdateHeader {
+    text-align: center;
+    border-bottom: 2px solid var(--demeter-black);
+}
+
+.invMAJrowLarge {
+    width: 44%;
+    padding: 0 .25rem;
+}
+
+.invMAJrowThin {
+    width: 12%;
+}

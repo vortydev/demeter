@@ -41,6 +41,10 @@ button {
     display: none;
 }
 
+.center {
+    text-align: center;
+}
+
 .loginText {
     color: var(--demeter-grey);
     text-align: center;
@@ -63,7 +67,7 @@ button {
     color: var(--demeter-black);
     padding: 5px;
     transition: all 0.2s;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
 }
 
 .iconEdit:hover {

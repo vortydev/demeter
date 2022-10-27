@@ -96,7 +96,15 @@ button {
     margin-bottom: .25rem;
 }
 
+.popupSelectBox{
+    display: inline-block;
+}
+
 .popupSelectLabel {
+    margin-right: .5rem;
+}
+
+.popupSelectLabelFull {
     width: 100%;
 }
 
@@ -107,7 +115,7 @@ button {
 }
 
 .popupRowSplit>div {
-    width: 49%;
+    width: 48%;
 }
 
 /* buttons with Demeter theme */
@@ -137,6 +145,7 @@ button {
 
 .btn-link {
     color: var(--demeter-green);
+    text-decoration: solid;
 }
 
 .btn-link:hover {

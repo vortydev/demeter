@@ -44,8 +44,15 @@
     line-height: 1;
     align-self: center;
     text-align: center;
+    /* padding: .25rem; */
+}
+
+.cellShade {
+    padding: .25rem;
+    transition: all .15s;
+    border-radius: .25rem;
 }
 
 .cellShade:hover {
-    background-color: var(--demeter-green-v) 10%;
+    background-color: var(--demeter-green-h);
 }

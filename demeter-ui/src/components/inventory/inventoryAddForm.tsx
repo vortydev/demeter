@@ -114,18 +114,6 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                             setSuccess(false);
                         }} />
                     </div>
-
-                    {/* <div className="popupBtnBox mt-2 mb-2">
-                        <Button variant="demeter-dark" onClick={() => {
-                            // setCreateNewVendor(true);
-                            setSuccess(false);
-                            console.log("liste fournisseurs");
-                        }}>Liste des Fournisseurs</Button>
-                        <Button variant="demeter-dark" onClick={() => {
-                            setCreateNewVendor(true);
-                            setSuccess(false);
-                        }}>Nouveau Fournisseur</Button>
-                    </div> */}
                 </Form.Group>
 
                 <div className="popupRowSplit mb-2">

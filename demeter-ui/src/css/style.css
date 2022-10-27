@@ -4,6 +4,7 @@
     --demeter-black-v: #111111;
     --demeter-green: #439e75;
     --demeter-green-v: #3E8E6A;
+    --demeter-green-h: #e4eee9;
     --demeter-orange: #bc5f04;
     --demeter-grey: #696969;
 }
@@ -41,6 +42,7 @@ button {
 .alert {
     font-size: 1rem !important;
     margin-bottom: .5rem !important;
+    text-align: center;
 }
 
 .hide {

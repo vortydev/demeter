@@ -94,7 +94,7 @@ function ProductsDisplay({ product }: ProductDisplayProps): JSX.Element {
 function ProductsDisplayEdit({ product }: ProductDisplayProps): JSX.Element {
 
     return (
-        <Form.Group className="flex cellShade mb-2" controlId={`product${product.id}`}>
+        <Form.Group className="flex cellShade mb-1" controlId={`product${product.id}`}>
             <Form.Group controlId="id">
                 <Form.Control type="hidden" value={product.id} />
             </Form.Group>

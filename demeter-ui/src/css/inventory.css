@@ -12,11 +12,6 @@
     text-align: center;
 }
 
-.invTable {
-    /* width: 60%;
-    margin: auto; */
-}
-
 .invUpdate {
     text-align: center;
     width: 100%;
@@ -24,4 +19,9 @@
 
 .vendorBox {
     align-items: center;
+    display: flex;
+}
+
+.vendorListBox {
+    margin-left: .75rem;
 }

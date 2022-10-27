@@ -37,6 +37,10 @@ button {
     margin-bottom: .5rem !important;
 }
 
+.hide {
+    display: none;
+}
+
 .loginText {
     color: var(--demeter-grey);
     text-align: center;
@@ -56,9 +60,10 @@ button {
 
 /* ui icons */
 [class*="icon"] {
-    color: var(--demeter-grey);
+    color: var(--demeter-black);
     padding: 5px;
     transition: all 0.2s;
+    font-size: 1.5rem;
 }
 
 .iconEdit:hover {
@@ -67,6 +72,10 @@ button {
 
 .iconTrash:hover {
     color: var(--demeter-orange);
+}
+
+.iconAdd:hover + .hide, .iconList:hover + .hide {
+    display: block;
 }
 
 /* popup ui */

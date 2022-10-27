@@ -104,14 +104,16 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                         <GetVendors get={show} />
                     </Form.Select>
 
-                    <FontAwesomeIcon className="iconEdit cursor" icon={faList} size="lg" onClick={() => {
+                    <div className="vendorListBox">
+                        <FontAwesomeIcon className="iconList iconEdit cursor" icon={faList} size="lg" onClick={() => {
                             setSuccess(false);
                             console.log("liste fournisseurs");
                         }} />
-                        <FontAwesomeIcon className="iconEdit cursor" icon={faPlus} size="lg" onClick={() => {
+                        <FontAwesomeIcon className="iconAdd iconEdit cursor" icon={faPlus} size="lg" onClick={() => {
                             setCreateNewVendor(true);
                             setSuccess(false);
                         }} />
+                    </div>
 
                     {/* <div className="popupBtnBox mt-2 mb-2">
                         <Button variant="demeter-dark" onClick={() => {

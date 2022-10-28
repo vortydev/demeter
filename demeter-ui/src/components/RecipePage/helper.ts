@@ -3,6 +3,7 @@ import { Product } from "../../types/Types";
 
 
 export function getRecipeCost(ingredients: IngForRecipe[]){
+  console.log('in get Recipe Cost');
   let totalPrice = 0;
   for(let ingredient of ingredients){
     const price = pricePerQuantity(ingredient);

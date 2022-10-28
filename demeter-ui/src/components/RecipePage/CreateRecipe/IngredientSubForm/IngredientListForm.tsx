@@ -6,12 +6,10 @@ import { IngredientRowForm } from "./IngredientRowForm";
 
 interface ILFProps {
   listIng: IngForRecipe[];
-  setListIng: (list: IngForRecipe[]) => void;
 }
 
-function IngredientListForm({ listIng, setListIng }: ILFProps) {
+function IngredientListForm({ listIng}: ILFProps) {
   const [addIngredient, setAddIngredient] = useState<boolean>(false);
-
 
   return (
     <div className="IngListForm">
@@ -19,7 +17,7 @@ function IngredientListForm({ listIng, setListIng }: ILFProps) {
       <div>
         {" "}
         {listIng.map((ing) => (
-          <IngredientRowForm ingredient={ing} />
+          <IngredientRowForm listIng={listIng} ingredient={ing} />
         ))}
       </div>
 
@@ -32,8 +30,7 @@ function IngredientListForm({ listIng, setListIng }: ILFProps) {
       <AddIngredientForm
         show={addIngredient}
         setShow={setAddIngredient}
-        currentList={listIng}
-        setListIngAdded={setListIng}
+        listIng={listIng}
       />
     </div>
   );

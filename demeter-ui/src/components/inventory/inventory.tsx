@@ -70,24 +70,28 @@ function ProductsDisplay({ product }: ProductDisplayProps): JSX.Element {
     }
 
     return (
-        <Row>
-            <Col>
-                {product.name}
-            </Col>
-            <Col>
-                {product.format}
-            </Col>
-            <Col>
-                {product.qtyInv}
-                <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
-                    setUpdatedProduct(true);
-                }} />
-                <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
-                    deleteProductById(product.id);
-                }} />
-                <InventoryEditProductForm show={updateProduct} close={close} success={success} product={product} />
-            </Col>
-        </Row>
+        <div className="flex cellShade mb-1">
+            <div className="invCol cellCenter">
+                <p>{product.name}</p>
+            </div>
+            <div className="invCol cellCenter">
+                <p>{product.format}</p>
+            </div>
+            <div className="invColThin cellCenter flexInvQt">
+                <p>{product.qtyInv}</p>
+
+                <div className="invEditBox">
+                    <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
+                        setUpdatedProduct(true);
+                    }} />
+                    <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
+                        deleteProductById(product.id);
+                    }} />
+                </div>
+            </div>
+
+            <InventoryEditProductForm show={updateProduct} close={close} success={success} product={product} />
+        </div>
     );
 }
 

@@ -2,6 +2,7 @@
 :root {
     --demeter-black: #201B1A;
     --demeter-black-v: #111111;
+    --demeter-black-btn: #272626;
     --demeter-green: #439e75;
     --demeter-green-v: #3E8E6A;
     --demeter-green-h: #e4eee9;
@@ -72,7 +73,7 @@ button {
 
 /* ui icons */
 [class*="icon"] {
-    color: var(--demeter-black);
+    color: var(--demeter-black-btn);
     padding: 5px;
     transition: all 0.2s;
     font-size: 1.75rem;
@@ -161,6 +162,7 @@ button {
 
 .btn-demeter-dark:hover {
     background-color: var(--demeter-black-v);
+    border-color: var(--demeter-black-v);
     color: white;
 }
 

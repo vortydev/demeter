@@ -9,12 +9,18 @@ function InventoryPage(): JSX.Element{
     const [createNewProduct, setCreateNewProduct] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
     const [deletedSuccess, setDeleted] = useState<boolean>(false);
+    const [updatedSuccess, setUpdated] = useState<boolean>(false);
     const [updateProducts, setUpdatedProducts] = useState<boolean>(false);
   
     function success(): void {
       setSuccess(true);
       close();
     }
+
+    function successUpdate(): void {
+        setUpdated(true);
+        close();
+      }
   
     function close(): void {
       setCreateNewProduct(false);
@@ -34,6 +40,7 @@ function InventoryPage(): JSX.Element{
             <div>
             {createdSuccess && <Alert variant="success">Le produit à été créer avec succès!</Alert>}
             {deletedSuccess && <Alert variant="success">Le produit a été supprimé avec succès!</Alert>}
+            {updatedSuccess && <Alert variant="success">Les produits ont été mis à jour avec succès!</Alert>}
                 <Container>
                     <Row>
                         <Col><h2>Produit</h2></Col>
@@ -53,13 +60,13 @@ function InventoryPage(): JSX.Element{
             <div>
                 <Button variant="dark" onClick={() => {
                   setCreateNewProduct(true);
-                  setSuccess(false);    // might be interesting
+                  setSuccess(false);
                 }}>
                 Nouveau Produit
                 </Button>
             </div>
             <InventoryForm show={createNewProduct} close={close} success={success}/>
-            <InventoryUpdate show={updateProducts} close={close} success={success}/>
+            <InventoryUpdate show={updateProducts} close={close} success={successUpdate}/>
             
         </div>
     );
@@ -68,7 +75,6 @@ function InventoryPage(): JSX.Element{
 export { InventoryPage };
 
 // wtf do I have to do now: 
-// alerts typescript
 // accept and edit string price
 // edit display delete vendor
 // searchbar

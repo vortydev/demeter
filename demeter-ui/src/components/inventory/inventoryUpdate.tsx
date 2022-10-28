@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Form, Button, Container, Row, Col, Modal} from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Modal, Alert} from 'react-bootstrap';
 import { Product } from '../../types/Types';
 import { ListingProductsEdit } from './inventory';
 import { updateProduct, getAll } from '../../services/inventory.functions'
@@ -15,6 +15,9 @@ function InventoryUpdate({ show, close, success }: CRFormProps) {
     const [error, setError] = useState<boolean>(false);
     const [products, setProducts] = useState<Array<Product>>([]);
 
+    const [alerting, setAlerting] = useState<boolean>(false);
+    const [alerting1, setAlerting1] = useState<boolean>(false);
+
     async function editProducts(): Promise<void>{
 
         async function getProducts() {
@@ -22,20 +25,24 @@ function InventoryUpdate({ show, close, success }: CRFormProps) {
         }
 
         getProducts();
+
+        setError(false);
+        setAlerting(false);
+        setAlerting1(false);
         
         products.map(async (productUpdated: Product) => {
-    
-            setError(false);
 
             var product = document.getElementById(`qty_inv${productUpdated.id}`) as HTMLInputElement;
 
             var regexNumber = new RegExp(/[0-9]+/);
     
             if(!product.value){
-                alert("Veuillez entrer une quantité");
+                setAlerting(true);
+                return;
             }
             else if(!regexNumber.test(product.value)){
-                alert("Veuillez entrer un nombre valide");
+                setAlerting1(true);
+                return;
             }else{
                 if (productUpdated !== null) {
                     const updatedProduct: Product = {
@@ -81,6 +88,8 @@ function InventoryUpdate({ show, close, success }: CRFormProps) {
                         <Col><h2>Format</h2></Col>
                         <Col><h2>Quantité</h2></Col>
                     </Row>
+                    {alerting && <Alert>Veuillez remplir tout les champs (Pwease gimme copper owange cowor)</Alert>}
+                    {alerting1 && <Alert>Veuillez entrer un nombre valide (Pwease gimme copper owange cowor)</Alert>}
                         <ListingProductsEdit show={show}/>
                     <Row>
                         <Button variant="dark" onClick={editProducts}>Envoyer</Button>

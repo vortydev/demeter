@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Form, Button, Modal } from 'react-bootstrap';
+import { Form, Button, Modal, Alert } from 'react-bootstrap';
 import { Product } from '../../types/Types';
 import { GetCategory, GetMesurements, GetVendors } from './inventory';
 import { VendorForm } from './inventoryAddVendorForm';
@@ -15,6 +15,11 @@ function InventoryForm({ show, close, success }: CRFormProps) {
 
     const [createNewVendor, setCreateNewVendor] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
+    
+    const [alerting, setAlerting] = useState<boolean>(false);
+    const [alerting1, setAlerting1] = useState<boolean>(false);
+    const [alerting2, setAlerting2] = useState<boolean>(false);
+    const [alerting3, setAlerting3] = useState<boolean>(false);
 
     const [error, setError] = useState<boolean>(false);
 
@@ -32,18 +37,22 @@ function InventoryForm({ show, close, success }: CRFormProps) {
         var regexNumber = new RegExp(/[0-9]+/);
 
         setError(false);
+        setAlerting(false);
+        setAlerting1(false);
+        setAlerting2(false);
+        setAlerting3(false);
 
         if (!name.value || !qtyUnit.value || !format.value || !price.value || !qtyInv.value){
-            alert("Veuillez remplir tout les champs");
+            setAlerting(true);
         }
         else if(!regexPrice.test(price.value)){
-            alert("Veuillez entrer le prix au format #.##");
-        }
-        else if(!regexNumber.test(qtyInv.value)){
-            alert("Veuillez entrer un nombre");
+            setAlerting1(true);
         }
         else if(!regexNumber.test(qtyUnit.value)){
-            alert("Veuillez entrer un nombre");
+            setAlerting2(true);
+        }
+        else if(!regexNumber.test(qtyInv.value)){
+            setAlerting3(true);
         }
         else{
             const newProduct: Product = {
@@ -80,6 +89,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
 
     return (
         <Modal show={show} onHide={close}>
+            {alerting && <Alert>Veuillez remplir tout les champs (Pwease gimme copper owange cowor)</Alert>}
         <Form>
             <Form.Group controlId="name">
                 <Form.Label>NOM</Form.Label>
@@ -102,6 +112,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                 }}> Nouveau Fournisseur </Button>
             </Form.Group>
 
+            {alerting2 && <Alert>Veuillez entrer un nombre (Pwease gimme copper owange cowor)</Alert>}
             <Form.Group controlId="qty_unit">
                 <Form.Label>FORMAT (Qt)</Form.Label>
                 <Form.Control type="text"/>
@@ -119,11 +130,13 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                 <Form.Control type="text"/>
             </Form.Group>
 
+            {alerting1 && <Alert>Veuillez entrer le prix au format #.## (Pwease gimme copper owange cowor)</Alert>}
             <Form.Group controlId="price">
                 <Form.Label>PRIX (Mettre un point pour la décimale)</Form.Label>
                 <Form.Control type="text"/>
             </Form.Group>
 
+            {alerting3 && <Alert>Veuillez entrer un nombre (Pwease gimme copper owange cowor)</Alert>}
             <Form.Group controlId="qty_inv">
                 <Form.Label>Qt EN STOCK</Form.Label>
                 <Form.Control type="text"/>

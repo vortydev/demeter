@@ -20,9 +20,9 @@ function App() {
         <header className="App-header">
           <Navbar navigateTo={setPageOn} />
         </header>
-        <body className="App-body">
+        <main className="App-body">
           <BodyDemeter selected={pageOn} setSelected={setPageOn} recipe={recipe} setRecipe={setRecipe} />
-        </body>
+        </main>
         <Footerbar />
       </div>
     );

@@ -17,6 +17,10 @@
     width: 100%;
 }
 
+.invTable {
+    width: 100%;
+}
+
 .vendorBox {
     align-items: center;
     display: flex;
@@ -38,4 +42,57 @@
 
 .invMAJrowThin {
     width: 12%;
+}
+
+.cellCenter {
+    line-height: 1;
+    align-self: center;
+    text-align: center;
+    /* padding: .25rem; */
+}
+
+.cellShade {
+    padding: .25rem;
+    transition: all .15s;
+    border-radius: .25rem;
+}
+
+.cellShade:hover {
+    background-color: var(--demeter-green-h);
+}
+
+.invEditBox {
+    margin-left: .5rem;
+}
+
+.invCol {
+    width: 38%;
+    padding: 0 .5rem;
+}
+
+.invColThin {
+    width: 24%;
+    padding: 0 .5rem;
+}
+
+.invCol > h2, .invColThin > h2 {
+    padding: 0 .25rem;
+    margin-bottom: 0;
+}
+
+.invCol > p , .invColThin > p{
+    margin-bottom: 0;
+}
+
+.flexInvQt {
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.flexInvQt > p {
+    margin-left: auto;
+}
+
+.invPageHeader {
+    padding: 0 1.5rem;
 }

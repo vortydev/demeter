@@ -4,10 +4,12 @@ import { Product } from '../../types/Types';
 import { GetCategory, GetMesurements, GetVendors } from './inventory';
 import { VendorForm } from './inventoryAddVendorForm';
 import { updateProduct } from '../../services/inventory.functions';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faList } from "@fortawesome/free-solid-svg-icons";
 
 interface CRFormProps {
-    show : boolean;
-    product : Product;
+    show: boolean;
+    product: Product;
     close: () => void;
     success: () => void;
 }
@@ -19,7 +21,7 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
 
     const [error, setError] = useState<boolean>(false);
 
-    async function editProduct(): Promise<void>{
+    async function editProduct(): Promise<void> {
         const name = document.getElementById("name") as HTMLInputElement;
         const category = document.getElementById("category") as HTMLInputElement;
         const vendor = document.getElementById("vendor") as HTMLInputElement;
@@ -29,29 +31,29 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
         const price = document.getElementById("price") as HTMLInputElement;
         const qtyInv = document.getElementById("qty_inv") as HTMLInputElement;
 
-        var regexPrice = new RegExp (/[0-9]+[.][0-9]{2}/);
+        var regexPrice = new RegExp(/[0-9]+[.][0-9]{2}/);
         var regexNumber = new RegExp(/[0-9]+/);
 
         setError(false);
 
-        if (!name.value || !qtyUnit.value || !format.value || !price.value || !qtyInv.value){
+        if (!name.value || !qtyUnit.value || !format.value || !price.value || !qtyInv.value) {
             alert("Veuillez remplir tout les champs");
         }
-        else if(!regexPrice.test(price.value)){
+        else if (!regexPrice.test(price.value)) {
             alert("Veuillez entrer le prix au format #.##");
         }
-        else if(!regexNumber.test(qtyInv.value)){
+        else if (!regexNumber.test(qtyInv.value)) {
             alert("Veuillez entrer un nombre");
         }
-        else if(!regexNumber.test(qtyUnit.value)){
+        else if (!regexNumber.test(qtyUnit.value)) {
             alert("Veuillez entrer un nombre");
         }
         else {
             const editedProduct: Product = {
                 id: product.id,
-                name: name.value, 
-                categoryproductId: category.value, 
-                vendorId: vendor.value, 
+                name: name.value,
+                categoryproductId: category.value,
+                vendorId: vendor.value,
                 qtyUnit: qtyUnit.value,
                 mesurementId: mesurement.value,
                 format: format.value,
@@ -61,7 +63,7 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
 
             console.log(editedProduct);
 
-            if (await updateProduct(editedProduct, product.id)){
+            if (await updateProduct(editedProduct, product.id)) {
                 success();
             }
             else {
@@ -73,66 +75,86 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
     function successVendor(): void {
         setSuccess(true);
         close();
-      }
-    
-      function closeVendor(): void {
+    }
+
+    function closeVendor(): void {
         setCreateNewVendor(false);
-      }
+    }
 
     return (
         <Modal show={show} onHide={close}>
-        <Form>
-            <Form.Group controlId="name">
-                <Form.Label>NOM</Form.Label>
-                <Form.Control type="text" defaultValue={product.name}/>
-            </Form.Group>
+            <Form className="popupForm">
+                <h3 className="popupTitle">Édition d'un Produit</h3>
 
-            <Form.Label>TYPE</Form.Label>
-            <Form.Select aria-label="categorie" id="category" defaultValue={product.categoryproductId}>
-                <GetCategory get={show}/>
-            </Form.Select>
+                <div className="popupRowSplit mb-2">
+                    <Form.Group controlId="name">
+                        <Form.Label>Nom</Form.Label>
+                        <Form.Control type="text" defaultValue={product.name} />
+                    </Form.Group>
 
-            <Form.Group controlId="vendor">
-                <Form.Label>FOURNISSEUR</Form.Label>
-                <Form.Select aria-label="vendor" id="vendor" defaultValue={product.vendorId}>
-                    <GetVendors get={show}/>
-                </Form.Select>
-                <Button variant="dark" onClick={() => {
-                    setCreateNewVendor(true);
-                    setSuccess(false);
-                }}> Nouveau Fournisseur </Button>
-            </Form.Group>
+                    <Form.Group controlId="category">
+                        <Form.Label className="popupSelectLabelFull">Type</Form.Label>
+                        <Form.Select aria-label="categorie" id="category"  defaultValue={product.categoryproductId}>
+                            <GetCategory get={show} />
+                        </Form.Select>
+                    </Form.Group>
+                </div>
 
-            <Form.Group controlId="qty_unit" defaultValue={product.qtyUnit}>
-                <Form.Label>FORMAT (Qt)</Form.Label>
-                <Form.Control type="text" defaultValue={product.qtyUnit}/>
-            </Form.Group>
+                <Form.Group className="vendorBox mb-2" controlId="vendor">
+                    <Form.Label className="popupSelectLabel">Fournisseur</Form.Label>
+                    <Form.Select aria-label="vendor" id="vendor" defaultValue={product.vendorId}>
+                        <GetVendors get={show} />
+                    </Form.Select>
 
-            <Form.Group controlId="mesurement">
-                <Form.Label>MESURE</Form.Label>
-                <Form.Select aria-label="mesurement" id="mesurement" defaultValue={product.mesurementId}>
-                    <GetMesurements get={show}/>
-                </Form.Select>
-            </Form.Group>
+                    <div className="vendorListBox">
+                        <FontAwesomeIcon className="iconList iconEdit cursor" icon={faList} size="lg" onClick={() => {
+                            setSuccess(false);
+                            console.log("liste fournisseurs");
+                        }} />
+                        <FontAwesomeIcon className="iconAdd iconEdit cursor" icon={faPlus} size="lg" onClick={() => {
+                            setCreateNewVendor(true);
+                            setSuccess(false);
+                        }} />
+                    </div>
+                </Form.Group>
 
-            <Form.Group controlId="format">
-                <Form.Label>FORMAT (Nom)</Form.Label>
-                <Form.Control type="text" defaultValue={product.format}/>
-            </Form.Group>
+                <div className="popupRowSplit mb-2">
+                    <Form.Group controlId="qty_unit">
+                        <Form.Label>Format (Qt)</Form.Label>
+                        <Form.Control type="text" defaultValue={product.qtyUnit} />
+                    </Form.Group>
 
-            <Form.Group controlId="price">
-                <Form.Label>PRIX (Mettre un point pour la décimale)</Form.Label>
-                <Form.Control type="text" defaultValue={product.price}/>
-            </Form.Group>
+                    <Form.Group controlId="mesurement">
+                        <Form.Label className="popupSelectLabelFull">Mesure</Form.Label>
+                        <Form.Select aria-label="mesurement" id="mesurement" defaultValue={product.mesurementId}>
+                            <GetMesurements get={show} />
+                        </Form.Select>
+                    </Form.Group>
+                </div>
 
-            <Form.Group controlId="qty_inv">
-                <Form.Label>Qt EN STOCK</Form.Label>
-                <Form.Control type="text" defaultValue={product.qtyInv}/>
-            </Form.Group>
+                <Form.Group className="mb-2" controlId="format">
+                    <Form.Label>Format (Nom)</Form.Label>
+                    <Form.Control type="text" defaultValue={product.format}/>
+                </Form.Group>
 
-            <Button variant="dark" onClick={editProduct}>ENVOYER</Button>
-        </Form>
-        <VendorForm show={createNewVendor} close={closeVendor} success={successVendor}/>
+                <div className="popupRowSplit mb-2">
+                    <Form.Group controlId="price">
+                        <Form.Label>Prix</Form.Label>
+                        <Form.Control type="text" defaultValue={product.price} />
+                    </Form.Group>
+
+                    <Form.Group controlId="qty_inv">
+                        <Form.Label>Quantité en stock</Form.Label>
+                        <Form.Control type="text" defaultValue={product.qtyInv} />
+                    </Form.Group>
+                </div>
+
+                <div className="mt-3 popupBtnBox">
+                    <Button variant="demeter-dark" onClick={close}>Annuler</Button>
+                    <Button variant="demeter" onClick={editProduct}>Confirmer</Button>
+                </div>
+            </Form>
+            <VendorForm show={createNewVendor} close={closeVendor} success={successVendor} />
         </Modal>
     );
 }

@@ -23,22 +23,22 @@ function InventoryPage(): JSX.Element {
 
     return (
         <section className="invPage">
-            <div className="mt-2 mb-2 invAdd">
+            <div className="mt-2 mb-3 invAdd">
                 <Button variant="outline-dark" onClick={() => {
                     setCreateNewProduct(true);
                     setSuccess(false);
                 }}>Nouveau Produit</Button>
             </div>
-            <div className="invFilterBox mb-2">
+            {/* <div className="invFilterBox mb-2">
                 <span>filtres de l'inventaire</span>
-            </div>
-            <div className="invTable">
+            </div> */}
+            <div className="invTable mb-2">
                 {createdSuccess && <Alert>Le produit à été ajouté avec succès!</Alert>}
                 <Container>
-                    <Row>
-                        <Col><h2>Produit</h2></Col>
-                        <Col><h2>Format</h2></Col>
-                        <Col><h2>Quantité</h2></Col>
+                    <Row className="invPageHeader mb-2">
+                        <div className="invCol"><h2>Produit</h2></div>
+                        <div className="invCol"><h2>Format</h2></div>
+                        <div className="invColThin"><h2>Quantité</h2></div>
                     </Row>
                     <ListingProducts get={createdSuccess} />
                 </Container>

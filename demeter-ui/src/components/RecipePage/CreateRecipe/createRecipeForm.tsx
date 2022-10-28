@@ -10,19 +10,20 @@ interface CRFProps{
   function CreateRecipeForm({setRecipeInfo}: CRFProps) {
 
     function updateRecipeInfo(){
-      const title = document.getElementById("title") as HTMLInputElement;
-      const category = document.getElementById("category") as HTMLInputElement;
-      const instructions = document.getElementById("instructions") as HTMLInputElement;
-      const otherExpenses = document.getElementById("otherExpenses") as HTMLInputElement;
-      const nbProduct = document.getElementById("nbProduct") as HTMLInputElement;
+      const title = (document.getElementById("title") as HTMLInputElement).value;
+      const category = (document.getElementById("category") as HTMLInputElement).value;
+      const instructions = (document.getElementById("instructions") as HTMLInputElement).value;
+      const otherExpenses = (document.getElementById("otherExpenses") as HTMLInputElement).value;
+      const nbProduct = (document.getElementById("nbProduct") as HTMLInputElement).value;
+
 
       const recipe :Recipe={
         id: 1,
-        title : title.value,
-        categoryrecipeId : parseInt(category.value),
-        instruction : instructions.value,
-        otherCost: parseFloat(otherExpenses.value),
-        nbUnitCreated: parseInt(nbProduct.value),
+        title : title,
+        categoryrecipeId : parseInt(category),
+        instruction : instructions,
+        otherCost: parseFloat(otherExpenses),
+        nbUnitCreated: parseInt(nbProduct),
         available:true,
       }
 
@@ -41,20 +42,20 @@ interface CRFProps{
             <option>Choisir</option>
             <option value="1">Boulangerie</option>
             <option value="2">Patisserie</option>
-            <option value="3">Cuisine</option>
-            <option value="4">Viennoiserie</option>
+            <option value="3">Viennoiserie</option>
+            <option value="4">Cuisine</option>
           </Form.Select>
           <Form.Group onChange={updateRecipeInfo} className="mb-3" controlId="instructions">
-            <Form.Label>INSCTRUCTIONS : </Form.Label>
+            <Form.Label>INSTRUCTIONS : </Form.Label>
             <Form.Control as="textarea" rows={3}/>
           </Form.Group>
           <Form.Group onChange={updateRecipeInfo} className="mb-3" controlId="otherExpenses">
             <Form.Label>AUTRE FRAIS : </Form.Label>
-            <Form.Control type="number"/>
+            <Form.Control defaultValue={0} type="number"/>
           </Form.Group>
           <Form.Group onChange={updateRecipeInfo} className="mb-3" controlId="nbProduct">
             <Form.Label>NB PRODUIT : </Form.Label>
-            <Form.Control type="number"/>
+            <Form.Control defaultValue={0} type="number"/>
           </Form.Group>
         </Form>
       </div>

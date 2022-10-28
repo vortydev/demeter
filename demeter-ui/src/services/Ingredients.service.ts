@@ -27,9 +27,6 @@ class IngredientService {
     return http.delete<any>(`/rpr?recipeId=${recipeId}`);
   }
 
-
-
-
   deleteAll() {
     return http.delete<any>(`/rpr`);
   }

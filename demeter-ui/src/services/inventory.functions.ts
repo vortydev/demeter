@@ -20,7 +20,7 @@ function getProduct(id: string) {
     })
     .catch((e: Error) => {
          console.log(e);
-         return [];
+         return undefined;
      });
      return Product;
  }

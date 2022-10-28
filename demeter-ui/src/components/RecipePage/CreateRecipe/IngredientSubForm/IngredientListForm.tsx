@@ -1,26 +1,30 @@
 import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import { IngForRecipe } from "../../../../types/RecipeTypes.types";
+import { getRecipeCost } from "../../helper";
 import { AddIngredientForm } from "./AddIngredientForm";
 import { IngredientRowForm } from "./IngredientRowForm";
 
 interface ILFProps {
   listIng: IngForRecipe[];
+  setRecipeCost: (cost: number) => void;
 }
 
-function IngredientListForm({ listIng }: ILFProps) {
+function IngredientListForm({ listIng, setRecipeCost }: ILFProps) {
   const [addIngredient, setAddIngredient] = useState<boolean>(false);
   const [deleteIngredient, setDeleteIngredient] = useState<boolean>(false);
+
+ useEffect(() => {
+    setRecipeCost(getRecipeCost(listIng));
+  }, [deleteIngredient, addIngredient]);
+
   const delay = 3;
-    useEffect(
-      () => {
-        let timer = setTimeout(() => setDeleteIngredient(false), delay * 1000);
-        return () => {
-          clearTimeout(timer);
-        };
-      },
-      [deleteIngredient]
-    );
+  useEffect(() => {
+    let timer = setTimeout(() => setDeleteIngredient(false), delay * 1000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [deleteIngredient]);
 
   if (listIng.length <= 0) {
     return (

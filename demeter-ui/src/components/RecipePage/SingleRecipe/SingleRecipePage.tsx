@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import { deleteRecipe } from "../../../services/Recipe.functions";
 import { Recipe } from "../../../types/Types";
+import { IngredientList } from "./IngredientList";
 import { InstructionModal } from "./InstructionModal";
 
 interface SingleRecipePageProps {
@@ -17,6 +18,7 @@ function SingleRecipePage({ recipe, setSelectedPage, recipeDeleted, setRecipeDel
   return (
     <div>
       {recipe!.title}
+      <IngredientList recipeId={recipe!.id}/>
       <Button onClick={() => setShowInstruction(true)}>Instructions</Button>
       <Button
         onClick={() => {

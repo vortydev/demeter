@@ -28,7 +28,18 @@ async function createIngredient(data: Ingredient): Promise<boolean> {
       return false;
     });
   return deleted;
-
-
   }
-  export{createIngredient, deleteIngredientsByRecipe}
+
+
+  async function getIngredientsByRecipe(recipeId: number){
+    const ingredients = IngredientService.getByRecipe(recipeId)
+    .then((response: any) => {
+      return response.data;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return [];
+    });
+  return ingredients;
+  }
+  export{createIngredient, deleteIngredientsByRecipe, getIngredientsByRecipe}

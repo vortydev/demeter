@@ -3,7 +3,6 @@ import { Alert, Button } from "react-bootstrap";
 import { createRecipe } from "../../../services/Recipe.functions";
 import { IngForRecipe } from "../../../types/RecipeTypes.types";
 import { Recipe } from "../../../types/Types";
-import { getRecipeCost } from "../helper";
 import { CreateRecipeForm } from "./createRecipeForm";
 import { IngredientListForm } from "./IngredientSubForm/IngredientListForm";
 
@@ -25,14 +24,13 @@ function CreateRecipePage({ setSelectedPage, setCreated }: CRPProps) {
   const [recipeInfo, setRecipeInfo] = useState<Recipe>(emptyRecipe);
   const [totalCost, setTotalCost] = useState<number>(0);
   const [invalid, setInvalid] = useState<boolean>(false);
+  const [recipeCost, setRecipeCost] = useState<number>(0);
+  const [listIng, setListIng] = useState<IngForRecipe[]>([]);
 
-  const listIng :IngForRecipe[] =[];
 
    useEffect(() => {
-    console.log('in use Effect stuff changed : ',listIng, recipeInfo.otherCost, totalCost );
-    setTotalCost( getRecipeCost(listIng) + recipeInfo.otherCost);
-    
-  }, [listIng.length, recipeInfo.otherCost, totalCost]);
+    setTotalCost( recipeCost + recipeInfo.otherCost);
+  }, [recipeCost, recipeInfo.otherCost, totalCost]);
   
   async function handleSubmit() {
     setInvalid(false);
@@ -52,7 +50,7 @@ function CreateRecipePage({ setSelectedPage, setCreated }: CRPProps) {
         </Alert>
       )}
       <CreateRecipeForm setRecipeInfo={setRecipeInfo} />
-      <IngredientListForm listIng={listIng} />
+      <IngredientListForm setRecipeCost={setRecipeCost} listIng={listIng} />
       <span>Coût Total : {totalCost}$</span>
       <Button onClick={handleSubmit}>CRÉER LA RECETTE</Button>
       <Button onClick={() => setSelectedPage("recipe")}>RETOUR</Button>

@@ -8,9 +8,18 @@ import { pricePerQuantity } from "../../helper";
 interface IRFProps {
   listIng: IngForRecipe[];
   ingredient: IngForRecipe;
+  setDeleteIngredient: (deleted: boolean) => void;
 }
-function IngredientRowForm({listIng, ingredient}: IRFProps) {
+function IngredientRowForm({
+  listIng,
+  ingredient,
+  setDeleteIngredient,
+}: IRFProps) {
   const [mesure, setMesure] = useState<Mesurement | undefined>(undefined);
+
+  const index = listIng.findIndex((ing) => {
+    return ing.ingredient.id === ingredient.ingredient.id;
+  });
 
   useEffect(() => {
     async function getList() {
@@ -19,26 +28,29 @@ function IngredientRowForm({listIng, ingredient}: IRFProps) {
     getList();
   }, [ingredient, mesure]);
 
-  function removeIngredient(){
-    const index = listIng.findIndex(ing => {
-      return ing.ingredient.id === ingredient.ingredient.id;
-    });
-
-    listIng.splice(index, 1);
+  function removeIngredient() {
+    console.log("clicked Removed");
+    setDeleteIngredient(false);
+      listIng.splice(index, 1);
+      if(listIng.length === 0){
+        listIng = [];
+      }
+      setDeleteIngredient(true);
   }
 
   const cost = pricePerQuantity(ingredient);
- 
-  return (
-    <div>
-      <span>{ingredient.ingredient.name}</span>
-      <span>
-        {ingredient.quantity}
-        {mesure?.mesurement}
-      </span>
-      <span>{cost}$</span>
-      <Button onClick={removeIngredient}>DELETE</Button>
-    </div>
-  );
-}
+
+    return (
+      <div>
+        <span>{index}. {ingredient.ingredient.name}</span>
+        <span>
+          {ingredient.quantity}
+          {mesure?.mesurement}
+        </span>
+        <span>{cost}$</span>
+        <Button onClick={removeIngredient}>DELETE</Button>
+      </div>
+    );
+  } 
+
 export { IngredientRowForm };

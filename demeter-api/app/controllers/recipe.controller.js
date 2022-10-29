@@ -206,11 +206,11 @@ exports.createRPR = (req, res) => {
 
 exports.findAllRPR = (req, res) => {
     const recipe = req.query.recipeId;
-    const product = req.query.productId;
-    var conditionR = recipe ? { recipeId: { [Op.like]: `%${recipe}%` } } : null;
-    var conditionP = product ? { productId: { [Op.like]: `%${product}%` } } : null;
+    //const product = req.query.productId;
+    var conditionR = recipe ? { recipeId: { [Op.eq]: recipe } } : null;
+    //var conditionP = product ? { productId: { [Op.like]: `%${product}%` } } : null;
 
-    Rel_ProductRecipe.findAll({ where: { conditionR, conditionP } })
+    Rel_ProductRecipe.findAll({ where:  conditionR })
         .then(data => {
             res.send(data);
         })

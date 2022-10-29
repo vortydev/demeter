@@ -10,19 +10,17 @@ async function createRecipe(
   data: Recipe,
   listIng: IngForRecipe[]
 ): Promise<boolean> {
-  console.log("in create recipe");
   const recipeCreated: Recipe | null = await RecipeService.create(data)
     .then((response: any) => {
-      console.log("no error, here is the response", response.data);
       return response.data;
     })
     .catch((e: Error) => {
       console.log(e);
-      console.log("There was an error in create Recipe");
       return null;
     });
 
   if (recipeCreated !== null) {
+    console.log('about to create ingredient');
     for (let ing of listIng) {
       const ingToCreate: Ingredient = {
         recipeId: await recipeCreated.id,
@@ -30,10 +28,13 @@ async function createRecipe(
         qty: ing.quantity,
         mesurementId: parseInt(ing.mesurementId),
       };
+      console.log('ingredient to create : ', ingToCreate, "in recipe :", recipeCreated.id);
 
       const ingCreated = await createIngredient(ingToCreate);
       if (!ingCreated) {
+        console.log('the ingredient wasnt created.');
         return false;
+        
       }
     }
     return true;

@@ -26,7 +26,7 @@ interface IRProps {
     }, []);
   
   
-    const cost = pricePerQuantity(ing);
+    //const cost = pricePerQuantity(ing);
     
     if (product && mesure) {
       return (
@@ -36,7 +36,7 @@ interface IRProps {
             {ingredient.qty}
             {mesure?.mesurement}
           </span>
-          <span>{cost}$</span>
+       
         </div>
       );
     }

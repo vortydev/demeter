@@ -3,6 +3,7 @@ import { Ingredient } from "../types/Types";
 import IngredientService from "./Ingredients.service";
 
 async function createIngredient(data: Ingredient): Promise<boolean> {
+  console.log('in create Ingredient (should happen 3 times)')
     const ingredientCreated = IngredientService.create(data)
       .then((response: any) => {
         return true;

@@ -4,17 +4,10 @@ import { Ingredient } from "../../../types/Types";
 import { IngredientRow } from "./IngredientRow";
 
 interface ILProps {
-  recipeId: number;
+  list: Ingredient[];
 }
 
-function IngredientList({ recipeId }: ILProps) {
-  const [list, setList] = useState<Ingredient[]>([]);
-  useEffect(() => {
-    async function getList() {
-      setList(await getIngredientsByRecipe(recipeId));
-    }
-    getList();
-  }, []);
+function IngredientList({ list }: ILProps) {
 
   return (
     <div className="IngList">

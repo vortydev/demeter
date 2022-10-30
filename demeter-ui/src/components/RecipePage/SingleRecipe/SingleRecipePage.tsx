@@ -10,11 +10,16 @@ import { InstructionModal } from "./InstructionModal";
 interface SingleRecipePageProps {
   recipe: Recipe | null;
   setSelectedPage: (page: string) => void;
-  recipeDeleted : boolean;
+  recipeDeleted: boolean;
   setRecipeDeleted: (deleted: boolean) => void;
 }
 //add setRecipe null on retour
-function SingleRecipePage({ recipe, setSelectedPage, recipeDeleted, setRecipeDeleted }: SingleRecipePageProps) {
+function SingleRecipePage({
+  recipe,
+  setSelectedPage,
+  recipeDeleted,
+  setRecipeDeleted,
+}: SingleRecipePageProps) {
   const [showInstruction, setShowInstruction] = useState<boolean>(false);
   const [listIng, setListIng] = useState<Ingredient[]>([]);
 
@@ -27,9 +32,10 @@ function SingleRecipePage({ recipe, setSelectedPage, recipeDeleted, setRecipeDel
 
   return (
     <div>
-      {recipe!.title}
-      <IngredientList list={listIng}/>
-      <Calculator listIng={listIng} nbUnit={recipe!.nbUnitCreated}/>
+      {recipe!.title} <Button>EDIT</Button>
+      <hr />
+      <IngredientList list={listIng} />
+      <Calculator listIng={listIng} nbUnit={recipe!.nbUnitCreated} />
       <Button onClick={() => setShowInstruction(true)}>Instructions</Button>
       <Button
         onClick={() => {

@@ -19,15 +19,16 @@ class TaskService {
   }
 
   update(data: Task, user: String) {
-    return http.put<any>(`/task/${user}`, data);
+    return http.put<any>(`/tasks/${user}`, data);
   }
 
   delete(id: number) {
-    return http.delete<any>(`/task/${id}`);
+    console.log("taskservice", id);
+    return http.delete<any>(`/tasks/${id}`);
   }
 
   deleteAll() {
-    return http.delete<any>(`/task`);
+    return http.delete<any>(`/tasks`);
   }
 }
 

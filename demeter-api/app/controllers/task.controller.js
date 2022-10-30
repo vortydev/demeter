@@ -102,7 +102,7 @@ exports.update = (req, res) => {
 // Delete a Task with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
-
+    console.log("controller",id);
     Task.destroy({
         where: { id: id }
     })

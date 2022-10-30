@@ -1,25 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
-import { Task } from "../../types/Types";
+import { getAll, getbyCategorie } from "../../services/task.funtions";
+import { Task} from "../../types/Types";
 import { CreateTaskForm } from "./createTaskForm";
 import { TaskNav } from "./TaskNav";
 import { TaskRow } from "./TaskRow";
 
 function TaskPage(): JSX.Element {
   const [createdSuccess, setSuccess] = useState<boolean>(false);
-  const [taskCategory, setTaskCategory] = useState<string>("daily");
+  const [taskCategory, setTaskCategory] = useState<number>(1);
+  const [listTask,setListTask] = useState<Task[]>([]);
 
-  const fakeTask: Task = {
-    id: 5,
-    title: "passer le balais",
-    description: "prendre le balais et balayer",
-    taskType: 1,
-    parentId: null,
-    completed: false,
-    picture :null,
-    date :new Date(),
-  };
-
+  useEffect(() => {
+    async function getList() {
+      setListTask(await getbyCategorie(taskCategory));
+      console.log("listTask",listTask);
+    }
+    getList();
+  }, [taskCategory]);
   
   return (
     <div>
@@ -33,7 +31,12 @@ function TaskPage(): JSX.Element {
       <h1>Tasks Page</h1>
       <p> Liste de tâches {taskCategory}</p>
 
-      <TaskRow task={fakeTask} />
+      <div>
+      {listTask.map((Task) => (
+        <TaskRow task={Task} />
+      ))}
+    </div>
+      
       <Button variant="outline-dark">Afficher L'Historique</Button>
       <Button variant="dark">Compléter les tâches</Button>
     </div>

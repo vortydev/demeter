@@ -19,10 +19,10 @@ type News ={
 }
 
 type Task = {
-    id : Number;
+    id : number;
     title: String;
     description : String;
-    taskType: number;
+    categorytaskId: number;
     parentId: number|null;
     completed: boolean;
     picture: string | null;

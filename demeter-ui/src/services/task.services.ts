@@ -10,6 +10,10 @@ class TaskService {
     return http.get<Task>(`/tasks/${id}`);
   }
 
+  getAllbyCategorie(categorytaskId: number) {
+    return http.get<Task>(`/tasks?categorytaskId=${categorytaskId}`);
+  }
+
   create(data:Task) {
     return http.post<Task>("/tasks", data);
   }
@@ -18,8 +22,8 @@ class TaskService {
     return http.put<any>(`/task/${user}`, data);
   }
 
-  delete(user: string) {
-    return http.delete<any>(`/task/${user}`);
+  delete(id: number) {
+    return http.delete<any>(`/task/${id}`);
   }
 
   deleteAll() {

@@ -25,8 +25,8 @@ function CreateTaskForm({ show ,close, success }: CRFormProps) {
       id:1,
       title: taskName.value,
       description: description.value,
-      taskType: parseInt(typeTask.value),
-      parentId: 0 ? null : parseInt(taskParent.value),
+      categorytaskId: parseFloat(typeTask.value),
+      parentId: 0 ? null : parseFloat(taskParent.value),
       completed: false,
       picture: null,
       date: new Date(),
@@ -52,8 +52,7 @@ function CreateTaskForm({ show ,close, success }: CRFormProps) {
           <option></option>
           <option value="1">Quotidiennes</option>
           <option value="2">Hebdomadaires</option>
-          <option value="3">Mensuelle</option>
-          <option value="4">Autre</option>
+          <option value="3">Autre</option>
         </Form.Select>
         <Form.Select className="mb-3" id="parentId" aria-label="TACHE PARENT : ">
         <option>Choisir</option>

@@ -1,4 +1,5 @@
 import { Button } from "react-bootstrap";
+import { deleteTask } from "../../services/task.funtions";
 import { Task } from "../../types/Types";
 import "./task.css";
 
@@ -9,7 +10,7 @@ interface TaskRowProps {
 function TaskRow ({task}: TaskRowProps){
 
     return(
-       <div className="taskRow"><Button variant="outline-dark">This is a checkbox</Button> {task.title} <Button>edit</Button> <Button>delete</Button></div>
+       <div className="taskRow"><input type="text" /> {task.title} <Button>edit</Button> <Button onClick={ () => {deleteTask(task.id)}} >delete</Button></div>
     );
 
 }

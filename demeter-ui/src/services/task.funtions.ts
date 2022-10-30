@@ -2,6 +2,32 @@ import TaskService from "./task.services";
 import { Task} from "../types/Types";
 import bcrypt from "bcryptjs";
 
+function getAll(){
+  const tasks = TaskService.getAll()
+
+    .then((response)=>{
+      return response.data;
+  })
+  .catch((e: Error) => {
+      console.log(e);
+      return [];
+  });
+  return tasks;
+}
+
+
+async function getbyCategorie(data: number){
+  const tasks = TaskService.getAllbyCategorie(data)
+.then((response: any)=>{
+      return response.data;
+  })
+  .catch((e: Error) => {
+      console.log(e);
+      return [];
+  });
+  return tasks;
+}
+
 async function createTask(data: Task): Promise<boolean> {
   console.log(`in create task`,data)
   const taskCreated = TaskService.create(data)
@@ -28,8 +54,8 @@ async function updateTask(data: Task, tkName: String): Promise<boolean> {
   return taskUpdated;
 }
 
-async function deleteTask(tkName: string) {
-  const taskdeleted = TaskService.delete(tkName)
+async function deleteTask(id: number) {
+  const taskdeleted = TaskService.delete(id)
     .then((response: any) => {
       return true;
     })
@@ -42,4 +68,4 @@ async function deleteTask(tkName: string) {
 }
 
 
-export { createTask, updateTask,deleteTask };
+export {getAll,getbyCategorie, createTask, updateTask,deleteTask };

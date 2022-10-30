@@ -11,14 +11,15 @@ interface RecipeListProps {
 }
 
 function RecipeList({ filter, selectedPage, setSelectedPage, setRecipePage }: RecipeListProps) {
-
   const [listRecipe, setListRecipe] = useState<Recipe[]>([]);
 
   useEffect(() => {
+
     async function getList() {
       setListRecipe(await getRecipesByCategory(filter));
     }
     getList();
+ 
   }, [filter, selectedPage]);
 
 
@@ -31,7 +32,7 @@ function RecipeList({ filter, selectedPage, setSelectedPage, setRecipePage }: Re
 
   return (
     <div className="recipeList">
-      {listRecipe.length === 0 && <p>Cette liste est vide</p>}
+      {filter !=null && listRecipe.length === 0 && (<p>Aucune recette</p>)}
       {listRecipe.map((recipe) => (
         <span onClick={()=>goToRecipePage(recipe)}>
           {recipe.title} 

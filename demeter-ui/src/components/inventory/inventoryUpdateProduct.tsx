@@ -36,9 +36,9 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
         const price = document.getElementById("price") as HTMLInputElement;
         const qtyInv = document.getElementById("qty_inv") as HTMLInputElement;
 
-        var regexPrice = new RegExp(/[0-9]+[.][0-9]{2}/);
-        var regexPrice1 = new RegExp(/[0-9]+[,][0-9]{2}/);
-        var regexPrice2 = new RegExp(/[0-9]+[^.,0-9]/);
+        var regexPrice = new RegExp (/[0-9]+[.][0-9]{2}/);
+        var regexPrice1 = new RegExp (/[0-9]+[,][0-9]{2}/);
+        var regexPrice2 = new RegExp (/^[0-9]+$/);
         var regexNumber = new RegExp(/[0-9]+/);
 
         setError(false);

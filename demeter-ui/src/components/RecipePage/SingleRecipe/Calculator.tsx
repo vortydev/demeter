@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
-import { getMesurementById, getProduct } from "../../../services/inventory.functions";
+import {
+  getMesurementById,
+  getProduct,
+} from "../../../services/inventory.functions";
 import { IngForRecipe } from "../../../types/RecipeTypes.types";
 import { Ingredient } from "../../../types/Types";
 import { getRecipeCost } from "../helper";
@@ -11,17 +14,17 @@ interface CalculatorProps {
   nbUnit: number;
 }
 
- function Calculator({ listIng, nbUnit }: CalculatorProps) {
+function Calculator({ listIng, nbUnit }: CalculatorProps) {
   const [totalCost, setTotalCost] = useState<number>(0);
   const [customNB, setCustomNB] = useState<number>(0);
+  console.log('listINg props received',  listIng );
 
   useEffect(() => {
-    async function getList() {
-        setTotalCost(getRecipeCost(await changeIngFormat(listIng)));
+    async function setTheCost() {
+      setTotalCost(getRecipeCost(await changeIngFormat(listIng)));
     }
-    getList();
+    setTheCost();
   }, []);
-
 
   function updateCustomNb() {
     setCustomNB(
@@ -50,8 +53,10 @@ interface CalculatorProps {
 }
 
 async function changeIngFormat(listI: Ingredient[]): Promise<IngForRecipe[]> {
-  let listIF :IngForRecipe[] = [];
+  console.log("in change Format", listI);
+  let listIF: IngForRecipe[] = [];
   for (let i of listI) {
+    console.log("in the looooop");
     const product = await getProduct(i.productId.toString());
 
     const ing: IngForRecipe = {
@@ -62,7 +67,7 @@ async function changeIngFormat(listI: Ingredient[]): Promise<IngForRecipe[]> {
 
     listIF.push(ing);
   }
-
+  console.log("listIf", listIF);
   return listIF;
 }
 

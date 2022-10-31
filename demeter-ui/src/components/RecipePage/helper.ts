@@ -8,7 +8,6 @@ export function getRecipeCost(ingredients: IngForRecipe[]){
     const price = pricePerQuantity(ingredient);
     totalPrice += price;
   }
-  console.log('total price', totalPrice, ingredients)
   return totalPrice;
 }
 

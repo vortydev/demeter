@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { Button, Form, Modal, Nav } from "react-bootstrap";
+import { VoidExpression } from "typescript";
 import { Recipe } from "../../../types/Types";
 
 interface ERFProps {
   recipe: Recipe;
+  listIng: Ingredient[]
   show: boolean;
+  setShow : (show : boolean) => void;
 }
 
-function EditRecipeForm({ recipe, show }: ERFProps) {
+function EditRecipeForm({ recipe,listIng, show, setShow }: ERFProps) {
   const [recipeInfo, setRecipeInfo] = useState<Recipe>(recipe);
   const [editing, setEditing] = useState<String>('recipe');
 
@@ -102,7 +105,7 @@ function EditRecipeForm({ recipe, show }: ERFProps) {
           </Form.Group>
         </Form>
       </div>)}
-      <Button>ENVOYER</Button><Button>ANNULER</Button>
+      <Button>ENVOYER</Button><Button onClick={()=>setShow(false)}>ANNULER</Button>
     </Modal>
   );
 }

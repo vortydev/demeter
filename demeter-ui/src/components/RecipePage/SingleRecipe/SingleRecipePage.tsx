@@ -56,7 +56,7 @@ function SingleRecipePage({
         setShow={setShowInstruction}
         recipe={recipe!}
       />
-      <EditRecipeForm show={editRecipe} recipe={recipe!}/>
+      <EditRecipeForm show={editRecipe} setShow={setEditRecipe} recipe={recipe!} listIng={listIng}/>
     </div>
   );
 }

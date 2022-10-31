@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button, Form, Modal, Nav } from "react-bootstrap";
 import { VoidExpression } from "typescript";
 import { Recipe } from "../../../types/Types";
+import { IngredientRow } from "./IngredientRow";
 
 interface ERFProps {
   recipe: Recipe;
@@ -51,7 +52,7 @@ function EditRecipeForm({ recipe,listIng, show, setShow }: ERFProps) {
           <Nav.Link onClick={()=>setEditing('ingredient')} eventKey="ingredient">Ingrédients</Nav.Link>
         </Nav.Item>
       </Nav>
-      {editing === 'ingredient'&& (<p>Menoum stuff here</p>)}
+      {editing === 'ingredient'&& (listIng.map((ing)=>(<div><IngredientRow ingredient={ing}/><Button>DELETE</Button></div>) ))}
       {editing === 'recipe' && (<div>
         <Form>
           <Form.Group className="mb-3" controlId="title">

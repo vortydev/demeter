@@ -36,8 +36,9 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
         const price = document.getElementById("price") as HTMLInputElement;
         const qtyInv = document.getElementById("qty_inv") as HTMLInputElement;
 
-        var regexPrice = new RegExp (/[0-9]+[.][0-9]{2}/);
-        var regexPrice1 = new RegExp (/[0-9]+[,][0-9]{2}/);
+        var regexPrice = new RegExp(/[0-9]+[.][0-9]{2}/);
+        var regexPrice1 = new RegExp(/[0-9]+[,][0-9]{2}/);
+        var regexPrice2 = new RegExp(/[0-9]+[^.,0-9]/);
         var regexNumber = new RegExp(/[0-9]+/);
 
         setError(false);
@@ -46,23 +47,23 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
         setAlerting2(false);
         setAlerting3(false);
 
-        if (!name.value || !qtyUnit.value || !format.value || !price.value || !qtyInv.value){
+        if (!name.value || !qtyUnit.value || !format.value || !price.value || !qtyInv.value) {
             setAlerting(true);
         }
-        else if(!regexPrice.test(price.value)&&!regexPrice1.test(price.value)&&!regexNumber.test(price.value)){
+        else if (!regexPrice.test(price.value) && !regexPrice1.test(price.value) && !regexPrice2.test(price.value)) {
             setAlerting1(true);
         }
-        else if(!regexNumber.test(qtyUnit.value)){
+        else if (!regexNumber.test(qtyUnit.value)) {
             setAlerting2(true);
         }
-        else if(!regexNumber.test(qtyInv.value)){
+        else if (!regexNumber.test(qtyInv.value)) {
             setAlerting3(true);
         }
         else {
-            if (regexPrice1.test(price.value)){
+            if (regexPrice1.test(price.value)) {
                 price.value = price.value.replace(/[,]/, ".");
             }
-            else if (regexNumber.test(price.value)){
+            else if (regexPrice2.test(price.value)) {
                 price.value = price.value.concat(".00");
             }
 
@@ -116,7 +117,7 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
 
                     <Form.Group controlId="category">
                         <Form.Label className="popupSelectLabelFull">Type</Form.Label>
-                        <Form.Select aria-label="categorie" id="category"  defaultValue={product.categoryproductId}>
+                        <Form.Select aria-label="categorie" id="category" defaultValue={product.categoryproductId}>
                             <GetCategory show={show} />
                         </Form.Select>
                     </Form.Group>
@@ -156,7 +157,7 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
 
                 <Form.Group className="mb-2" controlId="format">
                     <Form.Label>Format (Nom)</Form.Label>
-                    <Form.Control type="text" defaultValue={product.format}/>
+                    <Form.Control type="text" defaultValue={product.format} />
                 </Form.Group>
 
                 <div className="popupRowSplit mb-2">

@@ -67,7 +67,7 @@ function InventoryUpdate({ show, close, success }: CRFormProps) {
             <Form className="popupForm" id="formMAJ">
                 <h3 className="popupTitle">Mise à jour de l'inventaire</h3>
                 {/* truc de barre de recherche */}
-                <div className="flex invUpdateHeader mb-2 mt-2">
+                <div className="flex invUpdateHeader mt-2">
                     <h4 className="invMAJrowLarge">Produit</h4>
                     <h4 className="invMAJrowLarge">Format</h4>
                     <h4 className="invMAJrowThin">Qt</h4>

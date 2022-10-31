@@ -1,6 +1,6 @@
-import { Row, Col, Form, Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
-import { deleteProduct, getAll, getAllCategories, getAllMesurements, getCategory } from '../../services/inventory.functions'
+import { deleteProduct, getAll, getAllCategories, getAllMesurements } from '../../services/inventory.functions'
 import { getAllVendor } from '../../services/vendor.functions';
 import { Category, Mesurement, Product, Vendor } from '../../types/Types';
 import { InventoryEditProductForm } from './inventoryUpdateProduct';

@@ -52,7 +52,7 @@ function VendorForm({ show, close, success }: CRFormProps) {
                 return;
             }
         }
-        if (error == false) {
+        if (error === false) {
             const newVendor: Vendor = {
                 id: 1,
                 vendor: vendorName.value,
@@ -74,19 +74,21 @@ function VendorForm({ show, close, success }: CRFormProps) {
         <Modal show={show} onHide={close}>
             <Form className="popupForm">
                 <h3 className="popupTitle">Nouveau Fournisseur</h3>
+
                 {alerting && <Alert variant="danger">Veuillez entrer un nom.</Alert>}
+                {alerting1 && <Alert variant="danger">Veuillez entrer le numéro de téléphone aux formats suivants: ###-###-####, (###)###-#### ou ### ### ####.</Alert>}
+                {alerting2 && <Alert variant="danger">Veuillez entrer une adresse courriel valide.</Alert>}
+
                 <Form.Group className="mb-2" controlId="vendorName">
                     <Form.Label>Nom</Form.Label>
                     <Form.Control type="text" />
                 </Form.Group>
-
-                {alerting1 && <Alert variant="danger">Veuillez entrer le numéro de téléphone aux formats suivants: ###-###-####, (###)###-#### ou ### ### ####.</Alert>}
+                
                 <Form.Group className="mb-2" controlId="phone">
                     <Form.Label>Téléphone</Form.Label>
                     <Form.Control type="text" />
                 </Form.Group>
 
-                {alerting2 && <Alert variant="danger">Veuillez entrer une adresse courriel valide.</Alert>}
                 <Form.Group className="mb-2" controlId="email">
                     <Form.Label>Courriel</Form.Label>
                     <Form.Control type="text" />

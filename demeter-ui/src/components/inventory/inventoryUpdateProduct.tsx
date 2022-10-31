@@ -104,6 +104,10 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
                 <h3 className="popupTitle">Édition d'un Produit</h3>
 
                 {alerting && <Alert variant="danger">Veuillez remplir tous les champs.</Alert>}
+                {alerting1 && <Alert variant="danger">Veuillez entrer le prix au format #.## ou #,##.</Alert>}
+                {alerting2 && <Alert variant="danger">Veuillez entrer un nombre.</Alert>}
+                {alerting3 && <Alert variant="danger">Veuillez entrer un nombre.</Alert>}
+
                 <div className="popupRowSplit mb-2">
                     <Form.Group controlId="name">
                         <Form.Label>Nom</Form.Label>
@@ -136,7 +140,6 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
                     </div>
                 </Form.Group>
 
-                {alerting2 && <Alert variant="danger">Veuillez entrer un nombre.</Alert>}
                 <div className="popupRowSplit mb-2">
                     <Form.Group controlId="qty_unit">
                         <Form.Label>Format (Qt)</Form.Label>
@@ -156,8 +159,6 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
                     <Form.Control type="text" defaultValue={product.format}/>
                 </Form.Group>
 
-                {alerting1 && <Alert variant="danger">Veuillez entrer le prix au format #.## ou #,##.</Alert>}
-                {alerting3 && <Alert variant="danger">Veuillez entrer un nombre.</Alert>}
                 <div className="popupRowSplit mb-2">
                     <Form.Group controlId="price">
                         <Form.Label>Prix</Form.Label>

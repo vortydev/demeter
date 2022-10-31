@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Container, Row, Col, Button, Alert } from 'react-bootstrap';
+import { Container, Row, Button, Alert } from 'react-bootstrap';
 import { ListingProducts } from './inventory';
 import { InventoryForm } from './inventoryAddForm';
 import { InventoryUpdate } from './inventoryUpdate';
@@ -27,6 +27,12 @@ function InventoryPage(): JSX.Element {
         setCreateNewProduct(false);
         setUpdatedProducts(false);
     }
+
+    setTimeout(() => {
+        setSuccess(false);
+        setUpdated(false);
+        setDeleted(false);
+    }, 5000);
 
     return (
         <section className="invPage">

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Form, Button, Container, Row, Col, Modal, Alert} from 'react-bootstrap';
+import { Form, Button, Modal, Alert} from 'react-bootstrap';
 import { Product } from '../../types/Types';
 import { ListingProductsEdit } from './inventory';
 import { updateProduct, getAll } from '../../services/inventory.functions'
@@ -73,9 +73,12 @@ function InventoryUpdate({ show, close, success }: CRFormProps) {
         <Modal show={show} onHide={close}>
             <Form className="popupForm" id="formMAJ">
                 <h3 className="popupTitle">Mise à jour de l'inventaire</h3>
+
                 {alerting && <Alert variant="danger">Veuillez remplir tous les champs.</Alert>}
                 {alerting1 && <Alert variant="danger">Veuillez entrer un nombre valide.</Alert>}
+                
                 {/* truc de barre de recherche */}
+
                 <div className="flex invUpdateHeader mt-2">
                     <h4 className="invMAJrowLarge">Produit</h4>
                     <h4 className="invMAJrowLarge">Format</h4>

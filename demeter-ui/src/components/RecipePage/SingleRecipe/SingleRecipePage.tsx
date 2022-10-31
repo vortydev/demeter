@@ -4,6 +4,7 @@ import { getIngredientsByRecipe } from "../../../services/Ingredients.functions"
 import { deleteRecipe } from "../../../services/Recipe.functions";
 import { Ingredient, Recipe } from "../../../types/Types";
 import { Calculator } from "./Calculator";
+import { EditRecipeForm } from "./EditRecipeForm";
 import { IngredientList } from "./IngredientList";
 import { InstructionModal } from "./InstructionModal";
 
@@ -22,6 +23,7 @@ function SingleRecipePage({
 }: SingleRecipePageProps) {
   const [showInstruction, setShowInstruction] = useState<boolean>(false);
   const [listIng, setListIng] = useState<Ingredient[]>([]);
+  const [editRecipe, setEditRecipe] = useState<boolean>(false);
 
   useEffect(() => {
     async function getList() {
@@ -32,7 +34,7 @@ function SingleRecipePage({
 
   return (
     <div>
-      {recipe!.title} <Button>EDIT</Button>
+      {recipe!.title} <Button onClick={()=>{setEditRecipe(true);}}>EDIT</Button>
       <hr />
       <IngredientList list={listIng} />
       <Calculator listIng={listIng} nbUnit={recipe!.nbUnitCreated} />
@@ -54,6 +56,7 @@ function SingleRecipePage({
         setShow={setShowInstruction}
         recipe={recipe!}
       />
+      <EditRecipeForm show={editRecipe} recipe={recipe!}/>
     </div>
   );
 }

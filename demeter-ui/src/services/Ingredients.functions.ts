@@ -19,7 +19,7 @@ async function createIngredient(data: Ingredient): Promise<boolean> {
 
   async function deleteIngredientsByRecipe(recipeId: number){
     console.log("deleting infredient");
-    const deleted = IngredientService.deleteFromRecipe(recipeId)
+    const deleted = IngredientService.deleteAllFromRecipe(recipeId)
     .then((response: any) => {
       console.log("deleted ing with success");
       return true;

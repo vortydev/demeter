@@ -16,9 +16,12 @@ exports.create = (req, res) => {
 
     // Create a Recipe
     const recipe = {
-        recipe: req.body.recipe,
+        title: req.body.title,
         categoryrecipeId: req.body.categoryrecipeId,
-        available: req.body.completed | true
+        available: req.body.completed | true,
+        instruction: req.body.instruction,
+        nbUnitCreated:req.body.nbUnitCreated,
+        otherCost: req.body.otherCost,
     };
 
     // Save Recipe in the database
@@ -203,11 +206,11 @@ exports.createRPR = (req, res) => {
 
 exports.findAllRPR = (req, res) => {
     const recipe = req.query.recipeId;
-    const product = req.query.productId;
-    var conditionR = recipe ? { recipeId: { [Op.like]: `%${recipe}%` } } : null;
-    var conditionP = product ? { productId: { [Op.like]: `%${product}%` } } : null;
+    //const product = req.query.productId;
+    var conditionR = recipe ? { recipeId: { [Op.eq]: recipe } } : null;
+    //var conditionP = product ? { productId: { [Op.like]: `%${product}%` } } : null;
 
-    Rel_ProductRecipe.findAll({ where: { conditionR, conditionP } })
+    Rel_ProductRecipe.findAll({ where:  conditionR })
         .then(data => {
             res.send(data);
         })

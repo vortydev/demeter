@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Form, Button, Container, Row, Col, Modal } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Modal, Alert} from 'react-bootstrap';
 import { Product } from '../../types/Types';
 import { ListingProductsEdit } from './inventory';
 import { updateProduct, getAll } from '../../services/inventory.functions'
@@ -15,7 +15,10 @@ function InventoryUpdate({ show, close, success }: CRFormProps) {
     const [error, setError] = useState<boolean>(false);
     const [products, setProducts] = useState<Array<Product>>([]);
 
-    async function editProducts(): Promise<void> {
+    const [alerting, setAlerting] = useState<boolean>(false);
+    const [alerting1, setAlerting1] = useState<boolean>(false);
+
+    async function editProducts(): Promise<void>{
 
         async function getProducts() {
             setProducts(await getAll());
@@ -23,20 +26,24 @@ function InventoryUpdate({ show, close, success }: CRFormProps) {
 
         getProducts();
 
+        setError(false);
+        setAlerting(false);
+        setAlerting1(false);
+        
         products.map(async (productUpdated: Product) => {
-
-            setError(false);
 
             var product = document.getElementById(`qty_inv${productUpdated.id}`) as HTMLInputElement;
 
             var regexNumber = new RegExp(/[0-9]+/);
-
-            if (!product.value) {
-                alert("Veuillez entrer une quantité");
+    
+            if(!product.value){
+                setAlerting(true);
+                return;
             }
-            else if (!regexNumber.test(product.value)) {
-                alert("Veuillez entrer un nombre valide");
-            } else {
+            else if(!regexNumber.test(product.value)){
+                setAlerting1(true);
+                return;
+            }else{
                 if (productUpdated !== null) {
                     const updatedProduct: Product = {
                         id: productUpdated.id,
@@ -66,13 +73,15 @@ function InventoryUpdate({ show, close, success }: CRFormProps) {
         <Modal show={show} onHide={close}>
             <Form className="popupForm" id="formMAJ">
                 <h3 className="popupTitle">Mise à jour de l'inventaire</h3>
+                {alerting && <Alert variant="danger">Veuillez remplir tous les champs.</Alert>}
+                {alerting1 && <Alert variant="danger">Veuillez entrer un nombre valide.</Alert>}
                 {/* truc de barre de recherche */}
                 <div className="flex invUpdateHeader mt-2">
                     <h4 className="invMAJrowLarge">Produit</h4>
                     <h4 className="invMAJrowLarge">Format</h4>
                     <h4 className="invMAJrowThin">Qt</h4>
                 </div>
-                <ListingProductsEdit get={show} />
+                <ListingProductsEdit show={show} />
                 <div className="mt-3 popupBtnBox">
                     <Button variant="demeter-dark" onClick={close}>Annuler</Button>
                     <Button variant="demeter" onClick={editProducts}>Confirmer</Button>

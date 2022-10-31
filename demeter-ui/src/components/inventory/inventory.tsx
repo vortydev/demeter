@@ -6,11 +6,18 @@ import { Category, Mesurement, Product, Vendor } from '../../types/Types';
 import { InventoryEditProductForm } from './inventoryUpdateProduct';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 interface Getting {
-    get: boolean,
+    createSuccess: boolean;
+    setDeleteSuccess: (success: boolean) => void;
+    deleteSuccess: boolean;
+    setUpdateSuccess: (success: boolean) => void;
+    updateSuccess: boolean;
 }
-function ListingProducts(get: Getting): JSX.Element {
+
+function ListingProducts({createSuccess, setDeleteSuccess, deleteSuccess, setUpdateSuccess, updateSuccess}: Getting): JSX.Element {
 
     const [products, setProducts] = useState<Product[]>([]);
 
@@ -19,19 +26,27 @@ function ListingProducts(get: Getting): JSX.Element {
             setProducts(await getAll());
         }
         getList();
-    }, [get]);
+    },[createSuccess, deleteSuccess, updateSuccess]);
+
+    //  allows the system to refresh after deleting a second product
+    setTimeout(() => {
+        setDeleteSuccess(false);
+    }, 5000);
 
     return (
         <React.Fragment>
             {products.map((product) => (
-                <ProductsDisplay product={product} />
+                <ProductsDisplay product={product} setDeleteSuccess={setDeleteSuccess} setUpdateSuccess={setUpdateSuccess}/>
             ))}
         </React.Fragment>
     );
 
 }
 
-function ListingProductsEdit(get: Getting): JSX.Element {
+interface GettingShow {
+    show: boolean,
+}
+function ListingProductsEdit(show: GettingShow): JSX.Element {
 
     const [products, setProducts] = useState<Product[]>([]);
 
@@ -40,7 +55,7 @@ function ListingProductsEdit(get: Getting): JSX.Element {
             setProducts(await getAll());
         }
         getList();
-    }, [get]);
+    },[show]);
 
     return (
         <React.Fragment>
@@ -54,15 +69,18 @@ function ListingProductsEdit(get: Getting): JSX.Element {
 
 interface ProductDisplayProps {
     product: Product;
+    setDeleteSuccess: (success: boolean) => void;
+    setUpdateSuccess: (success: boolean) => void;
 }
 
-function ProductsDisplay({ product }: ProductDisplayProps): JSX.Element {
+function ProductsDisplay({product, setDeleteSuccess, setUpdateSuccess}:ProductDisplayProps): JSX.Element{
     const [updateProduct, setUpdatedProduct] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
 
     function success(): void {
-        setSuccess(true);
-        close();
+      setSuccess(true);
+      setUpdateSuccess(true);
+      close();
     }
 
     function close(): void {
@@ -82,10 +100,12 @@ function ProductsDisplay({ product }: ProductDisplayProps): JSX.Element {
 
                 <div className="invEditBox">
                     <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
-                        setUpdatedProduct(true);
+                        setUpdatedProduct(true); 
+                        setUpdateSuccess(false);
                     }} />
                     <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
-                        deleteProductById(product.id);
+                        deleteProductById(product.id); 
+                        setTimeout(() => { setDeleteSuccess(true)}, 2500);
                     }} />
                 </div>
             </div>
@@ -95,11 +115,15 @@ function ProductsDisplay({ product }: ProductDisplayProps): JSX.Element {
     );
 }
 
-function ProductsDisplayEdit({ product }: ProductDisplayProps): JSX.Element {
+interface ProductDisplayEditProps {
+    product: Product;
+}
+
+function ProductsDisplayEdit({ product }: ProductDisplayEditProps): JSX.Element {
 
     return (
         <Form.Group className="flex cellShade mb-1" controlId={`product${product.id}`}>
-            <Form.Group controlId="id">
+            <Form.Group controlId={`product${product.id}`}>
                 <Form.Control type="hidden" value={product.id} />
             </Form.Group>
 
@@ -118,13 +142,24 @@ function ProductsDisplayEdit({ product }: ProductDisplayProps): JSX.Element {
     );
 }
 
-function deleteProductById(id: any) {
-    if (window.confirm('Êtes-vous sur de vouloir supprimer ce produit?')) {
-        deleteProduct(id);
-    }
+function deleteProductById(id: any){
+    confirmAlert({
+        title: 'Confirmation',
+        message: 'Êtes-vous sur de vouloir supprimer ce produit?',
+        buttons: [
+          {
+            label: 'Oui',
+            onClick: () => {deleteProduct(id);}
+          },
+          {
+            label: 'Non',
+            onClick: () => {}
+          }
+        ]
+      });
 }
 
-function GetCategory(get: Getting): JSX.Element {
+function GetCategory(show: GettingShow): JSX.Element {
     const [categories, setCategories] = useState<Category[]>([]);
 
     useEffect(() => {
@@ -132,9 +167,9 @@ function GetCategory(get: Getting): JSX.Element {
             setCategories(await getAllCategories());
         }
         getList();
-    }, [get]);
-
-    return (
+    },[show]);
+    
+    return(
         <React.Fragment>
             {categories.map((category) => (
                 <CategoryDropDown category={category} />
@@ -143,15 +178,15 @@ function GetCategory(get: Getting): JSX.Element {
     );
 }
 
-function GetVendors(get: Getting): JSX.Element {
-    const [vendors, setVendors] = useState<Vendor[]>([]);
+function GetVendors(show: GettingShow):JSX.Element {
+    const [ vendors, setVendors ] = useState<Vendor[]>([]);
 
     useEffect(() => {
         async function getList() {
             setVendors(await getAllVendor());
         }
         getList();
-    }, [get]);
+    },[show]);
 
     return (
         <React.Fragment>
@@ -182,15 +217,15 @@ function VendorDropDown({ vendor }: VendorSelect): JSX.Element {
     );
 }
 
-function GetMesurements(get: Getting): JSX.Element {
-    const [mesurements, setMesurements] = useState<Mesurement[]>([]);
+function GetMesurements(show: GettingShow):JSX.Element {
+    const [ mesurements, setMesurements ] = useState<Mesurement[]>([]);
 
     useEffect(() => {
         async function getList() {
             setMesurements(await getAllMesurements());
         }
         getList();
-    }, [get]);
+    },[show]);
 
     return (
         <React.Fragment>

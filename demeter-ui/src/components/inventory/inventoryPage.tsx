@@ -47,11 +47,12 @@ function InventoryPage(): JSX.Element{
                         <Col><h2>Format</h2></Col>
                         <Col><h2>Quantité</h2></Col>
                     </Row>
-                    <ListingProducts createSuccess={createdSuccess} setDeleteSuccess={setDeleted} deleteSuccess={deletedSuccess}/>
+                    <ListingProducts createSuccess={createdSuccess} setDeleteSuccess={setDeleted} deleteSuccess={deletedSuccess} setUpdateSuccess={setUpdated} updateSuccess={updatedSuccess}/>
                     <Row>
                         <Button variant="dark" onClick={() => {
                           setUpdatedProducts(true);
                           setSuccess(false);
+                          setUpdated(false);
                         }}>Mettre à jour l'inventaire</Button>
                     </Row>
                 </Container>
@@ -75,10 +76,10 @@ function InventoryPage(): JSX.Element{
 export { InventoryPage };
 
 // wtf do I have to do now: 
-// accept and edit string price
-// edit display delete vendor
+// edit display delete vendor formating css add vendor form
 // searchbar
 // filter products
+// cleanup code
 // sleep
 // eat
 // drink water

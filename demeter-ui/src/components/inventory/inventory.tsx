@@ -12,9 +12,11 @@ interface Getting {
     createSuccess: boolean;
     setDeleteSuccess: (success: boolean) => void;
     deleteSuccess: boolean;
+    setUpdateSuccess: (success: boolean) => void;
+    updateSuccess: boolean;
 }
 
-function ListingProducts({createSuccess, setDeleteSuccess, deleteSuccess}: Getting): JSX.Element {
+function ListingProducts({createSuccess, setDeleteSuccess, deleteSuccess, setUpdateSuccess, updateSuccess}: Getting): JSX.Element {
 
     const [products, setProducts] = useState<Product[]>([]);
 
@@ -23,7 +25,7 @@ function ListingProducts({createSuccess, setDeleteSuccess, deleteSuccess}: Getti
             setProducts(await getAll());
         }
         getList();
-    },[createSuccess, deleteSuccess]);
+    },[createSuccess, deleteSuccess, updateSuccess]);
 
     //  allows the system to refresh after deleting a second product
     setTimeout(() => {
@@ -33,7 +35,7 @@ function ListingProducts({createSuccess, setDeleteSuccess, deleteSuccess}: Getti
     return (
         <React.Fragment>
             {products.map((product) => (
-                <ProductsDisplay product={product} setDeleteSuccess={setDeleteSuccess}/>
+                <ProductsDisplay product={product} setDeleteSuccess={setDeleteSuccess} setUpdateSuccess={setUpdateSuccess}/>
             ))}
         </React.Fragment>
     );
@@ -67,14 +69,16 @@ function ListingProductsEdit(show: GettingShow): JSX.Element {
 interface ProductDisplayProps {
     product: Product;
     setDeleteSuccess: (success: boolean) => void;
+    setUpdateSuccess: (success: boolean) => void;
 }
 
-function ProductsDisplay({product, setDeleteSuccess}:ProductDisplayProps): JSX.Element{
+function ProductsDisplay({product, setDeleteSuccess, setUpdateSuccess}:ProductDisplayProps): JSX.Element{
     const [updateProduct, setUpdatedProduct] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
 
     function success(): void {
       setSuccess(true);
+      setUpdateSuccess(true);
       close();
     }
 
@@ -92,7 +96,7 @@ function ProductsDisplay({product, setDeleteSuccess}:ProductDisplayProps): JSX.E
             </Col>
             <Col>
                 {product.qtyInv}
-                <Button onClick={()=>{setUpdatedProduct(true)}}>edit</Button>
+                <Button onClick={()=>{setUpdatedProduct(true); setUpdateSuccess(false)}}>edit</Button>
                 <Button onClick={()=>{deleteProductById(product.id); setTimeout(() => {setDeleteSuccess(true);}, 2500);}}>delete</Button>
                 <InventoryEditProductForm show={updateProduct} close={close} success={success} product={product}/>
             </Col>

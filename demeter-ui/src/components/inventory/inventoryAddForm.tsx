@@ -34,6 +34,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
         const qtyInv = document.getElementById("qty_inv") as HTMLInputElement;
 
         var regexPrice = new RegExp (/[0-9]+[.][0-9]{2}/);
+        var regexPrice1 = new RegExp (/[0-9]+[,][0-9]{2}/);
         var regexNumber = new RegExp(/[0-9]+/);
 
         setError(false);
@@ -45,7 +46,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
         if (!name.value || !qtyUnit.value || !format.value || !price.value || !qtyInv.value){
             setAlerting(true);
         }
-        else if(!regexPrice.test(price.value)){
+        else if(!regexPrice.test(price.value)&&!regexPrice1.test(price.value)&&!regexNumber.test(price.value)){
             setAlerting1(true);
         }
         else if(!regexNumber.test(qtyUnit.value)){
@@ -55,6 +56,13 @@ function InventoryForm({ show, close, success }: CRFormProps) {
             setAlerting3(true);
         }
         else{
+            if (regexPrice1.test(price.value)){
+                price.value = price.value.replace(/[,]/, ".");
+            }
+            else if (regexNumber.test(price.value)){
+                price.value = price.value.concat(".00");
+            }
+
             const newProduct: Product = {
                 id: 1,
                 name: name.value, 
@@ -130,7 +138,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                 <Form.Control type="text"/>
             </Form.Group>
 
-            {alerting1 && <Alert>Veuillez entrer le prix au format #.## (Pwease gimme copper owange cowor)</Alert>}
+            {alerting1 && <Alert>Veuillez entrer le prix au format #.## ou #,## (Pwease gimme copper owange cowor)</Alert>}
             <Form.Group controlId="price">
                 <Form.Label>PRIX (Mettre un point pour la décimale)</Form.Label>
                 <Form.Control type="text"/>

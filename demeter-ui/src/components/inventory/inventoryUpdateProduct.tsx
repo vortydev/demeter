@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Form, Button, Modal, Alert } from 'react-bootstrap';
 import { Product } from '../../types/Types';
 import { GetCategory, GetMesurements, GetVendors } from './inventory';
 import { VendorForm } from './inventoryAddVendorForm';
-import { updateProduct } from '../../services/inventory.functions';
+import { getProduct, updateProduct } from '../../services/inventory.functions';
 
 interface CRFormProps {
     show : boolean;
@@ -35,6 +35,7 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
         const qtyInv = document.getElementById("qty_inv") as HTMLInputElement;
 
         var regexPrice = new RegExp (/[0-9]+[.][0-9]{2}/);
+        var regexPrice1 = new RegExp (/[0-9]+[,][0-9]{2}/);
         var regexNumber = new RegExp(/[0-9]+/);
 
         setError(false);
@@ -46,7 +47,7 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
         if (!name.value || !qtyUnit.value || !format.value || !price.value || !qtyInv.value){
             setAlerting(true);
         }
-        else if(!regexPrice.test(price.value)){
+        else if(!regexPrice.test(price.value)&&!regexPrice1.test(price.value)&&!regexNumber.test(price.value)){
             setAlerting1(true);
         }
         else if(!regexNumber.test(qtyUnit.value)){
@@ -56,6 +57,13 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
             setAlerting3(true);
         }
         else {
+            if (regexPrice1.test(price.value)){
+                price.value = price.value.replace(/[,]/, ".");
+            }
+            else if (regexNumber.test(price.value)){
+                price.value = price.value.concat(".00");
+            }
+
             const editedProduct: Product = {
                 id: product.id,
                 name: name.value, 

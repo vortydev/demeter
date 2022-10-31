@@ -13,6 +13,7 @@ export function getRecipeCost(ingredients: IngForRecipe[]){
 
 export function pricePerQuantity(ingredient: IngForRecipe): number {
   let result: number = 0;
+
   if (ingredient.ingredient.mesurementId == ingredient.mesurementId) {
     result = produitCroise(ingredient, ingredient.quantity);
   } else {

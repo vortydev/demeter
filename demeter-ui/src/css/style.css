@@ -29,6 +29,10 @@ button {
     cursor: pointer;
 }
 
+.cursorDef {
+    cursor: default;
+}
+
 /* ui */
 ::selection {
     color: white;
@@ -42,7 +46,7 @@ button {
 
 .alert {
     font-size: 1rem !important;
-    margin-bottom: .5rem !important;
+    margin: .5rem 0 !important;
     text-align: center;
 }
 

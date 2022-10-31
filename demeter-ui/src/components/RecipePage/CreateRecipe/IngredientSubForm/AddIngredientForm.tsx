@@ -10,31 +10,29 @@ import { Mesurement, Product } from "../../../../types/Types";
 interface AIFProps {
   show: boolean;
   setShow: (show: boolean) => void;
-  currentList: IngForRecipe[];
-  setListIngAdded: (list: IngForRecipe[]) => void;
+  listIng: IngForRecipe[];
 }
 
 function AddIngredientForm({
   show,
   setShow,
-  currentList,
-  setListIngAdded,
+  listIng,
 }: AIFProps) {
-  const [ingList, setListIng] = useState<Product[]>([]);
+  const [productList, setProductList] = useState<Product[]>([]);
   const [mesureList, setListMesurement] = useState<Mesurement[]>([]);
 
   useEffect(() => {
     async function getLists() {
-      setListIng(await getProductsByCategory("1"));
+      setProductList(await getProductsByCategory("1"));
       setListMesurement(await getAllMesurements());
     }
     getLists();
   }, [show]);
 
-  function addToRecipeList() {
+ const addToRecipeList = () => {
     const ingredient = (
-      document.getElementById("ingredient") as HTMLInputElement
-    ).value; // this return the id not the whole thing, make a fin on list
+      document.getElementById("product") as HTMLInputElement
+    ).value; 
     const quantity = parseInt(
       (document.getElementById("quantity") as HTMLInputElement).value
     );
@@ -42,10 +40,9 @@ function AddIngredientForm({
       document.getElementById("mesurement") as HTMLInputElement
     ).value;
 
-    const productSelected: Product | undefined = ingList.find(
+    const productSelected: Product | undefined = productList.find(
       (x) => x.id === parseInt(ingredient)
     );
-
 
     if (
       productSelected !== undefined &&
@@ -58,10 +55,9 @@ function AddIngredientForm({
         mesurementId: mesurement,
       };
 
-      currentList.push(toAdd);
-      console.log(currentList);
-      setListIngAdded(currentList);
+      listIng.push(toAdd);
       setShow(false);
+      
 
 
     } else {
@@ -72,9 +68,9 @@ function AddIngredientForm({
   return (
     <Modal show={show}>
       <Form>
-        <Form.Select id="ingredient">
-          {ingList.map((ing) => (
-            <option value={ing.id.toString()}>{ing.name}</option>
+        <Form.Select id="product">
+          {productList.map((product) => (
+            <option value={product.id.toString()}>{product.name}</option>
           ))}
         </Form.Select>
         <Form.Group controlId="quantity">

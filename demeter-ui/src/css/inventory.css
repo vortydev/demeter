@@ -32,7 +32,7 @@
 
 .invUpdateHeader {
     text-align: center;
-    border-bottom: 2px solid var(--demeter-black);
+    padding: 0 .5rem;
 }
 
 .invMAJrowLarge {

@@ -5,14 +5,17 @@ import "./task.css";
 
 interface TaskRowProps {
   task: Task;
+  deleteSuccess: (deleted: boolean) => void;
 }
 
-function TaskRow ({task}: TaskRowProps){
+function TaskRow ({task,deleteSuccess}: TaskRowProps){
 
     return(
-       <div className="taskRow"><input type="text" /> {task.title} <Button>edit</Button> <Button onClick={ () => {deleteTask(task.id)}} >delete</Button></div>
+       <div className="taskRow"><input type="text" /> {task.title} <Button>edit</Button> <Button onClick={ () => {deleteTask(task.id);deleteSuccess(true)}} >delete</Button></div>
     );
 
 }
+export {TaskRow};
 
-export { TaskRow };
+
+

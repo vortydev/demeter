@@ -25,6 +25,15 @@ button {
     font-size: 1.25rem !important;
 }
 
+select {
+    border: .1rem solid #BBB;
+    border-radius: .25rem;
+}
+
+option {
+    color: #495057;
+}
+
 .cursor, select {
     cursor: pointer;
 }
@@ -39,10 +48,11 @@ button {
     background: var(--demeter-green);
 }
 
-/* input:focus, select:focus {
-    border-color: var(--demeter-green);
-    border-radius: inherit;
-} */
+:focus {
+    border-color: var(--demeter-green) !important;
+    box-shadow: 0 0 0 .2rem rgba(0, 150, 69, 0.25) !important;
+    border-radius: .25rem;
+}
 
 .alert {
     font-size: 1rem !important;
@@ -103,6 +113,10 @@ button {
 .popupForm label {
     margin-bottom: 0;
     padding-left: .1rem;
+}
+
+.popupForm button {
+    display: inline-block;
 }
 
 .popupBtnBox {
@@ -170,6 +184,11 @@ button {
     color: white;
 }
 
+.btn-demeter-dark:focus, .btn-outline-dark:focus {
+    border-color: var(--demeter-black-v) !important;
+    box-shadow: 0 0 0 .2rem rgba(0, 0, 0, 0.25) !important;
+}
+
 .btn-link {
     color: var(--demeter-green);
     text-decoration: solid;
@@ -177,6 +196,11 @@ button {
 
 .btn-link:hover {
     color: var(--demeter-green-v);
+}
+
+.btn-link:focus {
+    border: none !important;
+    box-shadow: none !important;
 }
 
 .btn-outline-dark {

@@ -36,7 +36,7 @@ function InventoryPage(): JSX.Element {
 
     return (
         <section className="invPage">
-            <div className="mt-2 mb-3 invAdd">
+            <div className="mt-2 mb-2 invAdd">
                 <Button variant="outline-dark" onClick={() => {
                     setCreateNewProduct(true);
                     setSuccess(false);

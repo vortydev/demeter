@@ -5,8 +5,6 @@ import { verifyLogin } from "../../services/account.functions";
 
 function LoginForm(): JSX.Element {
   const [valid, setValid] = useState<boolean>(true);
-  const fakeAccount: string = "Gotham";
-  const fakePW: string = "batman";
 
   async function handleLogin(e: SyntheticEvent): Promise<void> {
     e.preventDefault();
@@ -16,33 +14,36 @@ function LoginForm(): JSX.Element {
     const pw = document.getElementById("password") as HTMLInputElement;
 
     if (await verifyLogin(accName.value, pw.value)) {
-     setCookie("account", accName.value); 
+      setCookie("account", accName.value);
       window.location.reload();
     } else {
       setValid(false);
+
+      setTimeout(() => {
+        setValid(true)
+      }, 5000);
     }
   }
-  return (
-    <div className="LoginForm">
-      <h1>DEMETER</h1>
-      <hr />
-      <h2 className="mb-5">Connexion</h2>
-      {!valid && <Alert variant="danger">Informations invalides !</Alert>}
-      <Form>
-        <Form.Group className="mb-3 loginField" controlId="account">
-          <Form.Label>COMPTE: </Form.Label>
-          <Form.Control type="text" />
-        </Form.Group>
 
-        <Form.Group className="mb-3 loginField" controlId="password">
-          <Form.Label>MOT DE PASSE:</Form.Label>
-          <Form.Control type="password" />
-        </Form.Group>
-        <Button variant="dark" onClick={handleLogin}>
-          ENTRER
+  return (
+    <Form className="popupForm loginForm">
+      {!valid && <Alert variant="danger">Informations invalides !</Alert>}
+      <Form.Group className="mb-3 loginField" controlId="account">
+        <Form.Label>Nom d'utilisateur</Form.Label>
+        <Form.Control type="text" />
+      </Form.Group>
+
+      <Form.Group className="mb-3 loginField" controlId="password">
+        <Form.Label>Mot de passe</Form.Label>
+        <Form.Control type="password" />
+      </Form.Group>
+
+      <div className="popupBtnBox mt-3">
+        <Button className="loginBtn" variant="demeter-dark" onClick={handleLogin}>
+          Connexion
         </Button>
-      </Form>
-    </div>
+      </div>
+    </Form>
   );
 }
 

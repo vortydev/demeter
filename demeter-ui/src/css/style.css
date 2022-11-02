@@ -212,3 +212,18 @@ option {
     background-color: var(--demeter-black);
     border-color: var(--demeter-black);
 }
+
+.btn-outline-dark:active {
+    color: white !important;
+    background-color: var(--demeter-black-v) !important;
+}
+
+.btn-outline-disabled, .btn-outline-disabled:hover {
+    color: var(--demeter-grey);
+    border: 2px solid var(--demeter-grey);
+}
+
+.btn-outline-disabled:focus {
+    color: var(--demeter-orange) !important;
+    border-color: var(--demeter-orange) !important;
+}

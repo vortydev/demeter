@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import { getIngredientsByRecipe } from "../../../services/Ingredients.functions";
-import { deleteRecipe } from "../../../services/Recipe.functions";
+import { deleteRecipe } from "../../../services/recipe.functions";
 import { Ingredient, Recipe } from "../../../types/Types";
 import { Calculator } from "./Calculator";
 import { IngredientList } from "./IngredientList";

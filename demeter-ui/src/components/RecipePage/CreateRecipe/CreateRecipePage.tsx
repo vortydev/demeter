@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
-import { createRecipe } from "../../../services/Recipe.functions";
+import { createRecipe } from "../../../services/recipe.functions";
 import { IngForRecipe } from "../../../types/RecipeTypes.types";
 import { Recipe } from "../../../types/Types";
 import { CreateRecipeForm } from "./createRecipeForm";

@@ -4,7 +4,7 @@ import {
   createIngredient,
   deleteIngredientsByRecipe,
 } from "./Ingredients.functions";
-import RecipeService from "./Recipe.services";
+import RecipeService from "./recipe.services";
 
 async function createRecipe(
   data: Recipe,

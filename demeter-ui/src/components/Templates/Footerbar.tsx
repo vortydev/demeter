@@ -14,7 +14,7 @@ class Footerbar extends React.Component {
         <div className="flexFooter">
           <p>Valéry Beauchemin, Étienne Ménard, David Pelletier, Isabelle Rioux © 2022</p>
           {/* <p>Cette application est une propriété de <span className="LVR">Les Vraies Richesses</span></p> */}
-          <Button className="deco" variant="demeter" onClick={handleLogout}>
+          <Button className="deco" variant="demeter-waxed" onClick={handleLogout}>
             Déconnexion
           </Button>
         </div>

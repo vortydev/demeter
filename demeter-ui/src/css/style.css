@@ -7,6 +7,7 @@
     --demeter-green-v: #3E8E6A;
     --demeter-green-h: #e4eee9;
     --demeter-orange: #bc5f04;
+    --demeter-orange-v: #a65505;
     --demeter-grey: #696969;
 }
 
@@ -187,6 +188,16 @@ option {
 .btn-demeter-dark:focus, .btn-outline-dark:focus {
     border-color: var(--demeter-black-v) !important;
     box-shadow: 0 0 0 .2rem rgba(0, 0, 0, 0.25) !important;
+}
+
+.btn-demeter-waxed {
+    background-color: var(--demeter-orange);
+    color: white;
+}
+
+.btn-demeter-waxed:hover {
+    background-color: var(--demeter-orange-v);
+    color: white;
 }
 
 .btn-link {

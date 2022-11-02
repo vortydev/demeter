@@ -6,19 +6,28 @@ type Account = {
 };
 
 type News ={
-    id: Number;
     title : string;
     description : string;
     author: string;
+    img: string | null;
+    active: boolean;
+    roleId: string;
+    taskId: number | null;
     picture: string | null;
-    date: string;
+    date: Date;
+
 }
 
 type Task = {
-  id: Number;
-  taskName: String;
-  description: String;
-};
+    id : number;
+    title: String;
+    description : String;
+    categorytaskId: number;
+    parentId: number|null;
+    completed: boolean;
+    picture: string | null;
+    date: Date;
+}
 
 type Recipe = {
   id: number;

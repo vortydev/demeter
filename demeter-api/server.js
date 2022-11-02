@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));  // parse application/x-www-for
 
 // initilizes the database
 const db = require("./app/models");
-db.sequelize.sync()                 // {force: true} drops the db
+db.sequelize.sync({})                 // {force: true} drops the db
   .then(() => {
     console.log("Synced db.");
 
@@ -27,6 +27,8 @@ db.sequelize.sync()                 // {force: true} drops the db
       { id: "4", role: "Developpeur" }
     ], { ignoreDuplicates: true })
       .then(() => console.log("Roles inserted."));
+
+     
 
     // insert states
     db.states.bulkCreate([
@@ -61,6 +63,14 @@ db.sequelize.sync()                 // {force: true} drops the db
       { id: "4", category: "Autre", occurence: "0" },
     ], { ignoreDuplicates: true })
       .then(() => console.log("Task categories inserted."));
+
+       //insert default task
+       db.tasks.bulkCreate([
+        { id: "0", title: "default" , description: '...', completed: false, responsable:'dev', categorytaskId:'4', parentId: null},
+        
+      ], { ignoreDuplicates: true })
+        .then(() => console.log("Default task inserted."));
+      
 
     // insert category recipe
     db.categoryrecipes.bulkCreate([

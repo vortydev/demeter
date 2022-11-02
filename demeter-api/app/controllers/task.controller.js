@@ -15,7 +15,7 @@ exports.create = (req, res) => {
 
     // Create a Task
     const task = {
-        name: req.body.name,
+        title: req.body.title,
         categorytaskId: req.body.categorytaskId,
         parentId: req.body.parentId | null,
         description: req.body.description,
@@ -38,11 +38,11 @@ exports.create = (req, res) => {
 // Retrieve all Tasks from the database.
 exports.findAll = (req, res) => {
     const category = req.query.categorytaskId;
-    const parent = req.query.parentId;
-    var conditionC = category ? { categorytaskId: { [Op.like]: `%${category}%` } } : null;
-    var conditionP = parent ? { parentId: { [Op.like]: `%${parent}%` } } : null;
+    //const parent = req.query.parentId;
+    var conditionC = category ? { categorytaskId: { [Op.eq]: category} } : null;
+    //var conditionP = parent ? { parentId: { [Op.like]: `%${parent}%` } } : null;
 
-    Task.findAll({ where: conditionC, conditionP })
+    Task.findAll({ where: conditionC })
         .then(data => {
             res.send(data);
         })
@@ -102,7 +102,7 @@ exports.update = (req, res) => {
 // Delete a Task with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
-
+    console.log("controller",id);
     Task.destroy({
         where: { id: id }
     })

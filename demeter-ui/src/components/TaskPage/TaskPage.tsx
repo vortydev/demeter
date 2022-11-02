@@ -1,20 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
-import { Task } from "../../types/Types";
+import { getAll, getbyCategorie } from "../../services/task.funtions";
+import { Task} from "../../types/Types";
 import { CreateTaskForm } from "./createTaskForm";
 import { TaskNav } from "./TaskNav";
 import { TaskRow } from "./TaskRow";
 
 function TaskPage(): JSX.Element {
   const [createdSuccess, setSuccess] = useState<boolean>(false);
-  const [taskCategory, setTaskCategory] = useState<string>("daily");
+  const [deletedSuccess, setDelete ] = useState<boolean>(false);
+  const [taskCategory, setTaskCategory] = useState<number>(1);
+  const [listTask,setListTask] = useState<Task[]>([]);
 
-  const fakeTask: Task = {
-    id: 5,
-    taskName: "passer le balais",
-    description: "prendre le balais et balayer",
-  };
-
+  useEffect(() => {
+    async function getList() {
+      setListTask(await getbyCategorie(taskCategory));
+      console.log("listTask",listTask);
+    }
+    getList();
+  }, [taskCategory,createdSuccess,deletedSuccess]);
+  
   return (
     <div>
       <TaskNav
@@ -23,11 +28,17 @@ function TaskPage(): JSX.Element {
         success={createdSuccess}
         setSuccess={setSuccess}
       />
-      {createdSuccess && <Alert>La recette à été créer avec succès!</Alert>}
+      {createdSuccess && <Alert>La tâche à été créer avec succès!</Alert>}
+      {deletedSuccess && <Alert>La tâche à été supprimer avec succès!</Alert>}
       <h1>Tasks Page</h1>
       <p> Liste de tâches {taskCategory}</p>
 
-      <TaskRow task={fakeTask} />
+      <div>
+      {listTask.map((Task) => (
+        <TaskRow task={Task} deleteSuccess={setDelete} />
+      ))}
+    </div>
+      
       <Button variant="outline-dark">Afficher L'Historique</Button>
       <Button variant="dark">Compléter les tâches</Button>
     </div>

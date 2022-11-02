@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { getRecipesByCategory } from "../../services/Recipe.functions";
+import { getRecipesByCategory } from "../../services/recipe.functions";
 import { Recipe } from "../../types/Types";
+
 
 
 interface RecipeListProps {

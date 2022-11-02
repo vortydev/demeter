@@ -18,11 +18,11 @@ class IngredientService {
     return http.put<any>(`/rpr?recipeId=${recipeId}&productId=${productId}`, data);
   }
 
-  delete(recipeId: number, productId: number) {
+  deleteOneFromRecipe(recipeId: number, productId: number) {
 
     return http.delete<any>(`/rpr?recipeId=${recipeId}&productId=${productId}`);
   }
-  deleteFromRecipe(recipeId: number) {
+  deleteAllFromRecipe(recipeId: number) {
 
     return http.delete<any>(`/rpr?recipeId=${recipeId}`);
   }

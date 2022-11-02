@@ -38,10 +38,8 @@ function RecipePage({
           <Button
             variant="dark"
             onClick={() => {
-              {
-                setSelectedPage("CreateRecipe");
-                closeAllAlerts();
-              }
+              setSelectedPage("CreateRecipe");
+              closeAllAlerts();
             }}
           >
             Nouvelle Recette

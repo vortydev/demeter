@@ -7,6 +7,7 @@
     --demeter-green-v: #3E8E6A;
     --demeter-green-h: #e4eee9;
     --demeter-orange: #bc5f04;
+    --demeter-orange-v: #a65505;
     --demeter-grey: #696969;
 }
 
@@ -189,6 +190,16 @@ option {
     box-shadow: 0 0 0 .2rem rgba(0, 0, 0, 0.25) !important;
 }
 
+.btn-demeter-waxed {
+    background-color: var(--demeter-orange);
+    color: white;
+}
+
+.btn-demeter-waxed:hover {
+    background-color: var(--demeter-orange-v);
+    color: white;
+}
+
 .btn-link {
     color: var(--demeter-green);
     text-decoration: solid;
@@ -211,4 +222,19 @@ option {
 .btn-outline-dark:hover {
     background-color: var(--demeter-black);
     border-color: var(--demeter-black);
+}
+
+.btn-outline-dark:active {
+    color: white !important;
+    background-color: var(--demeter-black-v) !important;
+}
+
+.btn-outline-disabled, .btn-outline-disabled:hover {
+    color: var(--demeter-grey);
+    border: 2px solid var(--demeter-grey);
+}
+
+.btn-outline-disabled:focus {
+    color: var(--demeter-orange) !important;
+    border-color: var(--demeter-orange) !important;
 }

@@ -28,7 +28,7 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
 
     const regexPassword = "[?A-Z ][a-z]..[1-9]";
 
-    if (/*pw.value.match(regexPassword) && */pw.value !== pwc.value && pw.value !== null) {
+    if (/*pw.value.match(regexPassword) && */pw.value !== pwc.value || !pw.value || !pwc.value) {
       setValidPassword(false);
     }
     else {

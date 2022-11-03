@@ -7,22 +7,22 @@ import { Task } from "../../types/Types";
 
 
 interface CRFormProps {
-show : boolean;
+  show: boolean;
   close: () => void;
-  success: (succedd:boolean)=> void;
+  success: (succedd: boolean) => void;
 }
 
-function CreateTaskForm({ show ,close, success }: CRFormProps) {
+function CreateTaskForm({ show, close, success }: CRFormProps) {
   const [error, setError] = useState<boolean>(false);
 
-  async function handlesubmit(){
+  async function handlesubmit() {
     const taskName = document.getElementById("taskName") as HTMLInputElement;
     const description = document.getElementById("description") as HTMLInputElement;
     const typeTask = document.getElementById("typeTask") as HTMLInputElement;
     const taskParent = document.getElementById("parentId") as HTMLInputElement;
 
     const newTask: Task = {
-      id:1,
+      id: 1,
       title: taskName.value,
       description: description.value,
       categorytaskId: parseFloat(typeTask.value),
@@ -41,32 +41,33 @@ function CreateTaskForm({ show ,close, success }: CRFormProps) {
     }
   }
 
-  return(
+  return (
     <Modal show={show} onHide={close}>
-      <Form>
-        <Form.Group className="mb-3" controlId="taskName">
-          <Form.Label>NOM : </Form.Label>
-          <Form.Control type="text"/>
+      <Form className="popupForm">
+      <h3 className="popupTitle">Nouvelle Tâche</h3>
+        <Form.Group className="mb-2" controlId="taskName">
+          <Form.Label>Titre</Form.Label>
+          <Form.Control type="text" />
         </Form.Group>
-        <Form.Select className="mb-3" id="typeTask" aria-label="TYPE : ">
-          <option></option>
-          <option value="1">Quotidiennes</option>
-          <option value="2">Hebdomadaires</option>
-          <option value="3">Autre</option>
-        </Form.Select>
-        <Form.Select className="mb-3" id="parentId" aria-label="TACHE PARENT : ">
-        <option>Choisir</option>
-          <option value="0"> Aucune</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-        </Form.Select>
-        <Form.Group className="mb-3" controlId="description">
-          <Form.Label>DESCRIPTION : </Form.Label>
-          <Form.Control as="textarea" rows={3}/>
+
+        <Form.Group className="popupSelectBox mb-2">
+          <Form.Label className="popupSelectLabel">Type</Form.Label>
+          <Form.Select id="typeTask" aria-label="Type">
+            <option value="1">Quotidienne</option>
+            <option value="2">Hebdomadaire</option>
+            <option value="3">Autre</option>
+          </Form.Select>
         </Form.Group>
-        <Button onClick={handlesubmit}>Ajouter</Button>
-        <Button onClick={close}>Annuler</Button>
+
+        <Form.Group className="mb-2" controlId="description">
+          <Form.Label>Description</Form.Label>
+          <Form.Control as="textarea" rows={3} />
+        </Form.Group>
+
+        <div className="mt-3 popupBtnBox">
+          <Button variant="demeter-dark" onClick={close}>Annuler</Button>
+          <Button variant="demeter" onClick={handlesubmit}>Ajouter</Button>
+        </div>
       </Form>
     </Modal>
   );

@@ -31,7 +31,7 @@ function TaskPage(): JSX.Element {
       {createdSuccess && <Alert>La tâche à été créer avec succès!</Alert>}
       {deletedSuccess && <Alert>La tâche à été supprimer avec succès!</Alert>}
       <h1>Tasks Page</h1>
-      <p> Liste de tâches {taskCategory}</p>
+      <p>Liste de tâches {taskCategory}</p>
 
       <div>
       {listTask.map((Task) => (
@@ -40,7 +40,7 @@ function TaskPage(): JSX.Element {
     </div>
       
       <Button variant="outline-dark">Afficher L'Historique</Button>
-      <Button variant="dark">Compléter les tâches</Button>
+      <Button variant="demeter-dark">Compléter les tâches</Button>
     </div>
   );
 }

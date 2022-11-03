@@ -7,12 +7,13 @@ import { RecipeList } from "./RecipeList";
 interface RecipePageProps {
   selectedPage: string;
   createdSuccess: boolean;
-  deletedSuccess:boolean;
-  setCreatedSuccess : (success: boolean) => void;
-  setDeletedSuccess : (deleted: boolean) => void;
+  deletedSuccess: boolean;
+  setCreatedSuccess: (success: boolean) => void;
+  setDeletedSuccess: (deleted: boolean) => void;
   setSelectedPage: (page: string) => void;
   setRecipePage: (recipe: Recipe | null) => void;
 }
+
 function RecipePage({
   selectedPage,
   createdSuccess,
@@ -36,7 +37,7 @@ function RecipePage({
       <div className="content">
         <div>
           <Button
-            variant="dark"
+            variant="demeter-dark"
             onClick={() => {
               setSelectedPage("CreateRecipe");
               closeAllAlerts();
@@ -55,7 +56,7 @@ function RecipePage({
         <div className="filterButtons">
           <Button
             onClick={() => {
-              setFilter(null);closeAllAlerts();
+              setFilter(null); closeAllAlerts();
             }}
             variant="secondary"
           >
@@ -63,7 +64,7 @@ function RecipePage({
           </Button>
           <Button
             onClick={() => {
-              setFilter(1);closeAllAlerts();
+              setFilter(1); closeAllAlerts();
             }}
             variant="secondary"
           >
@@ -71,7 +72,7 @@ function RecipePage({
           </Button>
           <Button
             onClick={() => {
-              setFilter(2);closeAllAlerts();
+              setFilter(2); closeAllAlerts();
             }}
             variant="secondary"
           >
@@ -79,7 +80,7 @@ function RecipePage({
           </Button>
           <Button
             onClick={() => {
-              setFilter(3);closeAllAlerts();
+              setFilter(3); closeAllAlerts();
             }}
             variant="secondary"
           >
@@ -87,7 +88,7 @@ function RecipePage({
           </Button>
           <Button
             onClick={() => {
-              setFilter(4);closeAllAlerts();
+              setFilter(4); closeAllAlerts();
             }}
             variant="secondary"
           >

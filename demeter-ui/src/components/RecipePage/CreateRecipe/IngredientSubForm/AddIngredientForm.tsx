@@ -29,10 +29,10 @@ function AddIngredientForm({
     getLists();
   }, [show]);
 
- const addToRecipeList = () => {
+  const addToRecipeList = () => {
     const ingredient = (
       document.getElementById("product") as HTMLInputElement
-    ).value; 
+    ).value;
     const quantity = parseInt(
       (document.getElementById("quantity") as HTMLInputElement).value
     );
@@ -46,7 +46,7 @@ function AddIngredientForm({
 
     if (
       productSelected !== undefined &&
-      mesurement!== undefined &&
+      mesurement !== undefined &&
       quantity > 0
     ) {
       const toAdd: IngForRecipe = {
@@ -57,7 +57,7 @@ function AddIngredientForm({
 
       listIng.push(toAdd);
       setShow(false);
-      
+
 
 
     } else {
@@ -67,24 +67,36 @@ function AddIngredientForm({
 
   return (
     <Modal show={show}>
-      <Form>
-        <Form.Select id="product">
-          {productList.map((product) => (
-            <option value={product.id.toString()}>{product.name}</option>
-          ))}
-        </Form.Select>
-        <Form.Group controlId="quantity">
-          <Form.Label>QUANTITÉ</Form.Label>
+      <Form className="popupForm">
+        <h3 className="popupTitle">Ajout d'un ingrédient</h3>
+        <Form.Group className="popupSelectBox mb-2" controlId="product">
+          <Form.Label className="popupSelectLabelFull">Produit</Form.Label>
+          <Form.Select id="product">
+            {productList.map((product) => (
+              <option value={product.id.toString()}>{product.name}</option>
+            ))}
+          </Form.Select>
+        </Form.Group>
+
+        <Form.Group className="mb-2" controlId="quantity">
+          <Form.Label>Quantité</Form.Label>
           <Form.Control type="number" />
         </Form.Group>
-        <Form.Select id="mesurement">
-          {mesureList.map((mesure) => (
-            <option value={mesure.id.toString()}>{mesure.mesurement}</option>
-          ))}
-        </Form.Select>
+
+        <Form.Group className="popupSelectBox mb-2" controlId="mesurement">
+          <Form.Label className="popupSelectLabel">Mesure</Form.Label>
+          <Form.Select id="mesurement">
+            {mesureList.map((mesure) => (
+              <option value={mesure.id.toString()}>{mesure.mesurement}</option>
+            ))}
+          </Form.Select>
+        </Form.Group>
+
+        <div className="popupBtnBox mt-3">
+          <Button variant="demeter-dark" onClick={() => setShow(false)}>Annuler</Button>
+          <Button variant="demeter" onClick={addToRecipeList}>Ajouter</Button>
+        </div>
       </Form>
-      <Button onClick={addToRecipeList}>Ajouter</Button>
-      <Button onClick={() => setShow(false)}>Annuler</Button>
     </Modal>
   );
 }

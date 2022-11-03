@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import { Recipe } from "../../types/Types";
-import "./recipe.css";
+import "../../css/recipe.css";
 import { RecipeList } from "./RecipeList";
 
 interface RecipePageProps {
@@ -31,20 +31,18 @@ function RecipePage({
   }
 
   return (
-    <div className="RecipePage">
+    <div className="recipePage">
+      <h1 className="pageTitle">Carnet de Recettes</h1>
+
       {createdSuccess && <Alert variant="success">La recette à été créée avec succès!</Alert>}
       {deletedSuccess && <Alert variant="success">La recette à été suprimée avec succès!</Alert>}
+
       <div className="content">
         <div>
-          <Button
-            variant="demeter-dark"
-            onClick={() => {
-              setSelectedPage("CreateRecipe");
-              closeAllAlerts();
-            }}
-          >
-            Nouvelle Recette
-          </Button>
+          <Button variant="demeter-dark" onClick={() => {
+            setSelectedPage("CreateRecipe");
+            closeAllAlerts();
+          }}>Nouvelle Recette</Button>
           <RecipeList
             filter={filter}
             selectedPage={selectedPage}

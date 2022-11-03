@@ -33,7 +33,7 @@ function CreateRecipeForm({ setRecipeInfo }: CRFProps) {
 
   return (
     <div>
-      <Form className="popupForm">
+      <Form className="popupForm newRecipeForm">
         <h3 className="popupTitle">Nouvelle Recette</h3>
         <Form.Group className="mb-2" controlId="title">
           <Form.Label>Titre</Form.Label>

@@ -51,7 +51,7 @@ function IngredientListForm({ listIng, setRecipeCost }: ILFProps) {
   return (
     <div className="IngListForm">
       {deleteIngredient && (
-        <Alert variant="success">Ingrédient supprimer avec succès</Alert>
+        <Alert variant="success">Ingrédient supprimé avec succès!</Alert>
       )}
       <span>NOM | QUANTITÉ | PRIX</span>
       <div>
@@ -64,15 +64,12 @@ function IngredientListForm({ listIng, setRecipeCost }: ILFProps) {
         ))}
       </div>
 
-      <Button
+      <Button variant="demeter-dark"
         onClick={() => {
           setAddIngredient(true);
           setDeleteIngredient(false);
-        }}
-        variant="outline-secondary"
-      >
-        + Ingrédient
-      </Button>
+        }}>+ Ingrédient</Button>
+
       <AddIngredientForm
         show={addIngredient}
         setShow={setAddIngredient}

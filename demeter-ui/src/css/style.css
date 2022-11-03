@@ -69,6 +69,12 @@ option {
     text-align: center;
 }
 
+/* app variables i guess */
+.pageTitle {
+    text-align: center;
+    width: 100%;
+}
+
 .loginText {
     color: var(--demeter-grey);
     text-align: center;

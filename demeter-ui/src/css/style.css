@@ -69,6 +69,10 @@ option {
     text-align: center;
 }
 
+.right {
+    text-align: right;
+}
+
 /* app variables i guess */
 .pageTitle {
     text-align: center;

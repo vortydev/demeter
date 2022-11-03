@@ -37,12 +37,13 @@ function RecipePage({
       {createdSuccess && <Alert variant="success">La recette à été créée avec succès!</Alert>}
       {deletedSuccess && <Alert variant="success">La recette à été suprimée avec succès!</Alert>}
 
-      <div className="content">
-        <div>
+      <div className="recipeContent flex">
+        <div className="recipeListBox">
           <Button variant="demeter-dark" onClick={() => {
             setSelectedPage("CreateRecipe");
             closeAllAlerts();
           }}>Nouvelle Recette</Button>
+
           <RecipeList
             filter={filter}
             selectedPage={selectedPage}
@@ -51,47 +52,26 @@ function RecipePage({
           />
         </div>
 
-        <div className="filterButtons">
-          <Button
-            onClick={() => {
-              setFilter(null); closeAllAlerts();
-            }}
-            variant="secondary"
-          >
-            Tous
-          </Button>
-          <Button
-            onClick={() => {
-              setFilter(1); closeAllAlerts();
-            }}
-            variant="secondary"
-          >
-            Boulangerie
-          </Button>
-          <Button
-            onClick={() => {
+        <div className="filterBox">
+          <Button variant="secondary" onClick={() => {
+            setFilter(null); closeAllAlerts();
+          }}>Tous</Button>
+
+          <Button variant="secondary" onClick={() => {
+            setFilter(1); closeAllAlerts();
+          }}>Boulangerie</Button>
+
+          <Button variant="secondary" onClick={() => {
               setFilter(2); closeAllAlerts();
-            }}
-            variant="secondary"
-          >
-            Pâtisserie
-          </Button>
-          <Button
-            onClick={() => {
+            }}>Pâtisserie</Button>
+
+          <Button variant="secondary" onClick={() => {
               setFilter(3); closeAllAlerts();
-            }}
-            variant="secondary"
-          >
-            Viennoiserie
-          </Button>
-          <Button
-            onClick={() => {
+            }}>Viennoiserie</Button>
+          
+          <Button variant="secondary" onClick={() => {
               setFilter(4); closeAllAlerts();
-            }}
-            variant="secondary"
-          >
-            Cuisine
-          </Button>
+            }}>Cuisine</Button>
         </div>
       </div>
     </div>

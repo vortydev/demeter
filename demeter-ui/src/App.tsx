@@ -4,7 +4,6 @@ import { LoginPage } from "./components/Login Page/LoginPage";
 import { Navbar } from "./components/Templates/Navbar";
 import { Footerbar } from "./components/Templates/Footerbar";
 import { BodyDemeter } from "./components/Templates/BodyDemeter";
-import { Recipe } from "./types/Types";
 
 import "./css/App.css";
 

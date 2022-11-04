@@ -49,7 +49,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
           <Form.Label>NOM : </Form.Label>
           <Form.Control type="text" />
         </Form.Group>
-        <Form.Select className="mb-3" value={task.categorytaskId} id="typeTask" aria-label="TYPE : ">
+        <Form.Select className="mb-3" id="typeTask" aria-label="TYPE : ">
           <option value="1">Quotidiennes</option>
           <option value="2">Hebdomadaires</option>
           <option value="3">Autre</option>

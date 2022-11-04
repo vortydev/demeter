@@ -178,7 +178,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
 
                 <div className="mt-3 popupBtnBox">
                     <Button variant="demeter-dark" onClick={close}>Annuler</Button>
-                    <Button variant="demeter" onClick={addProduct}>Ajouter</Button>
+                    <Button variant="demeter" onClick={addProduct}>Confirmer</Button>
                 </div>
             </Form>
             <VendorForm show={createNewVendor} close={closeVendor} success={successVendor} />

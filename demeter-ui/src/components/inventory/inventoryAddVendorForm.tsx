@@ -73,7 +73,7 @@ function VendorForm({ show, close, success }: CRFormProps) {
     return (
         <Modal show={show} onHide={close}>
             <Form className="popupForm">
-                <h3 className="popupTitle">Nouveau Fournisseur</h3>
+                <h3 className="popupTitle">Ajouter un Fournisseur</h3>
 
                 {alerting && <Alert variant="danger">Veuillez entrer un nom.</Alert>}
                 {alerting1 && <Alert variant="danger">Veuillez entrer le numéro de téléphone aux formats suivants: ###-###-####, (###)###-#### ou ### ### ####.</Alert>}
@@ -101,7 +101,7 @@ function VendorForm({ show, close, success }: CRFormProps) {
 
                 <div className="mt-3 popupBtnBox">
                     <Button variant="demeter-dark" onClick={close}>Annuler</Button>
-                    <Button variant="demeter" onClick={addVendor}>Ajouter</Button>
+                    <Button variant="demeter" onClick={addVendor}>Confirmer</Button>
                 </div>
             </Form>
         </Modal>

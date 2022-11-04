@@ -20,6 +20,11 @@ function EditPasswordForm({
   const [validPassword, setValidPassword] = useState<boolean>(true);
   const [regexValidPassword, setRegexValidPassword] = useState<boolean>(true);
 
+  setTimeout(() => {
+    setValidPassword(true);
+    setRegexValidPassword(true);
+  }, 5000);
+
   async function handleSubmit() {
     const pw = document.getElementById("password") as HTMLInputElement;
     const pwc = document.getElementById("passwordConfirm") as HTMLInputElement;

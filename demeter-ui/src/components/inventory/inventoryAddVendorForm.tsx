@@ -17,6 +17,12 @@ function VendorForm({ show, close, success }: CRFormProps) {
     const [alerting1, setAlerting1] = useState<boolean>(false);
     const [alerting2, setAlerting2] = useState<boolean>(false);
 
+    setTimeout(() => {
+        setAlerting(false);
+        setAlerting1(false);
+        setAlerting2(false);
+    }, 5000);
+
     async function addVendor(): Promise<void>{
         const vendorName = document.getElementById("vendorName") as HTMLInputElement;
         const phone = document.getElementById("phone") as HTMLInputElement;

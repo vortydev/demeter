@@ -26,6 +26,13 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
 
     const [error, setError] = useState<boolean>(false);
 
+    setTimeout(() => {
+        setAlerting(false);
+        setAlerting1(false);
+        setAlerting2(false);
+        setAlerting3(false);
+    }, 5000);
+
     async function editProduct(): Promise<void> {
         const name = document.getElementById("name") as HTMLInputElement;
         const category = document.getElementById("category") as HTMLInputElement;

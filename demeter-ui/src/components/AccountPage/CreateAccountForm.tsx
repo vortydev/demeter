@@ -16,6 +16,12 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
   const [emptyAccName, setEmptyAccName] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
 
+  setTimeout(() => {
+    setValidPassword(true);
+    setRegexValidPassword(true);
+    setEmptyAccName(true);
+    setError(false);
+  }, 5000);
 
   async function handleSubmit(): Promise<void> {
     const accountName = document.getElementById("account") as HTMLInputElement;

@@ -34,7 +34,6 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
     }
 
     if (await updateTask(updatedTask)) {
-      console.log('it worked !!!!');
       success(true);
       close();
     } else {
@@ -45,18 +44,18 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
   return (
     <Modal onHide={close} show={show}>
       <Form>
-        <Form.Group className="mb-3" controlId="taskName">
+        <Form.Group className="mb-3"  controlId="taskName">
           <Form.Label>NOM : </Form.Label>
-          <Form.Control type="text" />
+          <Form.Control defaultValue={task.title} type="text" />
         </Form.Group>
-        <Form.Select className="mb-3" id="typeTask" aria-label="TYPE : ">
+        <Form.Select className="mb-3" defaultValue={task.categorytaskId} id="typeTask" aria-label="TYPE : ">
           <option value="1">Quotidiennes</option>
           <option value="2">Hebdomadaires</option>
           <option value="3">Autre</option>
         </Form.Select>
         <Form.Group className="mb-3" controlId="description">
           <Form.Label>DESCRIPTION : </Form.Label>
-          <Form.Control  as="textarea" rows={3} />
+          <Form.Control defaultValue={task.description} as="textarea" rows={3} />
         </Form.Group>
         <Button onClick={handleSubmit}>Ajouter</Button>
         <Button onClick={close}>Annuler</Button>

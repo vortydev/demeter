@@ -27,6 +27,7 @@ function CreateTaskForm({ show ,close, success }: CRFormProps) {
       description: description.value,
       categorytaskId: parseFloat(typeTask.value),
       parentId: 0 ? null : parseFloat(taskParent.value),
+      active:true,
       completed: false,
       picture: null,
       date: new Date(),

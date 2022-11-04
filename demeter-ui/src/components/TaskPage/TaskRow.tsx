@@ -1,21 +1,31 @@
+import { useState } from "react";
 import { Button } from "react-bootstrap";
-import { deleteTask, updateTask } from "../../services/task.funtions";
+import { deleteTask } from "../../services/task.funtions";
 import { Task } from "../../types/Types";
+import { EditTaskForm } from "../TaskPage/EditTaskForm";
 import "./task.css";
 
 interface TaskRowProps {
   task: Task;
   deleteSuccess: (deleted: boolean) => void;
+  editSuccess: (edited: boolean) => void;
 }
 
-function TaskRow ({task,deleteSuccess}: TaskRowProps){
+function TaskRow ({task,deleteSuccess,editSuccess}: TaskRowProps){
+  const [editform, setEditForm]=useState<boolean>(false);
+
+    function closeEditForm() {
+      setEditForm(false); 
+    }
 
     return(
-       <div className="taskRow"><input type="text" /> {task.title} <Button onClick={() => {updateTask(task,task.id)}}>edit</Button> <Button onClick={ () => {deleteTask(task.id);deleteSuccess(true)}} >delete</Button></div>
+       <div className="taskRow"><input type="text" /> {task.title} <Button onClick={() => {setEditForm(true)}}>edit</Button> <Button onClick={ () => {deleteTask(task.id);deleteSuccess(true)}} >delete</Button>
+          
+          <EditTaskForm show={editform} close={closeEditForm} success={editSuccess}/>
+       </div>
     );
 
 }
 export {TaskRow};
-
 
 

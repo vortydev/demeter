@@ -4,13 +4,14 @@ import { Alert, Button, Form, Modal } from "react-bootstrap";
 
 
 interface CRFormProps {
+    show:boolean;
     close: () => void;
-    success: ()=> void;
+    success: (succes:boolean)=> void;
   }
 
-  function EditTaskForm({ close, success }: CRFormProps) {
+  function EditTaskForm({ close, success,show }: CRFormProps) {
     return(
-      <Modal onHide ={close}>
+      <Modal onHide ={close} show={show}>
                 <Form>
           <Form.Group className="mb-3" controlId="task">
             <Form.Label>NOM : </Form.Label>

@@ -6,15 +6,17 @@ import { Task } from "../../types/Types";
 
 
 interface CRFormProps {
-  task:Task;
-    show:boolean;
-    close: () => void;
-    success: (succes:boolean)=> void;
-  }
+  task: Task;
+  show: boolean;
+  close: () => void;
+  success: (succes: boolean) => void;
+}
 
-  function EditTaskForm({ task, close, success,show }: CRFormProps) {
-    const [error, setError] = useState<boolean>(false);
-    
+function EditTaskForm({ task, close, success, show }: CRFormProps) {
+  const [error, setError] = useState<boolean>(false);
+
+  async function handleSubmit() {
+
     const taskName = document.getElementById("taskName") as HTMLInputElement;
     const description = document.getElementById("description") as HTMLInputElement;
     const typeTask = document.getElementById("typeTask") as HTMLInputElement;
@@ -30,39 +32,37 @@ interface CRFormProps {
       picture: null,
       date: new Date(),
     }
-    async function handleSubmit(updatedTask: Task) {
-      
-      if (await updateTask(updatedTask)) {
-        console.log('it worked !!!!');
-        success(true);
-        close();
-      } else {
-        setError(true);
-      }
-    }
 
-    return(
-      <Modal onHide ={close} show={show}>
-                <Form>
-          <Form.Group className="mb-3" controlId="task">
-            <Form.Label>NOM : </Form.Label>
-            <Form.Control  type="text"/>
-          </Form.Group>
-          <Form.Select className="mb-3" aria-label="TYPE : ">
-            <option></option>
-            <option value="1">Quotidiennes</option>
-            <option value="2">Hebdomadaires</option>
-            <option value="3">Autre</option>
-          </Form.Select>
-          <Form.Group className="mb-3" controlId="description">
-            <Form.Label>DESCRIPTION : </Form.Label>
-            <Form.Control as="textarea" rows={3}/>
-          </Form.Group>
-          <Button onClick={()=>{handleSubmit}}>Ajouter</Button>
-          <Button onClick={()=>{close}}>Annuler</Button>
-        </Form>
-      </Modal>
-    );
+    if (await updateTask(updatedTask)) {
+      console.log('it worked !!!!');
+      success(true);
+      close();
+    } else {
+      setError(true);
+    }
   }
 
-  export { EditTaskForm };
+  return (
+    <Modal onHide={close} show={show}>
+      <Form>
+        <Form.Group className="mb-3" controlId="taskName">
+          <Form.Label>NOM : </Form.Label>
+          <Form.Control type="text" />
+        </Form.Group>
+        <Form.Select className="mb-3" value={task.categorytaskId} id="typeTask" aria-label="TYPE : ">
+          <option value="1">Quotidiennes</option>
+          <option value="2">Hebdomadaires</option>
+          <option value="3">Autre</option>
+        </Form.Select>
+        <Form.Group className="mb-3" controlId="description">
+          <Form.Label>DESCRIPTION : </Form.Label>
+          <Form.Control  as="textarea" rows={3} />
+        </Form.Group>
+        <Button onClick={handleSubmit}>Ajouter</Button>
+        <Button onClick={close}>Annuler</Button>
+      </Form>
+    </Modal>
+  );
+}
+
+export { EditTaskForm };

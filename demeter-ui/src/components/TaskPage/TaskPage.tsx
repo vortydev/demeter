@@ -19,7 +19,7 @@ function TaskPage(): JSX.Element {
       console.log("listTask",listTask);
     }
     getList();
-  }, [taskCategory,createdSuccess,deletedSuccess]);
+  }, [taskCategory,createdSuccess,deletedSuccess, editedSuccess]);
   
   return (
     <div>

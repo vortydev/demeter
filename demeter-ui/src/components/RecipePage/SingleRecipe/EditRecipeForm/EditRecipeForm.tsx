@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Form, Modal, Nav } from "react-bootstrap";
+import { updateRecipe } from "../../../../services/recipe.functions";
 import { Ingredient, Recipe } from "../../../../types/Types";
 import { EditIngredient } from "./EditIngredients";
 
@@ -7,11 +8,21 @@ interface ERFProps {
   recipe: Recipe;
   listIng: Ingredient[];
   show: boolean;
+  setRecipe: (recipe : Recipe | null)=> void;
   setShow: (show: boolean) => void;
   setChanged: (changed: boolean) => void;
+  editedSuccess: (edited: boolean) => void;
 }
 
-function EditRecipeForm({ recipe, listIng, show, setShow, setChanged }: ERFProps) {
+function EditRecipeForm({
+  recipe,
+  listIng,
+  show,
+  setRecipe,
+  setShow,
+  setChanged,
+  editedSuccess,
+}: ERFProps) {
   const [recipeInfo, setRecipeInfo] = useState<Recipe>(recipe);
   const [editing, setEditing] = useState<String>("recipe");
 
@@ -41,7 +52,15 @@ function EditRecipeForm({ recipe, listIng, show, setShow, setChanged }: ERFProps
     setRecipeInfo(recipe);
   }
 
-
+  async function editRecipe() {
+    if (await updateRecipe(recipe.id, recipeInfo)) {
+      setRecipe(recipeInfo);
+      editedSuccess(true);
+      setShow(false);
+    } else {
+      console.log("problème édition recette !");
+    }
+  }
 
   return (
     <Modal show={show}>
@@ -62,7 +81,11 @@ function EditRecipeForm({ recipe, listIng, show, setShow, setChanged }: ERFProps
         </Nav.Item>
       </Nav>
       {editing === "ingredient" && (
-        <EditIngredient listIng={listIng} recipeId={recipe.id} setChanged={setChanged}/>
+        <EditIngredient
+          listIng={listIng}
+          recipeId={recipe.id}
+          setChanged={setChanged}
+        />
       )}
       {editing === "recipe" && (
         <div>
@@ -119,7 +142,7 @@ function EditRecipeForm({ recipe, listIng, show, setShow, setChanged }: ERFProps
           </Form>
         </div>
       )}
-      <Button>ENVOYER</Button>
+      <Button onClick={editRecipe}>ENVOYER</Button>
       <Button onClick={() => setShow(false)}>ANNULER</Button>
     </Modal>
   );

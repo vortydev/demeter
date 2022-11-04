@@ -87,4 +87,16 @@ async function deleteRecipe(id: number) {
   return await deleted && deletedAllIngredients;
 }
 
-export { createRecipe, getRecipesByCategory, deleteRecipe };
+async function updateRecipe(id: number, recipe: Recipe){
+  const updated = RecipeService.update(recipe, id.toString())
+      .then((response: any) => {
+        return true;
+      })
+      .catch((e: Error) => {
+        console.log(e);
+        return false;
+      });
+    return updated;
+}
+
+export { createRecipe, getRecipesByCategory, deleteRecipe, updateRecipe };

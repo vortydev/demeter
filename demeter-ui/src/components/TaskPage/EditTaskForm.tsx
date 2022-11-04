@@ -1,21 +1,52 @@
 import { useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
+import { updateTask } from "../../services/task.funtions";
+import { Task } from "../../types/Types";
 
 
 
 interface CRFormProps {
+  task:Task;
     show:boolean;
     close: () => void;
     success: (succes:boolean)=> void;
   }
 
-  function EditTaskForm({ close, success,show }: CRFormProps) {
+  function EditTaskForm({ task, close, success,show }: CRFormProps) {
+    const [error, setError] = useState<boolean>(false);
+    
+    const taskName = document.getElementById("taskName") as HTMLInputElement;
+    const description = document.getElementById("description") as HTMLInputElement;
+    const typeTask = document.getElementById("typeTask") as HTMLInputElement;
+
+    const updatedTask: Task = {
+      id: task.id,
+      title: taskName.value,
+      description: description.value,
+      categorytaskId: parseFloat(typeTask.value),
+      parentId: null,
+      completed: false,
+      active: false,
+      picture: null,
+      date: new Date(),
+    }
+    async function handleSubmit(updatedTask: Task) {
+      
+      if (await updateTask(updatedTask)) {
+        console.log('it worked !!!!');
+        success(true);
+        close();
+      } else {
+        setError(true);
+      }
+    }
+
     return(
       <Modal onHide ={close} show={show}>
                 <Form>
           <Form.Group className="mb-3" controlId="task">
             <Form.Label>NOM : </Form.Label>
-            <Form.Control type="text"/>
+            <Form.Control  type="text"/>
           </Form.Group>
           <Form.Select className="mb-3" aria-label="TYPE : ">
             <option></option>
@@ -23,18 +54,12 @@ interface CRFormProps {
             <option value="2">Hebdomadaires</option>
             <option value="3">Autre</option>
           </Form.Select>
-          <Form.Select className="mb-3" aria-label="TACHE PARENT : ">
-            <option>Aucune</option>
-            <option value="1"></option>
-            <option value="2"></option>
-            <option value="3"></option>
-          </Form.Select>
           <Form.Group className="mb-3" controlId="description">
             <Form.Label>DESCRIPTION : </Form.Label>
             <Form.Control as="textarea" rows={3}/>
           </Form.Group>
-          <Button onClick={()=>{console.log("Click!")}}>Ajouter</Button>
-          <Button onClick={()=>{console.log("Cancel!")}}>Annuler</Button>
+          <Button onClick={()=>{handleSubmit}}>Ajouter</Button>
+          <Button onClick={()=>{close}}>Annuler</Button>
         </Form>
       </Modal>
     );

@@ -18,8 +18,8 @@ class TaskService {
     return http.post<Task>("/tasks", data);
   }
 
-  update(data: Task, id: number) {
-    return http.put<any>(`/tasks/${id}`, data);
+  update(data: Task) {
+    return http.put<any>(`/tasks/${data.id}`, data);
   }
 
   delete(id: number) {

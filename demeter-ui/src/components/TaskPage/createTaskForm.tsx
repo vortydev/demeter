@@ -19,14 +19,13 @@ function CreateTaskForm({ show ,close, success }: CRFormProps) {
     const taskName = document.getElementById("taskName") as HTMLInputElement;
     const description = document.getElementById("description") as HTMLInputElement;
     const typeTask = document.getElementById("typeTask") as HTMLInputElement;
-    const taskParent = document.getElementById("parentId") as HTMLInputElement;
 
     const newTask: Task = {
       id:1,
       title: taskName.value,
       description: description.value,
       categorytaskId: parseFloat(typeTask.value),
-      parentId: 0 ? null : parseFloat(taskParent.value),
+      parentId: null,
       active:true,
       completed: false,
       picture: null,
@@ -54,13 +53,6 @@ function CreateTaskForm({ show ,close, success }: CRFormProps) {
           <option value="1">Quotidiennes</option>
           <option value="2">Hebdomadaires</option>
           <option value="3">Autre</option>
-        </Form.Select>
-        <Form.Select className="mb-3" id="parentId" aria-label="TACHE PARENT : ">
-        <option>Choisir</option>
-          <option value="0"> Aucune</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
         </Form.Select>
         <Form.Group className="mb-3" controlId="description">
           <Form.Label>DESCRIPTION : </Form.Label>

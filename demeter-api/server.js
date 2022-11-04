@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));  // parse application/x-www-for
 
 // initilizes the database
 const db = require("./app/models");
-db.sequelize.sync({force: true})                 // {force: true} drops the db
+db.sequelize.sync({})                 // {force: true} drops the db
   .then(() => {
     console.log("Synced db.");
 

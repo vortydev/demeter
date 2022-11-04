@@ -9,6 +9,7 @@ import { TaskRow } from "./TaskRow";
 function TaskPage(): JSX.Element {
   const [createdSuccess, setSuccess] = useState<boolean>(false);
   const [deletedSuccess, setDelete ] = useState<boolean>(false);
+  const [editedSuccess, editSuccess ] = useState<boolean>(false);
   const [taskCategory, setTaskCategory] = useState<number>(1);
   const [listTask,setListTask] = useState<Task[]>([]);
 
@@ -18,7 +19,7 @@ function TaskPage(): JSX.Element {
       console.log("listTask",listTask);
     }
     getList();
-  }, [taskCategory,createdSuccess,deletedSuccess]);
+  }, [taskCategory,createdSuccess,deletedSuccess, editedSuccess]);
   
   return (
     <div>
@@ -35,7 +36,7 @@ function TaskPage(): JSX.Element {
 
       <div>
       {listTask.map((Task) => (
-        <TaskRow task={Task} deleteSuccess={setDelete} />
+        <TaskRow task={Task} deleteSuccess={setDelete} editSuccess={editSuccess} />
       ))}
     </div>
       

@@ -53,6 +53,9 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
           <option value="2">Hebdomadaires</option>
           <option value="3">Autre</option>
         </Form.Select>
+        <Form.Group>
+          <Form.Label>Tâche enfant(s) : </Form.Label>
+        </Form.Group>
         <Form.Group className="mb-3" controlId="description">
           <Form.Label>DESCRIPTION : </Form.Label>
           <Form.Control defaultValue={task.description} as="textarea" rows={3} />

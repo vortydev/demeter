@@ -19,7 +19,7 @@ function TaskRow ({task,deleteSuccess,editSuccess}: TaskRowProps){
     }
 
     return(
-       <div className="taskRow"><input type="text" /> {task.title} <Button onClick={() => {setEditForm(true)}}>edit</Button> <Button onClick={ () => {deleteTask(task.id);deleteSuccess(true)}} >delete</Button>
+       <div className="taskRow"><input className="responable" type="text" /> {task.title} <Button onClick={() => {setEditForm(true)}}>edit</Button> <Button onClick={ () => {deleteTask(task.id);deleteSuccess(true)}} >delete</Button>
           
           <EditTaskForm task={task} show={editform} close={closeEditForm} success={editSuccess}/>
        </div>

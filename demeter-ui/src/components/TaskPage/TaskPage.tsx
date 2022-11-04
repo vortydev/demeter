@@ -16,11 +16,14 @@ function TaskPage(): JSX.Element {
   useEffect(() => {
     async function getList() {
       setListTask(await getbyCategorie(taskCategory));
-      console.log("listTask",listTask);
     }
     getList();
   }, [taskCategory,createdSuccess,deletedSuccess, editedSuccess]);
   
+  async function handlesubmit() {
+    
+  }
+
   return (
     <div>
       <TaskNav
@@ -41,7 +44,7 @@ function TaskPage(): JSX.Element {
       ))}
     </div>
       
-      <Button variant="outline-dark">Afficher L'Historique</Button>
+      <Button variant="outline-dark" onClick={handlesubmit}>Afficher L'Historique</Button>
       <Button variant="dark">Compléter les tâches</Button>
     </div>
   );

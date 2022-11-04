@@ -23,7 +23,6 @@ class TaskService {
   }
 
   delete(id: number) {
-    console.log("taskservice", id);
     return http.delete<any>(`/tasks/${id}`);
   }
 }

@@ -25,6 +25,7 @@ type Task = {
     categorytaskId: number;
     parentId: number|null;
     completed: boolean;
+    active: boolean;
     picture: string | null;
     date: Date;
 }

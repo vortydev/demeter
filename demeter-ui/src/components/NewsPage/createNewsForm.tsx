@@ -66,7 +66,7 @@ interface CRFormProps {
             </Form.Group>
             <div className="mt-3 popupBtnBox">
               <Button variant="demeter-dark" onClick={() => { console.log("CANCEL ADD NEWS") }}>Annuler</Button>
-              <Button variant="demeter" onClick={() => { console.log("ADD NEWS") }}>Ajouter</Button>
+              <Button variant="demeter" onClick={() => { console.log("ADD NEWS") }}>Confirmer</Button>
             </div>
           </Form>
         </Modal>

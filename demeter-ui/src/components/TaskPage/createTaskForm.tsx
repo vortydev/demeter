@@ -19,14 +19,14 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
     const taskName = document.getElementById("taskName") as HTMLInputElement;
     const description = document.getElementById("description") as HTMLInputElement;
     const typeTask = document.getElementById("typeTask") as HTMLInputElement;
-    const taskParent = document.getElementById("parentId") as HTMLInputElement;
 
     const newTask: Task = {
       id: 1,
       title: taskName.value,
       description: description.value,
       categorytaskId: parseFloat(typeTask.value),
-      parentId: 0 ? null : parseFloat(taskParent.value),
+      parentId: null,
+      active:true,
       completed: false,
       picture: null,
       date: new Date(),
@@ -66,7 +66,7 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
 
         <div className="mt-3 popupBtnBox">
           <Button variant="demeter-dark" onClick={close}>Annuler</Button>
-          <Button variant="demeter" onClick={handlesubmit}>Ajouter</Button>
+          <Button variant="demeter" onClick={handlesubmit}>Confirmer</Button>
         </div>
       </Form>
     </Modal>

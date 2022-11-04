@@ -4,6 +4,8 @@ import { getMesurementById } from "../../../../services/inventory.functions";
 import { IngForRecipe } from "../../../../types/RecipeTypes.types";
 import { Mesurement } from "../../../../types/Types";
 import { pricePerQuantity } from "../../helper";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 interface IRFProps {
   listIng: IngForRecipe[];
@@ -41,14 +43,11 @@ function IngredientRowForm({
   const cost = pricePerQuantity(ingredient);
 
     return (
-      <div>
-        <span>{index}. {ingredient.ingredient.name}</span>
-        <span>
-          {ingredient.quantity}
-          {mesure?.mesurement}
-        </span>
-        <span>{cost}$</span>
-        <Button onClick={removeIngredient}>DELETE</Button>
+      <div className="ingListRow flex cellShade mb-2">
+        <span className="ingListCol cellCenter">{index}. {ingredient.ingredient.name}</span>
+        <span className="ingListColS cellCenter">{ingredient.quantity}{" "}{mesure?.mesurement}</span>
+        <span className="ingListColS cellCenter">{cost}$</span>
+        <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={removeIngredient}/>
       </div>
     );
   } 

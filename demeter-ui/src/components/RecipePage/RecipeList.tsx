@@ -32,11 +32,11 @@ function RecipeList({ filter, selectedPage, setSelectedPage, setRecipePage }: Re
   }
 
   return (
-    <div className="recipeList">
+    <div className="recipeList flex">
       {filter != null && listRecipe.length === 0 && (<p>Aucune recette</p>)}
       {filter === null && listRecipe.length === 0 && (<p>Aucune recette</p>)}
       {listRecipe.map((recipe) => (
-        <span onClick={() => goToRecipePage(recipe)}>
+        <span className="cursor cellShade" onClick={() => goToRecipePage(recipe)}>
           {recipe.title}
         </span>
       ))}

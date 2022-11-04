@@ -28,17 +28,14 @@ function IngredientListForm({ listIng, setRecipeCost }: ILFProps) {
 
   if (listIng.length <= 0) {
     return (
-      <div className="IngListEmpty">
+      <div className="ingListEmpty popupForm">
         <span>Aucun Ingrédient</span>
-        <Button
-          onClick={() => {
+
+        <Button className="mt-3" variant="demeter-dark" onClick={() => {
             setAddIngredient(true);
             setDeleteIngredient(false);
-          }}
-          variant="outline-secondary"
-        >
-          + Ingrédient
-        </Button>
+          }}>+ Ingrédient</Button>
+
         <AddIngredientForm
           show={addIngredient}
           setShow={setAddIngredient}
@@ -49,11 +46,15 @@ function IngredientListForm({ listIng, setRecipeCost }: ILFProps) {
   }
 
   return (
-    <div className="IngListForm">
+    <div className="ingListForm popupForm">
       {deleteIngredient && (
         <Alert variant="success">Ingrédient supprimé avec succès!</Alert>
       )}
-      <span>NOM | QUANTITÉ | PRIX</span>
+      <div className="ingListHeader flex mb-2">
+        <span className="ingListCol">Nom</span>
+        <span className="ingListColS">Quantité</span>
+        <span className="ingListColS">Coût</span>
+      </div>
       <div>
         {listIng.map((ing) => (
           <IngredientRowForm
@@ -64,7 +65,7 @@ function IngredientListForm({ listIng, setRecipeCost }: ILFProps) {
         ))}
       </div>
 
-      <Button variant="demeter-dark"
+      <Button className="mt-1" variant="demeter-dark"
         onClick={() => {
           setAddIngredient(true);
           setDeleteIngredient(false);

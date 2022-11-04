@@ -30,6 +30,10 @@ function RecipePage({
     setDeletedSuccess(false);
   }
 
+  setTimeout(() => {
+    closeAllAlerts();
+  }, 5000);
+
   return (
     <div className="recipePage">
       <h1 className="pageTitle">Carnet de Recettes</h1>
@@ -37,7 +41,7 @@ function RecipePage({
       {createdSuccess && <Alert variant="success">La recette à été créée avec succès!</Alert>}
       {deletedSuccess && <Alert variant="success">La recette à été suprimée avec succès!</Alert>}
 
-      <div className="recipeContent flex mt-3">
+      <div className="recipeContent flex mt-4">
         <div className="recipeListBox">
           <Button className="mb-2" variant="demeter-dark" onClick={() => {
             setSelectedPage("CreateRecipe");
@@ -62,16 +66,16 @@ function RecipePage({
           }}>Boulangerie</Button>
 
           <Button variant="secondary" onClick={() => {
-              setFilter(2); closeAllAlerts();
-            }}>Pâtisserie</Button>
+            setFilter(2); closeAllAlerts();
+          }}>Pâtisserie</Button>
 
           <Button variant="secondary" onClick={() => {
-              setFilter(3); closeAllAlerts();
-            }}>Viennoiserie</Button>
-          
+            setFilter(3); closeAllAlerts();
+          }}>Viennoiserie</Button>
+
           <Button variant="secondary" onClick={() => {
-              setFilter(4); closeAllAlerts();
-            }}>Cuisine</Button>
+            setFilter(4); closeAllAlerts();
+          }}>Cuisine</Button>
         </div>
       </div>
     </div>

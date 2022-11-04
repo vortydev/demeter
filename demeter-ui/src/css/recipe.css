@@ -14,10 +14,16 @@
 .recipeListBox {
     width: fit-content;
     margin: 0 auto;
-    min-width: 50%;
+    margin-left: 1rem;
 }
 
 .recipeList {
+    width: 100%;
+    flex-direction: column;
+}
+
+.recipeList>span {
+    text-align: left;
     width: 100%;
 }
 
@@ -31,10 +37,63 @@
 }
 
 .createRecipePage {
-    width: 60%;
+    width: 80%;
     margin: auto;
+    margin-bottom: 4rem;
 }
 
 .newRecipeForm {
     width: 100%;
+    text-align: left;
+}
+
+.addIngQt {
+    margin-right: .5rem;
+}
+
+.addIngQt>input {
+    width: 10rem;
+}
+
+.addIngQt>* {
+    align-self: center;
+}
+
+.ingListEmpty {
+    width: 100%;
+    text-align: center;
+}
+
+.ingListEmpty>span {
+    width: 100%;
+    display: inline-block;
+}
+
+.ingListHeader {
+    width: 100%;
+    color: var(--demeter-grey);
+    justify-content: flex-start;
+}
+
+.ingListHeader>span {
+    display: inline-block;
+    text-align: left;
+    min-width: fit-content;
+}
+
+.ingListRow {
+    text-align: left;
+    justify-content: flex-start;
+}
+
+.ingListRow>span {
+    text-align: left !important;
+}
+
+.ingListCol {
+    width: 50%;
+}
+
+.ingListColS {
+    width: 20%;
 }

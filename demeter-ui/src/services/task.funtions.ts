@@ -42,8 +42,8 @@ async function createTask(data: Task): Promise<boolean> {
   return taskCreated;
 }
 
-async function updateTask(data: Task, tkName: String): Promise<boolean> {
-  const taskUpdated = TaskService.update(data, tkName)
+async function updateTask(data: Task): Promise<boolean> {
+  const taskUpdated = TaskService.update(data)
     .then((response: any) => {
       return true;
     })

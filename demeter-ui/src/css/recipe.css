@@ -6,8 +6,9 @@
 .recipeContent {
     width: 80%;
     margin: auto;
-    flex-direction: row;
+    flex-direction: row-reverse;
     justify-content: space-between;
+    display: inline-flex;
 }
 
 .recipeListBox {
@@ -16,12 +17,17 @@
     min-width: 50%;
 }
 
+.recipeList {
+    width: 100%;
+}
+
 .filterBox {
     width: min-content;
 }
 
 .filterBox>button {
     width: 10rem;
+    margin-bottom: .5rem;
 }
 
 .createRecipePage {

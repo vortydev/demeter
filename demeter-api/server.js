@@ -28,8 +28,6 @@ db.sequelize.sync({})                 // {force: true} drops the db
     ], { ignoreDuplicates: true })
       .then(() => console.log("Roles inserted."));
 
-     
-
     // insert states
     db.states.bulkCreate([
       { id: "1", state: "Inactif" },
@@ -52,6 +50,7 @@ db.sequelize.sync({})                 // {force: true} drops the db
       { id: "3", mesurement: "mL", weight: "1" },
       { id: "4", mesurement: "L", weight: "1000" },
       { id: "5", mesurement: "Unité", weight: "1" },
+      { id: "6", mesurement: "lb", weight: "1" },
     ], { ignoreDuplicates: true })
       .then(() => console.log("Mesurements inserted."));
 

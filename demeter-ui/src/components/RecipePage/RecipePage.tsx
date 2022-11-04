@@ -37,9 +37,9 @@ function RecipePage({
       {createdSuccess && <Alert variant="success">La recette à été créée avec succès!</Alert>}
       {deletedSuccess && <Alert variant="success">La recette à été suprimée avec succès!</Alert>}
 
-      <div className="recipeContent flex">
+      <div className="recipeContent flex mt-3">
         <div className="recipeListBox">
-          <Button variant="demeter-dark" onClick={() => {
+          <Button className="mb-2" variant="demeter-dark" onClick={() => {
             setSelectedPage("CreateRecipe");
             closeAllAlerts();
           }}>Nouvelle Recette</Button>

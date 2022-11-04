@@ -3,6 +3,7 @@ module.exports = (sequelize, Sequelize) => {
         title: { type: Sequelize.TEXT },
         description: { type: Sequelize.TEXT },
         completed: { type: Sequelize.BOOLEAN },
+        active: { type: Sequelize.BOOLEAN },
         responsable: { type: Sequelize.STRING }
     });
     

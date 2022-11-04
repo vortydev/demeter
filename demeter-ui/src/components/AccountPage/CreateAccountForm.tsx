@@ -24,9 +24,8 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
     const role = document.getElementById("role") as HTMLInputElement;
 
     setValidPassword(true);
+    setRegexValidPassword(true);
     setError(false);
-
-    // TODO alert Il existe déja un compte de ce nom
 
     const regexPassword = new RegExp (/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,}/);
 

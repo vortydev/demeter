@@ -3,8 +3,6 @@ import { Alert, Button, Form, Modal } from "react-bootstrap";
 import { updateTask } from "../../services/task.funtions";
 import { Task } from "../../types/Types";
 
-
-
 interface CRFormProps {
   task: Task;
   show: boolean;
@@ -14,11 +12,13 @@ interface CRFormProps {
 
 function EditTaskForm({ task, close, success, show }: CRFormProps) {
   const [error, setError] = useState<boolean>(false);
+  const [childTask, setChildTask] = useState<Task[]>([]);
 
   async function handleSubmit() {
-
     const taskName = document.getElementById("taskName") as HTMLInputElement;
-    const description = document.getElementById("description") as HTMLInputElement;
+    const description = document.getElementById(
+      "description"
+    ) as HTMLInputElement;
     const typeTask = document.getElementById("typeTask") as HTMLInputElement;
 
     const updatedTask: Task = {
@@ -31,7 +31,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
       active: false,
       picture: null,
       date: new Date(),
-    }
+    };
 
     if (await updateTask(updatedTask)) {
       success(true);
@@ -41,24 +41,111 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
     }
   }
 
+  const handleChangeSubTask = (
+    id: number,
+    event: { target: { name: string | number; value: any } }
+  ) => {
+    const newChildTask = childTask.map((ct) => {
+      if (id === ct.id) {
+        if(event.target.name === "description"){
+          ct.description = event.target.value;
+        } else if(event.target.name === "title"){
+          ct.title = event.target.value;
+        }
+       
+      }
+      return ct;
+    });
+
+    setChildTask(newChildTask);
+  };
+
+  const handleAddSubTask = () => {
+    setChildTask([
+      ...childTask,
+      {
+        id: Number(new Date()),
+        title: "",
+        description: "",
+        categorytaskId: task.categorytaskId,
+        parentId: task.id,
+        completed: false,
+        active: false,
+        picture: null,
+        date: new Date(),
+      },
+    ]);
+  };
+
+  const handleRemoveSubTask = (id: number) => {
+    const values = [...childTask];
+    values.splice(
+      values.findIndex((value) => value.id === id),
+      1
+    );
+    setChildTask(values);
+  };
+
   return (
     <Modal onHide={close} show={show}>
       <Form>
-        <Form.Group className="mb-3"  controlId="taskName">
+        <Form.Group className="mb-3" controlId="taskName">
           <Form.Label>NOM : </Form.Label>
           <Form.Control defaultValue={task.title} type="text" />
         </Form.Group>
-        <Form.Select className="mb-3" defaultValue={task.categorytaskId} id="typeTask" aria-label="TYPE : ">
+        <Form.Select
+          className="mb-3"
+          defaultValue={task.categorytaskId}
+          id="typeTask"
+          aria-label="TYPE : "
+        >
           <option value="1">Quotidiennes</option>
           <option value="2">Hebdomadaires</option>
           <option value="3">Autre</option>
         </Form.Select>
-        <Form.Group>
-          <Form.Label>Tâche enfant(s) : </Form.Label>
-        </Form.Group>
+        {childTask.map((ct) => (
+          <div key={ct.id}>
+            <Form.Group className="mb-3" controlId="subTaskName">
+              <Form.Label>NOM : </Form.Label>
+              <Form.Control
+              name="title"
+                value={ct.title}
+                type="text"
+                onChange={(event: {
+                  target: { name: string | number; value: any };
+                }) => handleChangeSubTask(ct.id, event)}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="subTaskDescription">
+              <Form.Label>DESCRIPTION: </Form.Label>
+              <Form.Control
+                value={ct.description}
+                name="description"
+                type="text"
+                onChange={(event: {
+                  target: { name: string | number; value: any };
+                }) => handleChangeSubTask(ct.id, event)}
+              />
+            </Form.Group>
+
+            <Button
+              onClick={() => handleRemoveSubTask(ct.id)}
+            >
+              DELETE
+            </Button>
+          
+          </div>
+        ))}
+  <Button onClick={handleAddSubTask}>
+              Ajouter une tâche subordonnée
+            </Button>
         <Form.Group className="mb-3" controlId="description">
           <Form.Label>DESCRIPTION : </Form.Label>
-          <Form.Control defaultValue={task.description} as="textarea" rows={3} />
+          <Form.Control
+            defaultValue={task.description}
+            as="textarea"
+            rows={3}
+          />
         </Form.Group>
         <Button onClick={handleSubmit}>Ajouter</Button>
         <Button onClick={close}>Annuler</Button>

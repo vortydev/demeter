@@ -1,17 +1,17 @@
 import { useState } from "react";
 import { Button, Form, Modal, Nav } from "react-bootstrap";
-import { VoidExpression } from "typescript";
-import { Ingredient, Recipe } from "../../../types/Types";
-import { IngredientRow } from "./IngredientRow";
+import { Ingredient, Recipe } from "../../../../types/Types";
+import { EditIngredient } from "./EditIngredients";
 
 interface ERFProps {
   recipe: Recipe;
   listIng: Ingredient[];
   show: boolean;
   setShow: (show: boolean) => void;
+  setChanged: (changed: boolean) => void;
 }
 
-function EditRecipeForm({ recipe, listIng, show, setShow }: ERFProps) {
+function EditRecipeForm({ recipe, listIng, show, setShow, setChanged }: ERFProps) {
   const [recipeInfo, setRecipeInfo] = useState<Recipe>(recipe);
   const [editing, setEditing] = useState<String>("recipe");
 
@@ -41,9 +41,7 @@ function EditRecipeForm({ recipe, listIng, show, setShow }: ERFProps) {
     setRecipeInfo(recipe);
   }
 
-  function removeIngredient(ing: Ingredient){
-    
-  }
+
 
   return (
     <Modal show={show}>
@@ -64,15 +62,7 @@ function EditRecipeForm({ recipe, listIng, show, setShow }: ERFProps) {
         </Nav.Item>
       </Nav>
       {editing === "ingredient" && (
-        <div>
-          {listIng.map((ing) => (
-            <div>
-              <IngredientRow ingredient={ing} />
-              <Button onClick={()=>removeIngredient(ing)}>DELETE</Button>
-            </div>
-          ))}
-          <Button variant="outline-dark">+ ingrédient</Button>
-        </div>
+        <EditIngredient listIng={listIng} recipeId={recipe.id} setChanged={setChanged}/>
       )}
       {editing === "recipe" && (
         <div>

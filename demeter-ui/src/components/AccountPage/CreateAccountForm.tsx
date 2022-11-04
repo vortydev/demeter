@@ -26,6 +26,7 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
     setError(false);
 
     // TODO check the username is already taken
+    // alert Il existe déja un compte de ce nom
 
     const regexPassword = new RegExp (/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,}/);
 

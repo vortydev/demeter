@@ -14,25 +14,45 @@ exports.create = async (req, res) => {
         return;
     }
 
-    // Create an account
-    const account = {
-        accName: req.body.accName,
-        accPassword: req.body.accPassword,
-        roleId: req.body.roleId,
-        stateId: req.body.stateId
-    };
+    const accName = req.body.accName;
+    var condition = accName ? { accName: { [Op.like]: accName } } : null;
 
-    // Save account in the database
-    Account.create(account)
+    // cherche l'utilisateur avec le nom en paramètre
+    Account.findAll({ where: condition })
         .then(data => {
-            res.send(data);
+            // retourne l'utilisateur
+            if(data[0]) {
+                res.send(data);
+            }
+            else {
+                // Create an account
+                const account = {
+                    accName: req.body.accName,
+                    accPassword: req.body.accPassword,
+                    roleId: req.body.roleId,
+                    stateId: req.body.stateId
+                };
+
+                // Save account in the database
+                Account.create(account)
+                    .then(data => {
+                        res.send(data);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        res.status(500).send({
+                            message: err.message || "Some error occurred while creating the Account."
+                        });
+                    });
+            }
         })
         .catch(err => {
-            console.log(err);
             res.status(500).send({
-                message: err.message || "Some error occurred while creating the Account."
+                message:
+                    err.message || "Some error occurred while retrieving accounts."
             });
         });
+
 };
 
 // Retrieve all Accounts from the database.

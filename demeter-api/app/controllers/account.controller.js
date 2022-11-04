@@ -22,7 +22,7 @@ exports.create = async (req, res) => {
         .then(data => {
             // retourne l'utilisateur
             if(data[0]) {
-                res.status(500).send({
+                res.status(400).send({
                     message : "The account already exists"
                 });
             }

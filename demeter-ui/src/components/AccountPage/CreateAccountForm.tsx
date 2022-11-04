@@ -13,6 +13,7 @@ interface CAFormProps {
 function CreateAccountForm({ show, close, success }: CAFormProps) {
   const [validPassword, setValidPassword] = useState<boolean>(true);
   const [regexValidPassword, setRegexValidPassword] = useState<boolean>(true);
+  const [emptyAccName, setEmptyAccName] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
 
 
@@ -25,12 +26,14 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
     setValidPassword(true);
     setError(false);
 
-    // TODO check the username is already taken
-    // alert Il existe déja un compte de ce nom
+    // TODO alert Il existe déja un compte de ce nom
 
     const regexPassword = new RegExp (/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,}/);
 
-    if (pw.value !== pwc.value || !pw.value || !pwc.value) {
+    if (!accountName.value){
+      setEmptyAccName(false);
+    }
+    else if (pw.value !== pwc.value || !pw.value || !pwc.value) {
       setValidPassword(false);
     }
     else if(!regexPassword.test(pw.value)) {
@@ -58,6 +61,11 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
         {!validPassword && (
           <Alert variant="danger">
             Les mots de passe ne correspondent pas.
+          </Alert>
+        )}
+        {!emptyAccName && (
+          <Alert variant="danger">
+            Veuillez entrer un nom d'utilisateur.
           </Alert>
         )}
         {!regexValidPassword && (

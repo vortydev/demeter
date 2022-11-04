@@ -20,6 +20,7 @@ exports.create = (req, res) => {
         parentId: req.body.parentId | null,
         description: req.body.description,
         completed: req.body.completed | false,
+        active: req.body.active | true,
         responsable: req.body.responsable | null
     };
 

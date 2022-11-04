@@ -1,0 +1,40 @@
+.recipePage {
+    width: 60%;
+    margin: auto;
+}
+
+.recipeContent {
+    width: 80%;
+    margin: auto;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    display: inline-flex;
+}
+
+.recipeListBox {
+    width: fit-content;
+    margin: 0 auto;
+    min-width: 50%;
+}
+
+.recipeList {
+    width: 100%;
+}
+
+.filterBox {
+    width: min-content;
+}
+
+.filterBox>button {
+    width: 10rem;
+    margin-bottom: .5rem;
+}
+
+.createRecipePage {
+    width: 60%;
+    margin: auto;
+}
+
+.newRecipeForm {
+    width: 100%;
+}

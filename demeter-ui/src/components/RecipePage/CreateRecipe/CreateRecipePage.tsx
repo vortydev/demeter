@@ -28,10 +28,10 @@ function CreateRecipePage({ setSelectedPage, setCreated }: CRPProps) {
   const [listIng, setListIng] = useState<IngForRecipe[]>([]);
 
 
-   useEffect(() => {
-    setTotalCost( recipeCost + recipeInfo.otherCost);
+  useEffect(() => {
+    setTotalCost(recipeCost + recipeInfo.otherCost);
   }, [recipeCost, recipeInfo.otherCost, totalCost]);
-  
+
   async function handleSubmit() {
     setInvalid(false);
     if (await createRecipe(recipeInfo, listIng)) {
@@ -44,16 +44,15 @@ function CreateRecipePage({ setSelectedPage, setCreated }: CRPProps) {
 
   return (
     <div className="createRecipePage">
-      {invalid && (
-        <Alert variant="danger">
-          Informations invalides, la recette n'a pas été créée.
-        </Alert>
-      )}
+      {invalid && (<Alert variant="danger">Informations invalides, la recette n'a pas été créée.</Alert>)}
       <CreateRecipeForm setRecipeInfo={setRecipeInfo} />
       <IngredientListForm setRecipeCost={setRecipeCost} listIng={listIng} />
       <span>Coût Total : {totalCost}$</span>
-      <Button onClick={handleSubmit}>CRÉER LA RECETTE</Button>
-      <Button onClick={() => setSelectedPage("recipe")}>RETOUR</Button>
+
+      <div className="popupBtnBox mt-3">
+        <Button variant="demeter-dark" onClick={() => setSelectedPage("recipe")}>Annuler</Button>
+        <Button variant="demeter" onClick={handleSubmit}>Ajouter</Button>
+      </div>
     </div>
   );
 }

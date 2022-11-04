@@ -26,10 +26,6 @@ class TaskService {
     console.log("taskservice", id);
     return http.delete<any>(`/tasks/${id}`);
   }
-
-  deleteAll() {
-    return http.delete<any>(`/tasks`);
-  }
 }
 
 export default new TaskService();

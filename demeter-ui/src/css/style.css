@@ -150,6 +150,7 @@ option {
 
 .popupSelectBox{
     display: inline-block;
+    width: 100%;
 }
 
 .popupSelectLabel {

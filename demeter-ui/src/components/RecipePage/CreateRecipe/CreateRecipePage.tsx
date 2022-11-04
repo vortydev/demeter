@@ -43,17 +43,21 @@ function CreateRecipePage({ setSelectedPage, setCreated }: CRPProps) {
   }
 
   return (
-    <div className="createRecipePage">
+    <section className="createRecipePage">
+      <h1 className="pageTitle">Nouvelle Recette</h1>
       {invalid && (<Alert variant="danger">Informations invalides, la recette n'a pas été créée.</Alert>)}
-      <CreateRecipeForm setRecipeInfo={setRecipeInfo} />
-      <IngredientListForm setRecipeCost={setRecipeCost} listIng={listIng} />
+      <div className="popupRowSplit">
+        <CreateRecipeForm setRecipeInfo={setRecipeInfo} />
+        <IngredientListForm setRecipeCost={setRecipeCost} listIng={listIng} />
+      </div>
+
       <span>Coût Total : {totalCost}$</span>
 
       <div className="popupBtnBox mt-3">
         <Button variant="demeter-dark" onClick={() => setSelectedPage("recipe")}>Annuler</Button>
         <Button variant="demeter" onClick={handleSubmit}>Confirmer</Button>
       </div>
-    </div>
+    </section>
   );
 }
 

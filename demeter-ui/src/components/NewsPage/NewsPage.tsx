@@ -55,6 +55,7 @@ function NewsPage(): JSX.Element {
 
   return (
     <div>
+      <h1 className="pageTitle">Annonces</h1>
       {createdSuccess && <Alert>L'annonce à été créer avec succès!</Alert>}
       <p className="loginText">Vous êtes connecté en tant que {connected}</p>
       <div className="newsAdd mb-2">

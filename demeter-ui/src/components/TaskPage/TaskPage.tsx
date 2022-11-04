@@ -22,6 +22,7 @@ function TaskPage(): JSX.Element {
   
   return (
     <div>
+      <h1 className="pageTitle">Tâches</h1>
       <TaskNav
         taskCategory={taskCategory}
         setTaskCategory={setTaskCategory}
@@ -30,7 +31,6 @@ function TaskPage(): JSX.Element {
       />
       {createdSuccess && <Alert>La tâche à été créer avec succès!</Alert>}
       {deletedSuccess && <Alert>La tâche à été supprimer avec succès!</Alert>}
-      <h1>Tasks Page</h1>
       <p>Liste de tâches {taskCategory}</p>
 
       <div>

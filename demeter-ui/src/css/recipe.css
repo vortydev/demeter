@@ -19,6 +19,8 @@
 
 .recipeList {
     width: 100%;
+    flex-direction: column;
+    text-align: left;
 }
 
 .filterBox {
@@ -33,8 +35,21 @@
 .createRecipePage {
     width: 60%;
     margin: auto;
+    margin-bottom: 4rem;
 }
 
 .newRecipeForm {
     width: 100%;
+}
+
+.addIngQt {
+    margin-right: .5rem;
+}
+
+.addIngQt>input {
+    width: 10rem;
+}
+
+.addIngQt>* {
+    align-self: center;
 }

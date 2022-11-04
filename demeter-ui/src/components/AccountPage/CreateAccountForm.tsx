@@ -80,7 +80,7 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
 
         <div className="mt-3 popupBtnBox">
           <Button variant="demeter-dark" onClick={close}>Annuler</Button>
-          <Button variant="demeter" onClick={handleSubmit}>Ajouter</Button>
+          <Button variant="demeter" onClick={handleSubmit}>Confirmer</Button>
         </div>
       </Form>
     </Modal>

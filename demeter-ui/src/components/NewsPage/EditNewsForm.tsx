@@ -30,7 +30,7 @@ function EditNewsForm({ close, success }: CRFormProps) {
           <Form.Label>DESCRIPTION : </Form.Label>
           <Form.Control as="textarea" rows={3}/>
         </Form.Group>
-        <Button onClick={()=>{console.log("Click!")}}>Ajouter</Button>
+        <Button onClick={()=>{console.log("Click!")}}>Confirmer</Button>
         <Button onClick={()=>{console.log("Cancel!")}}>Annuler</Button>
       </Form>
     </Modal>

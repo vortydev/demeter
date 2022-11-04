@@ -51,7 +51,7 @@ function CreateRecipePage({ setSelectedPage, setCreated }: CRPProps) {
 
       <div className="popupBtnBox mt-3">
         <Button variant="demeter-dark" onClick={() => setSelectedPage("recipe")}>Annuler</Button>
-        <Button variant="demeter" onClick={handleSubmit}>Ajouter</Button>
+        <Button variant="demeter" onClick={handleSubmit}>Confirmer</Button>
       </div>
     </div>
   );

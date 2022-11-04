@@ -66,7 +66,7 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
 
         <div className="mt-3 popupBtnBox">
           <Button variant="demeter-dark" onClick={close}>Annuler</Button>
-          <Button variant="demeter" onClick={handlesubmit}>Ajouter</Button>
+          <Button variant="demeter" onClick={handlesubmit}>Confirmer</Button>
         </div>
       </Form>
     </Modal>

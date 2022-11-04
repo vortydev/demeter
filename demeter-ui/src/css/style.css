@@ -144,7 +144,7 @@ option {
 
 .popupTitle {
     text-align: center;
-    margin-bottom: .25rem;
+    margin-bottom: .5rem;
 }
 
 .popupSelectBox{
@@ -167,6 +167,14 @@ option {
 
 .popupRowSplit>div {
     width: 48%;
+}
+
+.popupFit {
+    width: fit-content;
+}
+
+.flexPopupRow {
+    width: 100%;
 }
 
 /* buttons with Demeter theme */

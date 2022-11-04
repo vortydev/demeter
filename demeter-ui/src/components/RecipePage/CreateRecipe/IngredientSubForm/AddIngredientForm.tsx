@@ -68,9 +68,9 @@ function AddIngredientForm({
   return (
     <Modal show={show}>
       <Form className="popupForm">
-        <h3 className="popupTitle">Ajout d'un ingrédient</h3>
+        <h3 className="popupTitle">Ajouter un ingrédient</h3>
         <Form.Group className="popupSelectBox mb-2" controlId="product">
-          <Form.Label className="popupSelectLabelFull">Produit</Form.Label>
+          <Form.Label className="popupSelectLabel">Produit</Form.Label>
           <Form.Select id="product">
             {productList.map((product) => (
               <option value={product.id.toString()}>{product.name}</option>
@@ -78,23 +78,31 @@ function AddIngredientForm({
           </Form.Select>
         </Form.Group>
 
-        <Form.Group className="mb-2" controlId="quantity">
-          <Form.Label>Quantité</Form.Label>
-          <Form.Control type="number" />
-        </Form.Group>
+        <div className="flexPopupRow mb-2">
+          <Form.Group className="addIngQt flex" controlId="quantity">
+            <Form.Label className="popupSelectLabel">Quantité</Form.Label>
+            <Form.Control type="number" />
+          </Form.Group>
 
-        <Form.Group className="popupSelectBox mb-2" controlId="mesurement">
-          <Form.Label className="popupSelectLabel">Mesure</Form.Label>
           <Form.Select id="mesurement">
             {mesureList.map((mesure) => (
               <option value={mesure.id.toString()}>{mesure.mesurement}</option>
             ))}
           </Form.Select>
-        </Form.Group>
+
+          {/* <Form.Group className="popupSelectBox" controlId="mesurement">
+            <Form.Label className="popupSelectLabel">Mesure</Form.Label>
+            <Form.Select id="mesurement">
+              {mesureList.map((mesure) => (
+                <option value={mesure.id.toString()}>{mesure.mesurement}</option>
+              ))}
+            </Form.Select>
+          </Form.Group> */}
+        </div>
 
         <div className="popupBtnBox mt-3">
           <Button variant="demeter-dark" onClick={() => setShow(false)}>Annuler</Button>
-          <Button variant="demeter" onClick={addToRecipeList}>Ajouter</Button>
+          <Button variant="demeter" onClick={addToRecipeList}>Confirmer</Button>
         </div>
       </Form>
     </Modal>

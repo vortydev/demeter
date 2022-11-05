@@ -28,6 +28,18 @@ async function getbyCategorie(data: number){
   return tasks;
 }
 
+async function getTasksByParent(data: number){
+  const tasks = TaskService.getAllByParent(data)
+.then((response: any)=>{
+      return response.data;
+  })
+  .catch((e: Error) => {
+      console.log(e);
+      return [];
+  });
+  return tasks;
+}
+
 async function createTask(data: Task): Promise<boolean> {
   console.log(`in create task`,data)
   const taskCreated = TaskService.create(data)
@@ -69,4 +81,4 @@ async function deleteTask(id: number) {
 }
 
 
-export {getAll,getbyCategorie, createTask, updateTask,deleteTask };
+export {getAll,getbyCategorie, getTasksByParent, createTask, updateTask,deleteTask };

@@ -14,6 +14,10 @@ class TaskService {
     return http.get<Task>(`/tasks?categorytaskId=${categorytaskId}`);
   }
 
+  getAllByParent(parentId : number){
+    return http.get<Task>(`/tasks?parentId=${parentId}`); 
+  }
+
   create(data:Task) {
     return http.post<Task>("/tasks", data);
   }

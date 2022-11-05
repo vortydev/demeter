@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
-import { updateTask } from "../../services/task.funtions";
+import { getTasksByParent, updateTask } from "../../services/task.funtions";
 import { Task } from "../../types/Types";
 
 interface CRFormProps {
@@ -13,6 +13,13 @@ interface CRFormProps {
 function EditTaskForm({ task, close, success, show }: CRFormProps) {
   const [error, setError] = useState<boolean>(false);
   const [childTask, setChildTask] = useState<Task[]>([]);
+
+ useEffect(() => {
+  async function getChildTask() {
+    setChildTask(await getTasksByParent(task.id));
+  }
+  getChildTask();
+}, []);
 
   async function handleSubmit() {
     const taskName = document.getElementById("taskName") as HTMLInputElement;
@@ -32,6 +39,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
       picture: null,
       date: new Date(),
     };
+
 
     if (await updateTask(updatedTask)) {
       success(true);

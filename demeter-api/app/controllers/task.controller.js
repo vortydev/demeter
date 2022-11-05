@@ -42,7 +42,7 @@ exports.findAll = (req, res) => {
   var conditionC = category ? { categorytaskId: { [Op.eq]: category } } : null;
   var conditionP = parent ? { parentId: { [Op.eq]: parent } } : null;
   if (conditionC !== null) {
-    Task.findAll({ where: conditionC })
+    Task.findAll({ where: conditionC, parentId : null })
       .then((data) => {
         res.send(data);
       })

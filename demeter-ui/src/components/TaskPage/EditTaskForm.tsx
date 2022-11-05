@@ -13,16 +13,6 @@ interface CRFormProps {
 function EditTaskForm({ task, close, success, show }: CRFormProps) {
   const [error, setError] = useState<boolean>(false);
   const [childTask, setChildTask] = useState<Task[]>([]);
-  let initialTasks :Task[]= [];
-
- useEffect(() => {
-  async function getChildTask() {
-
-    initialTasks = await getTasksByParent(task.id);
-    setChildTask(initialTasks);
-  }
-  getChildTask();
-}, []);
 
   async function handleSubmit() {
     const taskName = document.getElementById("taskName") as HTMLInputElement;
@@ -43,38 +33,14 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
       date: new Date(),
     };
 
-    // ChildTasks
-    const toUpdate = childTask.filter(ct => initialTasks.map(t=> t.id).includes(ct.id));
-    const toCreate = childTask.filter(ct => !initialTasks.map(t=> t.id).includes(ct.id));
-    const toDelete = initialTasks.filter(ct => !childTask.map(t=> t.id).includes(ct.id));
-
-    for(const tu of toUpdate){
-      if(await(updateTask(tu))){
-        console.log('task updated');
-      } else {
-        console.log('bleh t update');
-        setError(true);
-      }
-    }
-
-    for(const tc of toCreate){
-      if(await(createTask(tc))){
+    for(const ct of childTask){
+      if(await(createTask(ct))){
         console.log('task created');
       } else {
         console.log('bleh t create');
         setError(true);
       }
     }
-
-    for(const td of toDelete){
-      if(await(deleteTask(td.id))){
-        console.log('task deleted');
-      } else {
-        console.log('bleh t delete');
-        setError(true);
-      }
-    }
-
     if (await updateTask(updatedTask) && error === false) {
       success(true);
       close();

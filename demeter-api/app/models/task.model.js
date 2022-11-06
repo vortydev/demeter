@@ -3,7 +3,8 @@ module.exports = (sequelize, Sequelize) => {
         title: { type: Sequelize.TEXT },
         description: { type: Sequelize.TEXT },
         completed: { type: Sequelize.BOOLEAN },
-        responsable: { type: Sequelize.STRING }
+        responsable: { type: Sequelize.STRING }, 
+        parentId: { type: Sequelize.INTEGER }
     });
     
     return Task;

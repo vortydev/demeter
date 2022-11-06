@@ -17,7 +17,7 @@ exports.create = (req, res) => {
   const task = {
     title: req.body.title,
     categorytaskId: req.body.categorytaskId,
-    parentId: req.body.parentId | null,
+    parentId: req.body.parentId,
     description: req.body.description,
     completed: req.body.completed | false,
     responsable: req.body.responsable | null,

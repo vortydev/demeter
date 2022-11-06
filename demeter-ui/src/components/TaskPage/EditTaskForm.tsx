@@ -26,7 +26,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
       title: taskName.value,
       description: description.value,
       categorytaskId: parseFloat(typeTask.value),
-      parentId: null,
+      parentId: task.parentId,
       completed: false,
       active: false,
       picture: null,
@@ -144,9 +144,9 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
           
           </div>
         ))}
-  <Button onClick={handleAddSubTask}>
+  {task.parentId===0 && <Button onClick={handleAddSubTask}>
               Ajouter une tâche subordonnée
-            </Button>
+            </Button>}
         <Form.Group className="mb-3" controlId="description">
           <Form.Label>DESCRIPTION : </Form.Label>
           <Form.Control
@@ -155,7 +155,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
             rows={3}
           />
         </Form.Group>
-        <Button onClick={handleSubmit}>Ajouter</Button>
+        <Button onClick={handleSubmit}>Modifier</Button>
         <Button onClick={close}>Annuler</Button>
       </Form>
     </Modal>

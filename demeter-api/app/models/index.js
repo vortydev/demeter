@@ -48,7 +48,7 @@ db.tasks = require("./task.model")(sequelize, Sequelize);
 db.categorytasks = require("./categorytask.model")(sequelize, Sequelize);
 
 db.categorytasks.hasMany(db.tasks);
-db.tasks.hasMany(db.tasks);
+//db.tasks.hasMany(db.tasks);
 
 db.tasks.belongsTo(db.categorytasks, { foreignKey: "categorytaskId" });
 //db.tasks.belongsTo(db.tasks, { foreignKey: "parentId" });

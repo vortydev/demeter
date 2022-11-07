@@ -22,23 +22,26 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       "description"
     ) as HTMLInputElement;
 
-
+    let newsTask = {
+      id: 0,
+      title: 'changeMe',
+      description: 'changeMe',
+      categorytaskId: 4,
+      parentId: 0,
+      active:true,
+      completed: false,
+      picture: null,
+      date: new Date(),
+    };
 
     if(addTask){
       const taskTitle = document.getElementById("tasktitle") as HTMLInputElement;
       const taskDesc = document.getElementById("taskdescription") as HTMLInputElement;
 
-      const newsTask: Task = {
-        id: Number(new Date()),
-        title: taskTitle.value,
-        description: taskDesc.value,
-        categorytaskId: 4,
-        parentId: 0,
-        active:true,
-        completed: false,
-        picture: null,
-        date: new Date(),
-      };
+      newsTask.id = Number(new Date());
+      newsTask.title = taskTitle.value;
+      newsTask.description= taskDesc.value;
+
 
       if(await createTask(newsTask)){
         console.log('this worked');
@@ -52,7 +55,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       img: null,
       active: true,
       roleId: receiver.value,
-      taskId: 0,
+      taskId: newsTask.id === 0 ? 0 : newsTask.id,
       picture: null,
       date: new Date(),
     };

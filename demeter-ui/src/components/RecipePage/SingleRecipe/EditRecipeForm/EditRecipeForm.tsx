@@ -1,17 +1,28 @@
 import { useState } from "react";
 import { Button, Form, Modal, Nav } from "react-bootstrap";
-import { VoidExpression } from "typescript";
-import { Ingredient, Recipe } from "../../../types/Types";
-import { IngredientRow } from "./IngredientRow";
+import { updateRecipe } from "../../../../services/recipe.functions";
+import { Ingredient, Recipe } from "../../../../types/Types";
+import { EditIngredient } from "./EditIngredients";
 
 interface ERFProps {
   recipe: Recipe;
   listIng: Ingredient[];
   show: boolean;
+  setRecipe: (recipe : Recipe | null)=> void;
   setShow: (show: boolean) => void;
+  setChanged: (changed: boolean) => void;
+  editedSuccess: (edited: boolean) => void;
 }
 
-function EditRecipeForm({ recipe, listIng, show, setShow }: ERFProps) {
+function EditRecipeForm({
+  recipe,
+  listIng,
+  show,
+  setRecipe,
+  setShow,
+  setChanged,
+  editedSuccess,
+}: ERFProps) {
   const [recipeInfo, setRecipeInfo] = useState<Recipe>(recipe);
   const [editing, setEditing] = useState<String>("recipe");
 
@@ -41,8 +52,14 @@ function EditRecipeForm({ recipe, listIng, show, setShow }: ERFProps) {
     setRecipeInfo(recipe);
   }
 
-  function removeIngredient(ing: Ingredient){
-    
+  async function editRecipe() {
+    if (await updateRecipe(recipe.id, recipeInfo)) {
+      setRecipe(recipeInfo);
+      editedSuccess(true);
+      setShow(false);
+    } else {
+      console.log("problème édition recette !");
+    }
   }
 
   return (
@@ -64,15 +81,11 @@ function EditRecipeForm({ recipe, listIng, show, setShow }: ERFProps) {
         </Nav.Item>
       </Nav>
       {editing === "ingredient" && (
-        <div>
-          {listIng.map((ing) => (
-            <div>
-              <IngredientRow ingredient={ing} />
-              <Button onClick={()=>removeIngredient(ing)}>DELETE</Button>
-            </div>
-          ))}
-          <Button variant="outline-dark">+ ingrédient</Button>
-        </div>
+        <EditIngredient
+          listIng={listIng}
+          recipeId={recipe.id}
+          setChanged={setChanged}
+        />
       )}
       {editing === "recipe" && (
         <div>
@@ -129,7 +142,7 @@ function EditRecipeForm({ recipe, listIng, show, setShow }: ERFProps) {
           </Form>
         </div>
       )}
-      <Button>ENVOYER</Button>
+      <Button onClick={editRecipe}>ENVOYER</Button>
       <Button onClick={() => setShow(false)}>ANNULER</Button>
     </Modal>
   );

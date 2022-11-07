@@ -5,29 +5,39 @@ import { verifyLogin } from "../../services/account.functions";
 
 function LoginForm(): JSX.Element {
   const [valid, setValid] = useState<boolean>(true);
+  const [empty, setEmpty] = useState<boolean>(false);
   
   async function handleLogin(e: SyntheticEvent): Promise<void> {
     e.preventDefault();
     setValid(true);
+    setEmpty(false);
 
     const accName = document.getElementById("account") as HTMLInputElement;
     const pw = document.getElementById("password") as HTMLInputElement;
 
-    if (await verifyLogin(accName.value, pw.value)) {
-      setCookie("account", accName.value);
-      window.location.reload();
-    } else {
-      setValid(false);
-
+    if (!accName.value || !pw.value) {
+      setEmpty(true);
       setTimeout(() => {
-        setValid(true)
+        setEmpty(false);
       }, 5000);
+    } else {
+      if (await verifyLogin(accName.value, pw.value)) {
+        setCookie("account", accName.value);
+        window.location.reload();
+      } else {
+        setValid(false);
+  
+        setTimeout(() => {
+          setValid(true)
+        }, 5000);
+      }
     }
   }
 
   return (
     <Form className="popupForm loginForm">
       {!valid && <Alert variant="danger">Informations invalides !</Alert>}
+      {empty && <Alert variant="danger">Veuillez remplir tout les champs</Alert>}
       <Form.Group className="mb-3 loginField" controlId="account">
         <Form.Label>Nom d'utilisateur</Form.Label>
         <Form.Control type="text" />

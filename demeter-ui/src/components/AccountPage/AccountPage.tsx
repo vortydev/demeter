@@ -21,6 +21,12 @@ function AccountPage(): JSX.Element {
     setCreateAccount(false);
   }
 
+  setTimeout(() => {
+    setEditSuccess(false);
+    setDeleted(false);
+    setSuccess(false);
+  }, 5000);
+
   return (
     <section>
       <h1 className="pageTitle">Comptes</h1>

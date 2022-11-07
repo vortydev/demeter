@@ -28,8 +28,8 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       const taskTitle = document.getElementById("tasktitle") as HTMLInputElement;
       const taskDesc = document.getElementById("taskdescription") as HTMLInputElement;
 
-      const newTask: Task = {
-        id: 1,
+      const newsTask: Task = {
+        id: Number(new Date()),
         title: taskTitle.value,
         description: taskDesc.value,
         categorytaskId: 4,
@@ -40,7 +40,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
         date: new Date(),
       };
 
-      if(await createTask(newTask)){
+      if(await createTask(newsTask)){
         console.log('this worked');
       }
     }
@@ -112,17 +112,13 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
         <div className="mt-3 popupBtnBox">
           <Button
             variant="demeter-dark"
-            onClick={() => {
-              console.log("CANCEL ADD NEWS");
-            }}
+            onClick={close}
           >
             Annuler
           </Button>
           <Button
             variant="demeter"
-            onClick={() => {
-              console.log("ADD NEWS");
-            }}
+            onClick={handlesubmit}
           >
             Confirmer
           </Button>

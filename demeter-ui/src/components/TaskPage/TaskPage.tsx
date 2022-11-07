@@ -21,7 +21,8 @@ function TaskPage(): JSX.Element {
   }, [taskCategory,createdSuccess,deletedSuccess, editedSuccess]);
   
   async function handlesubmit() {
-    
+    const listeResponsable = document.getElementsByClassName("responsable");
+    console.log(listeResponsable);
   }
 
   return (
@@ -44,8 +45,8 @@ function TaskPage(): JSX.Element {
       ))}
     </div>
       
-      <Button variant="outline-dark" onClick={handlesubmit}>Afficher L'Historique</Button>
-      <Button variant="dark">Compléter les tâches</Button>
+      <Button variant="outline-dark" >Afficher L'Historique</Button>
+      <Button variant="dark" onClick={handlesubmit}>Compléter les tâches</Button>
     </div>
   );
 }

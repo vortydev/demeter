@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { deleteTask } from "../../services/task.funtions";
 import { Task } from "../../types/Types";
@@ -7,25 +7,72 @@ import "./task.css";
 
 interface TaskRowProps {
   task: Task;
+  listTask: Task[];
   deleteSuccess: (deleted: boolean) => void;
   editSuccess: (edited: boolean) => void;
 }
 
-function TaskRow ({task,deleteSuccess,editSuccess}: TaskRowProps){
-  const [editform, setEditForm]=useState<boolean>(false);
+function TaskRow({ task, listTask, deleteSuccess, editSuccess }: TaskRowProps) {
+  const [editform, setEditForm] = useState<boolean>(false);
+  const [toEdit, setToEdit] = useState<Task>(task);
 
-    function closeEditForm() {
-      setEditForm(false); 
+  const subListTask = listTask.filter((t) => t.parentId === task.id);
+
+  function closeEditForm() {
+    setEditForm(false);
+  }
+
+  useEffect(() => {
+    async function getList() {
+      console.log("the list task in the row", listTask);
+      console.log("the sublitstask", subListTask);
     }
+    getList();
+  }, []);
 
-    return(
-       <div className="taskRow"><input type="text" /> {task.title} <Button onClick={() => {setEditForm(true)}}>edit</Button> <Button onClick={ () => {deleteTask(task.id);deleteSuccess(true)}} >delete</Button>
-          
-          <EditTaskForm task={task} show={editform} close={closeEditForm} success={editSuccess}/>
-       </div>
-    );
-
+  return (
+    <div className="taskRow">
+      <input className="responable" type="text" /> {task.title}{" "}
+      <Button
+        onClick={() => {
+          setToEdit(task);
+          setEditForm(true);
+        }}
+      >
+        edit
+      </Button>{" "}
+      <Button
+        onClick={() => {
+          deleteTask(task.id);
+          deleteSuccess(true);
+        }}
+      >
+        delete
+      </Button>
+     
+      <div>
+        {subListTask.map((st) => (
+          <div>
+            <input className="responable" type="text" /> {st.title}{" "}
+            <Button onClick={()=>{setToEdit(st); setEditForm(true);}}>EDIT</Button>
+            <Button
+              onClick={() => {
+                deleteTask(st.id);
+                deleteSuccess(true);
+              }}
+            >
+              DELETE
+            </Button>
+          </div>
+        ))}
+      </div>
+      <EditTaskForm
+        task={toEdit}
+        show={editform}
+        close={closeEditForm}
+        success={editSuccess}
+      />
+    </div>
+  );
 }
-export {TaskRow};
-
-
+export { TaskRow };

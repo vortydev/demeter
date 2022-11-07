@@ -2,7 +2,7 @@ import { IngForRecipe } from "../types/RecipeTypes.types";
 import { Ingredient, Recipe } from "../types/Types";
 import {
   createIngredient,
-  deleteIngredientsByRecipe,
+  deleteAllIngredientsByRecipe,
 } from "./Ingredients.functions";
 import RecipeService from "./recipe.services";
 
@@ -70,7 +70,7 @@ async function getRecipesByCategory(category: number | null) {
 async function deleteRecipe(id: number) {
   console.log("in delete recipe");
 
-  const deletedAllIngredients = deleteIngredientsByRecipe(id);
+  const deletedAllIngredients = deleteAllIngredientsByRecipe(id);
   console.log("all INg", deletedAllIngredients);
 
   const deleted = RecipeService.delete(id.toString())
@@ -87,4 +87,16 @@ async function deleteRecipe(id: number) {
   return await deleted && deletedAllIngredients;
 }
 
-export { createRecipe, getRecipesByCategory, deleteRecipe };
+async function updateRecipe(id: number, recipe: Recipe){
+  const updated = RecipeService.update(recipe, id.toString())
+      .then((response: any) => {
+        return true;
+      })
+      .catch((e: Error) => {
+        console.log(e);
+        return false;
+      });
+    return updated;
+}
+
+export { createRecipe, getRecipesByCategory, deleteRecipe, updateRecipe };

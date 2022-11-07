@@ -1,6 +1,6 @@
 import TaskService from "./task.services";
 import { Task} from "../types/Types";
-import bcrypt from "bcryptjs";
+
 
 function getAll(){
   const tasks = TaskService.getAll()
@@ -18,6 +18,18 @@ function getAll(){
 
 async function getbyCategorie(data: number){
   const tasks = TaskService.getAllbyCategorie(data)
+.then((response: any)=>{
+      return response.data;
+  })
+  .catch((e: Error) => {
+      console.log(e);
+      return [];
+  });
+  return tasks;
+}
+
+async function getTasksByParent(data: number){
+  const tasks = TaskService.getAllByParent(data)
 .then((response: any)=>{
       return response.data;
   })
@@ -69,4 +81,4 @@ async function deleteTask(id: number) {
 }
 
 
-export {getAll,getbyCategorie, createTask, updateTask,deleteTask };
+export {getAll,getbyCategorie, getTasksByParent, createTask, updateTask,deleteTask };

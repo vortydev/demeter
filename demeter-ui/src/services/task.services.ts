@@ -14,6 +14,10 @@ class TaskService {
     return http.get<Task>(`/tasks?categorytaskId=${categorytaskId}`);
   }
 
+  getAllByParent(parentId : number){
+    return http.get<Task>(`/tasks?parentId=${parentId}`); 
+  }
+
   create(data:Task) {
     return http.post<Task>("/tasks", data);
   }
@@ -23,12 +27,7 @@ class TaskService {
   }
 
   delete(id: number) {
-    console.log("taskservice", id);
     return http.delete<any>(`/tasks/${id}`);
-  }
-
-  deleteAll() {
-    return http.delete<any>(`/tasks`);
   }
 }
 

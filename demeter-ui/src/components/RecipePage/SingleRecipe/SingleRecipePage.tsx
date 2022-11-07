@@ -37,7 +37,7 @@ function SingleRecipePage({
       {recipe!.title} <Button onClick={()=>{setEditRecipe(true);}}>EDIT</Button>
       <hr />
       <IngredientList list={listIng} />
-      <Calculator listIng={listIng} nbUnit={recipe!.nbUnitCreated} />
+      <Calculator listIng={listIng} nbUnit={recipe!.nbUnitCreated} otherCost={recipe!.otherCost} />
       <Button onClick={() => setShowInstruction(true)}>Instructions</Button>
       <Button
         onClick={() => {

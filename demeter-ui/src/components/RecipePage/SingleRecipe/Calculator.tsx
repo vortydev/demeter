@@ -1,30 +1,31 @@
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import {
-  getMesurementById,
   getProduct,
 } from "../../../services/inventory.functions";
 import { IngForRecipe } from "../../../types/RecipeTypes.types";
 import { Ingredient } from "../../../types/Types";
 import { getRecipeCost } from "../helper";
-import { RecipeList } from "../RecipeList";
 
 interface CalculatorProps {
   listIng: Ingredient[];
   nbUnit: number;
+  otherCost: number;
 }
 
-function Calculator({ listIng, nbUnit }: CalculatorProps) {
+function Calculator({ listIng, nbUnit, otherCost }: CalculatorProps) {
   const [totalCost, setTotalCost] = useState<number>(0);
   const [customNB, setCustomNB] = useState<number>(0);
-  console.log('listINg props received',  listIng );
 
   useEffect(() => {
     async function setTheCost() {
-      setTotalCost(getRecipeCost(await changeIngFormat(listIng)));
+      const recipeCost : number = getRecipeCost(await changeIngFormat(listIng));
+      const fullCost: number = recipeCost + otherCost;
+console.log( recipeCost, otherCost, typeof otherCost);
+      setTotalCost(fullCost);
     }
     setTheCost();
-  }, []);
+  }, [totalCost, listIng]);
 
   function updateCustomNb() {
     setCustomNB(
@@ -36,8 +37,8 @@ function Calculator({ listIng, nbUnit }: CalculatorProps) {
   return (
     <div>
       <span>COÛT TOTAL : {totalCost} $</span>
-      <span>COÛT UNITAIRE : {totalCost / nbUnit}</span>
-      <span>COÛT PERSONNALISÉ : {(totalCost / nbUnit) * customNB}</span>
+      <span>COÛT UNITAIRE : {totalCost / nbUnit} $</span>
+      <span>COÛT PERSONNALISÉ : {(totalCost / nbUnit) * customNB} $</span>
       <Form>
         <Form.Group
           onChange={updateCustomNb}
@@ -53,10 +54,8 @@ function Calculator({ listIng, nbUnit }: CalculatorProps) {
 }
 
 async function changeIngFormat(listI: Ingredient[]): Promise<IngForRecipe[]> {
-  console.log("in change Format", listI);
   let listIF: IngForRecipe[] = [];
-  for (let i of listI) {
-    console.log("in the looooop");
+  for (const i of listI) {
     const product = await getProduct(i.productId.toString());
 
     const ing: IngForRecipe = {
@@ -67,7 +66,6 @@ async function changeIngFormat(listI: Ingredient[]): Promise<IngForRecipe[]> {
 
     listIF.push(ing);
   }
-  console.log("listIf", listIF);
   return listIF;
 }
 

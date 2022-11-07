@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Modal, Form, Button } from "react-bootstrap";
+import { Modal, Form, Button, Alert } from "react-bootstrap";
 import { IngForRecipe } from "../../../../types/RecipeTypes.types";
 import {
   getAllMesurements,
@@ -20,6 +20,7 @@ function AddIngredientForm({
 }: AIFProps) {
   const [productList, setProductList] = useState<Product[]>([]);
   const [mesureList, setListMesurement] = useState<Mesurement[]>([]);
+  const [empty, setEmpty] = useState<boolean>(false);
 
   useEffect(() => {
     async function getLists() {
@@ -44,6 +45,8 @@ function AddIngredientForm({
       (x) => x.id === parseInt(ingredient)
     );
 
+    setEmpty(false);
+
     if (
       productSelected !== undefined &&
       mesurement !== undefined &&
@@ -61,14 +64,18 @@ function AddIngredientForm({
 
 
     } else {
-      console.log("something is not working, make an alert appears");
+      setEmpty(true);
     }
+    setTimeout(() => {
+      setEmpty(false);
+    }, 5000);
   }
 
   return (
     <Modal show={show}>
       <Form className="popupForm">
         <h3 className="popupTitle">Ajouter un ingrédient</h3>
+        {empty && <Alert variant="danger">Veuillez remplir tous les champs.</Alert>}
         <Form.Group className="popupSelectBox mb-2" controlId="product">
           <Form.Label className="popupSelectLabel">Produit</Form.Label>
           <Form.Select id="product">

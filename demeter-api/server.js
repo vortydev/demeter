@@ -5,7 +5,7 @@ require("dotenv").config();
 const app = express();
 
 var corsOptions = {
-  origin: process.env.CLIENT_ORIGIN || "http://localhost:8081"
+  origin: process.env.CLIENT_ORIGIN
 };
 
 // express setup
@@ -62,14 +62,6 @@ db.sequelize.sync({force : true})                 // {force: true} drops the db
       { id: "4", category: "Autre", occurence: "0" },
     ], { ignoreDuplicates: true })
       .then(() => console.log("Task categories inserted."));
-
-       //insert default task
-       db.tasks.bulkCreate([
-        { id: "0", title: "default" , description: '...', completed: false, responsable:'dev', categorytaskId:'4', parentId: null},
-        
-      ], { ignoreDuplicates: true })
-        .then(() => console.log("Default task inserted."));
-      
 
     // insert category recipe
     db.categoryrecipes.bulkCreate([

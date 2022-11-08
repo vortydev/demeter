@@ -51,6 +51,7 @@ function RecipePage({
           <RecipeList
             filter={filter}
             selectedPage={selectedPage}
+            deletedSuccess={deletedSuccess}
             setSelectedPage={setSelectedPage}
             setRecipePage={setRecipePage}
           />

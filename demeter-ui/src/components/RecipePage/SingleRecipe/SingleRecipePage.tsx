@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
+import { confirmAlert } from "react-confirm-alert";
 import { getIngredientsByRecipe } from "../../../services/Ingredients.functions";
 import { deleteRecipe } from "../../../services/recipe.functions";
 import { Ingredient, Recipe } from "../../../types/Types";
@@ -54,9 +55,23 @@ function SingleRecipePage({
       <Button onClick={() => setShowInstruction(true)}>Instructions</Button>
       <Button
         onClick={() => {
-          deleteRecipe(recipe!.id);
-          setRecipeDeleted(true);
-          setSelectedPage("recipe");
+          confirmAlert({
+            title: 'Confirmation',
+            message: 'Êtes-vous sur de vouloir supprimer cette recette?',
+            buttons: [
+              {
+                label: 'Oui',
+                onClick: () => {deleteRecipe(recipe!.id);
+                  setRecipeDeleted(true);
+                  setSelectedPage("recipe");}
+              },
+              {
+                label: 'Non',
+                onClick: () => {}
+              }
+            ]
+          });
+          
         }}
       >
         DELETE

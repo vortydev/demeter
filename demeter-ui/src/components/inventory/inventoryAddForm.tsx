@@ -45,7 +45,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
         setAlerting2(false);
         setAlerting3(false);
 
-        if (!name.value || !qtyUnit.value || !format.value || !price.value || !qtyInv.value) {
+        if (!name.value || !qtyUnit.value || !format.value || !price.value || !qtyInv.value || !vendor.value) {
             setAlerting(true);
         }
         else if (!regexPrice.test(price.value) && !regexPrice1.test(price.value) && !regexPrice2.test(price.value)) {

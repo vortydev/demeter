@@ -39,6 +39,7 @@ function NewsPage(): JSX.Element {
       <h1 className="pageTitle">Annonces</h1>
       {createdSuccess && <Alert>L'annonce à été créer avec succès!</Alert>}
       {deleteSuccess && <Alert>L'annonce à été supprimer avec succès!</Alert>}
+      
       <p className="loginText">Vous êtes connecté en tant que {connected}</p>
       <div className="newsAdd mb-2">
         <Button
@@ -51,10 +52,12 @@ function NewsPage(): JSX.Element {
           Nouvelle Annonce
         </Button>
       </div>
-      {newsList.length === 0 && <p>Aucune annonce présentement.</p>}
+
+      {newsList.length === 0 && <p>Aucune annonce présentement.</p> }
       {newsList.map((news) => (
-        <NewsPreview news={news} deleteSuccess={setDeleteSuccess} />
+        <NewsPreview news={news } deleteSuccess={setDeleteSuccess}/>
       ))}
+     
       <CreateNewsForm show={createNews} close={close} success={success} />
     </div>
   );

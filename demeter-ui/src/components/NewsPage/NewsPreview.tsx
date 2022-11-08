@@ -12,6 +12,7 @@ import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 interface NewsPreviewProps {
   news: News;
+  deleteSuccess: (deleted: boolean) => void;
 }
 
 function NewsPreview({ news }: NewsPreviewProps) {
@@ -55,9 +56,8 @@ function NewsPreview({ news }: NewsPreviewProps) {
             // TODO setEditNews(true); 
           }} />
           <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
-            console.log("DELETE NEWS");
-            // TODO deleteNews(currentNews.id);
-            // TODO setDeleteSuccess(true);
+            deleteNews(news.id);
+            setDeleteSuccess(true);
           }} />
         </div>
       </div>

@@ -26,25 +26,44 @@ function CreateRecipePage({ setSelectedPage, setCreated }: CRPProps) {
   const [invalid, setInvalid] = useState<boolean>(false);
   const [recipeCost, setRecipeCost] = useState<number>(0);
   const [listIng, setListIng] = useState<IngForRecipe[]>([]);
-
+  const [empty, setEmpty] = useState<boolean>(false);
+  const [emptyIng, setEmptyIng] = useState<boolean>(false);
 
   useEffect(() => {
     setTotalCost(recipeCost + recipeInfo.otherCost);
   }, [recipeCost, recipeInfo.otherCost, totalCost]);
 
   async function handleSubmit() {
+
     setInvalid(false);
-    if (await createRecipe(recipeInfo, listIng)) {
-      setCreated(true);
-      setSelectedPage("recipe");
-    } else {
-      setInvalid(true);
+    if (listIng.length <= 0) {
+      setEmptyIng(true);
+      setTimeout(() => {
+        setEmptyIng(false);
+      }, 5000);
+    } 
+    else if (recipeInfo.title == "" || !recipeInfo.categoryrecipeId || !recipeInfo.instruction || recipeInfo.otherCost < 0 || recipeInfo.nbUnitCreated < 0) {
+      setEmpty(true);
+      setTimeout(() => {
+        setEmpty(false);
+      }, 5000);
     }
+    else {
+      if (await createRecipe(recipeInfo, listIng)) {
+        setCreated(true);
+        setSelectedPage("recipe");
+      } else {
+        setInvalid(true);
+      }
+    }
+    
   }
 
   return (
     <section className="createRecipePage">
       <h1 className="pageTitle">Nouvelle Recette</h1>
+      {empty && <Alert variant="danger">Veuillez remplir tous les champs de la recette.</Alert>}
+      {emptyIng && <Alert variant="danger">Veuillez ajouter des ingrédients.</Alert>}
       {invalid && (<Alert variant="danger">Informations invalides, la recette n'a pas été créée.</Alert>)}
       <div className="pageSplit">
         <CreateRecipeForm setRecipeInfo={setRecipeInfo} />

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
+import { confirmAlert } from "react-confirm-alert";
 import { getIngredientsByRecipe } from "../../../services/Ingredients.functions";
 import { deleteRecipe } from "../../../services/recipe.functions";
 import { Ingredient, Recipe } from "../../../types/Types";
@@ -49,22 +50,39 @@ function SingleRecipePage({
         }} />
       </div>
       <hr />
-      
+
       <IngredientList list={listIng} />
 
-      <Calculator listIng={listIng} nbUnit={recipe!.nbUnitCreated} />
+      <Calculator listIng={listIng} nbUnit={recipe!.nbUnitCreated} otherCost={recipe!.otherCost} />
 
       <Button variant="demeter-dark" onClick={() => setSelectedPage("recipe")}>
         Retour
       </Button>
 
-      <Button variant="demeter-dark" onClick={() => setShowInstruction(true)}>Instructions</Button>
-      
+      <Button variant="demeter-dark" onClick={() => setShowInstruction(true)}>
+        Instructions
+      </Button>
+
       <Button variant="danger" onClick={() => {
-          deleteRecipe(recipe!.id);
-          setRecipeDeleted(true);
-          setSelectedPage("recipe");
-        }}>Supprimer</Button>
+        confirmAlert({
+          title: 'Confirmation',
+          message: 'Êtes-vous sûr de vouloir supprimer cette recette?',
+          buttons: [
+            {
+              label: 'Oui',
+              onClick: () => {
+                deleteRecipe(recipe!.id);
+                setRecipeDeleted(true);
+                setSelectedPage("recipe");
+              }
+            },
+            {
+              label: 'Non',
+              onClick: () => { }
+            }
+          ]
+        });
+      }}>Supprimer</Button>
 
       <InstructionModal
         show={showInstruction}

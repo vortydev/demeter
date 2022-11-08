@@ -8,6 +8,7 @@ import { EditNewsForm } from "./EditNewsForm";
 import "../../css/news.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { TaskRow } from "../TaskPage/TaskRow";
 
 
 interface NewsPreviewProps {
@@ -30,10 +31,11 @@ function NewsPreview({ news }: NewsPreviewProps) {
     shortDescription = news.description;
   }
 
+  const theDate = new Date(news.date);
   const text = fullText ? news.description : shortDescription;
   const buttonText = fullText ? "Lire moins" : "Lire la suite";
   const dotdotdot = fullText ? "" : " ...";
-  const dateCreated = news.date.toDateString();
+
 
   function success(){
     setEditSuccess(true);
@@ -43,10 +45,15 @@ function NewsPreview({ news }: NewsPreviewProps) {
     setEditNews(false)
   }
 
+  function showDate(){
+    console.log(typeof news.date);
+    console.log(news.date);
+  }
+
   return (
     <div className="flexNewsPreview" >
       <h2 className="newsTitle">{news.title}</h2>
-      <h3 className="newsDate">{dateCreated}</h3>
+      <h3 className="newsDate" onClick={showDate}>{theDate.toLocaleDateString()}</h3>
       <div className="flexNewsBox">
         {news.picture !== null && (<div className="picture"><img src={news.picture} /></div>)}
         <p className="newsContent">{text}<b>{dotdotdot}</b></p>

@@ -57,10 +57,10 @@ db.tasks.belongsTo(db.categorytasks, { foreignKey: "categorytaskId" });
 db.annoucements = require("./announcement.model")(sequelize, Sequelize);
 
 db.roles.hasMany(db.annoucements);
-db.tasks.hasMany(db.annoucements);
+//db.tasks.hasMany(db.annoucements);
 
 db.annoucements.belongsTo(db.roles, { foreignKey: "roleId" });
-db.annoucements.belongsTo(db.tasks, { foreignKey: "taskId" });
+//db.annoucements.belongsTo(db.tasks, { foreignKey: "taskId" });
 
 // CARNET DE RECETTES
 db.recipes = require("./recipe.model")(sequelize, Sequelize);

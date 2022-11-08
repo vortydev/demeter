@@ -21,13 +21,13 @@
   padding: inherit .75rem inherit .75rem !important;
 }
 
-.App-body{
+.App-body {
   width: 100%;
   height: max-content;
   margin-bottom: 2.5rem;
 }
 
-.App-footer{
+.App-footer {
   background-color: var(--demeter-black);
   height: fit-content;
   width: 100%;
@@ -55,4 +55,13 @@
 .deco {
   width: 7rem;
   font-size: .9rem !important;
+}
+
+.demeterLogo {
+  height: 2rem;
+  align-self: center;
+}
+
+.footerText {
+  align-self: center;
 }

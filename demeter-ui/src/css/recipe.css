@@ -25,6 +25,7 @@
 .recipeList>span {
     text-align: left;
     width: 100%;
+    padding-left: .5rem;
 }
 
 .filterBox {
@@ -36,10 +37,20 @@
     margin-bottom: .5rem;
 }
 
-.createRecipePage {
+.createRecipePage, .singleRecipePage {
     width: 80%;
     margin: auto;
     margin-bottom: 4rem;
+}
+
+.pageSplit {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.pageSplit>div {
+    width: 50%;
 }
 
 .newRecipeForm {
@@ -96,4 +107,10 @@
 
 .ingListColS {
     width: 20%;
+}
+
+.singleRecipeTitle {
+    width: fit-content;
+    margin: auto;
+    justify-content: center;
 }

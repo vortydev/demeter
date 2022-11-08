@@ -7,6 +7,8 @@ import { Calculator } from "./Calculator";
 import { EditRecipeForm } from "./EditRecipeForm/EditRecipeForm";
 import { IngredientList } from "./IngredientList";
 import { InstructionModal } from "./InstructionModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 interface SingleRecipePageProps {
   recipe: Recipe | null;
@@ -36,34 +38,34 @@ function SingleRecipePage({
   }, [listChanged]);
 
   return (
-    <div>
-      {editSuccess && (
-        <Alert variant="success">La recette à été modifiée avec succès !</Alert>
-      )}
-      {recipe!.title}{" "}
-      <Button
-        onClick={() => {
+    <section className="singleRecipePage">
+      <h1 className="pageTitle">Vue d'une Recette</h1>
+      {editSuccess && (<Alert variant="success">La recette à été modifiée avec succès !</Alert>)}
+
+      <div className="singleRecipeTitle flex">
+        <h2>{recipe!.title}</h2>
+        <FontAwesomeIcon className="iconEdit cursor ml-2" icon={faEdit} size="lg" onClick={() => {
           setEditRecipe(true);
-        }}
-      >
-        EDIT
-      </Button>
+        }} />
+      </div>
       <hr />
+      
       <IngredientList list={listIng} />
+
       <Calculator listIng={listIng} nbUnit={recipe!.nbUnitCreated} />
-      <Button onClick={() => setShowInstruction(true)}>Instructions</Button>
-      <Button
-        onClick={() => {
+
+      <Button variant="demeter-dark" onClick={() => setSelectedPage("recipe")}>
+        Retour
+      </Button>
+
+      <Button variant="demeter-dark" onClick={() => setShowInstruction(true)}>Instructions</Button>
+      
+      <Button variant="danger" onClick={() => {
           deleteRecipe(recipe!.id);
           setRecipeDeleted(true);
           setSelectedPage("recipe");
-        }}
-      >
-        DELETE
-      </Button>
-      <Button onClick={() => setSelectedPage("recipe")} variant="dark">
-        RETOUR
-      </Button>
+        }}>Supprimer</Button>
+
       <InstructionModal
         show={showInstruction}
         setShow={setShowInstruction}
@@ -78,7 +80,7 @@ function SingleRecipePage({
         setChanged={setChanged}
         editedSuccess={setEditSuccess}
       />
-    </div>
+    </section>
   );
 }
 

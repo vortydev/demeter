@@ -51,7 +51,7 @@ db.categorytasks.hasMany(db.tasks);
 //db.tasks.hasMany(db.tasks);
 
 db.tasks.belongsTo(db.categorytasks, { foreignKey: "categorytaskId" });
-db.tasks.belongsTo(db.tasks, { foreignKey: "parentId" });
+//db.tasks.belongsTo(db.tasks, { foreignKey: "parentId" });
 
 // ANNONCES
 db.annoucements = require("./announcement.model")(sequelize, Sequelize);

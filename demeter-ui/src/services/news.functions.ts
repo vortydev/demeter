@@ -26,8 +26,8 @@ async function updateNews(data: News, newsName: String): Promise<boolean> {
   return announcementUpdated;
 }
 
-async function deleteNews(newsName: string) {
-  const deleted = AnnouncementsService.delete(newsName)
+async function deleteNews(id: number) {
+  const deleted = AnnouncementsService.delete(id)
     .then((response: any) => {
       return true;
     })

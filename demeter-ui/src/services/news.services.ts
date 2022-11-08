@@ -10,6 +10,10 @@ class AnnouncementsService {
     return http.get<News>(`/announcements/${id}`);
   }
 
+  getByRole(roleId: number){
+    return http.get<News>(`/announcements?roleId=${roleId}`);
+  }
+
   create(data:News) {
     return http.post<News>("/announcements", data);
   }

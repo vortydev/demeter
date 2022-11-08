@@ -8,7 +8,7 @@ import { EditRecipeForm } from "./EditRecipeForm/EditRecipeForm";
 import { IngredientList } from "./IngredientList";
 import { InstructionModal } from "./InstructionModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
 interface SingleRecipePageProps {
   recipe: Recipe | null;

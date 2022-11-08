@@ -60,6 +60,7 @@
 .demeterLogo {
   height: 2rem;
   align-self: center;
+  margin-right: .75rem;
 }
 
 .footerText {

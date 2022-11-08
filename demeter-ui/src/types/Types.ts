@@ -1,7 +1,7 @@
 type Account = {
   accName: string;
   accPassword: string;
-  roleId: Number;
+  roleId: number;
   stateId: Number;
 };
 

@@ -52,12 +52,12 @@ async function getAccountsByRole(role: number) {
 }
 
 // vérifies que le mot de passe correspond au mot de passe dans la base de données
-async function verifyLogin(accName: string, accPwd: string): Promise<boolean> {
+async function verifyLogin(accName: string, accPwd: string) :Promise<number | null>{
   // retourne le mot de passe encrypté de l'utilisateur en paramètre
-  const fetchedPwd = await AccountService.verifyName(accName)
+  const fetchedInfo = await AccountService.verifyName(accName)
     .then((response: any) => {
       // réponse de la base de données
-      return response.data.accPassword;
+      return response.data;
     })
     .catch((e: Error) => {
       console.log(e);
@@ -65,11 +65,13 @@ async function verifyLogin(accName: string, accPwd: string): Promise<boolean> {
     });
 
   // compare les deux mots de passe
-  if (fetchedPwd) {
-    return await bcrypt.compare(accPwd, fetchedPwd);
-  } else {
-    return false;
-  }
+  if (fetchedInfo) {
+    if(await bcrypt.compare(accPwd, fetchedInfo.accPassword)){
+      return fetchedInfo.roleId;
+    };
+  } 
+    return null;
+  
 }
 
 export { createAccount, updateAccount, getAccountsByRole, verifyLogin, deleteAccount };

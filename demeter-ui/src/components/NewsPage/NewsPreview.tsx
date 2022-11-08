@@ -16,7 +16,7 @@ interface NewsPreviewProps {
   deleteSuccess: (deleted: boolean) => void;
 }
 
-function NewsPreview({ news }: NewsPreviewProps) {
+function NewsPreview({ news, deleteSuccess }: NewsPreviewProps) {
   let shortDescription = news.description;
   const [fullText, setFullText] = useState<boolean>(false);
   const [EditNews, setEditNews] = useState<boolean>(false);
@@ -64,7 +64,7 @@ function NewsPreview({ news }: NewsPreviewProps) {
           }} />
           <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
             deleteNews(news.id);
-            setDeleteSuccess(true);
+            deleteSuccess(true);
           }} />
         </div>
       </div>

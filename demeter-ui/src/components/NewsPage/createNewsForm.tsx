@@ -46,6 +46,9 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       if(await createTask(newsTask)){
         console.log('this worked');
       }
+      else{
+        setError(true);
+      }
     }
 
     const newNews: News = {
@@ -62,8 +65,10 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
 
     setError(false);
 
-    if (await createNews(newNews)) {
+    if (await createNews(newNews) && error === false) {
+      console.log(newNews, newsTask);
       success();
+      
     } else {
       setError(true);
     }

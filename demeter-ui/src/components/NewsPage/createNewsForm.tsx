@@ -52,6 +52,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
     }
 
     const newNews: News = {
+      id: 0,
       title: title.value,
       description: description.value,
       author: author.value,

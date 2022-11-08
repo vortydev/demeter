@@ -18,8 +18,8 @@ class AnnouncementsService {
     return http.put<any>(`/announcements/${user}`, data);
   }
 
-  delete(user: string) {
-    return http.delete<any>(`/announcements/${user}`);
+  delete(id: number) {
+    return http.delete<any>(`/announcements/${id}`);
   }
 
   deleteAll() {

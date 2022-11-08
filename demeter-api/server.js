@@ -5,11 +5,7 @@ require("dotenv").config();
 const app = express();
 
 var corsOptions = {
-<<<<<<< HEAD
-  origin: process.env.CLIENT_ORIGIN
-=======
-  origin: process.env.CLIENT_ORIGIN || "http://localhost:8081",
->>>>>>> Annonces
+  origin: process.env.CLIENT_ORIGIN,
 };
 
 // express setup
@@ -19,12 +15,7 @@ app.use(express.urlencoded({ extended: true })); // parse application/x-www-form
 
 // initilizes the database
 const db = require("./app/models");
-<<<<<<< HEAD
-db.sequelize.sync({force : true})                 // {force: true} drops the db
-=======
-db.sequelize
-  .sync({ force: true }) // {force: true} drops the db
->>>>>>> Annonces
+db.sequelize.sync({})                 // {force: true} drops the db
   .then(() => {
     console.log("Synced db.");
 

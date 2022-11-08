@@ -22,9 +22,12 @@ function TaskPage(): JSX.Element {
   
     }
     getList();
-  }, [taskCategory, createdSuccess, deletedSuccess, editedSuccess]);
-
-  async function handlesubmit() {}
+  }, [taskCategory,createdSuccess,deletedSuccess, editedSuccess]);
+  
+  async function handlesubmit() {
+    const listeResponsable = document.getElementsByClassName("responsable");
+    console.log(listeResponsable);
+  }
 
   return (
     <div>
@@ -40,20 +43,13 @@ function TaskPage(): JSX.Element {
       <p>Liste de tâches {taskCategory}</p>
 
       <div>
-        {listTask.map((Task) => (
-          <TaskRow
-            listTask={allCatTask}
-            task={Task}
-            deleteSuccess={setDelete}
-            editSuccess={editSuccess}
-          />
-        ))}
-      </div>
-
-      <Button variant="outline-dark" onClick={handlesubmit}>
-        Afficher l'historique
-      </Button>
-      <Button variant="demeter-dark">Compléter les tâches</Button>
+      {listTask.map((Task) => (
+        <TaskRow task={Task} listTask={allCatTask} deleteSuccess={setDelete} editSuccess={editSuccess} />
+      ))}
+    </div>
+      
+      <Button variant="outline-dark" >Afficher L'Historique</Button>
+      <Button variant="demeter-dark" onClick={handlesubmit}>Compléter les tâches</Button>
     </div>
   );
 }

@@ -20,7 +20,8 @@ exports.create = (req, res) => {
         roleId: req.body.roleId,
         active: req.body.active | true,
         author: req.body.author,
-        taskId: req.body.taskId 
+        taskId: req.body.taskId, 
+        date: req.body.date
     };
 
     // Save Announcement in the database

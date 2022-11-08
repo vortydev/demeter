@@ -6,6 +6,7 @@ module.exports = (sequelize, Sequelize) => {
     active: { type: Sequelize.BOOLEAN },
     author: { type: Sequelize.STRING },
     taskId: { type: Sequelize.BIGINT },
+    date: { type: Sequelize.DATE }
   });
 
   return Announcement;

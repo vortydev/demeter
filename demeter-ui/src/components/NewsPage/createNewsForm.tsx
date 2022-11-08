@@ -96,6 +96,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
             <option value="1">Administrateurs</option>
             <option value="2">Employés</option>
             <option value="3">Livreurs</option>
+            <option value="4">Autres</option>
           </Form.Select>
         </Form.Group>
         {!addTask && (

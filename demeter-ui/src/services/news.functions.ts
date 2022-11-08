@@ -13,8 +13,10 @@ async function createNews(data: News): Promise<boolean> {
   return announcementCreated;
 }
 
-async function getNewsByRole(data: number){
-  const news = AnnouncementsService.getByRole(data)
+async function getNewsByRole(data: number | undefined){
+
+  if(data !== undefined)
+{  const news = AnnouncementsService.getByRole(data)
 .then((response: any)=>{
       return response.data;
   })
@@ -22,7 +24,8 @@ async function getNewsByRole(data: number){
       console.log(e);
       return [];
   });
-  return news;
+  return news;}
+  return [];
 }
 
 

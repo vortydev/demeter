@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import { getCookie } from "typescript-cookie";
+import { getNewsByRole } from "../../services/news.functions";
 import { News } from "../../types/Types";
 import { CreateNewsForm } from "./createNewsForm";
 import { NewsPreview } from "./NewsPreview";
@@ -10,17 +11,18 @@ function NewsPage(): JSX.Element {
   const [createdSuccess, setSuccess] = useState<boolean>(false);
   const [newsList, setNewsList] = useState<News[]>([]);
   const connected = getCookie("account") ? getCookie("account") : "Visiteur";
-  const role = getCookie("role") ? getCookie("role") : "4";
-  
-  
+  const role = getCookie("role");
+
   useEffect(() => {
     async function getList() {
-      setNewsList(await getNewsByRole(role));
+      if (role !== undefined) {
+        setNewsList(await getNewsByRole(parseInt(role)));
+      } else {
+        setNewsList([]);
+      }
     }
     getList();
-
-  }, [currentRole, createSuccess, deleteSuccess]);
-
+  }, []);
 
   function success(): void {
     setSuccess(true);
@@ -37,12 +39,20 @@ function NewsPage(): JSX.Element {
       {createdSuccess && <Alert>L'annonce à été créer avec succès!</Alert>}
       <p className="loginText">Vous êtes connecté en tant que {connected}</p>
       <div className="newsAdd mb-2">
-        <Button variant="outline-dark" onClick={() => {
-          setCreateNews(true);
-          setSuccess(false);
-        }}>Nouvelle Annonce</Button>
+        <Button
+          variant="outline-dark"
+          onClick={() => {
+            setCreateNews(true);
+            setSuccess(false);
+          }}
+        >
+          Nouvelle Annonce
+        </Button>
       </div>
-      {newsList.map(news => (<NewsPreview news={news} />))}
+      {newsList.length === 0 && <p>Aucune annonce présentement.</p> }
+      {newsList.map((news) => (
+        <NewsPreview news={news} />
+      ))}
       <CreateNewsForm show={createNews} close={close} success={success} />
     </div>
   );

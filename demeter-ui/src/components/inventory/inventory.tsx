@@ -104,8 +104,20 @@ function ProductsDisplay({product, setDeleteSuccess, setUpdateSuccess}:ProductDi
                         setUpdateSuccess(false);
                     }} />
                     <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
-                        deleteProductById(product.id); 
-                        setTimeout(() => { setDeleteSuccess(true)}, 2500);
+                        confirmAlert({
+                            title: 'Confirmation',
+                            message: 'Êtes-vous sur de vouloir supprimer ce produit?',
+                            buttons: [
+                              {
+                                label: 'Oui',
+                                onClick: () => {deleteProduct(product.id); setDeleteSuccess(true);}
+                              },
+                              {
+                                label: 'Non',
+                                onClick: () => {}
+                              }
+                            ]
+                          }); 
                     }} />
                 </div>
             </div>

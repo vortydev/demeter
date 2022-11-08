@@ -7,11 +7,12 @@ import { Recipe } from "../../types/Types";
 interface RecipeListProps {
   filter: number | null;
   selectedPage: string;
+  deletedSuccess: boolean;
   setSelectedPage: (page: string) => void;
   setRecipePage: (recipe: Recipe) => void;
 }
 
-function RecipeList({ filter, selectedPage, setSelectedPage, setRecipePage }: RecipeListProps) {
+function RecipeList({ filter, selectedPage, deletedSuccess, setSelectedPage, setRecipePage }: RecipeListProps) {
   const [listRecipe, setListRecipe] = useState<Recipe[]>([]);
 
   useEffect(() => {
@@ -21,7 +22,7 @@ function RecipeList({ filter, selectedPage, setSelectedPage, setRecipePage }: Re
     }
     getList();
 
-  }, [filter, selectedPage]);
+  }, [filter, selectedPage, deletedSuccess]);
 
 
 

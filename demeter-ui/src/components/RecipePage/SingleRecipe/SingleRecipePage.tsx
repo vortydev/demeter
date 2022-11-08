@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
+import { confirmAlert } from "react-confirm-alert";
 import { getIngredientsByRecipe } from "../../../services/Ingredients.functions";
 import { deleteRecipe } from "../../../services/recipe.functions";
 import { Ingredient, Recipe } from "../../../types/Types";
@@ -7,6 +8,8 @@ import { Calculator } from "./Calculator";
 import { EditRecipeForm } from "./EditRecipeForm/EditRecipeForm";
 import { IngredientList } from "./IngredientList";
 import { InstructionModal } from "./InstructionModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
 interface SingleRecipePageProps {
   recipe: Recipe | null;
@@ -36,34 +39,51 @@ function SingleRecipePage({
   }, [listChanged]);
 
   return (
-    <div>
-      {editSuccess && (
-        <Alert variant="success">La recette à été modifiée avec succès !</Alert>
-      )}
-      {recipe!.title}{" "}
-      <Button
-        onClick={() => {
+    <section className="singleRecipePage">
+      <h1 className="pageTitle">Vue d'une Recette</h1>
+      {editSuccess && (<Alert variant="success">La recette à été modifiée avec succès !</Alert>)}
+
+      <div className="singleRecipeTitle flex">
+        <h2>{recipe!.title}</h2>
+        <FontAwesomeIcon className="iconEdit cursor ml-2" icon={faEdit} size="lg" onClick={() => {
           setEditRecipe(true);
-        }}
-      >
-        EDIT
-      </Button>
+        }} />
+      </div>
       <hr />
+
       <IngredientList list={listIng} />
-      <Calculator listIng={listIng} nbUnit={recipe!.nbUnitCreated} />
-      <Button onClick={() => setShowInstruction(true)}>Instructions</Button>
-      <Button
-        onClick={() => {
-          deleteRecipe(recipe!.id);
-          setRecipeDeleted(true);
-          setSelectedPage("recipe");
-        }}
-      >
-        DELETE
+
+      <Calculator listIng={listIng} nbUnit={recipe!.nbUnitCreated} otherCost={recipe!.otherCost} />
+
+      <Button variant="demeter-dark" onClick={() => setSelectedPage("recipe")}>
+        Retour
       </Button>
-      <Button onClick={() => setSelectedPage("recipe")} variant="dark">
-        RETOUR
+
+      <Button variant="demeter-dark" onClick={() => setShowInstruction(true)}>
+        Instructions
       </Button>
+
+      <Button variant="danger" onClick={() => {
+        confirmAlert({
+          title: 'Confirmation',
+          message: 'Êtes-vous sûr de vouloir supprimer cette recette?',
+          buttons: [
+            {
+              label: 'Oui',
+              onClick: () => {
+                deleteRecipe(recipe!.id);
+                setRecipeDeleted(true);
+                setSelectedPage("recipe");
+              }
+            },
+            {
+              label: 'Non',
+              onClick: () => { }
+            }
+          ]
+        });
+      }}>Supprimer</Button>
+
       <InstructionModal
         show={showInstruction}
         setShow={setShowInstruction}
@@ -78,7 +98,7 @@ function SingleRecipePage({
         setChanged={setChanged}
         editedSuccess={setEditSuccess}
       />
-    </div>
+    </section>
   );
 }
 

@@ -10,8 +10,12 @@ interface InstructionModalProps {
 function InstructionModal({ show, setShow, recipe }: InstructionModalProps) {
   return (
     <Modal show={show}>
-      <p>{recipe!.instruction}</p>
-      <Button onClick={() => setShow(false)}>CLOSE</Button>
+      <div className="popupForm">
+        <p>{recipe!.instruction}</p>
+        <div className="popupBtnBox">
+          <Button variant="demeter-dark" onClick={() => setShow(false)}>Retour</Button>
+        </div>
+      </div>
     </Modal>
   );
 }

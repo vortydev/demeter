@@ -8,7 +8,7 @@ interface ERFProps {
   recipe: Recipe;
   listIng: Ingredient[];
   show: boolean;
-  setRecipe: (recipe : Recipe | null)=> void;
+  setRecipe: (recipe: Recipe | null) => void;
   setShow: (show: boolean) => void;
   setChanged: (changed: boolean) => void;
   editedSuccess: (edited: boolean) => void;
@@ -65,21 +65,20 @@ function EditRecipeForm({
   return (
     <Modal show={show}>
       <Nav defaultActiveKey="recipe" variant="tabs">
-        {" "}
         <Nav.Item>
           <Nav.Link onClick={() => setEditing("recipe")} eventKey="recipe">
             Recette
           </Nav.Link>
-        </Nav.Item>{" "}
+        </Nav.Item>
         <Nav.Item>
           <Nav.Link
             onClick={() => setEditing("ingredient")}
-            eventKey="ingredient"
-          >
+            eventKey="ingredient">
             Ingrédients
           </Nav.Link>
         </Nav.Item>
       </Nav>
+
       {editing === "ingredient" && (
         <EditIngredient
           listIng={listIng}
@@ -87,63 +86,52 @@ function EditRecipeForm({
           setChanged={setChanged}
         />
       )}
+
       {editing === "recipe" && (
         <div>
-          <Form>
-            <Form.Group className="mb-3" controlId="title">
-              <Form.Label>TITRE : </Form.Label>
+          <Form className="popupForm">
+            <Form.Group className="mb-2" controlId="title">
+              <Form.Label>Titre</Form.Label>
               <Form.Control
                 onChange={updateRecipeInfo}
                 defaultValue={recipe.title}
                 type="text"
               />
             </Form.Group>
-            <Form.Select
-              onChange={updateRecipeInfo}
-              defaultValue={recipe.categoryrecipeId}
-              className="mb-3"
-              aria-label="CATÉGORIE : "
-              id="category"
-            >
-              <option>Choisir</option>
-              <option value="1">Boulangerie</option>
-              <option value="2">Patisserie</option>
-              <option value="3">Viennoiserie</option>
-              <option value="4">Cuisine</option>
-            </Form.Select>
-            <Form.Group
-              onChange={updateRecipeInfo}
-              className="mb-3"
-              controlId="instructions"
-            >
-              <Form.Label>INSTRUCTIONS : </Form.Label>
-              <Form.Control
-                defaultValue={recipe.instruction}
-                as="textarea"
-                rows={3}
-              />
+
+
+            <Form.Group className="popupSelectBox mb-2" controlId="category">
+              <Form.Label className="popupSelectLabel">Département</Form.Label>
+              <Form.Select onChange={updateRecipeInfo} defaultValue={recipe.categoryrecipeId} aria-label="Département" id="category">
+                <option value="1">Boulangerie</option>
+                <option value="2">Pâtisserie</option>
+                <option value="3">Viennoiserie</option>
+                <option value="4">Cuisine</option>
+              </Form.Select>
             </Form.Group>
-            <Form.Group
-              onChange={updateRecipeInfo}
-              className="mb-3"
-              controlId="otherExpenses"
-            >
-              <Form.Label>AUTRE FRAIS : </Form.Label>
+
+            <Form.Group onChange={updateRecipeInfo} className="mb-2" controlId="instructions">
+              <Form.Label>Instructions</Form.Label>
+              <Form.Control defaultValue={recipe.instruction} as="textarea" rows={3} />
+            </Form.Group>
+
+            <Form.Group onChange={updateRecipeInfo} className="mb-2" controlId="otherExpenses">
+              <Form.Label>Autres frais</Form.Label>
               <Form.Control defaultValue={recipe.otherCost} type="number" />
             </Form.Group>
-            <Form.Group
-              onChange={updateRecipeInfo}
-              className="mb-3"
-              controlId="nbProduct"
-            >
-              <Form.Label>NB PRODUIT : </Form.Label>
+
+            <Form.Group onChange={updateRecipeInfo} className="mb-2" controlId="nbProduct">
+              <Form.Label>Nombre de produits</Form.Label>
               <Form.Control defaultValue={recipe.nbUnitCreated} type="number" />
             </Form.Group>
           </Form>
         </div>
       )}
-      <Button onClick={editRecipe}>ENVOYER</Button>
-      <Button onClick={() => setShow(false)}>ANNULER</Button>
+
+      <div className="popupBtnBox mb-3">
+        <Button variant="demeter-dark" onClick={() => setShow(false)}>Annuler</Button>
+        <Button variant="demeter" onClick={editRecipe}>Confirmer</Button>
+      </div>
     </Modal>
   );
 }

@@ -258,3 +258,11 @@ option {
     color: var(--demeter-orange) !important;
     border-color: var(--demeter-orange) !important;
 }
+
+.nav-link {
+    color: var(--demeter-green);
+}
+
+.nav-link:hover {
+    color: var(--demeter-green-v);
+}

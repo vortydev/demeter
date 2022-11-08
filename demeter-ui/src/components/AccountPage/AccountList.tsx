@@ -10,6 +10,7 @@ import {
 } from "../../services/account.functions";
 import { Account } from "../../types/Types";
 import { EditPasswordForm } from "./EditPasswordForm";
+import { confirmAlert } from "react-confirm-alert";
 
 interface AccountListProps {
   currentRole: number;
@@ -76,8 +77,21 @@ function AccountRow({
           setEditAccount(true);
         }} />
         <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
-          deleteAccount(currentAccount.accName);
-          setDeleteSuccess(true);
+          confirmAlert({
+            title: 'Confirmation',
+            message: 'Êtes-vous sur de vouloir supprimer ce compte?',
+            buttons: [
+              {
+                label: 'Oui',
+                onClick: () => {deleteAccount(currentAccount.accName); setDeleteSuccess(true);}
+              },
+              {
+                label: 'Non',
+                onClick: () => {}
+              }
+            ]
+          });
+          
         }} />
       </div>
       <EditPasswordForm

@@ -13,9 +13,10 @@ import { TaskRow } from "../TaskPage/TaskRow";
 
 interface NewsPreviewProps {
   news: News;
+  deleteSuccess: (deleted: boolean) => void;
 }
 
-function NewsPreview({ news }: NewsPreviewProps) {
+function NewsPreview({ news, deleteSuccess }: NewsPreviewProps) {
   let shortDescription = news.description;
   const [fullText, setFullText] = useState<boolean>(false);
   const [EditNews, setEditNews] = useState<boolean>(false);
@@ -62,9 +63,8 @@ function NewsPreview({ news }: NewsPreviewProps) {
             // TODO setEditNews(true); 
           }} />
           <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
-            console.log("DELETE NEWS");
-            // TODO deleteNews(currentNews.id);
-            // TODO setDeleteSuccess(true);
+            deleteNews(news.id);
+            deleteSuccess(true);
           }} />
         </div>
       </div>

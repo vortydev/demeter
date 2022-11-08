@@ -6,6 +6,7 @@ type Account = {
 };
 
 type News ={
+    id : number;
     title : string;
     description : string;
     author: string;

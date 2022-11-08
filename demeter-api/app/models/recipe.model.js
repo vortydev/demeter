@@ -4,7 +4,7 @@ module.exports = (sequelize, Sequelize) => {
         available: { type: Sequelize.BOOLEAN },
         instruction: { type: Sequelize.TEXT },
         nbUnitCreated: { type: Sequelize.INTEGER },
-        otherCost: { type: Sequelize.DECIMAL(15, 2) }
+        otherCost: { type: Sequelize.FLOAT }
     });
 
     return Recipe;

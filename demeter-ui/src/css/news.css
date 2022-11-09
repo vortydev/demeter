@@ -51,3 +51,7 @@
     width: 60%;
     margin: auto;
 }
+
+.joinTaskBtn {
+    width: 15rem !important;
+}

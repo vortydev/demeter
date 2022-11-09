@@ -1,6 +1,5 @@
 import AnnouncementsService from "./news.services";
 import { News} from "../types/Types";
-import bcrypt from "bcryptjs";
 
 async function createNews(data: News): Promise<boolean> {
   const announcementCreated = AnnouncementsService.create(data)
@@ -13,6 +12,22 @@ async function createNews(data: News): Promise<boolean> {
     });
   return announcementCreated;
 }
+
+async function getNewsByRole(data: number | undefined){
+
+  if(data !== undefined)
+{  const news = AnnouncementsService.getByRole(data)
+.then((response: any)=>{
+      return response.data;
+  })
+  .catch((e: Error) => {
+      console.log(e);
+      return [];
+  });
+  return news;}
+  return [];
+}
+
 
 async function updateNews(data: News, newsName: String): Promise<boolean> {
   const announcementUpdated = AnnouncementsService.update(data, newsName)
@@ -40,4 +55,4 @@ async function deleteNews(id: number) {
 }
 
 
-export { createNews, updateNews,deleteNews };
+export { createNews, updateNews,deleteNews, getNewsByRole };

@@ -93,7 +93,7 @@ console.log('in add Ingredient');
             {ingAlready && <Alert variant="danger">Cet ingrédient est déjà dans la recette</Alert>}
             <IngredientRow ingredient={ing} />
             <Button onClick={()=>{
-              confirmAlert({
+              confirmAlert({  // so ethel here you need to give this confirm alert a z-index over the modal's z-index
                 title: 'Confirmation',
                 message: 'Êtes-vous sur de vouloir supprimer cet ingrédient?',
                 buttons: [

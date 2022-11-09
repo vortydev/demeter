@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { Button, Form } from "react-bootstrap"
+import { Alert, Button, Form } from "react-bootstrap"
+import { confirmAlert } from "react-confirm-alert";
 import { createIngredient, deleteOneIngredientsByRecipe } from "../../../../services/Ingredients.functions";
 import { getAllMesurements, getProductsByCategory } from "../../../../services/inventory.functions";
 import { IngForRecipe } from "../../../../types/RecipeTypes.types";
@@ -16,6 +17,9 @@ function EditIngredient({listIng, recipeId, setChanged} : EditIngredientProps) {
     const [addingIng, setAddingIng] = useState<boolean>(false);
     const [productList, setProductList] = useState<Product[]>([]);
     const [mesureList, setListMesurement] = useState<Mesurement[]>([]);
+    const [deleteSuccess, setDeleteSuccess] = useState<boolean>(false);
+    const [empty, setEmpty] = useState<boolean>(false);
+    const [ingAlready, setIngAlready] = useState<boolean>(false);
 
     useEffect(() => {
         async function getLists() {
@@ -29,9 +33,12 @@ function EditIngredient({listIng, recipeId, setChanged} : EditIngredientProps) {
     async function removeIngredient(ing: Ingredient){
         const deleted = await deleteOneIngredientsByRecipe(ing.recipeId, ing.productId);
         setChanged(true);
-       }
+        setTimeout(() => {
+          setChanged(false);
+        }, 5000); 
+    }
 
-       async function addIngredient(){
+    async function addIngredient(){
 console.log('in add Ingredient');
 
         const productId = parseInt((
@@ -43,30 +50,63 @@ console.log('in add Ingredient');
           const mesurement = parseInt((
             document.getElementById("mesurement") as HTMLInputElement
           ).value);
+      
+      if (
+            productId !== undefined &&
+            mesurement !== undefined &&
+            quantity > 0
+          ) {
+            if (listIng.filter((obj)=>{
+              return obj.productId === productId;
+            }).length > 0) {
+              setIngAlready(true);
+            }else {
+              const ingredient : Ingredient = {
+                productId: productId,
+                recipeId : recipeId,
+                mesurementId: mesurement,
+                qty: quantity,
+              }
 
-        const ingredient : Ingredient = {
-            productId: productId,
-            recipeId : recipeId,
-            mesurementId: mesurement,
-            qty: quantity,
-        }
+              if(await createIngredient(ingredient)){
+                  setAddingIng(false);
+                  setChanged(true);
+              }
+            }
+      } else {
+        setEmpty(true);
+      }
+      setTimeout(() => {
+        setEmpty(false);
+        setIngAlready(false);
+        setChanged(false);
+      }, 5000); 
 
-        console.log(ingredient);
-        
-        if(await createIngredient(ingredient)){
-            setAddingIng(false);
-        }
-         
-
-       }
-
+      }
 
 
     return(<div>
         {listIng.map((ing) => (
           <div>
+            {deleteSuccess && (<Alert variant="success">L'ingrédient à été retiré avec succès !</Alert>)}
+            {empty && <Alert variant="danger">Veuillez remplir tous les champs.</Alert>}
+            {ingAlready && <Alert variant="danger">Cet ingrédient est déjà dans la recette</Alert>}
             <IngredientRow ingredient={ing} />
-            <Button onClick={()=>removeIngredient(ing)}>DELETE</Button>
+            <Button onClick={()=>{
+              confirmAlert({
+                title: 'Confirmation',
+                message: 'Êtes-vous sur de vouloir supprimer cet ingrédient?',
+                buttons: [
+                  {
+                    label: 'Oui',
+                    onClick: () => {removeIngredient(ing); setDeleteSuccess(true)}
+                  },
+                  {
+                    label: 'Non',
+                    onClick: () => {}
+                  }
+                ]
+              });}}>DELETE</Button>
           </div>
         ))}
         {!addingIng && <Button onClick={()=>setAddingIng(true)} variant="outline-dark">+ ingrédient</Button>}

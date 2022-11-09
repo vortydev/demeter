@@ -20,7 +20,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       id: 1,
       title: 'changeMe',
       description: 'changeMe',
-      categorytaskId: 3, // Autres
+      categorytaskId: 4, // Ne s'Affichent pas dans la liste de tâches
       parentId: 0,
       active:true,
       completed: false,

@@ -23,7 +23,7 @@ function NewsPage(): JSX.Element {
       }
     }
     getList();
-  }, []);
+  }, [createdSuccess, deleteSuccess]);
 
   function success(): void {
     setSuccess(true);

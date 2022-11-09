@@ -5,7 +5,7 @@ module.exports = (sequelize, Sequelize) => {
     img: { type: Sequelize.STRING },
     active: { type: Sequelize.BOOLEAN },
     author: { type: Sequelize.STRING },
-    taskId: { type: Sequelize.BIGINT },
+    taskId: { type: Sequelize.INTEGER },
     date: { type: Sequelize.DATE }
   });
 

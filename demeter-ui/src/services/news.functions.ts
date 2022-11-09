@@ -14,7 +14,6 @@ async function createNews(data: News): Promise<boolean> {
 }
 
 async function getNewsByRole(data: number | undefined){
-
   if(data !== undefined)
 {  const news = AnnouncementsService.getByRole(data)
 .then((response: any)=>{
@@ -29,8 +28,8 @@ async function getNewsByRole(data: number | undefined){
 }
 
 
-async function updateNews(data: News, newsName: String): Promise<boolean> {
-  const announcementUpdated = AnnouncementsService.update(data, newsName)
+async function updateNews(id:number, data:News): Promise<boolean> {
+  const announcementUpdated = AnnouncementsService.update(id,data)
     .then((response: any) => {
       return true;
     })

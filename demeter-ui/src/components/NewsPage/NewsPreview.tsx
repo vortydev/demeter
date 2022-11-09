@@ -13,14 +13,14 @@ import { TaskRow } from "../TaskPage/TaskRow";
 
 interface NewsPreviewProps {
   news: News;
+  editedSuccess: (editedSuccess: boolean) => void;
   deleteSuccess: (deleted: boolean) => void;
 }
 
-function NewsPreview({ news, deleteSuccess }: NewsPreviewProps) {
+function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
   let shortDescription = news.description;
   const [fullText, setFullText] = useState<boolean>(false);
   const [EditNews, setEditNews] = useState<boolean>(false);
-  const [EditSuccess, setEditSuccess] = useState<boolean>(false);
   const [task, setTask] = useState<Task | undefined>(undefined);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ function NewsPreview({ news, deleteSuccess }: NewsPreviewProps) {
     if (news.taskId !== 0) {
       getLinkedTask();
     }
-  }, [task, fullText]);
+  }, [task, fullText, editedSuccess]);
 
   if (news.description.length > 200) {
     shortDescription = news.description.substring(0, 200);
@@ -44,7 +44,7 @@ function NewsPreview({ news, deleteSuccess }: NewsPreviewProps) {
   const dotdotdot = fullText ? "" : " ...";
 
   function success() {
-    setEditSuccess(true);
+    editedSuccess(true);
   }
 
   function close() {
@@ -78,8 +78,7 @@ function NewsPreview({ news, deleteSuccess }: NewsPreviewProps) {
             icon={faEdit}
             size="lg"
             onClick={() => {
-              console.log("EDIT NEWS");
-              // TODO setEditNews(true);
+            setEditNews(true);
             }}
           />
           <FontAwesomeIcon
@@ -106,7 +105,10 @@ function NewsPreview({ news, deleteSuccess }: NewsPreviewProps) {
       >
         {buttonText}
       </Button>
-      <hr className="newsLine" />
+      <hr className="newsLine" /> 
+
+
+      <EditNewsForm show={EditNews} news={news} task={task} close={close} success={success}/>
     </div>
   );
 }

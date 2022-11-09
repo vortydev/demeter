@@ -27,6 +27,19 @@ async function getNewsByRole(data: number | undefined){
   return [];
 }
 
+async function getAllNews(){
+
+const news = AnnouncementsService.getAll()
+.then((response: any)=>{
+      return response.data;
+  })
+  .catch((e: Error) => {
+      console.log(e);
+      return [];
+  });
+  return news;
+}
+
 
 async function updateNews(id:number, data:News): Promise<boolean> {
   const announcementUpdated = AnnouncementsService.update(id,data)
@@ -54,4 +67,4 @@ async function deleteNews(id: number) {
 }
 
 
-export { createNews, updateNews,deleteNews, getNewsByRole };
+export { createNews, updateNews,deleteNews, getNewsByRole, getAllNews };

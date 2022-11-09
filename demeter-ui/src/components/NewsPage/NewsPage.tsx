@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import { getCookie } from "typescript-cookie";
-import { getNewsByRole } from "../../services/news.functions";
+import { getAllNews, getNewsByRole } from "../../services/news.functions";
 import { News } from "../../types/Types";
 import { CreateNewsForm } from "./createNewsForm";
 import { NewsPreview } from "./NewsPreview";
@@ -35,6 +35,11 @@ function NewsPage(): JSX.Element {
     setCreateNews(false);
   }
 
+  async function showAllNews() {
+    setNewsList(await getAllNews());
+
+  }
+
   return (
     <div>
       <h1 className="pageTitle">Annonces</h1>
@@ -43,7 +48,7 @@ function NewsPage(): JSX.Element {
       {deleteSuccess && <Alert>L'annonce à été supprimer avec succès!</Alert>}
       <p className="loginText">Vous êtes connecté en tant que {connected}</p>
       <div className="newsAdd mb-2">
-        <Button>Afficher toutes les Annonces</Button>
+        <Button onClick={showAllNews}>Afficher toutes les Annonces</Button>
         <Button
           variant="outline-dark"
           onClick={() => {

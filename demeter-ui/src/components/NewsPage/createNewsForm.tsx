@@ -19,6 +19,7 @@ interface CRFormProps {
       const description = document.getElementById("description") as HTMLInputElement;
 
       const newNews: News = {
+        id:1,
         title: title.value,
         description: description.value,
         author: author.value,

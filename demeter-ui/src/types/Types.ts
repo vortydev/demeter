@@ -13,7 +13,7 @@ type News ={
     img: string | null;
     active: boolean;
     roleId: string;
-    taskId: number | null;
+    taskId: number ;
     picture: string | null;
     date: Date;
 

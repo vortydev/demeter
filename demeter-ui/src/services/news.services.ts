@@ -18,8 +18,8 @@ class AnnouncementsService {
     return http.post<News>("/announcements", data);
   }
 
-  update(data: News, user: String) {
-    return http.put<any>(`/announcements/${user}`, data);
+  update(id: number, data: News,) {
+    return http.put<any>(`/announcements/${id.toString()}`, data);
   }
 
   delete(id: number) {

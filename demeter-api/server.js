@@ -76,8 +76,8 @@ db.sequelize.sync({})                 // {force: true} drops the db
         [
           { id: "1", category: "Quotidienne", occurence: "1" },
           { id: "2", category: "Hebdomadaire", occurence: "7" },
-          { id: "3", category: "Mensuelle", occurence: "30" },
-          { id: "4", category: "Autre", occurence: "0" },
+          { id: "3", category: "Autre", occurence: "0" },
+          { id: "4", category: "Annonces", occurence: "0" },
         ],
         { ignoreDuplicates: true }
       )

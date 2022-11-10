@@ -21,6 +21,7 @@ function AddIngredientForm({
   const [productList, setProductList] = useState<Product[]>([]);
   const [mesureList, setListMesurement] = useState<Mesurement[]>([]);
   const [empty, setEmpty] = useState<boolean>(false);
+  const [ingAlready, setIngAlready] = useState<boolean>(false);
 
   useEffect(() => {
     async function getLists() {
@@ -52,22 +53,27 @@ function AddIngredientForm({
       mesurement !== undefined &&
       quantity > 0
     ) {
-      const toAdd: IngForRecipe = {
-        ingredient: productSelected,
-        quantity: quantity,
-        mesurementId: mesurement,
-      };
-
-      listIng.push(toAdd);
-      setShow(false);
-
-
+      if (listIng.filter((obj)=>{
+        return obj.ingredient.name === productSelected.name;
+      }).length > 0) {
+        setIngAlready(true);
+      }else {
+        const toAdd: IngForRecipe = {
+          ingredient: productSelected,
+          quantity: quantity,
+          mesurementId: mesurement,
+        };
+      
+        listIng.push(toAdd);
+        setShow(false);
+      }
 
     } else {
       setEmpty(true);
     }
     setTimeout(() => {
       setEmpty(false);
+      setIngAlready(false);
     }, 5000);
   }
 
@@ -76,6 +82,7 @@ function AddIngredientForm({
       <Form className="popupForm">
         <h3 className="popupTitle">Ajouter un ingrédient</h3>
         {empty && <Alert variant="danger">Veuillez remplir tous les champs.</Alert>}
+        {ingAlready && <Alert variant="danger">Cet ingrédient est déjà dans la recette</Alert>}
         <Form.Group className="popupSelectBox mb-2" controlId="product">
           <Form.Label className="popupSelectLabel">Produit</Form.Label>
           <Form.Select id="product">

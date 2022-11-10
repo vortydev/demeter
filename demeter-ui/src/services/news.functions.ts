@@ -14,7 +14,6 @@ async function createNews(data: News): Promise<boolean> {
 }
 
 async function getNewsByRole(data: number | undefined){
-
   if(data !== undefined)
 {  const news = AnnouncementsService.getByRole(data)
 .then((response: any)=>{
@@ -28,9 +27,22 @@ async function getNewsByRole(data: number | undefined){
   return [];
 }
 
+async function getAllNews(){
 
-async function updateNews(data: News, newsName: String): Promise<boolean> {
-  const announcementUpdated = AnnouncementsService.update(data, newsName)
+const news = AnnouncementsService.getAll()
+.then((response: any)=>{
+      return response.data;
+  })
+  .catch((e: Error) => {
+      console.log(e);
+      return [];
+  });
+  return news;
+}
+
+
+async function updateNews(id:number, data:News): Promise<boolean> {
+  const announcementUpdated = AnnouncementsService.update(id,data)
     .then((response: any) => {
       return true;
     })
@@ -55,4 +67,4 @@ async function deleteNews(id: number) {
 }
 
 
-export { createNews, updateNews,deleteNews, getNewsByRole };
+export { createNews, updateNews,deleteNews, getNewsByRole, getAllNews };

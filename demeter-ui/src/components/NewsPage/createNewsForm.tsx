@@ -15,18 +15,12 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
   const [addTask, setAddTask] = useState<boolean>(false);
 
   async function handlesubmit(): Promise<void> {
-    const title = document.getElementById("title") as HTMLInputElement;
-    const author = document.getElementById("author") as HTMLInputElement;
-    const receiver = document.getElementById("receiver") as HTMLInputElement;
-    const description = document.getElementById(
-      "description"
-    ) as HTMLInputElement;
 
     let newsTask = {
-      id: 0,
+      id: 1,
       title: 'changeMe',
       description: 'changeMe',
-      categorytaskId: 4,
+      categorytaskId: 4, // Ne s'Affichent pas dans la liste de tâches
       parentId: 0,
       active: true,
       completed: false,
@@ -34,40 +28,48 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       date: new Date(),
     };
 
+    let taskCreated: Task | null = null;
+
     if (addTask) {
+      // Retrive task info
       const taskTitle = document.getElementById("tasktitle") as HTMLInputElement;
       const taskDesc = document.getElementById("taskdescription") as HTMLInputElement;
-
-      newsTask.id = Number(new Date());
+      // Assign task infos
       newsTask.title = taskTitle.value;
-      newsTask.description = taskDesc.value;
-
-
-      if (await createTask(newsTask)) {
-        console.log('this worked');
-      }
-      else {
+      newsTask.description= taskDesc.value;
+      // create task
+      taskCreated = await createTask(newsTask);
+      // validate
+       console.log(taskCreated);
+      if(taskCreated === null){
         setError(true);
       }
     }
 
+    const title = document.getElementById("title") as HTMLInputElement;
+    const author = document.getElementById("author") as HTMLInputElement;
+    const receiver = document.getElementById("receiver") as HTMLInputElement;
+    const description = document.getElementById(
+      "description"
+    ) as HTMLInputElement;
+
     const newNews: News = {
-      id: 0,
+      id:1,
       title: title.value,
       description: description.value,
       author: author.value,
       img: null,
       active: true,
       roleId: receiver.value,
-      taskId: newsTask.id === 0 ? 0 : newsTask.id,
+      taskId: taskCreated ? taskCreated.id : 0,
       picture: null,
       date: new Date(),
     };
 
     setError(false);
 
-    if (await createNews(newNews) && error === false) {
-      console.log(newNews, newsTask);
+    if (await createNews(newNews) && !error) {
+      setAddTask(false);
       success();
 
     } else {

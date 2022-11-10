@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Form, Modal, Nav } from "react-bootstrap";
+import { Alert, Button, Form, Modal, Nav } from "react-bootstrap";
 import { updateRecipe } from "../../../../services/recipe.functions";
 import { Ingredient, Recipe } from "../../../../types/Types";
 import { EditIngredient } from "./EditIngredients";
@@ -26,6 +26,9 @@ function EditRecipeForm({
   const [recipeInfo, setRecipeInfo] = useState<Recipe>(recipe);
   const [editing, setEditing] = useState<String>("recipe");
 
+  const [empty, setEmpty] = useState<boolean>(false);
+  const [invalid, setInvalid] = useState<boolean>(false);
+
   function updateRecipeInfo() {
     const title = (document.getElementById("title") as HTMLInputElement).value;
     const category = (document.getElementById("category") as HTMLInputElement)
@@ -39,8 +42,8 @@ function EditRecipeForm({
     const nbProduct = (document.getElementById("nbProduct") as HTMLInputElement)
       .value;
 
-    const recipe: Recipe = {
-      id: 1,
+    const editRecipe: Recipe = {
+      id: recipe.id,
       title: title,
       categoryrecipeId: parseInt(category),
       instruction: instructions,
@@ -48,17 +51,24 @@ function EditRecipeForm({
       nbUnitCreated: parseInt(nbProduct),
       available: true,
     };
-
-    setRecipeInfo(recipe);
+    setRecipeInfo(editRecipe);
   }
 
   async function editRecipe() {
-    if (await updateRecipe(recipe.id, recipeInfo)) {
-      setRecipe(recipeInfo);
-      editedSuccess(true);
-      setShow(false);
-    } else {
-      console.log("problème édition recette !");
+    if (recipeInfo.title == "" || !recipeInfo.categoryrecipeId || !recipeInfo.instruction || recipeInfo.otherCost < 0 || recipeInfo.nbUnitCreated < 0) {
+      setEmpty(true);
+      setTimeout(() => {
+        setEmpty(false);
+      }, 5000);
+    }
+    else {
+      if (await updateRecipe(recipe.id, recipeInfo)) {
+        setRecipe(recipeInfo);
+        editedSuccess(true);
+        setShow(false);
+      } else {
+        setInvalid(true);
+      }
     }
   }
 
@@ -78,7 +88,8 @@ function EditRecipeForm({
           </Nav.Link>
         </Nav.Item>
       </Nav>
-
+      {empty && <Alert variant="danger">Veuillez remplir tous les champs de la recette.</Alert>}
+      {invalid && (<Alert variant="danger">Informations invalides, la recette n'a pas été modifiée.</Alert>)}
       {editing === "ingredient" && (
         <EditIngredient
           listIng={listIng}

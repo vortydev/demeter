@@ -5,74 +5,74 @@ type Account = {
   stateId: Number;
 };
 
-type News ={
-    id : number;
-    title : string;
-    description : string;
-    author: string;
-    img: string | null;
-    active: boolean;
-    roleId: string;
-    taskId: number | null;
-    picture: string | null;
-    date: Date;
+type News = {
+  id: number;
+  title: string;
+  description: string;
+  author: string;
+  img: string | null;
+  active: boolean;
+  roleId: string;
+  taskId: number;
+  picture: string | null;
+  date: Date;
 
 }
 
 type Task = {
-    id : number;
-    title: string;
-    description : string;
-    categorytaskId: number;
-    parentId: number|null;
-    completed: boolean;
-    active: boolean;
-    picture: string | null;
-    date: Date;
+  id: number;
+  title: string;
+  description: string;
+  categorytaskId: number;
+  parentId: number | null;
+  completed: boolean;
+  active: boolean;
+  picture: string | null;
+  date: Date;
 }
 
 type Recipe = {
   id: number;
-  title : string;
-  categoryrecipeId : number;
-  instruction : string;
+  title: string;
+  categoryrecipeId: number;
+  instruction: string;
   otherCost: number;
   nbUnitCreated: number;
-  available:boolean;
+  available: boolean;
 };
 
 type Product = {
-    id: number;
-    name: string;
-    categoryproductId: string;
-    vendorId: string;
-    price: string;
-    qtyInv: string;
-    qtyUnit: string;
-    format: string;
-    mesurementId: string;
+  id: number;
+  name: string;
+  categoryproductId: string;
+  vendorId: string;
+  price: string;
+  qtyInv: string;
+  qtyUnit: string;
+  format: string;
+  mesurementId: string;
 }
 
 type Category = {
-    id: number;
-    category: String;
+  id: number;
+  category: String;
 }
 
 type Vendor = {
-    id: number;
-    vendor: String;
-    phone: String;
-    email: String;
-    address: String;
+  id: number;
+  vendor: String;
+  phone: String;
+  email: String;
+  address: String;
 }
 
 type Mesurement = {
-    id: number;
-    mesurement: string;
-    weight: number;
+  id: number;
+  mesurement: string;
+  weight: number;
 }
 
-type Ingredient ={
+type Ingredient = {
   recipeId: number;
   productId: number;
   qty: number;

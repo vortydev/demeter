@@ -1,6 +1,6 @@
 import { Form } from 'react-bootstrap';
 import React, { useEffect, useState } from 'react';
-import { deleteProduct, getAll, getAllCategories, getAllMesurements } from '../../services/inventory.functions'
+import { deleteProduct, getAll, getAllCategories, getAllMesurements, getProductsByCategory } from '../../services/inventory.functions'
 import { getAllVendor } from '../../services/vendor.functions';
 import { Category, Mesurement, Product, Vendor } from '../../types/Types';
 import { InventoryEditProductForm } from './inventoryUpdateProduct';
@@ -52,7 +52,7 @@ function ListingProductsEdit(show: GettingShow): JSX.Element {
 
     useEffect(() => {
         async function getList() {
-            setProducts(await getAll());
+            setProducts(await getProductsByCategory("2"));
         }
         getList();
     },[show]);
@@ -152,23 +152,6 @@ function ProductsDisplayEdit({ product }: ProductDisplayEditProps): JSX.Element 
             </Form.Group>
         </Form.Group>
     );
-}
-
-function deleteProductById(id: any){
-    confirmAlert({
-        title: 'Confirmation',
-        message: 'Êtes-vous sur de vouloir supprimer ce produit?',
-        buttons: [
-          {
-            label: 'Oui',
-            onClick: () => {deleteProduct(id);}
-          },
-          {
-            label: 'Non',
-            onClick: () => {}
-          }
-        ]
-      });
 }
 
 function GetCategory(show: GettingShow): JSX.Element {

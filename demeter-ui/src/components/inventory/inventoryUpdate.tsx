@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Form, Button, Modal, Alert} from 'react-bootstrap';
 import { Product } from '../../types/Types';
 import { ListingProductsEdit } from './inventory';
-import { updateProduct, getAll } from '../../services/inventory.functions'
+import { updateProduct, getProductsByCategory } from '../../services/inventory.functions'
 
 interface CRFormProps {
     show: boolean;
@@ -21,7 +21,7 @@ function InventoryUpdate({ show, close, success }: CRFormProps) {
     async function editProducts(): Promise<void>{
 
         async function getProducts() {
-            setProducts(await getAll());
+            setProducts(await getProductsByCategory("2"));
         }
 
         getProducts();

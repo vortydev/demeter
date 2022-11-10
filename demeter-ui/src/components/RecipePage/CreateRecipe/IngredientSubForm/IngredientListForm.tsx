@@ -14,7 +14,7 @@ function IngredientListForm({ listIng, setRecipeCost }: ILFProps) {
   const [addIngredient, setAddIngredient] = useState<boolean>(false);
   const [deleteIngredient, setDeleteIngredient] = useState<boolean>(false);
 
- useEffect(() => {
+  useEffect(() => {
     setRecipeCost(getRecipeCost(listIng));
   }, [deleteIngredient, addIngredient]);
 

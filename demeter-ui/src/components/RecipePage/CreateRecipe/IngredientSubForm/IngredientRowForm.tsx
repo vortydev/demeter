@@ -28,7 +28,7 @@ function IngredientRowForm({
       setMesure(await getMesurementById(ingredient.mesurementId));
     }
     getList();
-  }, [ingredient, mesure]);
+  }, [ingredient]);
 
   function removeIngredient() {
     console.log("clicked Removed");

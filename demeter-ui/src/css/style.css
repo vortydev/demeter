@@ -267,6 +267,7 @@ option {
     color: var(--demeter-green-v);
 }
 
+/* confirmation alert */
 .react-confirm-alert-body {
     color: black !important;
     font-family: "Antic", sans-serif !important;
@@ -288,7 +289,7 @@ option {
 }
 
 .react-confirm-alert-button-group>button {
-    width: 5rem !important;
+    width: 7.5rem !important;
     background-color: var(--demeter-black) !important; 
 }
 

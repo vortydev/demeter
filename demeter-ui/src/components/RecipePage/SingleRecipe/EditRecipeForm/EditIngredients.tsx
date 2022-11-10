@@ -87,13 +87,13 @@ function EditIngredient({ listIng, recipeId, setChanged }: EditIngredientProps) 
 
   }
 
-
-
-  return (<div>
+  return (<div className="popupForm">
     {listIng.map((ing) => (
       <div>
         <IngredientRow ingredient={ing} />
-        <Button onClick={() => removeIngredient(ing)}>DELETE</Button>
+        <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
+          removeIngredient(ing)
+        }} />
       </div>
     ))}
     {!addingIng && <Button onClick={() => setAddingIng(true)} variant="outline-dark">+ ingrédient</Button>}

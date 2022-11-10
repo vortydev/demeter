@@ -271,12 +271,14 @@ option {
 .react-confirm-alert-body {
     color: black !important;
     font-family: "Antic", sans-serif !important;
+    line-height: 1.5rem !important;
 }
 
 .react-confirm-alert-button-group {
     justify-content: center !important;
     margin-top: 1rem !important;
     flex-direction: row-reverse !important;
+    line-height: 2rem !important;
 }
 
 .react-confirm-alert-body>h1 {

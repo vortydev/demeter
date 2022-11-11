@@ -30,10 +30,10 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
       completed: false,
       picture: null,
       date: new Date(),
+      responsable: null,
     };
 
     if (await createTask(newTask)) {
-      console.log('it worked !!!!');
       success(true);
       close();
     } else {

@@ -70,7 +70,7 @@ function AccountRow({
   }
 
   return (
-    <div className="flex">
+    <div className="cellShade flex">
       <span className="accountName">{currentAccount.accName}</span>
       <div className="accountEditBox">
         <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {

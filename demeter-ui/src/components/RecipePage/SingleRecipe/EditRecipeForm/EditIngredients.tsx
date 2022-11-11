@@ -88,8 +88,13 @@ function EditIngredient({ listIng, recipeId, setChanged }: EditIngredientProps) 
   }
 
   return (<div className="popupForm">
+    <div className="ingListHeader flex mb-2">
+      <span className="ingListCol">Nom</span>
+      <span className="ingListColS">Quantité</span>
+      <span className="ingListColS">Coût</span>
+    </div>
     {listIng.map((ing) => (
-      <div className="cellShade flex editIngListRow mb-2">
+      <div className="cellShade flex ingListRow mb-2">
         <IngredientRow ingredient={ing} />
         <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
           removeIngredient(ing)
@@ -106,7 +111,7 @@ function EditIngredient({ listIng, recipeId, setChanged }: EditIngredientProps) 
         <hr className="loginLine mb-2" />
         <h4 className="popupTitle">Ajouter un ingrédient</h4>
         {ingAlready && <Alert variant="danger">Cet ingrédient est déjà dans la recette</Alert>}
-        
+
         <Form.Group className="popupSelectBox mb-2" controlId="product">
           <Form.Label className="popupSelectLabel">Produit</Form.Label>
           <Form.Select id="product">

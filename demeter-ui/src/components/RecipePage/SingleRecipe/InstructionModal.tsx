@@ -11,6 +11,7 @@ function InstructionModal({ show, setShow, recipe }: InstructionModalProps) {
   return (
     <Modal show={show}>
       <div className="popupForm">
+        <h3 className="popupTitle">Instructions</h3>
         <p>{recipe!.instruction}</p>
         <div className="popupBtnBox">
           <Button variant="demeter-dark" onClick={() => setShow(false)}>Retour</Button>

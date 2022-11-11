@@ -73,6 +73,28 @@ option {
     text-align: right;
 }
 
+.cellCenter {
+    line-height: 1;
+    align-self: center;
+    text-align: center;
+}
+
+.cellLeft {
+    line-height: 1;
+    align-self: center;
+    text-align: left;
+}
+
+.cellShade {
+    padding: .25rem;
+    transition: all .15s;
+    border-radius: .25rem;
+}
+
+.cellShade:hover {
+    background-color: var(--demeter-green-h);
+}
+
 /* app variables i guess */
 .pageTitle {
     text-align: center;

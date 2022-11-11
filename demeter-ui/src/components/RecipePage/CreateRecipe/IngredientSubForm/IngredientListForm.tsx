@@ -47,9 +47,7 @@ function IngredientListForm({ listIng, setRecipeCost }: ILFProps) {
 
   return (
     <div className="ingListForm popupForm">
-      {deleteIngredient && (
-        <Alert variant="success">Ingrédient supprimé avec succès!</Alert>
-      )}
+      {deleteIngredient && ( <Alert variant="success">Ingrédient supprimé avec succès!</Alert>)}
       <div className="ingListHeader flex mb-2">
         <span className="ingListCol">Nom</span>
         <span className="ingListColS">Quantité</span>

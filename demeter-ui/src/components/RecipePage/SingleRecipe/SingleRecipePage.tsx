@@ -56,7 +56,7 @@ function SingleRecipePage({
       <Calculator listIng={listIng} nbUnit={recipe!.nbUnitCreated} otherCost={recipe!.otherCost} />
 
       <Button variant="demeter-dark" onClick={() => setSelectedPage("recipe")}>
-        Retour
+        ← Retour
       </Button>
 
       <Button variant="demeter-dark" onClick={() => setShowInstruction(true)}>

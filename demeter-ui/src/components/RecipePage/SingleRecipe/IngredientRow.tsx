@@ -40,13 +40,12 @@ function IngredientRow({ ingredient }: IRProps) {
  
   if (product && mesure) {
     return (
-      <div className="ingListRow flex">
-        <span className="ingListCol cellCenter">{product.name}</span>
-        <span className="ingListColS cellCenter">
-          {ingredient.qty}
-          {mesure?.mesurement}
+      <div className="editIngListRowBox flex">
+        <span className="editIngListCol cellLeft">{product.name}</span>
+        <span className="editIngListColS cellLeft">
+          {ingredient.qty}{" "}{mesure?.mesurement}
         </span>
-        <span className="ingListColS cellCenter">{cost}$</span>
+        <span className="editIngListColS cellLeft">{cost}$</span>
       </div>
     );
   }

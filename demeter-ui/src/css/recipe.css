@@ -84,6 +84,7 @@
     width: 100%;
     color: var(--demeter-grey);
     justify-content: flex-start;
+    padding-inline: .25rem;
 }
 
 .ingListHeader>span {
@@ -115,7 +116,14 @@
     justify-content: center;
 }
 
-.editIngListRow {
-    width: 100%;
-    justify-content: space-between;
+.editIngListRowBox {
+    width: 90%;
+}
+
+.editIngListCol {
+    width: 56%;
+}
+
+.editIngListColS {
+    width: 22%;
 }

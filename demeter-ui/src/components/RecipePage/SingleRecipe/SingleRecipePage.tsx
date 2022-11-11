@@ -51,38 +51,43 @@ function SingleRecipePage({
       </div>
       <hr />
 
-      <IngredientList list={listIng} />
+      <div className="pageSplit">
+        <IngredientList list={listIng} />
 
-      <Calculator listIng={listIng} nbUnit={recipe!.nbUnitCreated} otherCost={recipe!.otherCost} />
+        <div>
+          <h3></h3>
+          <Calculator listIng={listIng} nbUnit={recipe!.nbUnitCreated} otherCost={recipe!.otherCost} />
+          
+          <Button variant="demeter-dark" onClick={() => setShowInstruction(true)}>
+            Instructions
+          </Button>
+
+          <Button variant="danger" onClick={() => {
+            confirmAlert({
+              title: 'Confirmation',
+              message: 'Êtes-vous sûr de vouloir supprimer cette recette?',
+              buttons: [
+                {
+                  label: 'Oui',
+                  onClick: () => {
+                    deleteRecipe(recipe!.id);
+                    setRecipeDeleted(true);
+                    setSelectedPage("recipe");
+                  }
+                },
+                {
+                  label: 'Non',
+                  onClick: () => { }
+                }
+              ]
+            });
+          }}>Supprimer</Button>
+        </div>
+      </div>
 
       <Button variant="demeter-dark" onClick={() => setSelectedPage("recipe")}>
         ← Retour
       </Button>
-
-      <Button variant="demeter-dark" onClick={() => setShowInstruction(true)}>
-        Instructions
-      </Button>
-
-      <Button variant="danger" onClick={() => {
-        confirmAlert({
-          title: 'Confirmation',
-          message: 'Êtes-vous sûr de vouloir supprimer cette recette?',
-          buttons: [
-            {
-              label: 'Oui',
-              onClick: () => {
-                deleteRecipe(recipe!.id);
-                setRecipeDeleted(true);
-                setSelectedPage("recipe");
-              }
-            },
-            {
-              label: 'Non',
-              onClick: () => { }
-            }
-          ]
-        });
-      }}>Supprimer</Button>
 
       <InstructionModal
         show={showInstruction}

@@ -102,6 +102,16 @@ option {
     margin-bottom: 0 !important;
 }
 
+.pageSplit {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.pageSplit>div {
+    width: 50%;
+}
+
 .loginText {
     color: var(--demeter-grey);
     text-align: center;

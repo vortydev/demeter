@@ -43,16 +43,6 @@
     margin-bottom: 4rem;
 }
 
-.pageSplit {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.pageSplit>div {
-    width: 50%;
-}
-
 .newRecipeForm {
     width: 100%;
     text-align: left;

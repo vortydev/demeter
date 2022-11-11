@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Form, Button, Modal, Alert } from 'react-bootstrap';
 import { Product } from '../../types/Types';
 import { GetCategory, GetMesurements, GetVendors } from './inventory';
-import { VendorForm } from './inventoryAddVendorForm';
+import { VendorForm } from './Vendor/inventoryAddVendorForm';
 import { createProduct } from '../../services/inventory.functions';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faList } from "@fortawesome/free-solid-svg-icons";

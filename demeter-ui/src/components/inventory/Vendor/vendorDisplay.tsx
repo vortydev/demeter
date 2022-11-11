@@ -1,0 +1,5 @@
+function VendorDisplay() {
+
+}
+
+export {VendorDisplay};

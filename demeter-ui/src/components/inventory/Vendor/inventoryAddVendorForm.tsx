@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Alert, Button, Form, Modal } from 'react-bootstrap';
-import { Vendor } from '../../types/Types';
-import { createVendor } from '../../services/vendor.functions';
+import { Vendor } from '../../../types/Types';
+import { createVendor } from '../../../services/vendor.functions';
 
 interface CRFormProps {
     show: boolean;

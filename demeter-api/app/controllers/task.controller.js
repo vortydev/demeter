@@ -22,7 +22,7 @@ exports.create = (req, res) => {
         completed: req.body.completed | false,
         active: req.body.active | true,
         responsable: req.body.responsable | null,
-        receiver: req.body.receiver | null,
+        receiver: req.body.receiver,
     };
 
   // Save Task in the database

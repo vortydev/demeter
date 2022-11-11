@@ -37,7 +37,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
       title: taskName.value,
       description: description.value,
       categorytaskId: parseFloat(typeTask.value),
-      receiver: task.parentId == 0 ?  receiver.value : null,
+      receiver: task.parentId == 0 ?  receiver.value : "",
     };
 
     for (const ct of childTask) {
@@ -88,7 +88,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         active: false,
         picture: null,
         date: new Date(),
-        receiver: null,
+        receiver: "",
       },
     ]);
   };

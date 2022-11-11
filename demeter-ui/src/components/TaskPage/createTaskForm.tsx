@@ -45,6 +45,7 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
     };
 
     if (await createTask(newTask)) {
+      console.log(newTask);
       success(true);
       close();
     } else {

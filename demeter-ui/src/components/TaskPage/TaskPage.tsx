@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
+import { getCookie } from "typescript-cookie";
 import { getAll, getbyCategorie } from "../../services/task.funtions";
 import { Task } from "../../types/Types";
 import { CreateTaskForm } from "./createTaskForm";
@@ -12,17 +13,28 @@ function TaskPage(): JSX.Element {
   const [editedSuccess, editSuccess] = useState<boolean>(false);
   const [taskCategory, setTaskCategory] = useState<number>(1);
   const [listTask, setListTask] = useState<Task[]>([]);
+  const [accountTask, setAccountTask]= useState<Task[]>([]);
   const [allCatTask, setAllCatTask] = useState<Task[]>([]);
+  const account = getCookie("account") ? getCookie("account") : "Visiteur";
+  const role = getCookie("role");
 
   useEffect(() => {
     async function getList() {
       const taskByCat: Task[] = await getbyCategorie(taskCategory);
       setAllCatTask(taskByCat);
       setListTask(taskByCat.filter((t) => t.parentId === 0));
+      console.log(listTask);
+      if(role == "2"){
+      const taskForAccount :Task[] = listTask.filter((t) => t.receiver == account);
+      console.log(taskForAccount);
+      setAccountTask(taskForAccount);
+      }else if(role == "3"){
+        setAccountTask(listTask.filter((t) => t.receiver == "delivery"));
+      }
   
     }
     getList();
-  }, [taskCategory,createdSuccess,deletedSuccess, editedSuccess]);
+  }, [taskCategory, createdSuccess,deletedSuccess, editedSuccess, listTask]);
   
   async function handlesubmit() {
     const listeResponsable = document.getElementsByClassName("responsable");
@@ -43,7 +55,10 @@ function TaskPage(): JSX.Element {
       <p>Liste de tâches {taskCategory}</p>
 
       <div>
-      {listTask.map((Task) => (
+      {role != "2" && role !="3"  && listTask.map((Task) => (
+        <TaskRow task={Task} listTask={allCatTask} deleteSuccess={setDelete} editSuccess={editSuccess} />
+      ))}
+       {(role == "2" || role == "3")  && accountTask.map((Task) => (
         <TaskRow task={Task} listTask={allCatTask} deleteSuccess={setDelete} editSuccess={editSuccess} />
       ))}
     </div>

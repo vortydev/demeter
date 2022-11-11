@@ -20,12 +20,27 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess 
   const subListTask = listTask.filter((t) => t.parentId === task.id);
 
   async function complete() {
-    console.log("in complete");
     const initials = (document.getElementById("initials") as HTMLInputElement)
       .value;
     if (initials !== "") {
       const completedTask: Task = {
         ...task,
+        completed: true,
+        responsable: initials,
+      };
+
+      if(await updateTask(completedTask)){
+        completedSuccess(true);
+      }
+    }
+  }
+
+  async function completeSt(st : Task) {
+    const initials = (document.getElementById(st.id.toString()) as HTMLInputElement)
+      .value;
+    if (initials !== "") {
+      const completedTask: Task = {
+        ...st,
         completed: true,
         responsable: initials,
       };
@@ -71,7 +86,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess 
       <div>
         {subListTask.map((st) => (
           <div>
-            <input className="responable" type="text" /> {st.title}{" "}
+            <input className="responable" type="text" id={st.id.toString()}  onBlur={()=>completeSt(st)}/> {st.title}{" "}
             <Button
               onClick={() => {
                 setToEdit(st);

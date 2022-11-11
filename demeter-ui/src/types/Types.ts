@@ -60,10 +60,10 @@ type Category = {
 
 type Vendor = {
   id: number;
-  vendor: String;
-  phone: String;
-  email: String;
-  address: String;
+  vendor: string;
+  phone: string;
+  email: string;
+  address: string;
 }
 
 type Mesurement = {

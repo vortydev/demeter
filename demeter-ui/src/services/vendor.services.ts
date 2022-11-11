@@ -9,6 +9,10 @@ class VendorService {
     create(data: Vendor){
         return http.post<Vendor>("/vendors", data);
     }
+
+    update(data: Vendor, id: any){
+        return http.put<any>(`/vendors/${id}`,data);
+    }
 }
 
 export default new VendorService();

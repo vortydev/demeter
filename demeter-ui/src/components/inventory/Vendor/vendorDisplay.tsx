@@ -1,11 +1,12 @@
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useEffect, useState } from "react";
-import { Button, Container, Modal, ModalHeader, Row } from "react-bootstrap";
+import { Alert, Button, Container, Modal, Row } from "react-bootstrap";
 import { getAllVendor } from "../../../services/vendor.functions";
 import { Vendor } from "../../../types/Types";
 import { VendorForm } from "./inventoryAddVendorForm";
+import { VendorEdit } from "./vendorEditForm";
 
 interface VendorDisplayProps {
     show: boolean;
@@ -31,6 +32,7 @@ function VendorDisplay({show, close}: VendorDisplayProps) {
                 setCreateNewVendor(true);
                 setSuccess(false);
             }} />
+            {createdSuccess && <Alert variant="success">Le fournisseur à été ajouté avec succès</Alert>}
             <Container>
                 <Row>
                     <h4>Nom</h4>
@@ -38,7 +40,7 @@ function VendorDisplay({show, close}: VendorDisplayProps) {
                     <h4>Courriel</h4>
                     <h4>Adresse postale</h4>
                 </Row>
-                <VendorList/>
+                <VendorList create={createdSuccess}/>
             </Container>
             <div className="mt-3 popupBtnBox">
                 <Button variant="demeter-dark" onClick={close}>Retour</Button>
@@ -48,19 +50,23 @@ function VendorDisplay({show, close}: VendorDisplayProps) {
     );
 }
 
-function VendorList(){
+interface VendorOperationSuccess {
+    create:boolean,
+}
+function VendorList({create}:VendorOperationSuccess){
     const [ vendors, setVendors ] = useState<Vendor[]>([]);
+    const [ update, setUpdate ] = useState<boolean>(false);
 
     useEffect(() => {
         async function getList() {
             setVendors(await getAllVendor());
         }
         getList();
-    });
+    },[create, update]);
     return (
         <React.Fragment>
             {vendors.map((vendor) => (
-                <VendorRow vendor={vendor} />
+                <VendorRow vendor={vendor} setSuccess={setUpdate}/>
             ))}
         </React.Fragment>
     );
@@ -68,14 +74,33 @@ function VendorList(){
 
 interface VendorRow {
     vendor: Vendor;
+    setSuccess:(success: boolean) => void;
 }
-function VendorRow({vendor}:VendorRow):JSX.Element{
+function VendorRow({vendor, setSuccess}:VendorRow):JSX.Element{
+    const [updateVendor, setUpdateVendor] = useState<boolean>(false);
+
+    function success(): void {
+        setSuccess(true);
+        close();
+      }
+  
+    function close(): void {
+        setUpdateVendor(false);
+    }
+
     return (
         <Row>
             <div>{vendor.vendor}</div>
             <div>{vendor.phone}</div>
             <div>{vendor.email}</div>
             <div>{vendor.address}</div>
+            <div>
+                <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
+                    setUpdateVendor(true); 
+                    setSuccess(false);
+                }} />
+            </div>
+            <VendorEdit show={updateVendor} close={close} success={success} vendor={vendor}/>
         </Row>
     );
 }

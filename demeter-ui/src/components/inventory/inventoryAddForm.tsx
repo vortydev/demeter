@@ -93,7 +93,6 @@ function InventoryForm({ show, close, success }: CRFormProps) {
         <Modal show={show} onHide={close}>
             <Form className="popupForm">
                 <h3 className="popupTitle">Nouveau Produit</h3>
-
                 {alerting && <Alert variant="danger">Veuillez remplir tous les champs.</Alert>}
                 {alerting1 && <Alert variant="danger">Veuillez entrer le prix au format #.## ou #,##.</Alert>}
                 {alerting2 && <Alert variant="danger">Veuillez entrer un nombre.</Alert>}

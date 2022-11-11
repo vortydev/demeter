@@ -105,6 +105,8 @@ function EditIngredient({ listIng, recipeId, setChanged }: EditIngredientProps) 
       <Form className="popupForm">
         <hr className="loginLine mb-2" />
         <h4 className="popupTitle">Ajouter un ingrédient</h4>
+        {ingAlready && <Alert variant="danger">Cet ingrédient est déjà dans la recette</Alert>}
+        
         <Form.Group className="popupSelectBox mb-2" controlId="product">
           <Form.Label className="popupSelectLabel">Produit</Form.Label>
           <Form.Select id="product">

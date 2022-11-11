@@ -85,13 +85,13 @@ option {
     text-align: left;
 }
 
-.cellShade {
+.cellShade, .cellShadeRow>div {
     padding: .25rem;
     transition: all .15s;
     border-radius: .25rem;
 }
 
-.cellShade:hover {
+.cellShade:hover, .cellShadeRow>div:hover {
     background-color: var(--demeter-green-h);
 }
 
@@ -297,6 +297,10 @@ option {
 
 .nav-link.active {
     color: var(--demeter-green) !important;
+}
+
+.nav-link:hover:not(.active) {
+    color: var(--demeter-black-v);
 }
 
 .nav-link:focus {

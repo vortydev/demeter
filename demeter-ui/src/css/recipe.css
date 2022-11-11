@@ -117,3 +117,28 @@
 .editIngListColS {
     width: 22%;
 }
+
+.IngList .editIngListRowBox {
+    width: 100%;
+    margin-bottom: .5rem;
+}
+
+.IngList .ingListCol, .IngList .editIngListCol {
+    width: 60%;
+}
+
+.IngList .editIngListColS {
+    width: 20%;
+}
+
+.singleRecipeBack {
+    width: 10rem;
+}
+
+.singleRecipeContent {
+    justify-content: space-between;
+}
+
+.singleRecipeContent>div {
+    width: 50%
+}

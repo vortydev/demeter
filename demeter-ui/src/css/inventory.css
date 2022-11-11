@@ -44,22 +44,6 @@
     width: 12%;
 }
 
-.cellCenter {
-    line-height: 1;
-    align-self: center;
-    text-align: center;
-}
-
-.cellShade {
-    padding: .25rem;
-    transition: all .15s;
-    border-radius: .25rem;
-}
-
-.cellShade:hover {
-    background-color: var(--demeter-green-h);
-}
-
 .invEditBox {
     margin-left: .5rem;
 }

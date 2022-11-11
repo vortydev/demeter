@@ -18,7 +18,7 @@ function IngredientList({ list }: ILProps) {
         <span className="ingListColS">Coût</span>
       </div>
 
-      <div className="cellShade">
+      <div className="cellShadeRow">
         {list.map((ing) => (
           <IngredientRow ingredient={ing} />
         ))}

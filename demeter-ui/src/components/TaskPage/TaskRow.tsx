@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
-import { deleteTask } from "../../services/task.funtions";
+import { deleteTask, updateTask } from "../../services/task.funtions";
 import { Task } from "../../types/Types";
 import { EditTaskForm } from "../TaskPage/EditTaskForm";
 import "./task.css";
@@ -10,29 +10,48 @@ interface TaskRowProps {
   listTask: Task[];
   deleteSuccess: (deleted: boolean) => void;
   editSuccess: (edited: boolean) => void;
+  completedSuccess: (completed: boolean) => void;
 }
 
-function TaskRow({ task, listTask, deleteSuccess, editSuccess }: TaskRowProps) {
+function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess }: TaskRowProps) {
   const [editform, setEditForm] = useState<boolean>(false);
   const [toEdit, setToEdit] = useState<Task>(task);
 
   const subListTask = listTask.filter((t) => t.parentId === task.id);
 
+  async function complete() {
+    console.log("in complete");
+    const initials = (document.getElementById("initials") as HTMLInputElement)
+      .value;
+    if (initials !== "") {
+      const completedTask: Task = {
+        ...task,
+        completed: true,
+        responsable: initials,
+      };
+
+      if(await updateTask(completedTask)){
+        completedSuccess(true);
+      }
+    }
+  }
+
   function closeEditForm() {
     setEditForm(false);
   }
 
-  useEffect(() => {
-    async function getList() {
-      console.log("the list task in the row", listTask);
-      console.log("the sublitstask", subListTask);
-    }
-    getList();
-  }, []);
-
   return (
     <div className="taskRow">
-      <input className="responable" type="text" /> {task.title}{" "}
+
+      {!task.completed &&  <input
+        onBlur={complete}
+        className="responable"
+        type="text"
+        id="initials"
+      />}
+      {task.completed && <span>{task.responsable}</span>}
+     {" "}
+      {task.title}{" "}
       <Button
         onClick={() => {
           setToEdit(task);
@@ -49,12 +68,18 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess }: TaskRowProps) {
       >
         delete
       </Button>
-     
       <div>
         {subListTask.map((st) => (
           <div>
             <input className="responable" type="text" /> {st.title}{" "}
-            <Button onClick={()=>{setToEdit(st); setEditForm(true);}}>EDIT</Button>
+            <Button
+              onClick={() => {
+                setToEdit(st);
+                setEditForm(true);
+              }}
+            >
+              EDIT
+            </Button>
             <Button
               onClick={() => {
                 deleteTask(st.id);

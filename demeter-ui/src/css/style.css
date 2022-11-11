@@ -73,6 +73,28 @@ option {
     text-align: right;
 }
 
+.cellCenter {
+    line-height: 1;
+    align-self: center;
+    text-align: center;
+}
+
+.cellLeft {
+    line-height: 1;
+    align-self: center;
+    text-align: left;
+}
+
+.cellShade {
+    padding: .25rem;
+    transition: all .15s;
+    border-radius: .25rem;
+}
+
+.cellShade:hover {
+    background-color: var(--demeter-green-h);
+}
+
 /* app variables i guess */
 .pageTitle {
     text-align: center;
@@ -260,11 +282,17 @@ option {
 }
 
 .nav-link {
-    color: var(--demeter-green);
+    color: var(--demeter-black);
 }
 
-.nav-link:hover {
-    color: var(--demeter-green-v);
+.nav-link.active {
+    color: var(--demeter-green) !important;
+}
+
+.nav-link:focus {
+    box-shadow: none !important;
+    border-color: #dee2e6 #dee2e6 #fff !important;
+    border-radius: .25rem .25rem 0 0;
 }
 
 /* confirmation alert */

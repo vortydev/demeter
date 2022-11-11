@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Form, Button, Modal, Alert } from 'react-bootstrap';
 import { Product } from '../../types/Types';
-import { GetCategory, GetMesurements, GetVendors } from './inventory';
+import { GetCategoryEdit, GetMesurementsEdit, GetVendorsEdit } from './inventory';
 import { VendorForm } from './inventoryAddVendorForm';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faList } from "@fortawesome/free-solid-svg-icons";
@@ -125,7 +125,7 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
                     <Form.Group controlId="category">
                         <Form.Label className="popupSelectLabelFull">Type</Form.Label>
                         <Form.Select aria-label="categorie" id="category" defaultValue={product.categoryproductId}>
-                            <GetCategory show={show} />
+                            <GetCategoryEdit show={show} id={parseInt(product.categoryproductId)} />
                         </Form.Select>
                     </Form.Group>
                 </div>
@@ -133,7 +133,7 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
                 <Form.Group className="vendorBox mb-2" controlId="vendor">
                     <Form.Label className="popupSelectLabel">Fournisseur</Form.Label>
                     <Form.Select aria-label="vendor" id="vendor" defaultValue={product.vendorId}>
-                        <GetVendors show={show} />
+                        <GetVendorsEdit show={show} id={parseInt(product.vendorId)} />
                     </Form.Select>
 
                     <div className="vendorListBox">
@@ -157,7 +157,7 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
                     <Form.Group controlId="mesurement">
                         <Form.Label className="popupSelectLabelFull">Mesure</Form.Label>
                         <Form.Select aria-label="mesurement" id="mesurement" defaultValue={product.mesurementId}>
-                            <GetMesurements show={show} />
+                            <GetMesurementsEdit show={show} id={parseInt(product.mesurementId)} />
                         </Form.Select>
                     </Form.Group>
                 </div>

@@ -44,7 +44,7 @@ function IngredientRowForm({
 
     return (
       <div className="ingListRow flex cellShade mb-2">
-        <span className="ingListCol cellCenter">{index}. {ingredient.ingredient.name}</span>
+        <span className="ingListCol cellCenter">{ingredient.ingredient.name}</span>
         <span className="ingListColS cellCenter">{ingredient.quantity}{" "}{mesure?.mesurement}</span>
         <span className="ingListColS cellCenter">{cost}$</span>
         <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={removeIngredient}/>

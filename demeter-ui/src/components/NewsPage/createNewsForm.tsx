@@ -111,7 +111,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
 
         {!addTask && (
           <div className="popupBtnBox mt-2 mb-2">
-            <Button className="joinTaskBtn" variant="demeter-dark" onClick={() => setAddTask(true)}>
+            <Button className="joinTaskBtn" variant="outline-dark" onClick={() => setAddTask(true)}>
               Joindre une tâche
             </Button>
           </div>

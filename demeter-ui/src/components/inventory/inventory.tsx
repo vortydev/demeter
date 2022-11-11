@@ -153,7 +153,10 @@ function ProductsDisplayEdit({ product }: ProductDisplayEditProps): JSX.Element 
         </Form.Group>
     );
 }
-
+interface GettingShowEdit {
+    show: boolean,
+    id: number,
+}
 function GetCategory(show: GettingShow): JSX.Element {
     const [categories, setCategories] = useState<Category[]>([]);
 
@@ -168,6 +171,33 @@ function GetCategory(show: GettingShow): JSX.Element {
         <React.Fragment>
             {categories.map((category) => (
                 <CategoryDropDown category={category} />
+            ))}
+        </React.Fragment>
+    );
+}
+
+function GetCategoryEdit({show, id}: GettingShowEdit): JSX.Element {
+    const [categories, setCategories] = useState<Category[]>([]);
+
+    useEffect(() => {
+        async function getList() {
+            setCategories(await getAllCategories());
+        }
+        getList();
+    },[show]);
+
+    const isSelected = (category: Category)=>{
+        if (category.id === id){
+            return <CategoryDropDownSelected category={category} />
+        } else {
+            return <CategoryDropDown category={category} />
+        }
+    }  
+    
+    return(
+        <React.Fragment>
+            {categories.map((category) => (
+                isSelected(category)
             ))}
         </React.Fragment>
     );
@@ -192,6 +222,33 @@ function GetVendors(show: GettingShow):JSX.Element {
     );
 }
 
+function GetVendorsEdit({show, id}: GettingShowEdit):JSX.Element {
+    const [ vendors, setVendors ] = useState<Vendor[]>([]);
+
+    const isSelected = (vendor: Vendor)=>{
+        if (vendor.id === id){
+            return <VendorDropDownSelected vendor={vendor} />
+        } else {
+            return <VendorDropDown vendor={vendor} />
+        }
+    } 
+
+    useEffect(() => {
+        async function getList() {
+            setVendors(await getAllVendor());
+        }
+        getList();
+    },[show]);
+
+    return (
+        <React.Fragment>
+            {vendors.map((vendor) => (
+                isSelected(vendor)
+            ))}
+        </React.Fragment>
+    );
+}
+
 interface CategorySelect {
     category: Category;
 }
@@ -202,6 +259,12 @@ function CategoryDropDown({ category }: CategorySelect): JSX.Element {
     );
 }
 
+function CategoryDropDownSelected({ category }: CategorySelect): JSX.Element {
+    return (
+        <option value={category.id} selected>{category.category}</option>
+    );
+}
+
 interface VendorSelect {
     vendor: Vendor;
 }
@@ -209,6 +272,12 @@ interface VendorSelect {
 function VendorDropDown({ vendor }: VendorSelect): JSX.Element {
     return (
         <option value={vendor.id}>{vendor.vendor}</option>
+    );
+}
+
+function VendorDropDownSelected({ vendor }: VendorSelect): JSX.Element {
+    return (
+        <option value={vendor.id} selected>{vendor.vendor}</option>
     );
 }
 
@@ -231,6 +300,33 @@ function GetMesurements(show: GettingShow):JSX.Element {
     );
 }
 
+function GetMesurementsEdit({show, id}: GettingShowEdit):JSX.Element {
+    const [ mesurements, setMesurements ] = useState<Mesurement[]>([]);
+
+    useEffect(() => {
+        async function getList() {
+            setMesurements(await getAllMesurements());
+        }
+        getList();
+    },[show]);
+
+    const isSelected = (mesurement: Mesurement)=>{
+        if (mesurement.id === id){
+            return <MesurementDropDownSelected mesurement={mesurement} />
+        } else {
+            return <MesurementDropDown mesurement={mesurement} />
+        }
+    }
+
+    return (
+        <React.Fragment>
+            {mesurements.map((mesurement) => (
+                isSelected(mesurement)
+            ))}
+        </React.Fragment>
+    );
+}
+
 interface MesurementSelect {
     mesurement: Mesurement;
 }
@@ -241,4 +337,10 @@ function MesurementDropDown({ mesurement }: MesurementSelect): JSX.Element {
     );
 }
 
-export { ListingProducts, ListingProductsEdit, ProductsDisplay, ProductsDisplayEdit, GetCategory, CategoryDropDown, GetVendors, VendorDropDown, GetMesurements };
+function MesurementDropDownSelected({ mesurement }: MesurementSelect): JSX.Element {
+    return (
+        <option value={mesurement.id} selected>{mesurement.mesurement}</option>
+    );
+}
+
+export { ListingProducts, ListingProductsEdit, ProductsDisplay, ProductsDisplayEdit, GetCategory, GetCategoryEdit, CategoryDropDown, GetVendors, GetVendorsEdit, VendorDropDown, GetMesurements, GetMesurementsEdit };

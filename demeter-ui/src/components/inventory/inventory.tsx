@@ -17,7 +17,7 @@ interface Getting {
     updateSuccess: boolean;
 }
 
-function ListingProducts({createSuccess, setDeleteSuccess, deleteSuccess, setUpdateSuccess, updateSuccess}: Getting): JSX.Element {
+function ListingProducts({ createSuccess, setDeleteSuccess, deleteSuccess, setUpdateSuccess, updateSuccess }: Getting): JSX.Element {
 
     const [products, setProducts] = useState<Product[]>([]);
 
@@ -26,7 +26,7 @@ function ListingProducts({createSuccess, setDeleteSuccess, deleteSuccess, setUpd
             setProducts(await getAll());
         }
         getList();
-    },[createSuccess, deleteSuccess, updateSuccess]);
+    }, [createSuccess, deleteSuccess, updateSuccess]);
 
     //  allows the system to refresh after deleting a second product
     setTimeout(() => {
@@ -36,7 +36,7 @@ function ListingProducts({createSuccess, setDeleteSuccess, deleteSuccess, setUpd
     return (
         <React.Fragment>
             {products.map((product) => (
-                <ProductsDisplay product={product} setDeleteSuccess={setDeleteSuccess} setUpdateSuccess={setUpdateSuccess}/>
+                <ProductsDisplay product={product} setDeleteSuccess={setDeleteSuccess} setUpdateSuccess={setUpdateSuccess} />
             ))}
         </React.Fragment>
     );
@@ -55,7 +55,7 @@ function ListingProductsEdit(show: GettingShow): JSX.Element {
             setProducts(await getProductsByCategory("2"));
         }
         getList();
-    },[show]);
+    }, [show]);
 
     return (
         <React.Fragment>
@@ -73,14 +73,14 @@ interface ProductDisplayProps {
     setUpdateSuccess: (success: boolean) => void;
 }
 
-function ProductsDisplay({product, setDeleteSuccess, setUpdateSuccess}:ProductDisplayProps): JSX.Element{
+function ProductsDisplay({ product, setDeleteSuccess, setUpdateSuccess }: ProductDisplayProps): JSX.Element {
     const [updateProduct, setUpdatedProduct] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
 
     function success(): void {
-      setSuccess(true);
-      setUpdateSuccess(true);
-      close();
+        setSuccess(true);
+        setUpdateSuccess(true);
+        close();
     }
 
     function close(): void {
@@ -100,7 +100,7 @@ function ProductsDisplay({product, setDeleteSuccess, setUpdateSuccess}:ProductDi
 
                 <div className="invEditBox">
                     <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
-                        setUpdatedProduct(true); 
+                        setUpdatedProduct(true);
                         setUpdateSuccess(false);
                     }} />
                     <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
@@ -108,16 +108,16 @@ function ProductsDisplay({product, setDeleteSuccess, setUpdateSuccess}:ProductDi
                             title: 'Confirmation',
                             message: 'Êtes-vous sur de vouloir supprimer ce produit?',
                             buttons: [
-                              {
-                                label: 'Oui',
-                                onClick: () => {deleteProduct(product.id); setDeleteSuccess(true);}
-                              },
-                              {
-                                label: 'Non',
-                                onClick: () => {}
-                              }
+                                {
+                                    label: 'Supprimer',
+                                    onClick: () => { deleteProduct(product.id); setDeleteSuccess(true); }
+                                },
+                                {
+                                    label: 'Annuler',
+                                    onClick: () => { }
+                                }
                             ]
-                          }); 
+                        });
                     }} />
                 </div>
             </div>
@@ -162,9 +162,9 @@ function GetCategory(show: GettingShow): JSX.Element {
             setCategories(await getAllCategories());
         }
         getList();
-    },[show]);
-    
-    return(
+    }, [show]);
+
+    return (
         <React.Fragment>
             {categories.map((category) => (
                 <CategoryDropDown category={category} />
@@ -173,15 +173,15 @@ function GetCategory(show: GettingShow): JSX.Element {
     );
 }
 
-function GetVendors(show: GettingShow):JSX.Element {
-    const [ vendors, setVendors ] = useState<Vendor[]>([]);
+function GetVendors(show: GettingShow): JSX.Element {
+    const [vendors, setVendors] = useState<Vendor[]>([]);
 
     useEffect(() => {
         async function getList() {
             setVendors(await getAllVendor());
         }
         getList();
-    },[show]);
+    }, [show]);
 
     return (
         <React.Fragment>
@@ -212,15 +212,15 @@ function VendorDropDown({ vendor }: VendorSelect): JSX.Element {
     );
 }
 
-function GetMesurements(show: GettingShow):JSX.Element {
-    const [ mesurements, setMesurements ] = useState<Mesurement[]>([]);
+function GetMesurements(show: GettingShow): JSX.Element {
+    const [mesurements, setMesurements] = useState<Mesurement[]>([]);
 
     useEffect(() => {
         async function getList() {
             setMesurements(await getAllMesurements());
         }
         getList();
-    },[show]);
+    }, [show]);
 
     return (
         <React.Fragment>

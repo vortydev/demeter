@@ -87,45 +87,53 @@ function EditIngredient({ listIng, recipeId, setChanged }: EditIngredientProps) 
 
   }
 
-
-
-  return (<div>
+  return (<div className="popupForm">
     {listIng.map((ing) => (
-      <div>
+      <div className="cellShade flex editIngListRow mb-2">
         <IngredientRow ingredient={ing} />
-        <Button onClick={() => removeIngredient(ing)}>DELETE</Button>
+        <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
+          removeIngredient(ing)
+        }} />
       </div>
     ))}
-    {!addingIng && <Button onClick={() => setAddingIng(true)} variant="outline-dark">+ ingrédient</Button>}
+
+    {!addingIng && <div className="center">
+      <Button onClick={() => setAddingIng(true)} variant="outline-dark">+ Ingrédient</Button>
+    </div>}
+
     {addingIng &&
       <Form className="popupForm">
+        <hr className="loginLine mb-2" />
+        <h4 className="popupTitle">Ajouter un ingrédient</h4>
+        {ingAlready && <Alert variant="danger">Cet ingrédient est déjà dans la recette</Alert>}
+        
         <Form.Group className="popupSelectBox mb-2" controlId="product">
-          <Form.Label className="popupSelectLabelFull">Produit</Form.Label>
+          <Form.Label className="popupSelectLabel">Produit</Form.Label>
           <Form.Select id="product">
+            <option>Choisir un ingrédient</option>
             {productList.map((product) => (
               <option value={product.id.toString()}>{product.name}</option>
             ))}
           </Form.Select>
         </Form.Group>
 
-        <Form.Group className="mb-2" controlId="quantity">
-          <Form.Label>Quantité</Form.Label>
-          <Form.Control type="number" />
-        </Form.Group>
-
-        <Form.Group className="popupSelectBox mb-2" controlId="mesurement">
-          <Form.Label className="popupSelectLabel">Mesure</Form.Label>
+        <div className="flexPopupRow mb-2">
+          <Form.Group className="addIngQt flex" controlId="quantity">
+            <Form.Label className="popupSelectLabel">Quantité</Form.Label>
+            <Form.Control type="number" />
+          </Form.Group>
           <Form.Select id="mesurement">
             {mesureList.map((mesure) => (
               <option value={mesure.id.toString()}>{mesure.mesurement}</option>
             ))}
           </Form.Select>
-        </Form.Group>
+        </div>
 
-        <div className="popupBtnBox mt-3">
+        <div className="popupBtnBox mt-3 mb-2">
           <Button variant="demeter-dark" onClick={() => setAddingIng(false)}>Annuler</Button>
           <Button variant="demeter" onClick={addIngredient}>Ajouter</Button>
         </div>
+        <hr className="loginLine mt-2" />
       </Form>}
   </div>)
 }

@@ -110,7 +110,6 @@ function EditRecipeForm({
               />
             </Form.Group>
 
-
             <Form.Group className="popupSelectBox mb-2" controlId="category">
               <Form.Label className="popupSelectLabel">Département</Form.Label>
               <Form.Select onChange={updateRecipeInfo} defaultValue={recipe.categoryrecipeId} aria-label="Département" id="category">

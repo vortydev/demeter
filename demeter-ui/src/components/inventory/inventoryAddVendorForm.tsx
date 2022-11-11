@@ -107,7 +107,7 @@ function VendorForm({ show, close, success }: CRFormProps) {
 
                 <div className="mt-3 popupBtnBox">
                     <Button variant="demeter-dark" onClick={close}>Annuler</Button>
-                    <Button variant="demeter" onClick={addVendor}>Confirmer</Button>
+                    <Button variant="demeter" onClick={addVendor}>Ajouter</Button>
                 </div>
             </Form>
         </Modal>

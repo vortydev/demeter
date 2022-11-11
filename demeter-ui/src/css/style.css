@@ -1,6 +1,6 @@
 /* color palette */
 :root {
-    --demeter-black: #201B1A;
+    --demeter-black: #201b1a;
     --demeter-black-v: #111111;
     --demeter-black-btn: #272626;
     --demeter-green: #439e75;
@@ -265,4 +265,50 @@ option {
 
 .nav-link:hover {
     color: var(--demeter-green-v);
+}
+
+/* confirmation alert */
+.react-confirm-alert-body {
+    color: black !important;
+    font-family: "Antic", sans-serif !important;
+    line-height: 1.5rem !important;
+}
+
+.react-confirm-alert-button-group {
+    justify-content: center !important;
+    margin-top: 1rem !important;
+    flex-direction: row-reverse !important;
+    line-height: 2rem !important;
+}
+
+.react-confirm-alert-body>h1 {
+    text-align: center !important;
+}
+
+.react-confirm-alert-overlay {
+    animation: react-confirm-alert-fadeIn .2s .2s forwards !important;
+    background: hsla(0, 0%, 0%, .85) !important;
+}
+
+.react-confirm-alert-button-group>button {
+    width: 7.5rem !important;
+    background-color: var(--demeter-black) !important; 
+}
+
+.react-confirm-alert-button-group>button:hover {
+    background-color: var(--demeter-black-v) !important; 
+    border-color: var(--demeter-black-v);
+}
+
+.react-confirm-alert-button-group>button:focus {
+    border-color: var(--demeter-black-v) !important;
+    box-shadow: 0 0 0 .2rem rgba(0, 0, 0, 0.25) !important;
+}
+
+.react-confirm-alert-button-group>button:first-child {
+    background-color: var(--demeter-orange) !important; 
+}
+
+.react-confirm-alert-button-group>button:first-child:hover {
+    background-color: var(--demeter-orange-v) !important; 
 }

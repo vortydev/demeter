@@ -114,3 +114,8 @@
     margin: auto;
     justify-content: center;
 }
+
+.editIngListRow {
+    width: 100%;
+    justify-content: space-between;
+}

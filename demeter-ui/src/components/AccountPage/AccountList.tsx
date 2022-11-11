@@ -79,19 +79,19 @@ function AccountRow({
         <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
           confirmAlert({
             title: 'Confirmation',
-            message: 'Êtes-vous sur de vouloir supprimer ce compte?',
+            message: 'Êtes-vous sûr de vouloir supprimer ce compte?',
             buttons: [
               {
-                label: 'Oui',
-                onClick: () => {deleteAccount(currentAccount.accName); setDeleteSuccess(true);}
+                label: 'Supprimer',
+                onClick: () => { deleteAccount(currentAccount.accName); setDeleteSuccess(true); }
               },
               {
-                label: 'Non',
-                onClick: () => {}
+                label: 'Annuler',
+                onClick: () => { }
               }
             ]
           });
-          
+
         }} />
       </div>
       <EditPasswordForm

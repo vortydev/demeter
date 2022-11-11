@@ -260,11 +260,17 @@ option {
 }
 
 .nav-link {
-    color: var(--demeter-green);
+    color: var(--demeter-black);
 }
 
-.nav-link:hover {
-    color: var(--demeter-green-v);
+.nav-link.active {
+    color: var(--demeter-green) !important;
+}
+
+.nav-link:focus {
+    box-shadow: none !important;
+    border-color: #dee2e6 #dee2e6 #fff !important;
+    border-radius: .25rem .25rem 0 0;
 }
 
 /* confirmation alert */

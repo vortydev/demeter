@@ -84,6 +84,7 @@
     width: 100%;
     color: var(--demeter-grey);
     justify-content: flex-start;
+    padding-inline: .25rem;
 }
 
 .ingListHeader>span {

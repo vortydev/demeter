@@ -101,7 +101,7 @@ function VendorForm({ show, close, success }: CRFormProps) {
                 </Form.Group>
 
                 <Form.Group className="mb-2" controlId="address">
-                    <Form.Label>Addresse postale</Form.Label>
+                    <Form.Label>Adresse postale</Form.Label>
                     <Form.Control type="text" />
                 </Form.Group>
 

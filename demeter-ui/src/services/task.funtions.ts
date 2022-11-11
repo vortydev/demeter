@@ -88,6 +88,19 @@ async function deleteTask(id: number) {
   return taskdeleted;
 }
 
+async function resetTask(tasks: Task[]){
+for (const task of tasks){
+  const resetingTask : Task ={
+    ...task,
+    completed: false,
+    responsable: null,
+  }
+  if(!await updateTask(resetingTask)){
+    console.log('error in reset');
+  }
+}
+}
+
 export {
   getAll,
   getbyCategorie,
@@ -96,4 +109,5 @@ export {
   updateTask,
   deleteTask,
   getTask,
+  resetTask,
 };

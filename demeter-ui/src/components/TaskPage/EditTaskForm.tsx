@@ -31,6 +31,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
       active: false,
       picture: null,
       date: new Date(),
+      responsable: null,
     };
 
     for (const ct of childTask) {
@@ -81,6 +82,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         active: false,
         picture: null,
         date: new Date(),
+        responsable: null,
       },
     ]);
   };

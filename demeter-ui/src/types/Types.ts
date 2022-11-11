@@ -28,6 +28,7 @@ type Task = {
   completed: boolean;
   active: boolean;
   picture: string | null;
+  responsable: string | null;
   date: Date;
 }
 

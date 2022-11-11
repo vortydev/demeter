@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
-import { getAll, getbyCategorie } from "../../services/task.funtions";
+import { getAll, getbyCategorie, resetTask } from "../../services/task.funtions";
 import { Task } from "../../types/Types";
 import { CreateTaskForm } from "./createTaskForm";
 import { TaskNav } from "./TaskNav";
@@ -13,20 +13,23 @@ function TaskPage(): JSX.Element {
   const [taskCategory, setTaskCategory] = useState<number>(1);
   const [listTask, setListTask] = useState<Task[]>([]);
   const [allCatTask, setAllCatTask] = useState<Task[]>([]);
+  const [taskCompleted, setTaskCompleted] = useState<boolean>(false);
 
   useEffect(() => {
     async function getList() {
       const taskByCat: Task[] = await getbyCategorie(taskCategory);
       setAllCatTask(taskByCat);
       setListTask(taskByCat.filter((t) => t.parentId === 0));
+      setTaskCompleted(false);
   
     }
     getList();
-  }, [taskCategory,createdSuccess,deletedSuccess, editedSuccess]);
+  }, [taskCategory,createdSuccess,deletedSuccess, editedSuccess, taskCompleted]);
   
-  async function handlesubmit() {
-    const listeResponsable = document.getElementsByClassName("responsable");
-    console.log(listeResponsable);
+  async function resetTasksByCat(){
+    //Genérer rapport pour historique ici
+    setTaskCompleted(true); 
+    resetTask(allCatTask);
   }
 
   return (
@@ -41,15 +44,16 @@ function TaskPage(): JSX.Element {
       {createdSuccess && <Alert>La tâche à été créée avec succès!</Alert>}
       {deletedSuccess && <Alert>La tâche à été supprimée avec succès!</Alert>}
       <p>Liste de tâches {taskCategory}</p>
+      {taskCategory ===1 && <Button onClick={()=>resetTasksByCat()}>Commencer la journée</Button>}
+      {taskCategory ===2 && <Button onClick={()=>resetTasksByCat()}>Commencer la semaine</Button>}
 
       <div>
       {listTask.map((Task) => (
-        <TaskRow task={Task} listTask={allCatTask} deleteSuccess={setDelete} editSuccess={editSuccess} />
+        <TaskRow task={Task} listTask={allCatTask} deleteSuccess={setDelete} editSuccess={editSuccess}  completedSuccess={setTaskCompleted} />
       ))}
     </div>
       
       <Button variant="outline-dark" >Afficher L'Historique</Button>
-      <Button variant="demeter-dark" onClick={handlesubmit}>Compléter les tâches</Button>
     </div>
   );
 }

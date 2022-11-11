@@ -93,7 +93,7 @@ for (const task of tasks){
   const resetingTask : Task ={
     ...task,
     completed: false,
-    responsable: null,
+    responsable: "",
   }
   if(!await updateTask(resetingTask)){
     console.log('error in reset');

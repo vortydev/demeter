@@ -88,6 +88,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         active: false,
         picture: null,
         date: new Date(),
+        responsable:"",
         receiver: "",
       },
     ]);

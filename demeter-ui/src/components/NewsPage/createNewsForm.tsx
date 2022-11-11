@@ -26,6 +26,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       completed: false,
       picture: null,
       date: new Date(),
+      responsable: "",
       receiver: "",
     };
 

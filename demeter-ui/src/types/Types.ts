@@ -28,9 +28,9 @@ type Task = {
   completed: boolean;
   active: boolean;
   picture: string | null;
-  responsable: string | null;
+  responsable: string;
   date: Date;
-  receiver: String| null;
+  receiver: String;
 }
 
 type Recipe = {

@@ -15,19 +15,15 @@ function TaskPage(): JSX.Element {
   const [listTask, setListTask] = useState<Task[]>([]);
   const [accountTask, setAccountTask]= useState<Task[]>([]);
   const [allCatTask, setAllCatTask] = useState<Task[]>([]);
-<<<<<<< HEAD
   const account = getCookie("account") ? getCookie("account") : "Visiteur";
   const role = getCookie("role");
-=======
   const [taskCompleted, setTaskCompleted] = useState<boolean>(false);
->>>>>>> origin/dev
 
   useEffect(() => {
     async function getList() {
       const taskByCat: Task[] = await getbyCategorie(taskCategory);
       setAllCatTask(taskByCat);
       setListTask(taskByCat.filter((t) => t.parentId === 0));
-<<<<<<< HEAD
       console.log(listTask);
       if(role == "2"){
       const taskForAccount :Task[] = listTask.filter((t) => t.receiver == account);
@@ -39,14 +35,7 @@ function TaskPage(): JSX.Element {
   
     }
     getList();
-  }, [taskCategory, createdSuccess,deletedSuccess, editedSuccess, listTask]);
-=======
-      setTaskCompleted(false);
-  
-    }
-    getList();
-  }, [taskCategory,createdSuccess,deletedSuccess, editedSuccess, taskCompleted]);
->>>>>>> origin/dev
+  }, [taskCategory, createdSuccess,deletedSuccess, editedSuccess, listTask, taskCompleted]);
   
   async function resetTasksByCat(){
     //Genérer rapport pour historique ici
@@ -70,16 +59,11 @@ function TaskPage(): JSX.Element {
       {taskCategory ===2 && <Button onClick={()=>resetTasksByCat()}>Commencer la semaine</Button>}
 
       <div>
-<<<<<<< HEAD
       {role != "2" && role !="3"  && listTask.map((Task) => (
-        <TaskRow task={Task} listTask={allCatTask} deleteSuccess={setDelete} editSuccess={editSuccess} />
+        <TaskRow task={Task} listTask={allCatTask} deleteSuccess={setDelete} editSuccess={editSuccess} completedSuccess={setTaskCompleted} />
       ))}
        {(role == "2" || role == "3")  && accountTask.map((Task) => (
-        <TaskRow task={Task} listTask={allCatTask} deleteSuccess={setDelete} editSuccess={editSuccess} />
-=======
-      {listTask.map((Task) => (
-        <TaskRow task={Task} listTask={allCatTask} deleteSuccess={setDelete} editSuccess={editSuccess}  completedSuccess={setTaskCompleted} />
->>>>>>> origin/dev
+        <TaskRow task={Task} listTask={allCatTask} deleteSuccess={setDelete} editSuccess={editSuccess} completedSuccess={setTaskCompleted} />
       ))}
     </div>
       

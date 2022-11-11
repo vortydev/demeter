@@ -4,12 +4,11 @@ import { Alert, Button } from "react-bootstrap";
 import { deleteNews } from "../../services/news.functions";
 import { getTask } from "../../services/task.funtions";
 import { News, Task } from "../../types/Types";
-import { CreateNewsForm } from "./createNewsForm";
 import { EditNewsForm } from "./EditNewsForm";
 import "../../css/news.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { TaskRow } from "../TaskPage/TaskRow";
+
 
 interface NewsPreviewProps {
   news: News;
@@ -51,15 +50,10 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
     setEditNews(false);
   }
 
-  function showDate() {
-    console.log(task);
-    console.log(news.taskId);
-  }
-
   return (
     <div className="flexNewsPreview">
       <h2 className="newsTitle">{news.title}</h2>
-      <h3 className="newsDate" onClick={showDate}>
+      <h3 className="newsDate">
         {theDate.toLocaleDateString()}
       </h3>
       <div className="flexNewsBox">

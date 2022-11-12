@@ -20,7 +20,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess 
   const subListTask = listTask.filter((t) => t.parentId === task.id);
 
   async function complete() {
-    const initials = (document.getElementById("initials") as HTMLInputElement)
+    const initials = (document.getElementById(task.id.toString()) as HTMLInputElement)
       .value;
     if (initials !== "") {
       const completedTask: Task = {
@@ -36,8 +36,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess 
   }
 
   async function completeSt(st : Task) {
-    const initials = (document.getElementById(st.id.toString()) as HTMLInputElement)
-      .value;
+    const initials = (document.getElementById(st.id.toString()) as HTMLInputElement).value;
     if (initials !== "") {
       const completedTask: Task = {
         ...st,
@@ -62,7 +61,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess 
         onBlur={complete}
         className="responable"
         type="text"
-        id="initials"
+        id={task.id.toString()}
       />}
       {task.completed && <span>{task.responsable}</span>}
      {" "}

@@ -35,7 +35,7 @@ function TaskPage(): JSX.Element {
   
     }
     getList();
-  }, [taskCategory, createdSuccess,deletedSuccess, editedSuccess, listTask, taskCompleted]);
+  }, [taskCategory, createdSuccess,deletedSuccess, editedSuccess, taskCompleted]);
   
   async function resetTasksByCat(){
     //Genérer rapport pour historique ici

@@ -36,6 +36,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess 
   }
 
   async function completeSt(st : Task) {
+    console.log('complete the dam st !',st);
     const initials = (document.getElementById(st.id.toString()) as HTMLInputElement).value;
     if (initials !== "") {
       const completedTask: Task = {
@@ -85,7 +86,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess 
       <div>
         {subListTask.map((st) => (
           <div>
-            <input className="responable" type="text" id={st.id.toString()}  onBlur={()=>completeSt(st)}/> {st.title}{" "}
+            {!st.completed && <input className="responable" type="text" id={st.id.toString()}  onBlur={()=>completeSt(st)}/>}{st.completed && <span>{st.responsable}</span>} {st.title}{" "}
             <Button
               onClick={() => {
                 setToEdit(st);

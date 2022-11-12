@@ -35,6 +35,7 @@ function TaskPage(): JSX.Element {
   
     }
     getList();
+    setTaskCompleted(false);
   }, [taskCategory, createdSuccess,deletedSuccess, editedSuccess, taskCompleted]);
   
   async function resetTasksByCat(){

@@ -54,34 +54,36 @@ function SingleRecipePage({
       <div className="pageSplit singleRecipeContent">
         <IngredientList list={listIng} />
 
-        <div>
+        <div className="singleRecipeInterface">
           <h3>Calculateur</h3>
           <Calculator listIng={listIng} nbUnit={recipe!.nbUnitCreated} otherCost={recipe!.otherCost} />
-          
-          <Button variant="demeter-dark" onClick={() => setShowInstruction(true)}>
-            Instructions
-          </Button>
 
-          <Button variant="danger" onClick={() => {
-            confirmAlert({
-              title: 'Confirmation',
-              message: 'Êtes-vous sûr de vouloir supprimer cette recette?',
-              buttons: [
-                {
-                  label: 'Oui',
-                  onClick: () => {
-                    deleteRecipe(recipe!.id);
-                    setRecipeDeleted(true);
-                    setSelectedPage("recipe");
+          <div className="singleRecipeBtnBox flex mt-4">
+            <Button variant="demeter-dark" onClick={() => setShowInstruction(true)}>
+              Instructions
+            </Button>
+
+            <Button variant="danger" onClick={() => {
+              confirmAlert({
+                title: 'Confirmation',
+                message: 'Êtes-vous sûr de vouloir supprimer cette recette?',
+                buttons: [
+                  {
+                    label: 'Oui',
+                    onClick: () => {
+                      deleteRecipe(recipe!.id);
+                      setRecipeDeleted(true);
+                      setSelectedPage("recipe");
+                    }
+                  },
+                  {
+                    label: 'Non',
+                    onClick: () => { }
                   }
-                },
-                {
-                  label: 'Non',
-                  onClick: () => { }
-                }
-              ]
-            });
-          }}>Supprimer</Button>
+                ]
+              });
+            }}>Supprimer</Button>
+          </div>
         </div>
       </div>
 

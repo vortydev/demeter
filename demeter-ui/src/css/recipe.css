@@ -53,7 +53,7 @@
 }
 
 .addIngQt>input {
-    width: 10rem;
+    width: 7.5rem;
 }
 
 .addIngQt>* {
@@ -139,6 +139,38 @@
     justify-content: space-between;
 }
 
-.singleRecipeContent>div {
-    width: 50%
+.singleRecipeContent>.IngList {
+    width: 60%
+}
+
+.singleRecipeContent>.singleRecipeInterface {
+    width: 35%;
+}
+
+.calculatorBox {
+    text-align: left;
+}
+
+.calculatorBox>span {
+    width: 100%;
+}
+
+.calculatorBox input {
+    width: 6rem;
+    height: 2rem;
+}
+
+.calculatorBox label {
+    margin-bottom: 0;
+    align-self: center;
+}
+
+.singleRecipeBtnBox {
+    width: 100%;
+    flex-direction: column;
+}
+
+.singleRecipeBtnBox>button {
+    width: 10rem;
+    margin-bottom: .75rem;
 }

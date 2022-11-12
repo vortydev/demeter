@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
-import {
-  getProduct,
-} from "../../../services/inventory.functions";
+import { getProduct } from "../../../services/inventory.functions";
 import { IngForRecipe } from "../../../types/RecipeTypes.types";
 import { Ingredient } from "../../../types/Types";
 import { getRecipeCost } from "../helper";
@@ -19,9 +17,9 @@ function Calculator({ listIng, nbUnit, otherCost }: CalculatorProps) {
 
   useEffect(() => {
     async function setTheCost() {
-      const recipeCost : number = getRecipeCost(await changeIngFormat(listIng));
+      const recipeCost: number = getRecipeCost(await changeIngFormat(listIng));
       const fullCost: number = recipeCost + otherCost;
-console.log( recipeCost, otherCost, typeof otherCost);
+      console.log(recipeCost, otherCost, typeof otherCost);
       setTotalCost(fullCost);
     }
     setTheCost();
@@ -35,20 +33,21 @@ console.log( recipeCost, otherCost, typeof otherCost);
     );
   }
   return (
-    <div>
-      <span>COÛT TOTAL : {totalCost} $</span>
-      <span>COÛT UNITAIRE : {totalCost / nbUnit} $</span>
-      <span>COÛT PERSONNALISÉ : {(totalCost / nbUnit) * customNB} $</span>
-      <Form>
+    <div className="calculatorBox flex">
+      <span>Coût total : {totalCost} $</span>
+      <span>Coût unitaire : {totalCost / nbUnit} $</span>
+
+      <Form className="mt-3">
         <Form.Group
           onChange={updateCustomNb}
-          className="mb-3"
+          className="popupSelectRow flex"
           controlId="customNB"
         >
-          <Form.Label>Prix pour X unité </Form.Label>
+          <Form.Label className="popupSelectLabel">Nombre d'unités</Form.Label>
           <Form.Control defaultValue={0} type="number" />
         </Form.Group>
       </Form>
+      <span>Coût personnalisé : {(totalCost / nbUnit) * customNB} $</span>
     </div>
   );
 }

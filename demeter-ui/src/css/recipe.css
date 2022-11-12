@@ -43,16 +43,6 @@
     margin-bottom: 4rem;
 }
 
-.pageSplit {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.pageSplit>div {
-    width: 50%;
-}
-
 .newRecipeForm {
     width: 100%;
     text-align: left;
@@ -63,7 +53,7 @@
 }
 
 .addIngQt>input {
-    width: 10rem;
+    width: 7.5rem;
 }
 
 .addIngQt>* {
@@ -126,4 +116,61 @@
 
 .editIngListColS {
     width: 22%;
+}
+
+.IngList .editIngListRowBox {
+    width: 100%;
+    margin-bottom: .5rem;
+}
+
+.IngList .ingListCol, .IngList .editIngListCol {
+    width: 60%;
+}
+
+.IngList .editIngListColS {
+    width: 20%;
+}
+
+.singleRecipeBack {
+    width: 10rem;
+}
+
+.singleRecipeContent {
+    justify-content: space-between;
+}
+
+.singleRecipeContent>.IngList {
+    width: 60%
+}
+
+.singleRecipeContent>.singleRecipeInterface {
+    width: 35%;
+}
+
+.calculatorBox {
+    text-align: left;
+}
+
+.calculatorBox>span {
+    width: 100%;
+}
+
+.calculatorBox input {
+    width: 6rem;
+    height: 2rem;
+}
+
+.calculatorBox label {
+    margin-bottom: 0;
+    align-self: center;
+}
+
+.singleRecipeBtnBox {
+    width: 100%;
+    flex-direction: column;
+}
+
+.singleRecipeBtnBox>button {
+    width: 10rem;
+    margin-bottom: .75rem;
 }

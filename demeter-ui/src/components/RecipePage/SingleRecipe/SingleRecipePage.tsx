@@ -43,7 +43,7 @@ function SingleRecipePage({
       <h1 className="pageTitle">Vue d'une Recette</h1>
       {editSuccess && (<Alert variant="success">La recette à été modifiée avec succès !</Alert>)}
 
-      <div className="singleRecipeTitle flex">
+      <div className="singleRecipeTitle flex mt-2">
         <h2>{recipe!.title}</h2>
         <FontAwesomeIcon className="iconEdit cursor ml-2" icon={faEdit} size="lg" onClick={() => {
           setEditRecipe(true);
@@ -51,38 +51,45 @@ function SingleRecipePage({
       </div>
       <hr />
 
-      <IngredientList list={listIng} />
+      <div className="pageSplit singleRecipeContent">
+        <IngredientList list={listIng} />
 
-      <Calculator listIng={listIng} nbUnit={recipe!.nbUnitCreated} otherCost={recipe!.otherCost} />
+        <div className="singleRecipeInterface">
+          <h3>Calculateur</h3>
+          <Calculator listIng={listIng} nbUnit={recipe!.nbUnitCreated} otherCost={recipe!.otherCost} />
 
-      <Button variant="demeter-dark" onClick={() => setSelectedPage("recipe")}>
+          <div className="singleRecipeBtnBox flex mt-4">
+            <Button variant="demeter-dark" onClick={() => setShowInstruction(true)}>
+              Instructions
+            </Button>
+
+            <Button variant="danger" onClick={() => {
+              confirmAlert({
+                title: 'Confirmation',
+                message: 'Êtes-vous sûr de vouloir supprimer cette recette?',
+                buttons: [
+                  {
+                    label: 'Oui',
+                    onClick: () => {
+                      deleteRecipe(recipe!.id);
+                      setRecipeDeleted(true);
+                      setSelectedPage("recipe");
+                    }
+                  },
+                  {
+                    label: 'Non',
+                    onClick: () => { }
+                  }
+                ]
+              });
+            }}>Supprimer</Button>
+          </div>
+        </div>
+      </div>
+
+      <Button className="singleRecipeBack" variant="demeter-dark" onClick={() => setSelectedPage("recipe")}>
         ← Retour
       </Button>
-
-      <Button variant="demeter-dark" onClick={() => setShowInstruction(true)}>
-        Instructions
-      </Button>
-
-      <Button variant="danger" onClick={() => {
-        confirmAlert({
-          title: 'Confirmation',
-          message: 'Êtes-vous sûr de vouloir supprimer cette recette?',
-          buttons: [
-            {
-              label: 'Oui',
-              onClick: () => {
-                deleteRecipe(recipe!.id);
-                setRecipeDeleted(true);
-                setSelectedPage("recipe");
-              }
-            },
-            {
-              label: 'Non',
-              onClick: () => { }
-            }
-          ]
-        });
-      }}>Supprimer</Button>
 
       <InstructionModal
         show={showInstruction}

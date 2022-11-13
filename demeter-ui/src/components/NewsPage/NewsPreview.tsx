@@ -53,6 +53,8 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
     setEditNews(false);
   }
 
+  
+
   async function completeTask() {
     const initials = (document.getElementById(task!.id.toString()) as HTMLInputElement)
     .value;
@@ -68,6 +70,18 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
     }
   }
 
+  }
+
+  async function cancelComplete(t: Task) {
+    const nvmTask: Task = {
+      ...t,
+      completed: false,
+      responsable: "",
+    };
+
+    if (await updateTask(nvmTask)) {
+      setCompletedTask(true);
+    }
   }
 
   return (
@@ -114,7 +128,7 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
       )}
        {task !== undefined && task.completed && (
         <div>
-          {task.responsable} {task.title}{" "}
+          {task.responsable} {task.title}{" "} <Button onClick={()=>cancelComplete(task)}>MAKE INCOMPLETE</Button>
         </div>
       )}
       <Button

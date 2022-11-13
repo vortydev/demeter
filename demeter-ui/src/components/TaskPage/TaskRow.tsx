@@ -13,15 +13,22 @@ interface TaskRowProps {
   completedSuccess: (completed: boolean) => void;
 }
 
-function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess }: TaskRowProps) {
+function TaskRow({
+  task,
+  listTask,
+  deleteSuccess,
+  editSuccess,
+  completedSuccess,
+}: TaskRowProps) {
   const [editform, setEditForm] = useState<boolean>(false);
   const [toEdit, setToEdit] = useState<Task>(task);
 
   const subListTask = listTask.filter((t) => t.parentId === task.id);
 
   async function complete() {
-    const initials = (document.getElementById(task.id.toString()) as HTMLInputElement)
-      .value;
+    const initials = (
+      document.getElementById(task.id.toString()) as HTMLInputElement
+    ).value;
     if (initials !== "") {
       const completedTask: Task = {
         ...task,
@@ -29,15 +36,29 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess 
         responsable: initials,
       };
 
-      if(await updateTask(completedTask)){
+      if (await updateTask(completedTask)) {
         completedSuccess(true);
       }
     }
   }
 
-  async function completeSt(st : Task) {
-    console.log('complete the dam st !',st);
-    const initials = (document.getElementById(st.id.toString()) as HTMLInputElement).value;
+  async function cancelComplete(t: Task) {
+    const nvmTask: Task = {
+      ...t,
+      completed: false,
+      responsable: "",
+    };
+
+    if (await updateTask(nvmTask)) {
+      completedSuccess(true);
+    }
+  }
+
+  async function completeSt(st: Task) {
+    console.log("complete the dam st !", st);
+    const initials = (
+      document.getElementById(st.id.toString()) as HTMLInputElement
+    ).value;
     if (initials !== "") {
       const completedTask: Task = {
         ...st,
@@ -45,7 +66,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess 
         responsable: initials,
       };
 
-      if(await updateTask(completedTask)){
+      if (await updateTask(completedTask)) {
         completedSuccess(true);
       }
     }
@@ -57,16 +78,18 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess 
 
   return (
     <div className="taskRow">
-
-      {!task.completed &&  <input
-        onBlur={complete}
-        className="responable"
-        type="text"
-        id={task.id.toString()}
-      />}
-      {task.completed && <span>{task.responsable}</span>}
-     {" "}
-      {task.title}{" "}
+      {!task.completed && (
+        <input
+          onBlur={complete}
+          className="responable"
+          type="text"
+          id={task.id.toString()}
+        />
+      )}
+      {task.completed && <span>{task.responsable}</span>} {task.title}{" "}
+      {task.completed && (
+        <Button onClick={() => cancelComplete(task)}>MAKE INCOMPLETE</Button>
+      )}
       <Button
         onClick={() => {
           setToEdit(task);
@@ -86,7 +109,20 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess 
       <div>
         {subListTask.map((st) => (
           <div>
-            {!st.completed && <input className="responable" type="text" id={st.id.toString()}  onBlur={()=>completeSt(st)}/>}{st.completed && <span>{st.responsable}</span>} {st.title}{" "}
+            {!st.completed && (
+              <input
+                className="responable"
+                type="text"
+                id={st.id.toString()}
+                onBlur={() => completeSt(st)}
+              />
+            )}
+            {st.completed && <span>{st.responsable}</span>} {st.title}{" "}
+            {st.completed && (
+              <Button onClick={() => cancelComplete(st)}>
+                MAKE INCOMPLETE
+              </Button>
+            )}
             <Button
               onClick={() => {
                 setToEdit(st);

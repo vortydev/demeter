@@ -23,21 +23,20 @@ function IngredientRow({ ingredient }: IRProps) {
     getInfos();
   }, []);
 
+  useEffect(() => {
 
-
- useEffect(() => {
-  
-      if(product && mesure)
-     { const ing: IngForRecipe = {
+    if (product && mesure) {
+      const ing: IngForRecipe = {
         ingredient: product!,
         quantity: ingredient.qty,
         mesurementId: ingredient.mesurementId.toString(),
       };
 
-      setCost(pricePerQuantity(ing));}
+      setCost(pricePerQuantity(ing));
+    }
   }, [product, mesure]);
 
- 
+
   if (product && mesure) {
     return (
       <div className="editIngListRowBox flex">

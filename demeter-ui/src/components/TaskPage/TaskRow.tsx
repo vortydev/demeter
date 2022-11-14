@@ -35,23 +35,26 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess }: TaskRowProps) {
   return (
     <div className="taskRow">
       <input className="responable" type="text" /> {task.title}{" "}
-      <Button
-        onClick={() => {
-          setToEdit(task);
-          setEditForm(true);
-        }}
-      >
-        edit
-      </Button>{" "}
-      <Button
-        onClick={() => {
-          deleteTask(task.id);
-          deleteSuccess(true);
-        }}
-      >
-        delete
-      </Button>
-     
+      { role == "1" || role == "4" &&
+        <div>
+          <Button
+            onClick={() => {
+              setToEdit(task);
+              setEditForm(true);
+            }}
+          >
+            edit
+          </Button>{" "}
+          <Button
+            onClick={() => {
+              deleteTask(task.id);
+              deleteSuccess(true);
+            }}
+          >
+            delete
+          </Button>
+        </div>
+      }
       <div>
         {subListTask.map((st) => (
           <div>

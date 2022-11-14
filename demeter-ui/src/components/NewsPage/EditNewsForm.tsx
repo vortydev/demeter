@@ -21,9 +21,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
     const title = document.getElementById("title") as HTMLInputElement;
     const author = document.getElementById("author") as HTMLInputElement;
     const receiver = document.getElementById("receiver") as HTMLInputElement;
-    const description = document.getElementById(
-      "description"
-    ) as HTMLInputElement;
+    const description = document.getElementById("description") as HTMLInputElement;
 
     const editNews: News = {
       id: news.id,

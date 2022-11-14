@@ -76,14 +76,12 @@ function EditRecipeForm({
     <Modal show={show}>
       <Nav defaultActiveKey="recipe" variant="tabs">
         <Nav.Item>
-          <Nav.Link onClick={() => setEditing("recipe")} eventKey="recipe">
+          <Nav.Link className="nav-link-tab" onClick={() => setEditing("recipe")} eventKey="recipe">
             Recette
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link
-            onClick={() => setEditing("ingredient")}
-            eventKey="ingredient">
+          <Nav.Link className="nav-link-tab" onClick={() => setEditing("ingredient")} eventKey="ingredient">
             Ingrédients
           </Nav.Link>
         </Nav.Item>

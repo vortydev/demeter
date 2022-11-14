@@ -43,9 +43,9 @@ function NewsPage(): JSX.Element {
   return (
     <div>
       <h1 className="pageTitle">Annonces</h1>
-      {createdSuccess && <Alert>L'annonce à été créer avec succès!</Alert>}
-      {editedSuccess && <Alert>L'annonce à été modifier avec succès!</Alert>}
-      {deleteSuccess && <Alert>L'annonce à été supprimer avec succès!</Alert>}
+      {createdSuccess && <Alert>L'annonce à été créée avec succès!</Alert>}
+      {editedSuccess && <Alert>L'annonce à été modifiée avec succès!</Alert>}
+      {deleteSuccess && <Alert>L'annonce à été supprimée avec succès!</Alert>}
       
       <p className="loginText">Vous êtes connecté en tant que {connected}</p>
       <div className="newsAdd mb-2">
@@ -56,9 +56,7 @@ function NewsPage(): JSX.Element {
             setCreateNews(true);
             setSuccess(false);
           }}
-        >
-          Nouvelle Annonce
-        </Button>
+        >Nouvelle Annonce</Button>
       </div>
 
       {newsList.length === 0 && <p>Aucune annonce présentement.</p> }

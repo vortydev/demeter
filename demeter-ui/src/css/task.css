@@ -1,0 +1,56 @@
+.taskPageResetBtn {
+    display: flex;
+    margin: auto;
+}
+
+.taskPageResetBtn .iconRefresh {
+    margin-right: .5rem;
+}
+
+.taskPageResetBtn:hover .iconRefresh {
+    color: white;
+}
+
+.taskPageResetBtn span {
+    align-self: center;
+}
+
+.taskRowList {
+    width: 60%;
+    min-width: 400px;
+    margin: auto;
+    flex-direction: column;
+}
+
+.taskRowBox {
+    width: 100%;
+}
+
+.taskRowBox span, .taskRowBox input {
+    align-self: center;
+}
+
+.taskRowBox input, .taskRowBox .taskResponsable {
+    margin-inline: .5rem;
+}
+
+.taskRowBox input {
+    width: 5rem;
+}
+
+.taskRowBox .iconCheck {
+    margin-right: .25rem;
+}
+
+.taskRow {
+    width: 100%;
+}
+
+.taskResponsable {
+    color: var(--demeter-grey);
+}
+
+.taskChildRow {
+    width: 100%;
+    margin-left: 2rem;
+}

@@ -79,7 +79,7 @@ function AccountRow({
         <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
           confirmAlert({
             title: 'Confirmation',
-            message: 'Êtes-vous sûr de vouloir supprimer ce compte?',
+            message: 'Êtes-vous sûr·e de vouloir supprimer ce compte?',
             buttons: [
               {
                 label: 'Supprimer',

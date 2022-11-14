@@ -135,18 +135,25 @@ option {
     padding: 5px;
     transition: all 0.2s;
     font-size: 1.75rem;
+    cursor: pointer;
 }
 
 .iconEdit:hover {
     color: var(--demeter-green);
 }
 
-.iconTrash:hover {
+.iconTrash:hover, .iconUndo:hover {
     color: var(--demeter-orange);
 }
 
 .iconAdd:hover + .hide, .iconList:hover + .hide {
     display: block;
+}
+
+.iconRefresh {}
+
+.iconCheck {
+    color: var(--demeter-green);
 }
 
 /* popup ui */
@@ -161,6 +168,10 @@ option {
 
 .popupForm button {
     display: inline-block;
+}
+
+.popupForm p {
+    white-space: pre-wrap;
 }
 
 .popupBtnBox {
@@ -293,6 +304,7 @@ option {
 
 .nav-link {
     color: var(--demeter-black);
+    margin-bottom: 0;
 }
 
 .nav-link.active {
@@ -304,6 +316,15 @@ option {
 }
 
 .nav-link:focus {
+    box-shadow: none !important;
+}
+
+.nav-link-tab {
+    margin-top: 1px;
+    margin-bottom: -1px;
+}
+
+.nav-link-tab:focus {
     box-shadow: none !important;
     border-color: #dee2e6 #dee2e6 #fff !important;
     border-radius: .25rem .25rem 0 0;

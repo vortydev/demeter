@@ -7,13 +7,17 @@ import { CreateTaskForm } from "./createTaskForm";
 import { TaskNav } from "./TaskNav";
 import { TaskRow } from "./TaskRow";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRotateRight } from "@fortawesome/free-solid-svg-icons";
+import { confirmAlert } from "react-confirm-alert";
+
 function TaskPage(): JSX.Element {
   const [createdSuccess, setSuccess] = useState<boolean>(false);
   const [deletedSuccess, setDelete] = useState<boolean>(false);
   const [editedSuccess, editSuccess] = useState<boolean>(false);
   const [taskCategory, setTaskCategory] = useState<number>(1);
   const [listTask, setListTask] = useState<Task[]>([]);
-  const [accountTask, setAccountTask]= useState<Task[]>([]);
+  const [accountTask, setAccountTask] = useState<Task[]>([]);
   const [allCatTask, setAllCatTask] = useState<Task[]>([]);
   const account = getCookie("account") ? getCookie("account") : "Visiteur";
   const role = getCookie("role");
@@ -25,22 +29,22 @@ function TaskPage(): JSX.Element {
       setAllCatTask(taskByCat);
       setListTask(taskByCat.filter((t) => t.parentId === 0));
       console.log(listTask);
-      if(role == "2"){
-      const taskForAccount :Task[] = listTask.filter((t) => t.receiver == account);
-      console.log(taskForAccount);
-      setAccountTask(taskForAccount);
-      }else if(role == "3"){
-        setAccountTask(listTask.filter((t) => t.receiver == "delivery"));
+      if (role === "2") {
+        const taskForAccount: Task[] = listTask.filter((t) => t.receiver === account);
+        console.log(taskForAccount);
+        setAccountTask(taskForAccount);
+      } else if (role === "3") {
+        setAccountTask(listTask.filter((t) => t.receiver === "delivery"));
       }
-  
+
     }
     getList();
     setTaskCompleted(false);
-  }, [taskCategory, createdSuccess,deletedSuccess, editedSuccess, taskCompleted]);
-  
-  async function resetTasksByCat(){
+  }, [taskCategory, createdSuccess, deletedSuccess, editedSuccess, taskCompleted]);
+
+  async function resetTasksByCat() {
     //Genérer rapport pour historique ici
-    setTaskCompleted(true); 
+    setTaskCompleted(true);
     resetTask(allCatTask);
   }
 
@@ -55,19 +59,26 @@ function TaskPage(): JSX.Element {
       />
       {createdSuccess && <Alert>La tâche à été créée avec succès!</Alert>}
       {deletedSuccess && <Alert>La tâche à été supprimée avec succès!</Alert>}
-      <p>Liste de tâches {taskCategory}</p>
-      {taskCategory ===1 && <Button onClick={()=>resetTasksByCat()}>Commencer la journée</Button>}
-      {taskCategory ===2 && <Button onClick={()=>resetTasksByCat()}>Commencer la semaine</Button>}
 
-      <div>
-      {role != "2" && role !="3"  && listTask.map((Task) => (
-        <TaskRow task={Task} listTask={allCatTask} deleteSuccess={setDelete} editSuccess={editSuccess} completedSuccess={setTaskCompleted} />
-      ))}
-       {(role == "2" || role == "3")  && accountTask.map((Task) => (
-        <TaskRow task={Task} listTask={allCatTask} deleteSuccess={setDelete} editSuccess={editSuccess} completedSuccess={setTaskCompleted} />
-      ))}
-    </div>
-      
+      {taskCategory === 1 &&
+        <Button className="taskPageResetBtn" variant="outline-dark" onClick={() => {
+          resetTasksByCat()
+        }}>
+          <FontAwesomeIcon className="iconRefresh" icon={faArrowRotateRight} size="lg" />
+          <span>Commencer la journée</span>
+        </Button>}
+
+      {taskCategory === 2 && <Button className="taskPageResetBtn" variant="outline-dark" onClick={() => resetTasksByCat()}><FontAwesomeIcon className="iconRefresh" icon={faArrowRotateRight} size="lg" /><span>Commencer la semaine</span></Button>}
+
+      <div className="taskRowList flex mt-4 mb-4">
+        {role !== "2" && role !== "3" && listTask.map((Task) => (
+          <TaskRow task={Task} listTask={allCatTask} deleteSuccess={setDelete} editSuccess={editSuccess} completedSuccess={setTaskCompleted} />
+        ))}
+        {(role === "2" || role === "3") && accountTask.map((Task) => (
+          <TaskRow task={Task} listTask={allCatTask} deleteSuccess={setDelete} editSuccess={editSuccess} completedSuccess={setTaskCompleted} />
+        ))}
+      </div>
+
       <Button variant="outline-dark" >Afficher L'Historique</Button>
     </div>
   );

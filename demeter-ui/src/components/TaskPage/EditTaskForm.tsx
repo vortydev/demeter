@@ -22,7 +22,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
     }
     getList();
 
-  }, [listAccount]);
+  }, [show]);
 
   async function handleSubmit() {
     const taskName = document.getElementById("taskName") as HTMLInputElement;

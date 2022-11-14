@@ -10,6 +10,7 @@ import "../../css/news.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { TaskRow } from "../TaskPage/TaskRow";
+import { getCookie } from "typescript-cookie";
 
 interface NewsPreviewProps {
   news: News;
@@ -56,6 +57,7 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
     console.log(news.taskId);
   }
 
+  const role = getCookie("role");
   return (
     <div className="flexNewsPreview">
       <h2 className="newsTitle">{news.title}</h2>
@@ -72,25 +74,27 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
           {text}
           <b>{dotdotdot}</b>
         </p>
-        <div className="flexNewsEdit">
-          <FontAwesomeIcon
-            className="iconEdit cursor"
-            icon={faEdit}
-            size="lg"
-            onClick={() => {
-            setEditNews(true);
-            }}
-          />
-          <FontAwesomeIcon
-            className="iconTrash cursor"
-            icon={faTrashAlt}
-            size="lg"
-            onClick={() => {
-              deleteNews(news.id);
-              deleteSuccess(true);
-            }}
-          />
-        </div>
+        { role == "1" || role == "4" &&
+          <div className="flexNewsEdit">
+            <FontAwesomeIcon
+              className="iconEdit cursor"
+              icon={faEdit}
+              size="lg"
+              onClick={() => {
+              setEditNews(true);
+              }}
+            />
+            <FontAwesomeIcon
+              className="iconTrash cursor"
+              icon={faTrashAlt}
+              size="lg"
+              onClick={() => {
+                deleteNews(news.id);
+                deleteSuccess(true);
+              }}
+            />
+          </div>
+        }
       </div>
       {task !== undefined && (
         <div>

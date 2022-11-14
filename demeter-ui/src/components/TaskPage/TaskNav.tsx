@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button } from "react-bootstrap";
+import { getCookie } from "typescript-cookie";
 import { CreateTaskForm } from "./createTaskForm";
 
 interface TaskNavProps{
@@ -16,7 +17,8 @@ function TaskNav({taskCategory, setTaskCategory, success, setSuccess} :TaskNavPr
     function close(): void {
         setCreateTask(false);
       }
-      
+  
+      const role = getCookie("role");
   return (
     
     <nav className="navbar navbar-expand-sm navbar-light">
@@ -40,17 +42,20 @@ function TaskNav({taskCategory, setTaskCategory, success, setSuccess} :TaskNavPr
               Autres
             </a>
           </li>
-          <li className="nav-item">
-          <Button
-          variant="outline-dark"
-          onClick={() => {
+
+          { role == "1" || role == "4" &&
+            <li className="nav-item">
+            <Button
+            variant="outline-dark"
+            onClick={() => {
             setCreateTask(true);
             setSuccess(false);
-          }}
-        >
-         +
-        </Button>
-          </li>
+            }}
+            >
+            +
+            </Button>
+              </li>
+        }
         </ul>
       </div>
       <CreateTaskForm show={createTask} close={close} success={setSuccess} />

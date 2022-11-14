@@ -48,7 +48,8 @@ function NewsPage(): JSX.Element {
       {deleteSuccess && <Alert>L'annonce à été supprimer avec succès!</Alert>}
       
       <p className="loginText">Vous êtes connecté en tant que {connected}</p>
-      <div className="newsAdd mb-2">
+      { role == "1" || role == "4" &&
+        <div className="newsAdd mb-2">
         <Button onClick={showAllNews}>Afficher toutes les Annonces</Button>
         <Button
           variant="outline-dark"
@@ -60,6 +61,7 @@ function NewsPage(): JSX.Element {
           Nouvelle Annonce
         </Button>
       </div>
+      }
 
       {newsList.length === 0 && <p>Aucune annonce présentement.</p> }
       {newsList.map((news) => (

@@ -28,8 +28,9 @@ type Task = {
   completed: boolean;
   active: boolean;
   picture: string | null;
-  responsable: string | null;
+  responsable: string;
   date: Date;
+  receiver: String;
 }
 
 type Recipe = {
@@ -61,10 +62,10 @@ type Category = {
 
 type Vendor = {
   id: number;
-  vendor: String;
-  phone: String;
-  email: String;
-  address: String;
+  vendor: string;
+  phone: string;
+  email: string;
+  address: string;
 }
 
 type Mesurement = {

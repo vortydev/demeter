@@ -1,16 +1,15 @@
-import { useState } from 'react';
-import { Alert, Button, Form, Modal } from 'react-bootstrap';
-import { Vendor } from '../../types/Types';
-import { createVendor } from '../../services/vendor.functions';
+import { useState } from "react";
+import { Alert, Button, Form, Modal } from "react-bootstrap";
+import { updateVendor } from "../../../services/vendor.functions";
+import { Vendor } from "../../../types/Types";
 
-interface CRFormProps {
+interface VEFormProps {
     show: boolean;
     close: () => void;
     success: () => void;
+    vendor: Vendor;
 }
-
-function VendorForm({ show, close, success }: CRFormProps) {
-
+function VendorEdit({ show, close, success, vendor }: VEFormProps){
     const [error, setError] = useState<boolean>(false);
 
     const [alerting, setAlerting] = useState<boolean>(false);
@@ -23,7 +22,7 @@ function VendorForm({ show, close, success }: CRFormProps) {
         setAlerting2(false);
     }, 5000);
 
-    async function addVendor(): Promise<void>{
+    async function editVendor(): Promise<void>{
         const vendorName = document.getElementById("vendorName") as HTMLInputElement;
         const phone = document.getElementById("phone") as HTMLInputElement;
         const email = document.getElementById("email") as HTMLInputElement;
@@ -59,15 +58,15 @@ function VendorForm({ show, close, success }: CRFormProps) {
             }
         }
         if (error === false) {
-            const newVendor: Vendor = {
-                id: 1,
+            const updatedVendor: Vendor = {
+                id: vendor.id,
                 vendor: vendorName.value,
                 phone: phone.value,
                 email: email.value,
                 address: address.value
             };
 
-            if (await createVendor(newVendor)) {
+            if (await updateVendor(updatedVendor, vendor.id)) {
                 success();
             }
             else {
@@ -79,7 +78,7 @@ function VendorForm({ show, close, success }: CRFormProps) {
     return (
         <Modal show={show} onHide={close}>
             <Form className="popupForm">
-                <h3 className="popupTitle">Ajouter un Fournisseur</h3>
+                <h3 className="popupTitle">Modifier un Fournisseur</h3>
 
                 {alerting && <Alert variant="danger">Veuillez entrer un nom.</Alert>}
                 {alerting1 && <Alert variant="danger">Veuillez entrer le numéro de téléphone aux formats suivants: ###-###-####, (###)###-#### ou ### ### ####.</Alert>}
@@ -87,31 +86,31 @@ function VendorForm({ show, close, success }: CRFormProps) {
 
                 <Form.Group className="mb-2" controlId="vendorName">
                     <Form.Label>Nom</Form.Label>
-                    <Form.Control type="text" />
+                    <Form.Control type="text" defaultValue={vendor.vendor}/>
                 </Form.Group>
                 
                 <Form.Group className="mb-2" controlId="phone">
                     <Form.Label>Téléphone</Form.Label>
-                    <Form.Control type="text" />
+                    <Form.Control type="text" defaultValue={vendor.phone}/>
                 </Form.Group>
 
                 <Form.Group className="mb-2" controlId="email">
                     <Form.Label>Courriel</Form.Label>
-                    <Form.Control type="text" />
+                    <Form.Control type="text" defaultValue={vendor.email} />
                 </Form.Group>
 
                 <Form.Group className="mb-2" controlId="address">
-                    <Form.Label>Addresse postale</Form.Label>
-                    <Form.Control type="text" />
+                    <Form.Label>Adresse postale</Form.Label>
+                    <Form.Control type="text" defaultValue={vendor.address}/>
                 </Form.Group>
 
                 <div className="mt-3 popupBtnBox">
                     <Button variant="demeter-dark" onClick={close}>Annuler</Button>
-                    <Button variant="demeter" onClick={addVendor}>Ajouter</Button>
+                    <Button variant="demeter" onClick={editVendor}>Confirmer</Button>
                 </div>
             </Form>
         </Modal>
     );
 }
 
-export { VendorForm };
+export {VendorEdit};

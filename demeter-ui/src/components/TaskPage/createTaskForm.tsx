@@ -1,8 +1,9 @@
 import { render } from "@testing-library/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
+import { getAccountsByRole } from "../../services/account.functions";
 import { createTask } from "../../services/task.funtions";
-import { Task } from "../../types/Types";
+import { Account, Task } from "../../types/Types";
 
 
 
@@ -14,11 +15,21 @@ interface CRFormProps {
 
 function CreateTaskForm({ show, close, success }: CRFormProps) {
   const [error, setError] = useState<boolean>(false);
+  const [listAccount, setListAccount] = useState<Account[]>([]);
+
+  useEffect(() => {
+    async function getList() {
+      setListAccount(await getAccountsByRole(2));
+    }
+    getList();
+
+  }, []);
 
   async function handlesubmit() {
     const taskName = document.getElementById("taskName") as HTMLInputElement;
     const description = document.getElementById("description") as HTMLInputElement;
     const typeTask = document.getElementById("typeTask") as HTMLInputElement;
+    const receiver = document.getElementById("receiver") as HTMLInputElement;
 
     const newTask: Task = {
       id: 1,
@@ -30,10 +41,12 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
       completed: false,
       picture: null,
       date: new Date(),
-      responsable: null,
+      responsable: "",
+      receiver: receiver.value,
     };
 
     if (await createTask(newTask)) {
+      console.log(newTask);
       success(true);
       close();
     } else {
@@ -56,6 +69,16 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
             <option value="1">Quotidienne</option>
             <option value="2">Hebdomadaire</option>
             <option value="3">Autre</option>
+          </Form.Select>
+        </Form.Group>
+
+        <Form.Group className="popupSelectBox mb-2">
+          <Form.Label className="popupSelectLabel">Destinataire</Form.Label>
+          <Form.Select id="receiver" aria-label="Type">
+            <option value="delivery">Livreur</option>
+            {listAccount.map((employee) => (
+              <option value={employee.accName}>{employee.accName}</option>
+            ))}
           </Form.Select>
         </Form.Group>
 

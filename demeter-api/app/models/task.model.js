@@ -5,7 +5,8 @@ module.exports = (sequelize, Sequelize) => {
         completed: { type: Sequelize.BOOLEAN },
         active: { type: Sequelize.BOOLEAN },
         responsable: { type: Sequelize.STRING }, 
-        parentId: { type: Sequelize.INTEGER }
+        parentId: { type: Sequelize.INTEGER },
+        receiver: { type: Sequelize.STRING }
     });
     
     return Task;

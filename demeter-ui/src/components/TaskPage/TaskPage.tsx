@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
+import { getCookie } from "typescript-cookie";
 import { getAll, getbyCategorie, resetTask } from "../../services/task.funtions";
 import { Task } from "../../types/Types";
 import { CreateTaskForm } from "./createTaskForm";
@@ -12,7 +13,10 @@ function TaskPage(): JSX.Element {
   const [editedSuccess, editSuccess] = useState<boolean>(false);
   const [taskCategory, setTaskCategory] = useState<number>(1);
   const [listTask, setListTask] = useState<Task[]>([]);
+  const [accountTask, setAccountTask]= useState<Task[]>([]);
   const [allCatTask, setAllCatTask] = useState<Task[]>([]);
+  const account = getCookie("account") ? getCookie("account") : "Visiteur";
+  const role = getCookie("role");
   const [taskCompleted, setTaskCompleted] = useState<boolean>(false);
 
   useEffect(() => {
@@ -20,11 +24,19 @@ function TaskPage(): JSX.Element {
       const taskByCat: Task[] = await getbyCategorie(taskCategory);
       setAllCatTask(taskByCat);
       setListTask(taskByCat.filter((t) => t.parentId === 0));
-      setTaskCompleted(false);
+      console.log(listTask);
+      if(role == "2"){
+      const taskForAccount :Task[] = listTask.filter((t) => t.receiver == account);
+      console.log(taskForAccount);
+      setAccountTask(taskForAccount);
+      }else if(role == "3"){
+        setAccountTask(listTask.filter((t) => t.receiver == "delivery"));
+      }
   
     }
     getList();
-  }, [taskCategory,createdSuccess,deletedSuccess, editedSuccess, taskCompleted]);
+    setTaskCompleted(false);
+  }, [taskCategory, createdSuccess,deletedSuccess, editedSuccess, taskCompleted]);
   
   async function resetTasksByCat(){
     //Genérer rapport pour historique ici
@@ -48,8 +60,11 @@ function TaskPage(): JSX.Element {
       {taskCategory ===2 && <Button onClick={()=>resetTasksByCat()}>Commencer la semaine</Button>}
 
       <div>
-      {listTask.map((Task) => (
-        <TaskRow task={Task} listTask={allCatTask} deleteSuccess={setDelete} editSuccess={editSuccess}  completedSuccess={setTaskCompleted} />
+      {role != "2" && role !="3"  && listTask.map((Task) => (
+        <TaskRow task={Task} listTask={allCatTask} deleteSuccess={setDelete} editSuccess={editSuccess} completedSuccess={setTaskCompleted} />
+      ))}
+       {(role == "2" || role == "3")  && accountTask.map((Task) => (
+        <TaskRow task={Task} listTask={allCatTask} deleteSuccess={setDelete} editSuccess={editSuccess} completedSuccess={setTaskCompleted} />
       ))}
     </div>
       

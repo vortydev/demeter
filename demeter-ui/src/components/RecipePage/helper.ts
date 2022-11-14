@@ -56,7 +56,6 @@ export function pricePerQuantity(ingredient: IngForRecipe): number {
 
   return Math.round((result + Number.EPSILON) * 100) / 100;
 }
-
 function produitCroise(ingredient: IngForRecipe, actualQty: number) {
   return (
     (parseFloat(ingredient.ingredient.price) /

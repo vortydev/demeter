@@ -16,7 +16,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
 
   async function handlesubmit(): Promise<void> {
 
-    let newsTask = {
+    let newsTask : Task = {
       id: 1,
       title: 'changeMe',
       description: 'changeMe',
@@ -26,7 +26,8 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       completed: false,
       picture: null,
       date: new Date(),
-      responsable: null,
+      responsable: "",
+      receiver: "",
     };
 
     let taskCreated: Task | null = null;

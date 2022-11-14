@@ -2,9 +2,6 @@ import { useEffect, useState } from 'react';
 import { Form, Button, Modal, Alert } from 'react-bootstrap';
 import { Product } from '../../types/Types';
 import { GetCategoryEdit, GetMesurementsEdit, GetVendorsEdit } from './inventory';
-import { VendorForm } from './inventoryAddVendorForm';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faList } from "@fortawesome/free-solid-svg-icons";
 import { getProduct, updateProduct } from '../../services/inventory.functions';
 
 interface CRFormProps {
@@ -15,10 +12,6 @@ interface CRFormProps {
 }
 
 function InventoryEditProductForm({ show, close, success, product }: CRFormProps) {
-
-    const [createNewVendor, setCreateNewVendor] = useState<boolean>(false);
-    const [createdSuccess, setSuccess] = useState<boolean>(false);
-
     const [alerting, setAlerting] = useState<boolean>(false);
     const [alerting1, setAlerting1] = useState<boolean>(false);
     const [alerting2, setAlerting2] = useState<boolean>(false);
@@ -97,15 +90,6 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
         }
     }
 
-    function successVendor(): void {
-        setSuccess(true);
-        close();
-    }
-
-    function closeVendor(): void {
-        setCreateNewVendor(false);
-    }
-
     return (
         <Modal show={show} onHide={close}>
             <Form className="popupForm">
@@ -135,17 +119,6 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
                     <Form.Select aria-label="vendor" id="vendor" defaultValue={product.vendorId}>
                         <GetVendorsEdit show={show} id={parseInt(product.vendorId)} />
                     </Form.Select>
-
-                    <div className="vendorListBox">
-                        <FontAwesomeIcon className="iconList iconEdit cursor" icon={faList} size="lg" onClick={() => {
-                            setSuccess(false);
-                            console.log("liste fournisseurs");
-                        }} />
-                        <FontAwesomeIcon className="iconAdd iconEdit cursor" icon={faPlus} size="lg" onClick={() => {
-                            setCreateNewVendor(true);
-                            setSuccess(false);
-                        }} />
-                    </div>
                 </Form.Group>
 
                 <div className="popupRowSplit mb-2">
@@ -184,7 +157,6 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
                     <Button variant="demeter" onClick={editProduct}>Confirmer</Button>
                 </div>
             </Form>
-            <VendorForm show={createNewVendor} close={closeVendor} success={successVendor} />
         </Modal>
     );
 }

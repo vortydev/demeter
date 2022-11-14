@@ -13,6 +13,10 @@ class VendorService {
     update(data: Vendor, id: any){
         return http.put<any>(`/vendors/${id}`,data);
     }
+
+    delete(id: any){
+        return http.delete<any>(`/vendors/${id}`);
+    }
 }
 
 export default new VendorService();

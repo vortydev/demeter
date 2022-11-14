@@ -1,9 +1,10 @@
-import { faEdit, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useEffect, useState } from "react";
 import { Alert, Button, Container, Modal, Row } from "react-bootstrap";
-import { getAllVendor } from "../../../services/vendor.functions";
+import { confirmAlert } from "react-confirm-alert";
+import { deleteVendor, getAllVendor } from "../../../services/vendor.functions";
 import { Vendor } from "../../../types/Types";
 import { VendorForm } from "./inventoryAddVendorForm";
 import { VendorEdit } from "./vendorEditForm";
@@ -56,17 +57,18 @@ interface VendorOperationSuccess {
 function VendorList({create}:VendorOperationSuccess){
     const [ vendors, setVendors ] = useState<Vendor[]>([]);
     const [ update, setUpdate ] = useState<boolean>(false);
+    const [ deleted, setDeleteSuccess ] = useState<boolean>(false);
 
     useEffect(() => {
         async function getList() {
             setVendors(await getAllVendor());
         }
         getList();
-    },[create, update]);
+    },[create, update, deleted]);
     return (
         <React.Fragment>
             {vendors.map((vendor) => (
-                <VendorRow vendor={vendor} setSuccess={setUpdate}/>
+                <VendorRow vendor={vendor} setSuccess={setUpdate} setDeleteSuccess={setDeleteSuccess}/>
             ))}
         </React.Fragment>
     );
@@ -75,8 +77,9 @@ function VendorList({create}:VendorOperationSuccess){
 interface VendorRow {
     vendor: Vendor;
     setSuccess:(success: boolean) => void;
+    setDeleteSuccess:(success: boolean)=>void;
 }
-function VendorRow({vendor, setSuccess}:VendorRow):JSX.Element{
+function VendorRow({vendor, setSuccess, setDeleteSuccess}:VendorRow):JSX.Element{
     const [updateVendor, setUpdateVendor] = useState<boolean>(false);
 
     function success(): void {
@@ -99,6 +102,22 @@ function VendorRow({vendor, setSuccess}:VendorRow):JSX.Element{
                     setUpdateVendor(true); 
                     setSuccess(false);
                 }} />
+                <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
+                        confirmAlert({
+                            title: 'Confirmation',
+                            message: 'Êtes-vous sur de vouloir supprimer ce fournisseur?',
+                            buttons: [
+                              {
+                                label: 'Oui',
+                                onClick: () => {deleteVendor(vendor.id); setDeleteSuccess(true);}
+                              },
+                              {
+                                label: 'Non',
+                                onClick: () => {}
+                              }
+                            ]
+                          }); 
+                    }} />
             </div>
             <VendorEdit show={updateVendor} close={close} success={success} vendor={vendor}/>
         </Row>

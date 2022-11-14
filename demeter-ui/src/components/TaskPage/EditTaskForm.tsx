@@ -53,6 +53,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
       setTimeout(()=>{
         success(false);
       },5000);
+      setChildTask([]);
       close();
     } else {
       setError(true);

@@ -1,3 +1,4 @@
+import { setPriority } from "os";
 import { useEffect, useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 import { createTask, deleteTask, getTasksByParent, updateTask } from "../../services/task.funtions";
@@ -13,6 +14,7 @@ interface CRFormProps {
 function EditTaskForm({ task, close, success, show }: CRFormProps) {
   const [error, setError] = useState<boolean>(false);
   const [childTask, setChildTask] = useState<Task[]>([]);
+  const [priority, setPriority] = useState<boolean>(task.priority);
 
   async function handleSubmit() {
     const taskName = document.getElementById("taskName") as HTMLInputElement;
@@ -22,16 +24,11 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
     const typeTask = document.getElementById("typeTask") as HTMLInputElement;
 
     const updatedTask: Task = {
-      id: task.id,
+      ...task,
       title: taskName.value,
       description: description.value,
       categorytaskId: parseFloat(typeTask.value),
-      parentId: task.parentId,
-      completed: false,
-      active: false,
-      picture: null,
-      date: new Date(),
-      responsable: null,
+      priority : priority,
     };
 
     for (const ct of childTask) {
@@ -83,6 +80,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         picture: null,
         date: new Date(),
         responsable: null,
+        priority:false,
       },
     ]);
   };
@@ -113,6 +111,10 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
             <option value="3">Autre</option>
           </Form.Select>
         </Form.Group>
+
+        <Form.Group className="mb-3" controlId="priority">
+        <Form.Check defaultChecked={task.priority} onChange={()=>setPriority(!priority)} type="checkbox" label="Priorité" />
+      </Form.Group>
 
         {childTask.map((ct) => (
           <div key={ct.id}>

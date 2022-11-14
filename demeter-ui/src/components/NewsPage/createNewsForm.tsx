@@ -27,6 +27,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       picture: null,
       date: new Date(),
       responsable: null,
+      priority: false
     };
 
     let taskCreated: Task | null = null;

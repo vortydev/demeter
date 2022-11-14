@@ -14,6 +14,7 @@ interface CRFormProps {
 
 function CreateTaskForm({ show, close, success }: CRFormProps) {
   const [error, setError] = useState<boolean>(false);
+  const [priority, setPriority] = useState<boolean>(false);
 
   async function handlesubmit() {
     const taskName = document.getElementById("taskName") as HTMLInputElement;
@@ -31,10 +32,12 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
       picture: null,
       date: new Date(),
       responsable: null,
+      priority : priority, 
     };
 
     if (await createTask(newTask)) {
       success(true);
+      setPriority(false);
       close();
     } else {
       setError(true);
@@ -63,6 +66,11 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
           <Form.Label>Description</Form.Label>
           <Form.Control as="textarea" rows={3} />
         </Form.Group>
+
+        <Form.Group className="mb-3" controlId="priority">
+              <Form.Check onChange={()=>setPriority(!priority)} type="checkbox" label="Priorité" />
+            </Form.Group>
+
 
         <div className="mt-3 popupBtnBox">
           <Button variant="demeter-dark" onClick={close}>Annuler</Button>

@@ -41,7 +41,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess 
   }
 
   return (
-    <div className="taskRow">
+    <div  className={`taskRow ${task.priority? " taskPriority"  : ""}`}>
 
       {!task.completed &&  <input
         onBlur={complete}
@@ -70,7 +70,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess 
       </Button>
       <div>
         {subListTask.map((st) => (
-          <div>
+          <div className={` ${st.priority? " subtaskPriority"  : ""}`}>
             <input className="responable" type="text" /> {st.title}{" "}
             <Button
               onClick={() => {

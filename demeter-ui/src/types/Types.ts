@@ -31,6 +31,7 @@ type Task = {
   picture: string | null;
   responsable: string | null;
   date: Date;
+  priority : boolean;
 }
 
 type Recipe = {

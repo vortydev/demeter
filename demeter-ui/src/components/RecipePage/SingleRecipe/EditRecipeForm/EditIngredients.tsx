@@ -72,6 +72,7 @@ function EditIngredient({ listIng, recipeId, setChanged }: EditIngredientProps) 
         }
 
         if (await createIngredient(ingredient)) {
+          listIng.push(ingredient);
           setAddingIng(false);
           setChanged(true);
         }
@@ -97,7 +98,20 @@ function EditIngredient({ listIng, recipeId, setChanged }: EditIngredientProps) 
       <div className="cellShade flex ingListRow mb-2">
         <IngredientRow ingredient={ing} />
         <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
-          removeIngredient(ing)
+          confirmAlert({  // so ethel here you need to give this confirm alert a z-index over the modal's z-index
+            title: 'Confirmation',
+            message: 'Êtes-vous sur de vouloir supprimer cet ingrédient?',
+            buttons: [
+              {
+                label: 'Oui',
+                onClick: () => {removeIngredient(ing); setDeleteSuccess(true)}
+              },
+              {
+                label: 'Non',
+                onClick: () => {}
+              }
+            ]
+          });
         }} />
       </div>
     ))}

@@ -23,6 +23,10 @@
     margin-bottom: .5rem;
 }
 
+.accountNav>.nav {
+    margin: auto;
+}
+
 .accountNav a {
     padding: inherit .75rem inherit .75rem !important;
 }

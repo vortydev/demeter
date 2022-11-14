@@ -55,7 +55,7 @@ function EditRecipeForm({
   }
 
   async function editRecipe() {
-    if (recipeInfo.title == "" || !recipeInfo.categoryrecipeId || !recipeInfo.instruction || recipeInfo.otherCost < 0 || recipeInfo.nbUnitCreated < 0) {
+    if (recipeInfo.title == "" || !recipeInfo.categoryrecipeId || !recipeInfo.instruction || recipeInfo.otherCost < 0 || recipeInfo.nbUnitCreated <= 0) {
       setEmpty(true);
       setTimeout(() => {
         setEmpty(false);

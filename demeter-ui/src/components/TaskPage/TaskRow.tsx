@@ -36,6 +36,9 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
 
       if (await updateTask(completedTask)) {
         completedSuccess(true);
+        setTimeout(()=>{
+          completedSuccess(false)
+        },5000);
       }
     }
   }
@@ -49,6 +52,9 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
 
     if (await updateTask(nvmTask)) {
       completedSuccess(true);
+      setTimeout(()=>{
+        completedSuccess(false)
+      },5000);
     }
   }
 
@@ -66,6 +72,9 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
 
       if (await updateTask(completedTask)) {
         completedSuccess(true);
+        setTimeout(()=>{
+          completedSuccess(false)
+        },5000);
       }
     }
   }
@@ -106,6 +115,9 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
               onClick: () => {
                 deleteTask(task.id);
                 deleteSuccess(true);
+                setTimeout(()=>{
+                  deleteSuccess(false)
+                },5000);
               }
             },
             {
@@ -150,6 +162,9 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
                   onClick: () => {
                     deleteTask(st.id);
                     deleteSuccess(true);
+                    setTimeout(()=>{
+                      deleteSuccess(false);
+                    },5000);
                   }
                 },
                 {

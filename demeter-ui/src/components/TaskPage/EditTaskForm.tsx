@@ -50,6 +50,9 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
     }
     if (await updateTask(updatedTask) && error === false) {
       success(true);
+      setTimeout(()=>{
+        success(false);
+      },5000);
       close();
     } else {
       setError(true);

@@ -78,7 +78,8 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
       completed: false,
       picture: null,
       date: new Date(),
-      responsable: null,
+      responsable:"",
+      receiver: "",
     };
 
     const taskCreated = await createTask(newsTask);

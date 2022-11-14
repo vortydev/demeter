@@ -4,9 +4,10 @@ import { CreateTaskForm } from "./createTaskForm";
 
 interface TaskNavProps{
     taskCategory: number;
+    taskCategoryName: string;
     setTaskCategory:(location : number) => void;
     setSuccess:(succeed: boolean) => void;
-    success: boolean ;
+    success: boolean;
 }
 
 function TaskNav({taskCategory, setTaskCategory, success, setSuccess} :TaskNavProps) {

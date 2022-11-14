@@ -3,7 +3,10 @@ import { Button } from "react-bootstrap";
 import { deleteTask, updateTask } from "../../services/task.funtions";
 import { Task } from "../../types/Types";
 import { EditTaskForm } from "../TaskPage/EditTaskForm";
-import "./task.css";
+import "../../css/task.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { confirmAlert } from "react-confirm-alert";
 
 interface TaskRowProps {
   task: Task;
@@ -77,35 +80,42 @@ function TaskRow({
   }
 
   return (
-    <div className="taskRow">
+    <div className="taskRow flex">
       {!task.completed && (
         <input
           onBlur={complete}
-          className="responable"
+          className="mb-2"
           type="text"
           id={task.id.toString()}
         />
       )}
-      {task.completed && <span>{task.responsable}</span>} {task.title}{" "}
+      {task.completed && <span>{task.responsable}</span>} {task.title}
       {task.completed && (
         <Button onClick={() => cancelComplete(task)}>MAKE INCOMPLETE</Button>
       )}
-      <Button
-        onClick={() => {
+
+      <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
           setToEdit(task);
           setEditForm(true);
-        }}
-      >
-        edit
-      </Button>{" "}
-      <Button
-        onClick={() => {
-          deleteTask(task.id);
-          deleteSuccess(true);
-        }}
-      >
-        delete
-      </Button>
+        }} />
+        <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
+          confirmAlert({
+            title: 'Confirmation',
+            message: 'Êtes-vous sûr·e de vouloir supprimer cette tâche?',
+            buttons: [{
+                label: 'Supprimer',
+                onClick: () => { 
+                  deleteTask(task.id);
+                  deleteSuccess(true); 
+                }
+              },
+              {
+                label: 'Annuler',
+                onClick: () => { }
+              }]
+          });
+
+        }} />
       <div>
         {subListTask.map((st) => (
           <div>

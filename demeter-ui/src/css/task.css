@@ -1,0 +1,25 @@
+.taskPageResetBtn {
+    display: flex;
+    margin: auto;
+}
+
+.taskPageResetBtn:hover .iconRefresh {
+    color: white;
+}
+
+.taskPageResetBtn span {
+    align-self: center;
+}
+
+.taskRowBox {
+    width: 60%;
+    min-width: 400px;
+    margin: auto;
+    flex-direction: column;
+}
+
+.taskRow {}
+
+.taskRow input {
+    width: 5rem;
+}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
+import { getCookie } from "typescript-cookie";
 import { deleteTask } from "../../services/task.funtions";
 import { Task } from "../../types/Types";
 import { EditTaskForm } from "../TaskPage/EditTaskForm";
@@ -30,6 +31,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess }: TaskRowProps) {
     getList();
   }, []);
 
+  const role = getCookie("role");
   return (
     <div className="taskRow">
       <input className="responable" type="text" /> {task.title}{" "}
@@ -54,15 +56,19 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess }: TaskRowProps) {
         {subListTask.map((st) => (
           <div>
             <input className="responable" type="text" /> {st.title}{" "}
-            <Button onClick={()=>{setToEdit(st); setEditForm(true);}}>EDIT</Button>
-            <Button
-              onClick={() => {
-                deleteTask(st.id);
-                deleteSuccess(true);
-              }}
-            >
-              DELETE
-            </Button>
+            { role == "1" || role == "4" &&
+              <div>
+                <Button onClick={()=>{setToEdit(st); setEditForm(true);}}>EDIT</Button>
+                <Button
+                  onClick={() => {
+                    deleteTask(st.id);
+                    deleteSuccess(true);
+                  }}
+                  >
+                  DELETE
+                  </Button>
+              </div>
+            } 
           </div>
         ))}
       </div>

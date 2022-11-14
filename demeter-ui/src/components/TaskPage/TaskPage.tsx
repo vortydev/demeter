@@ -6,8 +6,10 @@ import { Task } from "../../types/Types";
 import { CreateTaskForm } from "./createTaskForm";
 import { TaskNav } from "./TaskNav";
 import { TaskRow } from "./TaskRow";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRotateRight } from "@fortawesome/free-solid-svg-icons";
+import { confirmAlert } from "react-confirm-alert";
 
 function TaskPage(): JSX.Element {
   const [createdSuccess, setSuccess] = useState<boolean>(false);
@@ -51,18 +53,24 @@ function TaskPage(): JSX.Element {
       <h1 className="pageTitle">Tâches</h1>
       <TaskNav
         taskCategory={taskCategory}
-        taskCategoryName=""
         setTaskCategory={setTaskCategory}
         success={createdSuccess}
         setSuccess={setSuccess}
       />
       {createdSuccess && <Alert>La tâche à été créée avec succès!</Alert>}
       {deletedSuccess && <Alert>La tâche à été supprimée avec succès!</Alert>}
-      <h4>Liste de tâches {taskCategory}</h4>
-      {taskCategory === 1 && <Button className="taskPageResetBtn" variant="outline-dark" onClick={() => resetTasksByCat()}><FontAwesomeIcon className="iconRefresh mr-2" icon={faArrowRotateRight} size="lg" /><span>Commencer la journée</span></Button>}
+
+      {taskCategory === 1 &&
+        <Button className="taskPageResetBtn" variant="outline-dark" onClick={() => {
+          resetTasksByCat()
+        }}>
+          <FontAwesomeIcon className="iconRefresh" icon={faArrowRotateRight} size="lg" />
+          <span>Commencer la journée</span>
+        </Button>}
+
       {taskCategory === 2 && <Button className="taskPageResetBtn" variant="outline-dark" onClick={() => resetTasksByCat()}><FontAwesomeIcon className="iconRefresh" icon={faArrowRotateRight} size="lg" /><span>Commencer la semaine</span></Button>}
 
-      <div className="taskRowBox flex">
+      <div className="taskRowList flex mt-4 mb-4">
         {role !== "2" && role !== "3" && listTask.map((Task) => (
           <TaskRow task={Task} listTask={allCatTask} deleteSuccess={setDelete} editSuccess={editSuccess} completedSuccess={setTaskCompleted} />
         ))}

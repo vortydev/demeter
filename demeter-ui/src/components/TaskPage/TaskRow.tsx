@@ -3,9 +3,10 @@ import { Button } from "react-bootstrap";
 import { deleteTask, updateTask } from "../../services/task.funtions";
 import { Task } from "../../types/Types";
 import { EditTaskForm } from "../TaskPage/EditTaskForm";
+
 import "../../css/task.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrashAlt, faArrowRotateLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { confirmAlert } from "react-confirm-alert";
 
 interface TaskRowProps {
@@ -16,13 +17,7 @@ interface TaskRowProps {
   completedSuccess: (completed: boolean) => void;
 }
 
-function TaskRow({
-  task,
-  listTask,
-  deleteSuccess,
-  editSuccess,
-  completedSuccess,
-}: TaskRowProps) {
+function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess, }: TaskRowProps) {
   const [editform, setEditForm] = useState<boolean>(false);
   const [toEdit, setToEdit] = useState<Task>(task);
 
@@ -80,45 +75,52 @@ function TaskRow({
   }
 
   return (
-    <div className="taskRow flex">
-      {!task.completed && (
-        <input
-          onBlur={complete}
-          className="mb-2"
-          type="text"
-          id={task.id.toString()}
-        />
-      )}
-      {task.completed && <span>{task.responsable}</span>} {task.title}
-      {task.completed && (
-        <Button onClick={() => cancelComplete(task)}>MAKE INCOMPLETE</Button>
-      )}
+    <div className="taskRowBox">
+      <div className="taskRow flex mb-2">
+        {task.completed && <FontAwesomeIcon className="iconCheck cursor" icon={faCheck} size="lg" />}
+        <span>{task.title}</span>
+        {!task.completed && (
+          <input
+            onBlur={complete}
+            type="text"
+            id={task.id.toString()}
+          />
+        )}
+        {task.completed && <span className="taskResponsable">{task.responsable}</span>}
+        {task.completed && (
+          <FontAwesomeIcon className="iconUndo" icon={faArrowRotateLeft} size="lg" onClick={() => {
+            cancelComplete(task)
+          }} />
+        )}
 
-      <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
+        <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
           setToEdit(task);
           setEditForm(true);
         }} />
         <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
           confirmAlert({
             title: 'Confirmation',
-            message: 'Êtes-vous sûr·e de vouloir supprimer cette tâche?',
+            message: 'Êtes-vous sûr.e de vouloir supprimer cette tâche?',
             buttons: [{
-                label: 'Supprimer',
-                onClick: () => { 
-                  deleteTask(task.id);
-                  deleteSuccess(true); 
-                }
-              },
-              {
-                label: 'Annuler',
-                onClick: () => { }
-              }]
+              label: 'Supprimer',
+              onClick: () => {
+                deleteTask(task.id);
+                deleteSuccess(true);
+              }
+            },
+            {
+              label: 'Annuler',
+              onClick: () => { }
+            }]
           });
-
         }} />
-      <div>
+      </div>
+
+      <div className="taskChildBox">
         {subListTask.map((st) => (
-          <div>
+          <div className="taskChildRow flex mb-2">
+            {st.completed && <FontAwesomeIcon className="iconCheck cursor" icon={faCheck} size="lg" />}
+            <span>{st.title}</span>
             {!st.completed && (
               <input
                 className="responable"
@@ -127,31 +129,39 @@ function TaskRow({
                 onBlur={() => completeSt(st)}
               />
             )}
-            {st.completed && <span>{st.responsable}</span>} {st.title}{" "}
+            {st.completed && <span>{st.responsable}</span>}
             {st.completed && (
-              <Button onClick={() => cancelComplete(st)}>
-                MAKE INCOMPLETE
-              </Button>
+              <FontAwesomeIcon className="iconUndo" icon={faArrowRotateLeft} size="lg" onClick={() => {
+                cancelComplete(st)
+              }} />
             )}
-            <Button
-              onClick={() => {
-                setToEdit(st);
-                setEditForm(true);
-              }}
-            >
-              EDIT
-            </Button>
-            <Button
-              onClick={() => {
-                deleteTask(st.id);
-                deleteSuccess(true);
-              }}
-            >
-              DELETE
-            </Button>
+
+            <FontAwesomeIcon className="iconEdit" icon={faEdit} size="lg" onClick={() => {
+              setToEdit(st);
+              setEditForm(true);
+            }} />
+
+            <FontAwesomeIcon className="iconTrash" icon={faTrashAlt} size="lg" onClick={() => {
+              confirmAlert({
+                title: 'Confirmation',
+                message: 'Êtes-vous sûr.e de vouloir supprimer cette tâche?',
+                buttons: [{
+                  label: 'Supprimer',
+                  onClick: () => {
+                    deleteTask(st.id);
+                    deleteSuccess(true);
+                  }
+                },
+                {
+                  label: 'Annuler',
+                  onClick: () => { }
+                }]
+              });
+            }} />
           </div>
         ))}
       </div>
+
       <EditTaskForm
         task={toEdit}
         show={editform}
@@ -161,4 +171,5 @@ function TaskRow({
     </div>
   );
 }
+
 export { TaskRow };

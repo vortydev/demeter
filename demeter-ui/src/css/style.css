@@ -142,12 +142,18 @@ option {
     color: var(--demeter-green);
 }
 
-.iconTrash:hover {
+.iconTrash:hover, .iconUndo:hover {
     color: var(--demeter-orange);
 }
 
 .iconAdd:hover + .hide, .iconList:hover + .hide {
     display: block;
+}
+
+.iconRefresh {}
+
+.iconCheck {
+    color: var(--demeter-green);
 }
 
 /* popup ui */

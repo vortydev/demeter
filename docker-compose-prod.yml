@@ -1,0 +1,12 @@
+version: '3.3'
+
+services:
+  demeter-api:
+    environment:
+      - CLIENT_ORIGIN=$REMOTE_ORIGIN
+
+  demeter-ui:
+    build:
+      context: ./demeter-ui
+      args:
+        - REACT_APP_API_BASE_URL=$REMOTE_API_BASE_URL

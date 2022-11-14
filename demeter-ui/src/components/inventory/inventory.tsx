@@ -203,7 +203,11 @@ function GetCategoryEdit({show, id}: GettingShowEdit): JSX.Element {
     );
 }
 
-function GetVendors(show: GettingShow):JSX.Element {
+interface GettingShowVendor {
+    show: boolean,
+    update: boolean
+}
+function GetVendors({show,update}: GettingShowVendor):JSX.Element {
     const [ vendors, setVendors ] = useState<Vendor[]>([]);
 
     useEffect(() => {
@@ -211,7 +215,7 @@ function GetVendors(show: GettingShow):JSX.Element {
             setVendors(await getAllVendor());
         }
         getList();
-    },[show]);
+    },[show, update]);
 
     return (
         <React.Fragment>
@@ -222,7 +226,12 @@ function GetVendors(show: GettingShow):JSX.Element {
     );
 }
 
-function GetVendorsEdit({show, id}: GettingShowEdit):JSX.Element {
+interface GettingShowEditVendor {
+    show: boolean,
+    id: number,
+    update: boolean,
+}
+function GetVendorsEdit({show, id, update}: GettingShowEditVendor):JSX.Element {
     const [ vendors, setVendors ] = useState<Vendor[]>([]);
 
     const isSelected = (vendor: Vendor)=>{
@@ -238,7 +247,7 @@ function GetVendorsEdit({show, id}: GettingShowEdit):JSX.Element {
             setVendors(await getAllVendor());
         }
         getList();
-    },[show]);
+    },[show,update]);
 
     return (
         <React.Fragment>

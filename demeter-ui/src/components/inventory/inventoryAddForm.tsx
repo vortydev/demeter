@@ -3,6 +3,9 @@ import { Form, Button, Modal, Alert } from 'react-bootstrap';
 import { Product } from '../../types/Types';
 import { GetCategory, GetMesurements, GetVendors } from './inventory';
 import { createProduct } from '../../services/inventory.functions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { VendorForm } from './Vendor/inventoryAddVendorForm';
 
 interface CRFormProps {
     show: boolean;
@@ -11,12 +14,24 @@ interface CRFormProps {
 }
 
 function InventoryForm({ show, close, success }: CRFormProps) {
+    const [createNewVendor, setCreateNewVendor] = useState<boolean>(false);
+    const [createdSuccess, setSuccess] = useState<boolean>(false);
+
     const [alerting, setAlerting] = useState<boolean>(false);
     const [alerting1, setAlerting1] = useState<boolean>(false);
     const [alerting2, setAlerting2] = useState<boolean>(false);
     const [alerting3, setAlerting3] = useState<boolean>(false);
 
     const [error, setError] = useState<boolean>(false);
+
+    function successVendor(): void {
+        setSuccess(true);
+        closeVendor();
+    }
+
+    function closeVendor(): void {
+        setCreateNewVendor(false);
+    }
 
     async function addProduct(): Promise<void> {
         const name = document.getElementById("name") as HTMLInputElement;
@@ -114,9 +129,16 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                 <Form.Group className="vendorBox mb-2" controlId="vendor">
                     <Form.Label className="popupSelectLabel">Fournisseur</Form.Label>
                     <Form.Select aria-label="vendor" id="vendor">
-                        <GetVendors show={show} />
+                        <GetVendors show={show} update={createdSuccess} />
                     </Form.Select>
+                    <div className="vendorListBox">
+                        <FontAwesomeIcon className="iconAdd iconEdit cursor" icon={faPlus} size="lg" onClick={() => {
+                            setCreateNewVendor(true);
+                            setSuccess(false);
+                        }} />
+                    </div>
                 </Form.Group>
+                
 
                 <div className="popupRowSplit mb-2">
                     <Form.Group controlId="qty_unit">
@@ -154,6 +176,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                     <Button variant="demeter" onClick={addProduct}>Confirmer</Button>
                 </div>
             </Form>
+            <VendorForm show={createNewVendor} close={closeVendor} success={successVendor} />
         </Modal>
     );
 }

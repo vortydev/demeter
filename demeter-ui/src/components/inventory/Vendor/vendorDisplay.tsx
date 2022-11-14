@@ -28,25 +28,27 @@ function VendorDisplay({ show, close }: VendorDisplayProps) {
 
     return (
         <Modal size="lg" show={show} onHide={close}>
-            <h3 className="popupTitle">Liste des fournisseurs</h3>
-            <FontAwesomeIcon className="iconAdd iconEdit cursor" icon={faPlus} size="lg" onClick={() => {
-                setCreateNewVendor(true);
-                setSuccess(false);
-            }} />
-            {createdSuccess && <Alert variant="success">Le fournisseur à été ajouté avec succès</Alert>}
-            <Container>
-                <Row>
-                    <h4>Nom</h4>
-                    <h4>Téléphone</h4>
-                    <h4>Courriel</h4>
-                    <h4>Adresse postale</h4>
-                </Row>
-                <VendorList create={createdSuccess} />
-            </Container>
-            <div className="mt-3 popupBtnBox">
-                <Button variant="demeter-dark" onClick={close}>Retour</Button>
+            <div className="popupForm">
+                <h3 className="popupTitle">Liste des fournisseurs</h3>
+                <FontAwesomeIcon className="iconAdd iconEdit cursor" icon={faPlus} size="lg" onClick={() => {
+                    setCreateNewVendor(true);
+                    setSuccess(false);
+                }} />
+                {createdSuccess && <Alert variant="success">Le fournisseur à été ajouté avec succès</Alert>}
+                <Container>
+                    <Row>
+                        <h4>Nom</h4>
+                        <h4>Téléphone</h4>
+                        <h4>Courriel</h4>
+                        <h4>Adresse postale</h4>
+                    </Row>
+                    <VendorList create={createdSuccess} />
+                </Container>
+                <div className="mt-3 popupBtnBox">
+                    <Button variant="demeter-dark" onClick={close}>Retour</Button>
+                </div>
+                <VendorForm show={createNewVendor} close={closeVendor} success={successVendor} />
             </div>
-            <VendorForm show={createNewVendor} close={closeVendor} success={successVendor} />
         </Modal>
     );
 }
@@ -92,15 +94,18 @@ function VendorRow({ vendor, setSuccess, setDeleteSuccess }: VendorRow): JSX.Ele
     }
 
     return (
-        <Row>
-            <div>{vendor.vendor}</div>
-            <div>{vendor.phone}</div>
-            <div>{vendor.email}</div>
-            <div>{vendor.address}</div>
-            <div><FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
-                setUpdateVendor(true);
-                setSuccess(false);
-            }} />
+        <div className="vendorListBox cellShade flex">
+            <div className="vendorInfo">
+                <span>{vendor.vendor}</span>
+                <span>{vendor.phone}</span>
+                <span>{vendor.email}</span>
+                <span>{vendor.address}</span>
+            </div>
+            <div>
+                <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
+                    setUpdateVendor(true);
+                    setSuccess(false);
+                }} />
 
                 <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
                     confirmAlert({
@@ -120,7 +125,7 @@ function VendorRow({ vendor, setSuccess, setDeleteSuccess }: VendorRow): JSX.Ele
                 }} />
             </div>
             <VendorEdit show={updateVendor} close={close} success={success} vendor={vendor} />
-        </Row>
+        </div>
     );
 }
 

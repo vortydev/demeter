@@ -21,7 +21,8 @@ exports.create = (req, res) => {
         active: req.body.active | true,
         author: req.body.author,
         taskId: req.body.taskId, 
-        date: req.body.date
+        date: req.body.date,
+        priority : req.body.priority
     };
 
     // Save Announcement in the database

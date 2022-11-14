@@ -13,13 +13,13 @@ interface CRFormProps {
 function CreateNewsForm({ show, close, success }: CRFormProps) {
   const [error, setError] = useState<boolean>(false);
   const [addTask, setAddTask] = useState<boolean>(false);
+  const [priority, setPriority] = useState<boolean>(false);
 
   async function handlesubmit(): Promise<void> {
-
     let newsTask = {
       id: 1,
-      title: 'changeMe',
-      description: 'changeMe',
+      title: "changeMe",
+      description: "changeMe",
       categorytaskId: 4, // Ne s'Affichent pas dans la liste de tâches
       parentId: 0,
       active: true,
@@ -33,16 +33,21 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
 
     if (addTask) {
       // Retrive task info
-      const taskTitle = document.getElementById("tasktitle") as HTMLInputElement;
-      const taskDesc = document.getElementById("taskdescription") as HTMLInputElement;
+      const taskTitle = document.getElementById(
+        "tasktitle"
+      ) as HTMLInputElement;
+      const taskDesc = document.getElementById(
+        "taskdescription"
+      ) as HTMLInputElement;
       // Assign task infos
       newsTask.title = taskTitle.value;
-      newsTask.description= taskDesc.value;
+      newsTask.description = taskDesc.value;
+
       // create task
       taskCreated = await createTask(newsTask);
       // validate
-       console.log(taskCreated);
-      if(taskCreated === null){
+      console.log(taskCreated);
+      if (taskCreated === null) {
         setError(true);
       }
     }
@@ -53,9 +58,9 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
     const description = document.getElementById(
       "description"
     ) as HTMLInputElement;
-
+ 
     const newNews: News = {
-      id:1,
+      id: 1,
       title: title.value,
       description: description.value,
       author: author.value,
@@ -65,14 +70,15 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       taskId: taskCreated ? taskCreated.id : 0,
       picture: null,
       date: new Date(),
+      priority: priority,
     };
 
     setError(false);
 
-    if (await createNews(newNews) && !error) {
+    if ((await createNews(newNews)) && !error) {
       setAddTask(false);
+      setPriority(false);
       success();
-
     } else {
       setError(true);
     }
@@ -109,9 +115,19 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
           </Form.Select>
         </Form.Group>
 
+        
+        <Form.Group className="mb-3" controlId="priority">
+              <Form.Check onChange={()=>setPriority(!priority)} type="checkbox" label="Priorité" />
+            </Form.Group>
+
+
         {!addTask && (
           <div className="popupBtnBox mt-2 mb-2">
-            <Button className="joinTaskBtn" variant="outline-dark" onClick={() => setAddTask(true)}>
+            <Button
+              className="joinTaskBtn"
+              variant="outline-dark"
+              onClick={() => setAddTask(true)}
+            >
               Joindre une tâche
             </Button>
           </div>
@@ -129,16 +145,23 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
               <Form.Label>Description de la tâche</Form.Label>
               <Form.Control as="textarea" rows={3} />
             </Form.Group>
+
             <div className="popupBtnBox mt-2 mb-2">
-              <Button variant="demeter-dark" onClick={() => setAddTask(false)}>Annuler</Button>
+              <Button variant="demeter-dark" onClick={() => setAddTask(false)}>
+                Annuler
+              </Button>
             </div>
             <hr className="loginLine mt-2" />
           </div>
         )}
 
         <div className="mt-2 popupBtnBox">
-          <Button variant="demeter-dark" onClick={close}>Annuler</Button>
-          <Button variant="demeter" onClick={handlesubmit}>Confirmer</Button>
+          <Button variant="demeter-dark" onClick={close}>
+            Annuler
+          </Button>
+          <Button variant="demeter" onClick={handlesubmit}>
+            Confirmer
+          </Button>
         </div>
       </Form>
     </Modal>

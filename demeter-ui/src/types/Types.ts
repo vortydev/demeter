@@ -16,6 +16,7 @@ type News = {
   taskId: number;
   picture: string | null;
   date: Date;
+  priority: boolean;
 
 }
 

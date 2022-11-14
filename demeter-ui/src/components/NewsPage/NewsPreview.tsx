@@ -57,7 +57,7 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
   }
 
   return (
-    <div className="flexNewsPreview">
+    <div className={news.priority ? "flexNewsPreview newsPriority" : "flexNewsPreview"}>
       <h2 className="newsTitle">{news.title}</h2>
       <h3 className="newsDate" onClick={showDate}>
         {theDate.toLocaleDateString()}

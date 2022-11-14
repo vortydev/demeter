@@ -50,7 +50,14 @@
     color: var(--demeter-grey);
 }
 
+.taskChildBox {
+    padding-left: 2rem;
+}
+
 .taskChildRow {
     width: 100%;
-    margin-left: 2rem;
+}
+
+.taskEditBox {
+    margin-left: auto;
 }

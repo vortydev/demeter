@@ -49,7 +49,7 @@ function NewsPage(): JSX.Element {
       
       <p className="loginText">Vous êtes connecté en tant que {connected}</p>
       <div className="newsAdd mb-2">
-        <Button onClick={showAllNews}>Afficher toutes les Annonces</Button>
+        <Button variant="demeter-dark" onClick={showAllNews}>Afficher toutes les Annonces</Button>
         <Button
           variant="outline-dark"
           onClick={() => {

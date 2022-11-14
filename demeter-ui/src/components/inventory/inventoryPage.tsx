@@ -41,7 +41,7 @@ function InventoryPage(): JSX.Element {
         <section className="invPage">
             <h1 className="pageTitle">Inventaire</h1>
             <div>
-                <Button variant="outline-dark" onClick={()=>setVendor(true)}>Fournisseurs</Button>
+                <Button variant="demeter-dark" onClick={()=>setVendor(true)}>Fournisseurs</Button>
             </div>
             <div className="mt-2 mb-3 invAdd">
                 <Button variant="outline-dark" onClick={() => {

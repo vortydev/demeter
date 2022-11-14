@@ -93,27 +93,29 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
           }} />
         )}
 
-        <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
-          setToEdit(task);
-          setEditForm(true);
-        }} />
-        <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
-          confirmAlert({
-            title: 'Confirmation',
-            message: 'Êtes-vous sûr.e de vouloir supprimer cette tâche?',
-            buttons: [{
-              label: 'Supprimer',
-              onClick: () => {
-                deleteTask(task.id);
-                deleteSuccess(true);
-              }
-            },
-            {
-              label: 'Annuler',
-              onClick: () => { }
-            }]
-          });
-        }} />
+        <div className="taskEditBox">
+          <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
+            setToEdit(task);
+            setEditForm(true);
+          }} />
+          <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
+            confirmAlert({
+              title: 'Confirmation',
+              message: 'Êtes-vous sûr.e de vouloir supprimer cette tâche?',
+              buttons: [{
+                label: 'Supprimer',
+                onClick: () => {
+                  deleteTask(task.id);
+                  deleteSuccess(true);
+                }
+              },
+              {
+                label: 'Annuler',
+                onClick: () => { }
+              }]
+            });
+          }} />
+        </div>
       </div>
 
       <div className="taskChildBox">
@@ -136,28 +138,30 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
               }} />
             )}
 
-            <FontAwesomeIcon className="iconEdit" icon={faEdit} size="lg" onClick={() => {
-              setToEdit(st);
-              setEditForm(true);
-            }} />
+            <div className="taskEditBox">
+              <FontAwesomeIcon className="iconEdit" icon={faEdit} size="lg" onClick={() => {
+                setToEdit(st);
+                setEditForm(true);
+              }} />
 
-            <FontAwesomeIcon className="iconTrash" icon={faTrashAlt} size="lg" onClick={() => {
-              confirmAlert({
-                title: 'Confirmation',
-                message: 'Êtes-vous sûr.e de vouloir supprimer cette tâche?',
-                buttons: [{
-                  label: 'Supprimer',
-                  onClick: () => {
-                    deleteTask(st.id);
-                    deleteSuccess(true);
-                  }
-                },
-                {
-                  label: 'Annuler',
-                  onClick: () => { }
-                }]
-              });
-            }} />
+              <FontAwesomeIcon className="iconTrash" icon={faTrashAlt} size="lg" onClick={() => {
+                confirmAlert({
+                  title: 'Confirmation',
+                  message: 'Êtes-vous sûr.e de vouloir supprimer cette tâche?',
+                  buttons: [{
+                    label: 'Supprimer',
+                    onClick: () => {
+                      deleteTask(st.id);
+                      deleteSuccess(true);
+                    }
+                  },
+                  {
+                    label: 'Annuler',
+                    onClick: () => { }
+                  }]
+                });
+              }} />
+            </div>
           </div>
         ))}
       </div>

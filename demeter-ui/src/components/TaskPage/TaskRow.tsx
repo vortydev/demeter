@@ -76,7 +76,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
 
   return (
     <div className="taskRowBox">
-      <div className="taskRow flex mb-2">
+      <div className="taskRow flex cellShade">
         {task.completed && <FontAwesomeIcon className="iconCheck cursor" icon={faCheck} size="lg" />}
         <span>{task.title}</span>
         {!task.completed && (
@@ -118,7 +118,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
 
       <div className="taskChildBox">
         {subListTask.map((st) => (
-          <div className="taskChildRow flex mb-2">
+          <div className="taskChildRow flex cellShade">
             {st.completed && <FontAwesomeIcon className="iconCheck cursor" icon={faCheck} size="lg" />}
             <span>{st.title}</span>
             {!st.completed && (
@@ -129,7 +129,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
                 onBlur={() => completeSt(st)}
               />
             )}
-            {st.completed && <span>{st.responsable}</span>}
+            {st.completed && <span className="taskResponsable">{st.responsable}</span>}
             {st.completed && (
               <FontAwesomeIcon className="iconUndo" icon={faArrowRotateLeft} size="lg" onClick={() => {
                 cancelComplete(st)

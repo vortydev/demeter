@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { Form, Button, Modal, Alert } from 'react-bootstrap';
 import { Product } from '../../types/Types';
 import { GetCategoryEdit, GetMesurementsEdit, GetVendorsEdit } from './inventory';
-import { VendorForm } from './inventoryAddVendorForm';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faList } from "@fortawesome/free-solid-svg-icons";
 import { getProduct, updateProduct } from '../../services/inventory.functions';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { VendorForm } from './Vendor/inventoryAddVendorForm';
 
 interface CRFormProps {
     show: boolean;
@@ -15,7 +15,6 @@ interface CRFormProps {
 }
 
 function InventoryEditProductForm({ show, close, success, product }: CRFormProps) {
-
     const [createNewVendor, setCreateNewVendor] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
 
@@ -25,6 +24,15 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
     const [alerting3, setAlerting3] = useState<boolean>(false);
 
     const [error, setError] = useState<boolean>(false);
+
+    function successVendor(): void {
+        setSuccess(true);
+        closeVendor();
+    }
+
+    function closeVendor(): void {
+        setCreateNewVendor(false);
+    }
 
     setTimeout(() => {
         setAlerting(false);
@@ -97,15 +105,6 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
         }
     }
 
-    function successVendor(): void {
-        setSuccess(true);
-        close();
-    }
-
-    function closeVendor(): void {
-        setCreateNewVendor(false);
-    }
-
     return (
         <Modal show={show} onHide={close}>
             <Form className="popupForm">
@@ -133,14 +132,9 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
                 <Form.Group className="vendorBox mb-2" controlId="vendor">
                     <Form.Label className="popupSelectLabel">Fournisseur</Form.Label>
                     <Form.Select aria-label="vendor" id="vendor" defaultValue={product.vendorId}>
-                        <GetVendorsEdit show={show} id={parseInt(product.vendorId)} />
+                        <GetVendorsEdit show={show} id={parseInt(product.vendorId)} update={createdSuccess}/>
                     </Form.Select>
-
                     <div className="vendorListBox">
-                        <FontAwesomeIcon className="iconList iconEdit cursor" icon={faList} size="lg" onClick={() => {
-                            setSuccess(false);
-                            console.log("liste fournisseurs");
-                        }} />
                         <FontAwesomeIcon className="iconAdd iconEdit cursor" icon={faPlus} size="lg" onClick={() => {
                             setCreateNewVendor(true);
                             setSuccess(false);

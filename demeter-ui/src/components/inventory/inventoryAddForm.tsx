@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { Form, Button, Modal, Alert } from 'react-bootstrap';
 import { Product } from '../../types/Types';
 import { GetCategory, GetMesurements, GetVendors } from './inventory';
-import { VendorForm } from './inventoryAddVendorForm';
 import { createProduct } from '../../services/inventory.functions';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faList } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { VendorForm } from './Vendor/inventoryAddVendorForm';
 
 interface CRFormProps {
     show: boolean;
@@ -23,6 +23,15 @@ function InventoryForm({ show, close, success }: CRFormProps) {
     const [alerting3, setAlerting3] = useState<boolean>(false);
 
     const [error, setError] = useState<boolean>(false);
+
+    function successVendor(): void {
+        setSuccess(true);
+        closeVendor();
+    }
+
+    function closeVendor(): void {
+        setCreateNewVendor(false);
+    }
 
     async function addProduct(): Promise<void> {
         const name = document.getElementById("name") as HTMLInputElement;
@@ -88,15 +97,6 @@ function InventoryForm({ show, close, success }: CRFormProps) {
         }
     }
 
-    function successVendor(): void {
-        setSuccess(true);
-        closeVendor();
-    }
-
-    function closeVendor(): void {
-        setCreateNewVendor(false);
-    }
-
     setTimeout(() => {
         setAlerting(false);
         setAlerting1(false);
@@ -108,7 +108,6 @@ function InventoryForm({ show, close, success }: CRFormProps) {
         <Modal show={show} onHide={close}>
             <Form className="popupForm">
                 <h3 className="popupTitle">Nouveau Produit</h3>
-
                 {alerting && <Alert variant="danger">Veuillez remplir tous les champs.</Alert>}
                 {alerting1 && <Alert variant="danger">Veuillez entrer le prix au format #.## ou #,##.</Alert>}
                 {alerting2 && <Alert variant="danger">Veuillez entrer un nombre.</Alert>}
@@ -130,20 +129,16 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                 <Form.Group className="vendorBox mb-2" controlId="vendor">
                     <Form.Label className="popupSelectLabel">Fournisseur</Form.Label>
                     <Form.Select aria-label="vendor" id="vendor">
-                        <GetVendors show={show} />
+                        <GetVendors show={show} update={createdSuccess} />
                     </Form.Select>
-
                     <div className="vendorListBox">
-                        <FontAwesomeIcon className="iconList iconEdit cursor" icon={faList} size="lg" onClick={() => {
-                            setSuccess(false);
-                            console.log("liste fournisseurs");
-                        }} />
                         <FontAwesomeIcon className="iconAdd iconEdit cursor" icon={faPlus} size="lg" onClick={() => {
                             setCreateNewVendor(true);
                             setSuccess(false);
                         }} />
                     </div>
                 </Form.Group>
+                
 
                 <div className="popupRowSplit mb-2">
                     <Form.Group controlId="qty_unit">

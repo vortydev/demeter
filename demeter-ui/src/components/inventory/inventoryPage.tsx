@@ -4,6 +4,7 @@ import { ListingProducts } from './inventory';
 import { InventoryForm } from './inventoryAddForm';
 import { InventoryUpdate } from './inventoryUpdate';
 import "../../css/inventory.css";
+import { VendorDisplay } from './Vendor/vendorDisplay';
 
 function InventoryPage(): JSX.Element {
 
@@ -12,6 +13,7 @@ function InventoryPage(): JSX.Element {
     const [deletedSuccess, setDeleted] = useState<boolean>(false);
     const [updatedSuccess, setUpdated] = useState<boolean>(false);
     const [updateProducts, setUpdatedProducts] = useState<boolean>(false);
+    const [vendorDisplay, setVendor] = useState<boolean>(false);
 
     function success(): void {
         setSuccess(true);
@@ -26,6 +28,7 @@ function InventoryPage(): JSX.Element {
     function close(): void {
         setCreateNewProduct(false);
         setUpdatedProducts(false);
+        setVendor(false);
     }
 
     setTimeout(() => {
@@ -37,6 +40,9 @@ function InventoryPage(): JSX.Element {
     return (
         <section className="invPage">
             <h1 className="pageTitle">Inventaire</h1>
+            <div>
+                <Button variant="outline-dark" onClick={()=>setVendor(true)}>Fournisseurs</Button>
+            </div>
             <div className="mt-2 mb-3 invAdd">
                 <Button variant="outline-dark" onClick={() => {
                     setCreateNewProduct(true);
@@ -68,6 +74,7 @@ function InventoryPage(): JSX.Element {
             </div>
             <InventoryForm show={createNewProduct} close={close} success={success} />
             <InventoryUpdate show={updateProducts} close={close} success={successUpdate} />
+            <VendorDisplay show={vendorDisplay} close={close} />
         </section>
     );
 }

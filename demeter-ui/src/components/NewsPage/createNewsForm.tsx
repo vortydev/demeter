@@ -16,7 +16,8 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
   const [priority, setPriority] = useState<boolean>(false);
 
   async function handlesubmit(): Promise<void> {
-    let newsTask = {
+
+    let newsTask : Task = {
       id: 1,
       title: "changeMe",
       description: "changeMe",
@@ -26,8 +27,9 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       completed: false,
       picture: null,
       date: new Date(),
-      responsable: null,
-      priority: false
+      priority: false,
+      responsable: "",
+      receiver: "",
     };
 
     let taskCreated: Task | null = null;
@@ -56,10 +58,15 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
     const title = document.getElementById("title") as HTMLInputElement;
     const author = document.getElementById("author") as HTMLInputElement;
     const receiver = document.getElementById("receiver") as HTMLInputElement;
+<<<<<<< HEAD
     const description = document.getElementById(
       "description"
     ) as HTMLInputElement;
  
+=======
+    const description = document.getElementById("description") as HTMLInputElement;
+
+>>>>>>> origin/dev
     const newNews: News = {
       id: 1,
       title: title.value,

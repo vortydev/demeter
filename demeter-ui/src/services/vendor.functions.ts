@@ -28,7 +28,33 @@ async function createVendor(data: Vendor): Promise<boolean>{
     return vendorCreated;
 }
 
+async function updateVendor(data: Vendor, id: any): Promise<boolean>{
+    const vendorUpdated = VendorService.update(data,id)
+    .then((response)=>{
+        return true;
+    })
+    .catch ((e: Error)=>{
+        console.log(e);
+        return false;
+    });
+    return vendorUpdated;
+}
+
+async function deleteVendor(id: any):Promise<boolean>{
+    const vendorDeleted = VendorService.delete(id)
+    .then((response)=>{
+        return true;
+    })
+    .catch ((e: Error)=>{
+        console.log(e);
+        return false;
+    });
+    return vendorDeleted;
+}
+
 export {
     getAllVendor,
     createVendor,
+    updateVendor,
+    deleteVendor,
 };

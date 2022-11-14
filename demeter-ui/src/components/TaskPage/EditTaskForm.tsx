@@ -1,8 +1,9 @@
 import { setPriority } from "os";
 import { useEffect, useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
+import { getAccountsByRole } from "../../services/account.functions";
 import { createTask, deleteTask, getTasksByParent, updateTask } from "../../services/task.funtions";
-import { Task } from "../../types/Types";
+import { Account, Task } from "../../types/Types";
 
 interface CRFormProps {
   task: Task;
@@ -15,6 +16,15 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
   const [error, setError] = useState<boolean>(false);
   const [childTask, setChildTask] = useState<Task[]>([]);
   const [priority, setPriority] = useState<boolean>(task.priority);
+  const [listAccount, setListAccount] = useState<Account[]>([]);
+
+  useEffect(() => {
+    async function getList() {
+      setListAccount(await getAccountsByRole(2));
+    }
+    getList();
+
+  }, [listAccount]);
 
   async function handleSubmit() {
     const taskName = document.getElementById("taskName") as HTMLInputElement;
@@ -22,6 +32,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
       "description"
     ) as HTMLInputElement;
     const typeTask = document.getElementById("typeTask") as HTMLInputElement;
+    const receiver = document.getElementById("receiver") as HTMLInputElement;
 
     const updatedTask: Task = {
       ...task,
@@ -29,6 +40,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
       description: description.value,
       categorytaskId: parseFloat(typeTask.value),
       priority : priority,
+      receiver: task.parentId == 0 ?  receiver.value : "",
     };
 
     for (const ct of childTask) {
@@ -79,8 +91,9 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         active: false,
         picture: null,
         date: new Date(),
-        responsable: null,
         priority:false,
+        responsable:"",
+        receiver: "",
       },
     ]);
   };
@@ -115,6 +128,15 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         <Form.Group className="mb-3" controlId="priority">
         <Form.Check defaultChecked={task.priority} onChange={()=>setPriority(!priority)} type="checkbox" label="Priorité" />
       </Form.Group>
+       {task.parentId === 0 &&<Form.Group className="popupSelectBox mb-2">
+          <Form.Label className="popupSelectLabel">Destinataire</Form.Label>
+          <Form.Select id="receiver" aria-label="Type">
+            <option value="delivery">Livreur</option>
+            {listAccount.map((employee) => (
+              <option value={employee.accName}>{employee.accName}</option>
+            ))}
+          </Form.Select>
+        </Form.Group>}
 
         {childTask.map((ct) => (
           <div key={ct.id}>

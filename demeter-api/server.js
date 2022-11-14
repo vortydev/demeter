@@ -104,7 +104,8 @@ db.sequelize.sync({force : true})                 // {force: true} drops the db
             id: "1",
             accName: "dev",
             accPassword:
-              "$2a$10$vytbqrffFfu5EKGP657yEu6soYC3diLemoILZLXtsJaSqHRB64YIy",
+              "$2a$10$McypW7KhpbdC1A9lDH8g5equNOzUYuSi243dPZxtfLXwKZ9La2V.W",
+              // TODO needs to be put in .env files
             roleId: 4,
             stateId: 2,
           },

@@ -152,6 +152,12 @@ option {
 
 .iconRefresh {}
 
+.iconBullet {
+    color: var(--demeter-grey);
+    align-self: center;
+    transform: rotate(90deg);
+}
+
 .iconCheck {
     color: var(--demeter-green);
 }

@@ -44,6 +44,7 @@
 
 .taskRow {
     width: 100%;
+    justify-content: flex-end;
 }
 
 .taskResponsable {
@@ -51,7 +52,7 @@
 }
 
 .taskChildBox {
-    padding-left: 2rem;
+    /* padding-left: 2rem; */
 }
 
 .taskChildRow {
@@ -60,4 +61,12 @@
 
 .taskEditBox {
     margin-left: auto;
+}
+
+.task {
+    width: auto;
+}
+
+.taskLine {
+    margin: .25rem 0 !important;
 }

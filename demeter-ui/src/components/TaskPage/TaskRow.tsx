@@ -6,7 +6,7 @@ import { EditTaskForm } from "../TaskPage/EditTaskForm";
 
 import "../../css/task.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrashAlt, faArrowRotateLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrashAlt, faArrowRotateLeft, faCheck, faPlay, faTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { confirmAlert } from "react-confirm-alert";
 
 interface TaskRowProps {
@@ -77,21 +77,23 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
   return (
     <div className="taskRowBox">
       <div className="taskRow flex cellShade">
-        {task.completed && <FontAwesomeIcon className="iconCheck cursor" icon={faCheck} size="lg" />}
-        <span>{task.title}</span>
-        {!task.completed && (
-          <input
-            onBlur={complete}
-            type="text"
-            id={task.id.toString()}
-          />
-        )}
-        {task.completed && <span className="taskResponsable">{task.responsable}</span>}
-        {task.completed && (
-          <FontAwesomeIcon className="iconUndo" icon={faArrowRotateLeft} size="lg" onClick={() => {
-            cancelComplete(task)
-          }} />
-        )}
+        <div className="task flex">
+          {task.completed && <FontAwesomeIcon className="iconCheck cursor" icon={faCheck} size="lg" />}
+          <span>{task.title}</span>
+          {!task.completed && (
+            <input
+              onBlur={complete}
+              type="text"
+              id={task.id.toString()}
+            />
+          )}
+          {task.completed && <span className="taskResponsable">{task.responsable}</span>}
+          {task.completed && (
+            <FontAwesomeIcon className="iconUndo" icon={faArrowRotateLeft} size="lg" onClick={() => {
+              cancelComplete(task)
+            }} />
+          )}
+        </div>
 
         <div className="taskEditBox">
           <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
@@ -122,6 +124,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
         {subListTask.map((st) => (
           <div className="taskChildRow flex cellShade">
             {st.completed && <FontAwesomeIcon className="iconCheck cursor" icon={faCheck} size="lg" />}
+            <FontAwesomeIcon className="iconBullet mr-2 ml-1 cursor" icon={faTurnUp} size="sm" />
             <span>{st.title}</span>
             {!st.completed && (
               <input
@@ -165,6 +168,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
           </div>
         ))}
       </div>
+      <hr className="taskLine" />
 
       <EditTaskForm
         task={toEdit}

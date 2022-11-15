@@ -159,50 +159,30 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
                 setEditForm(true);
               }} />
 
-<<<<<<< HEAD
-  <FontAwesomeIcon className="iconTrash" icon={faTrashAlt} size="lg" onClick={() => {
-    confirmAlert({
-      title: 'Confirmation',
-      message: 'Êtes-vous sûr.e de vouloir supprimer cette tâche?',
-      buttons: [{
-        label: 'Supprimer',
-        onClick: () => {
-          deleteTask(st.id);
-          deleteSuccess(true);
-        }
-      },
-      {
-        label: 'Annuler',
-        onClick: () => { }
-      }]
-    });
-  }} />
+              <FontAwesomeIcon className="iconTrash" icon={faTrashAlt} size="lg" onClick={() => {
+                confirmAlert({
+                  title: 'Confirmation',
+                  message: 'Êtes-vous sûr.e de vouloir supprimer cette tâche?',
+                  buttons: [{
+                    label: 'Supprimer',
+                    onClick: () => {
+                      deleteTask(st.id);
+                      deleteSuccess(true);
+                      setTimeout(() => {
+                        deleteSuccess(false);
+                      }, 5000);
+                    }
+                  },
+                  {
+                    label: 'Annuler',
+                    onClick: () => { }
+                  }]
+                });
+              }} />
             </div >
-=======
-            <FontAwesomeIcon className="iconTrash" icon={faTrashAlt} size="lg" onClick={() => {
-              confirmAlert({
-                title: 'Confirmation',
-                message: 'Êtes-vous sûr.e de vouloir supprimer cette tâche?',
-                buttons: [{
-                  label: 'Supprimer',
-                  onClick: () => {
-                    deleteTask(st.id);
-                    deleteSuccess(true);
-                    setTimeout(()=>{
-                      deleteSuccess(false);
-                    },5000);
-                  }
-                },
-                {
-                  label: 'Annuler',
-                  onClick: () => { }
-                }]
-              });
-            }} />
->>>>>>> regexForms
           </div >
         ))
-}
+        }
       </div >
       <hr className="taskLine" />
 

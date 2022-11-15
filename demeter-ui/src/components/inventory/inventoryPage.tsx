@@ -7,6 +7,9 @@ import "../../css/inventory.css";
 import { VendorDisplay } from './Vendor/vendorDisplay';
 import { getCookie } from 'typescript-cookie';
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faList, faPlus, faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
+
 function InventoryPage(): JSX.Element {
 
     const [createNewProduct, setCreateNewProduct] = useState<boolean>(false);
@@ -24,8 +27,8 @@ function InventoryPage(): JSX.Element {
     function successUpdate(): void {
         setUpdated(true);
         close();
-      }
-  
+    }
+
     function close(): void {
         setCreateNewProduct(false);
         setUpdatedProducts(false);
@@ -42,15 +45,19 @@ function InventoryPage(): JSX.Element {
     return (
         <section className="invPage">
             <h1 className="pageTitle">Inventaire</h1>
-            <div>
-                <Button variant="demeter-dark" onClick={()=>setVendor(true)}>Fournisseurs</Button>
-            </div>
-            { (role === "1" || role === "4") && <div className="mt-2 mb-3 invAdd">
-                <Button variant="outline-dark" onClick={() => {
+            {(role === "1" || role === "4") && <div className="btnBar mt-3 mb-4">
+                <Button variant="icon-outline" className="leftBtn" onClick={() => setVendor(true)}>
+                    <FontAwesomeIcon className="iconList" icon={faList} size="lg" />
+                    <span>Fournisseurs</span>
+                </Button>
+                <Button variant="icon-outline" onClick={() => {
                     setCreateNewProduct(true);
                     setSuccess(false);
-                }}>Nouveau Produit</Button>
-                </div>
+                }}>
+                    <FontAwesomeIcon className="iconPlus" icon={faPlus} size="lg" />
+                    <span>Nouveau Produit</span>
+                </Button>
+            </div>
             }
             {/* <div className="invFilterBox mb-2">
                 <span>filtres de l'inventaire</span>
@@ -65,15 +72,18 @@ function InventoryPage(): JSX.Element {
                         <div className="invCol"><h2>Format</h2></div>
                         <div className="invColThin"><h2>Quantité</h2></div>
                     </Row>
-                    <ListingProducts createSuccess={createdSuccess} setDeleteSuccess={setDeleted} deleteSuccess={deletedSuccess} setUpdateSuccess={setUpdated} updateSuccess={updatedSuccess}/>
+                    <ListingProducts createSuccess={createdSuccess} setDeleteSuccess={setDeleted} deleteSuccess={deletedSuccess} setUpdateSuccess={setUpdated} updateSuccess={updatedSuccess} />
                 </Container>
             </div>
-            <div className="mt-3 invUpdate">
-                <Button variant="demeter-dark" onClick={() => {
+            <div className="btnBar mt-3">
+                <Button variant="icon-dark" className="centerBtn" onClick={() => {
                     setUpdatedProducts(true);
                     setSuccess(false);
                     setUpdated(false);
-                }}>Mettre à jour l'inventaire</Button>
+                }}>
+                    <FontAwesomeIcon className="icon" icon={faArrowsRotate} size="lg" />
+                    <span>Mettre à jour l'inventaire</span>
+                </Button>
             </div>
             <InventoryForm show={createNewProduct} close={close} success={success} />
             <InventoryUpdate show={updateProducts} close={close} success={successUpdate} />

@@ -26,7 +26,7 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
   }, []);
 
   async function handlesubmit() {
-    const taskName = document.getElementById("taskName") as HTMLInputElement;
+    const taskName = document.getElementById("taskName") as HTMLInputElement; //cannot be null
     const description = document.getElementById("description") as HTMLInputElement;
     const typeTask = document.getElementById("typeTask") as HTMLInputElement;
     const receiver = document.getElementById("receiver") as HTMLInputElement;
@@ -100,3 +100,5 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
 }
 
 export { CreateTaskForm };
+
+// note news preview 200 character dotdotdot si <200 then ""

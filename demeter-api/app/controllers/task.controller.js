@@ -21,6 +21,7 @@ exports.create = (req, res) => {
         description: req.body.description,
         completed: req.body.completed | false,
         active: req.body.active | true,
+        priority :req.body.priority,
         responsable: req.body.responsable,
         receiver: req.body.receiver,
     };

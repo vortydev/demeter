@@ -25,7 +25,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
     const description = document.getElementById("description") as HTMLInputElement;
 
     const editNews: News = {
-      ... news,
+      ...news,
       title: title.value,
       description: description.value,
       author: author.value,
@@ -46,13 +46,13 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
   async function removeTask() {
     if (taskInEdit) {
       if (await deleteTask(taskInEdit.id)) {
-        console.log("taskdeleted");
+        console.log("Tâche supprimée");
       } else {
         console.log("uh...");
       }
     } else {
       if (await deleteTask(task!.id)) {
-        console.log("taskdeleted");
+        console.log("Sous-tâche supprimée");
       } else {
         console.log("uh...");
       }
@@ -75,7 +75,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
       completed: false,
       picture: null,
       date: new Date(),
-      responsable:"",
+      responsable: "",
       receiver: "",
       priority: false,
     };
@@ -92,18 +92,30 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
 
   return (
     <Modal show={show} onHide={close}>
-      {error && (
-        <Alert variant="danger">La mise à jour n'a pas fonctionnée.</Alert>
-      )}
-      <Form>
-        <Form.Group className="mb-3" controlId="title">
-          <Form.Label>TITRE : </Form.Label>
+      <Form className="popupForm">
+        <h3 className="popupTitle">Édition d'une Annonce</h3>
+
+        {error && (<Alert variant="danger">La mise à jour n'a pas fonctionnée.</Alert>)}
+
+        <Form.Group className="mb-2" controlId="title">
+          <Form.Label>Titre</Form.Label>
           <Form.Control defaultValue={news.title} type="text" />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="author">
-          <Form.Label>AUTEUR : </Form.Label>
+
+        <Form.Group className="mb-2" controlId="author">
+          <Form.Label>Auteur</Form.Label>
           <Form.Control defaultValue={news.author} type="text" />
         </Form.Group>
+
+        <Form.Group className="mb-2" controlId="description">
+          <Form.Label>Description</Form.Label>
+          <Form.Control
+            defaultValue={news.description}
+            as="textarea"
+            rows={3}
+          />
+        </Form.Group>
+
         <Form.Group className="popupSelectBox mb-2" controlId="receiver">
           <Form.Label className="popupSelectLabel">Destinataires</Form.Label>
           <Form.Select defaultValue={news.roleId} aria-label="target">
@@ -113,17 +125,11 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
             <option value="4">Autres</option>
           </Form.Select>
         </Form.Group>
-        <Form.Group className="mb-3" controlId="description">
-          <Form.Label>DESCRIPTION : </Form.Label>
-          <Form.Control
-            defaultValue={news.description}
-            as="textarea"
-            rows={3}
-          />
+
+        <Form.Group className="mb-2" controlId="priority">
+          <Form.Check defaultChecked={news.priority} onChange={() => setPriority(!priority)} type="checkbox" label="Priorité" />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="priority">
-        <Form.Check defaultChecked={news.priority} onChange={()=>setPriority(!priority)} type="checkbox" label="Priorité" />
-      </Form.Group>
+        
         {(taskInEdit || task) && (
           <div>
             {taskInEdit ? taskInEdit.title : task!.title}{" "}

@@ -17,7 +17,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
 
   async function handlesubmit(): Promise<void> {
 
-    let newsTask : Task = {
+    let newsTask: Task = {
       id: 1,
       title: "changeMe",
       description: "changeMe",
@@ -116,11 +116,9 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
           </Form.Select>
         </Form.Group>
 
-        
-        <Form.Group className="mb-3" controlId="priority">
-              <Form.Check onChange={()=>setPriority(!priority)} type="checkbox" label="Priorité" />
-            </Form.Group>
-
+        <Form.Group className="mb-2" controlId="priority">
+          <Form.Check onChange={() => setPriority(!priority)} type="checkbox" label="Priorité" />
+        </Form.Group>
 
         {!addTask && (
           <div className="popupBtnBox mt-2 mb-2">

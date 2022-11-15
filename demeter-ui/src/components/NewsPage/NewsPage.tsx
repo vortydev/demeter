@@ -10,7 +10,7 @@ function NewsPage(): JSX.Element {
   const [createNews, setCreateNews] = useState<boolean>(false);
   const [createdSuccess, setSuccess] = useState<boolean>(false);
   const [deleteSuccess, setDeleteSuccess] = useState<boolean>(false);
-  const [editedSuccess, setEditedSucess]= useState<boolean>(false);
+  const [editedSuccess, setEditedSucess] = useState<boolean>(false);
   const [newsList, setNewsList] = useState<News[]>([]);
   const connected = getCookie("account") ? getCookie("account") : "Visiteur";
   const role = getCookie("role");
@@ -46,24 +46,26 @@ function NewsPage(): JSX.Element {
       {createdSuccess && <Alert>L'annonce à été créée avec succès!</Alert>}
       {editedSuccess && <Alert>L'annonce à été modifiée avec succès!</Alert>}
       {deleteSuccess && <Alert>L'annonce à été supprimée avec succès!</Alert>}
-      
-      <p className="loginText">Vous êtes connecté en tant que {connected}</p>
-      <div className="newsAdd mb-2">
-        <Button variant="demeter-dark" onClick={showAllNews}>Afficher toutes les Annonces</Button>
-        <Button
-          variant="outline-dark"
-          onClick={() => {
-            setCreateNews(true);
-            setSuccess(false);
-          }}
-        >Nouvelle Annonce</Button>
-      </div>
 
-      {newsList.length === 0 && <p>Aucune annonce présentement.</p> }
+      <p className="loginText">Vous êtes connecté en tant que {connected}</p>
+      {(role === "1" || role === "4") &&
+        <div className="newsAdd mb-2">
+          <Button onClick={showAllNews}>Afficher toutes les Annonces</Button>
+          <Button
+            variant="outline-dark"
+            onClick={() => {
+              setCreateNews(true);
+              setSuccess(false);
+            }}
+          >Nouvelle Annonce</Button>
+        </div>
+      }
+
+      {newsList.length === 0 && <p>Aucune annonce présentement.</p>}
       {newsList.map((news) => (
-        <NewsPreview news={news } editedSuccess={setEditedSucess} deleteSuccess={setDeleteSuccess}/>
+        <NewsPreview news={news} editedSuccess={setEditedSucess} deleteSuccess={setDeleteSuccess} />
       ))}
-     
+
       <CreateNewsForm show={createNews} close={close} success={success} />
     </div>
   );

@@ -5,6 +5,7 @@ import { InventoryForm } from './inventoryAddForm';
 import { InventoryUpdate } from './inventoryUpdate';
 import "../../css/inventory.css";
 import { VendorDisplay } from './Vendor/vendorDisplay';
+import { getCookie } from 'typescript-cookie';
 
 function InventoryPage(): JSX.Element {
 
@@ -37,18 +38,20 @@ function InventoryPage(): JSX.Element {
         setDeleted(false);
     }, 5000);
 
+    const role = getCookie("role");
     return (
         <section className="invPage">
             <h1 className="pageTitle">Inventaire</h1>
             <div>
                 <Button variant="demeter-dark" onClick={()=>setVendor(true)}>Fournisseurs</Button>
             </div>
-            <div className="mt-2 mb-3 invAdd">
+            { (role === "1" || role === "4") && <div className="mt-2 mb-3 invAdd">
                 <Button variant="outline-dark" onClick={() => {
                     setCreateNewProduct(true);
                     setSuccess(false);
                 }}>Nouveau Produit</Button>
-            </div>
+                </div>
+            }
             {/* <div className="invFilterBox mb-2">
                 <span>filtres de l'inventaire</span>
             </div> */}

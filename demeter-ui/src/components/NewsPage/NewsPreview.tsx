@@ -8,9 +8,7 @@ import { EditNewsForm } from "./EditNewsForm";
 import "../../css/news.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import taskServices from "../../services/task.services";
-import tutorialService from "../../services/tutorial.service";
-
+import { getCookie } from "typescript-cookie";
 
 interface NewsPreviewProps {
   news: News;
@@ -84,6 +82,7 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
     }
   }
 
+  const role = getCookie("role");
   return (
     <div className={`flexNewsPreview ${news.priority? " newsPriority"  : ""}`}>
       <h2 className="newsTitle">{news.title}</h2>
@@ -100,25 +99,27 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
           {text}
           <b>{dotdotdot}</b>
         </p>
-        <div className="flexNewsEdit">
-          <FontAwesomeIcon
-            className="iconEdit cursor"
-            icon={faEdit}
-            size="lg"
-            onClick={() => {
-            setEditNews(true);
-            }}
-          />
-          <FontAwesomeIcon
-            className="iconTrash cursor"
-            icon={faTrashAlt}
-            size="lg"
-            onClick={() => {
-              deleteNews(news.id);
-              deleteSuccess(true);
-            }}
-          />
-        </div>
+        { (role === "1" || role === "4") &&
+          <div className="flexNewsEdit">
+            <FontAwesomeIcon
+              className="iconEdit cursor"
+              icon={faEdit}
+              size="lg"
+              onClick={() => {
+              setEditNews(true);
+              }}
+            />
+            <FontAwesomeIcon
+              className="iconTrash cursor"
+              icon={faTrashAlt}
+              size="lg"
+              onClick={() => {
+                deleteNews(news.id);
+                deleteSuccess(true);
+              }}
+            />
+          </div>
+        }
       </div>
       {task !== undefined && !task.completed && (
         <div>

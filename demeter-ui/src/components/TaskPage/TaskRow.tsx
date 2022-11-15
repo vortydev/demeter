@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { deleteTask, updateTask } from "../../services/task.funtions";
+import { getCookie } from "typescript-cookie";
 import { Task } from "../../types/Types";
 import { EditTaskForm } from "../TaskPage/EditTaskForm";
 
@@ -83,6 +84,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
     setEditForm(false);
   }
 
+  const role = getCookie("role");
   return (
     <div className="taskRowBox">
       <div className="taskRow flex cellShade">
@@ -104,7 +106,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
           )}
         </div>
 
-        <div className="taskEditBox">
+        {(role === "1" || role === "4") && <div className="taskEditBox">
           <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
             setToEdit(task);
             setEditForm(true);
@@ -129,71 +131,71 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
               }]
             });
           }} />
-        </div>
-      </div>
+        </div>}
+          </div>
 
-      <div className="taskChildBox">
-        {subListTask.map((st) => (
-          <div className="taskChildRow flex cellShade">
-            {st.completed && <FontAwesomeIcon className="iconCheck cursor" icon={faCheck} size="lg" />}
-            <FontAwesomeIcon className="iconBullet mr-2 ml-1 cursor" icon={faTurnUp} size="sm" />
-            <span>{st.title}</span>
-            {!st.completed && (
-              <input
-                className="responable"
-                type="text"
-                id={st.id.toString()}
-                onBlur={() => completeSt(st)}
-              />
-            )}
-            {st.completed && <span className="taskResponsable">{st.responsable}</span>}
-            {st.completed && (
-              <FontAwesomeIcon className="iconUndo" icon={faArrowRotateLeft} size="lg" onClick={() => {
-                cancelComplete(st)
-              }} />
-            )}
+          <div className="taskChildBox">
+            {subListTask.map((st) => (
+              <div className="taskChildRow flex cellShade">
+                {st.completed && <FontAwesomeIcon className="iconCheck cursor" icon={faCheck} size="lg" />}
+                <FontAwesomeIcon className="iconBullet mr-2 ml-1 cursor" icon={faTurnUp} size="sm" />
+                <span>{st.title}</span>
+                {!st.completed && (
+                  <input
+                    className="responable"
+                    type="text"
+                    id={st.id.toString()}
+                    onBlur={() => completeSt(st)}
+                  />
+                )}
+                {st.completed && <span className="taskResponsable">{st.responsable}</span>}
+                {st.completed && (
+                  <FontAwesomeIcon className="iconUndo" icon={faArrowRotateLeft} size="lg" onClick={() => {
+                    cancelComplete(st)
+                  }} />
+                )}
 
-            <div className="taskEditBox">
-              <FontAwesomeIcon className="iconEdit" icon={faEdit} size="lg" onClick={() => {
-                setToEdit(st);
-                setEditForm(true);
-              }} />
+                {(role === "1" || role === "4") && <div className="taskEditBox">
+                  <FontAwesomeIcon className="iconEdit" icon={faEdit} size="lg" onClick={() => {
+                    setToEdit(st);
+                    setEditForm(true);
+                  }} />
 
-              <FontAwesomeIcon className="iconTrash" icon={faTrashAlt} size="lg" onClick={() => {
-                confirmAlert({
-                  title: 'Confirmation',
-                  message: 'Êtes-vous sûr.e de vouloir supprimer cette tâche?',
-                  buttons: [{
-                    label: 'Supprimer',
-                    onClick: () => {
-                      deleteTask(st.id);
-                      deleteSuccess(true);
-                      setTimeout(() => {
-                        deleteSuccess(false);
-                      }, 5000);
-                    }
-                  },
-                  {
-                    label: 'Annuler',
-                    onClick: () => { }
-                  }]
-                });
-              }} />
-            </div >
+                  <FontAwesomeIcon className="iconTrash" icon={faTrashAlt} size="lg" onClick={() => {
+                    confirmAlert({
+                      title: 'Confirmation',
+                      message: 'Êtes-vous sûr.e de vouloir supprimer cette tâche?',
+                      buttons: [{
+                        label: 'Supprimer',
+                        onClick: () => {
+                          deleteTask(st.id);
+                          deleteSuccess(true);
+                          setTimeout(() => {
+                            deleteSuccess(false);
+                          }, 5000);
+                        }
+                      },
+                      {
+                        label: 'Annuler',
+                        onClick: () => { }
+                      }]
+                    });
+                  }} />
+                </div >}
+              </div >
+            ))
+            }
           </div >
-        ))
-        }
-      </div >
-      <hr className="taskLine" />
+          <hr className="taskLine" />
 
-      <EditTaskForm
-        task={toEdit}
-        show={editform}
-        close={closeEditForm}
-        success={editSuccess}
-      />
-    </div >
-  );
+          <EditTaskForm
+            task={toEdit}
+            show={editform}
+            close={closeEditForm}
+            success={editSuccess}
+          />
+        </div >
+        );
 }
 
-export { TaskRow };
+        export {TaskRow};

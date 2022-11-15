@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Nav } from "react-bootstrap";
+import { getCookie } from "typescript-cookie";
 import { CreateTaskForm } from "./createTaskForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -14,10 +15,11 @@ interface TaskNavProps {
 function TaskNav({ taskCategory, setTaskCategory, success, setSuccess }: TaskNavProps) {
   const [createTask, setCreateTask] = useState<boolean>(false);
 
-
   function close(): void {
     setCreateTask(false);
   }
+
+  const role = getCookie("role");
 
   return (
     <section className="accountNav navbar">
@@ -37,12 +39,12 @@ function TaskNav({ taskCategory, setTaskCategory, success, setSuccess }: TaskNav
             Autres
           </Nav.Link>
         </Nav.Item>
-        <Nav.Item>
+        {(role == "1" || role == "4") && <Nav.Item>
           <FontAwesomeIcon className="iconAdd" icon={faPlus} size="lg" onClick={() => {
             setCreateTask(true);
             setSuccess(false);
           }} />
-        </Nav.Item>
+        </Nav.Item>}
         <CreateTaskForm show={createTask} close={close} success={setSuccess} />
       </Nav>
     </section>

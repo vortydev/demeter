@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
+import { getCookie } from "typescript-cookie";
 import { getAll, getbyCategorie } from "../../services/task.funtions";
 import { Task } from "../../types/Types";
 import { CreateTaskForm } from "./createTaskForm";
@@ -28,7 +29,7 @@ function TaskPage(): JSX.Element {
     const listeResponsable = document.getElementsByClassName("responsable");
     console.log(listeResponsable);
   }
-
+  const role = getCookie("role");
   return (
     <div>
       <h1 className="pageTitle">Tâches</h1>
@@ -46,10 +47,15 @@ function TaskPage(): JSX.Element {
       {listTask.map((Task) => (
         <TaskRow task={Task} listTask={allCatTask} deleteSuccess={setDelete} editSuccess={editSuccess} />
       ))}
-    </div>
-      
-      <Button variant="outline-dark" >Afficher L'Historique</Button>
-      <Button variant="demeter-dark" onClick={handlesubmit}>Compléter les tâches</Button>
+      </div>
+      { role == "1" || role == "4" &&
+        <div>
+          <Button variant="outline-dark" >Afficher L'Historique</Button>
+        </div>
+      }
+      <div>
+        <Button variant="demeter-dark" onClick={handlesubmit}>Compléter les tâches</Button>
+      </div>
     </div>
   );
 }

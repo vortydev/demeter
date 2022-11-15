@@ -52,7 +52,7 @@ function TaskPage(): JSX.Element {
   function close(): void {
     setCreateTask(false);
   }
-
+  
   return (
     <section className="taskPage">
       <h1 className="pageTitle">Tâches</h1>
@@ -106,12 +106,12 @@ function TaskPage(): JSX.Element {
         ))}
       </div>
 
-      <div className="btnBar">
+      {(role === "1" || role === "4") && <div className="btnBar">
         <Button variant="icon-dark" className="centerBtn">
           <FontAwesomeIcon className="icon" icon={faClock} size="lg" />
           <span>Afficher l'historique</span>
         </Button>
-      </div>
+      </div>}
       <CreateTaskForm show={createTask} close={close} success={setSuccess} />
     </section>
   );

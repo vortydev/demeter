@@ -16,6 +16,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
   const [error, setError] = useState<boolean>(false);
   const [taskInEdit, setTaskInEdit] = useState<Task | undefined>(task);
   const [addTask, setAddTask] = useState<boolean>(false);
+  const [priority, setPriority] = useState<boolean>(news.priority);
 
   async function handleSubmit() {
     const title = document.getElementById("title") as HTMLInputElement;
@@ -24,16 +25,14 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
     const description = document.getElementById("description") as HTMLInputElement;
 
     const editNews: News = {
-      id: news.id,
+      ... news,
       title: title.value,
       description: description.value,
       author: author.value,
-      img: null,
-      active: true,
       roleId: receiver.value,
       taskId: taskInEdit ? taskInEdit.id : 0,
-      picture: null,
-      date: new Date(),
+      priority: priority,
+
     };
 
     if (await updateNews(news.id, editNews)) {
@@ -78,6 +77,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
       date: new Date(),
       responsable:"",
       receiver: "",
+      priority: false,
     };
 
     const taskCreated = await createTask(newsTask);
@@ -121,6 +121,9 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
             rows={3}
           />
         </Form.Group>
+        <Form.Group className="mb-3" controlId="priority">
+        <Form.Check defaultChecked={news.priority} onChange={()=>setPriority(!priority)} type="checkbox" label="Priorité" />
+      </Form.Group>
         {(taskInEdit || task) && (
           <div>
             {taskInEdit ? taskInEdit.title : task!.title}{" "}

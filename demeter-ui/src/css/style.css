@@ -99,7 +99,7 @@ option {
 .pageTitle {
     text-align: center;
     width: 100%;
-    margin-bottom: 0 !important;
+    margin-top: .5rem;
 }
 
 .pageSplit {
@@ -151,6 +151,12 @@ option {
 }
 
 .iconRefresh {}
+
+.iconBullet {
+    color: var(--demeter-grey);
+    align-self: center;
+    transform: rotate(90deg);
+}
 
 .iconCheck {
     color: var(--demeter-green);

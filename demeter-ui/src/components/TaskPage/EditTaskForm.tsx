@@ -22,7 +22,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
     }
     getList();
 
-  }, [listAccount]);
+  }, [show]);
 
   async function handleSubmit() {
     const taskName = document.getElementById("taskName") as HTMLInputElement;
@@ -50,6 +50,10 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
     }
     if (await updateTask(updatedTask) && error === false) {
       success(true);
+      setTimeout(()=>{
+        success(false);
+      },5000);
+      setChildTask([]);
       close();
     } else {
       setError(true);

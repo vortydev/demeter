@@ -10,7 +10,7 @@ import { Account, Task } from "../../types/Types";
 interface CRFormProps {
   show: boolean;
   close: () => void;
-  success: (succedd: boolean) => void;
+  success: (success: boolean) => void;
 }
 
 function CreateTaskForm({ show, close, success }: CRFormProps) {
@@ -48,6 +48,9 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
     if (await createTask(newTask)) {
       console.log(newTask);
       success(true);
+      setTimeout(()=>{
+        success(false)
+      },5000);
       close();
     } else {
       setError(true);

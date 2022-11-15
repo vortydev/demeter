@@ -73,6 +73,8 @@ option {
     text-align: right;
 }
 
+
+/* GRID-LIKE ELEMENTS */
 .cellCenter {
     line-height: 1;
     align-self: center;
@@ -133,9 +135,8 @@ option {
 [class*="icon"] {
     color: var(--demeter-black-btn);
     padding: 5px;
-    transition: all 0.2s;
+    transition: all 0.15s;
     font-size: 1.75rem;
-    cursor: pointer;
 }
 
 .iconEdit:hover {
@@ -150,10 +151,8 @@ option {
     display: block;
 }
 
-.iconRefresh {}
-
 .iconBullet {
-    color: var(--demeter-grey);
+    color: #CCC;
     align-self: center;
     transform: rotate(90deg);
 }
@@ -243,18 +242,18 @@ option {
     color: white;
 }
 
-.btn-demeter-dark {
+.btn-demeter-dark, .btn-icon-dark {
     background-color: var(--demeter-black);
     color: white;
 }
 
-.btn-demeter-dark:hover {
+.btn-demeter-dark:hover, .btn-icon-dark:hover {
     background-color: var(--demeter-black-v);
     border-color: var(--demeter-black-v);
     color: white;
 }
 
-.btn-demeter-dark:focus, .btn-outline-dark:focus {
+.btn-demeter-dark:focus, .btn-outline-dark:focus, .btn-icon-dark:focus, .btn-icon-outline:focus {
     border-color: var(--demeter-black-v) !important;
     box-shadow: 0 0 0 .2rem rgba(0, 0, 0, 0.25) !important;
 }
@@ -283,31 +282,51 @@ option {
     box-shadow: none !important;
 }
 
-.btn-outline-dark {
+.btn-outline-dark, .btn-icon-outline {
     color: var(--demeter-black);
     border: 2px solid var(--demeter-black);
 }
 
-.btn-outline-dark:hover {
+.btn-outline-dark:hover, .btn-icon-outline:hover {
     background-color: var(--demeter-black);
     border-color: var(--demeter-black);
+    color: white;
 }
 
-.btn-outline-dark:active {
+.btn-outline-dark:active, .btn-icon-outline:active {
     color: white !important;
     background-color: var(--demeter-black-v) !important;
 }
 
-.btn-outline-disabled, .btn-outline-disabled:hover {
-    color: var(--demeter-grey);
-    border: 2px solid var(--demeter-grey);
+.btn-hidden {
+    visibility: hidden;
 }
 
-.btn-outline-disabled:focus {
-    color: var(--demeter-orange) !important;
-    border-color: var(--demeter-orange) !important;
+/* btn-icon */
+[class*="btn-icon"] {
+    display: flex;
+    flex-direction: row;
 }
 
+[class*="btn-icon"]>span {
+    align-self: center;
+    padding-right: .25rem;
+}
+
+[class*="btn-icon"]>[class*="icon"] {
+    margin-right: .5rem;
+    align-self: center;
+}
+
+.btn-icon-dark>[class*="icon"] {
+    color: white;
+}
+
+.btn-icon-outline:hover>[class*="icon"] {
+    color: white
+}
+
+/* NAV LINK */
 .nav-link {
     color: var(--demeter-black);
     margin-bottom: 0;
@@ -380,4 +399,33 @@ option {
 
 .react-confirm-alert-button-group>button:first-child:hover {
     background-color: var(--demeter-orange-v) !important; 
+}
+
+/* BTN BAR */
+.btnBar {
+    width: 100%;
+    text-align: center;
+    flex-direction: row;
+    justify-content: center;
+    display: inline-flex;
+}
+
+.btnBar>:nth-child(even)+.btn-hidden {
+    display: none;
+}
+
+.btnBar>button {
+    min-width: 10rem;
+}
+
+.btnBar>button.centerBtn {
+    margin-inline: auto;
+}
+
+.btnBar>button.leftBtn {
+    margin-right: auto;
+}
+
+.btnBar>button.rightBtn {
+    margin-left: auto;
 }

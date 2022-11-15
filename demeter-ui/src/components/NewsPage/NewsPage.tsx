@@ -6,6 +6,9 @@ import { News } from "../../types/Types";
 import { CreateNewsForm } from "./createNewsForm";
 import { NewsPreview } from "./NewsPreview";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faEye } from "@fortawesome/free-solid-svg-icons";
+
 function NewsPage(): JSX.Element {
   const [createNews, setCreateNews] = useState<boolean>(false);
   const [createdSuccess, setSuccess] = useState<boolean>(false);
@@ -49,15 +52,24 @@ function NewsPage(): JSX.Element {
 
       <p className="loginText">Vous êtes connecté en tant que {connected}</p>
       {(role === "1" || role === "4") &&
-        <div className="newsAdd mb-2">
-          <Button onClick={showAllNews}>Afficher toutes les Annonces</Button>
-          <Button
-            variant="outline-dark"
-            onClick={() => {
-              setCreateNews(true);
-              setSuccess(false);
-            }}
-          >Nouvelle Annonce</Button>
+        <div className="btnBar newsAdd mb-4">
+          <Button variant="hidden">
+            <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
+            <span>Nouvelle Annonce</span>
+          </Button>
+          <Button variant="icon-dark" className="centerBtn" onClick={showAllNews}>
+            <FontAwesomeIcon className="icon" icon={faEye} size="lg" />
+            <span>Afficher toutes les Annonces</span>
+          </Button>
+
+          <Button variant="icon-outline" onClick={() => {
+            setCreateNews(true);
+            setSuccess(false);
+          }}
+          >
+            <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
+            <span>Nouvelle Annonce</span>
+          </Button>
         </div>
       }
 

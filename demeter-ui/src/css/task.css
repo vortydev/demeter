@@ -1,20 +1,3 @@
-.taskPageResetBtn {
-    display: flex;
-    margin: auto;
-}
-
-.taskPageResetBtn .iconRefresh {
-    margin-right: .5rem;
-}
-
-.taskPageResetBtn:hover .iconRefresh {
-    color: white;
-}
-
-.taskPageResetBtn span {
-    align-self: center;
-}
-
 .taskRowList {
     width: 60%;
     min-width: 400px;
@@ -51,12 +34,12 @@
     color: var(--demeter-grey);
 }
 
-.taskChildBox {
-    /* padding-left: 2rem; */
-}
-
 .taskChildRow {
     width: 100%;
+}
+
+.taskChildRow.cellShade:hover>.iconBullet {
+    color: var(--demeter-grey);
 }
 
 .taskEditBox {
@@ -69,4 +52,9 @@
 
 .taskLine {
     margin: .25rem 0 !important;
+}
+
+.taskBtnBar {
+    width: 60%;
+    margin: auto;
 }

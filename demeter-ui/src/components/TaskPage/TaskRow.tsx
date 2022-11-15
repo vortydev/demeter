@@ -100,7 +100,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
           )}
           {task.completed && <span className="taskResponsable">{task.responsable}</span>}
           {task.completed && (
-            <FontAwesomeIcon className="iconUndo" icon={faArrowRotateLeft} size="lg" onClick={() => {
+            <FontAwesomeIcon className="iconUndo cursor" icon={faArrowRotateLeft} size="lg" onClick={() => {
               cancelComplete(task)
             }} />
           )}
@@ -137,8 +137,8 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
           <div className="taskChildBox">
             {subListTask.map((st) => (
               <div className="taskChildRow flex cellShade">
-                {st.completed && <FontAwesomeIcon className="iconCheck cursor" icon={faCheck} size="lg" />}
-                <FontAwesomeIcon className="iconBullet mr-2 ml-1 cursor" icon={faTurnUp} size="sm" />
+                {st.completed && <FontAwesomeIcon className="iconCheck" icon={faCheck} size="lg" />}
+                <FontAwesomeIcon className="iconBullet mr-2 ml-1" icon={faTurnUp} size="sm" />
                 <span>{st.title}</span>
                 {!st.completed && (
                   <input
@@ -150,18 +150,18 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
                 )}
                 {st.completed && <span className="taskResponsable">{st.responsable}</span>}
                 {st.completed && (
-                  <FontAwesomeIcon className="iconUndo" icon={faArrowRotateLeft} size="lg" onClick={() => {
+                  <FontAwesomeIcon className="iconUndo cursor" icon={faArrowRotateLeft} size="lg" onClick={() => {
                     cancelComplete(st)
                   }} />
                 )}
 
                 {(role === "1" || role === "4") && <div className="taskEditBox">
-                  <FontAwesomeIcon className="iconEdit" icon={faEdit} size="lg" onClick={() => {
+                  <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
                     setToEdit(st);
                     setEditForm(true);
                   }} />
 
-                  <FontAwesomeIcon className="iconTrash" icon={faTrashAlt} size="lg" onClick={() => {
+                  <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
                     confirmAlert({
                       title: 'Confirmation',
                       message: 'Êtes-vous sûr.e de vouloir supprimer cette tâche?',

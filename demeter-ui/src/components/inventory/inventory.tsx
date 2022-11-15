@@ -88,42 +88,45 @@ function ProductsDisplay({ product, setDeleteSuccess, setUpdateSuccess }: Produc
     }
 
     return (
-        <div className="flex cellShade mb-1">
-            <div className="invCol cellCenter">
-                <p>{product.name}</p>
-            </div>
-            <div className="invCol cellCenter">
-                <p>{product.format}</p>
-            </div>
-            <div className="invColThin cellCenter flexInvQt">
-                <p>{product.qtyInv}</p>
-
-                <div className="invEditBox">
-                    <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
-                        setUpdatedProduct(true);
-                        setUpdateSuccess(false);
-                    }} />
-                    <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
-                        confirmAlert({
-                            title: 'Confirmation',
-                            message: 'Êtes-vous sur de vouloir supprimer ce produit?',
-                            buttons: [
-                                {
-                                    label: 'Supprimer',
-                                    onClick: () => { deleteProduct(product.id); setDeleteSuccess(true); }
-                                },
-                                {
-                                    label: 'Annuler',
-                                    onClick: () => { }
-                                }
-                            ]
-                        });
-                    }} />
+        <article>
+            <div className="flex cellShade mb-1">
+                <div className="invCol cellCenter">
+                    <p>{product.name}</p>
                 </div>
-            </div>
+                <div className="invCol cellCenter">
+                    <p>{product.format}</p>
+                </div>
+                <div className="invColThin cellCenter flexInvQt">
+                    <p>{product.qtyInv}</p>
 
-            <InventoryEditProductForm show={updateProduct} close={close} success={success} product={product} />
-        </div>
+                    <div className="invEditBox">
+                        <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
+                            setUpdatedProduct(true);
+                            setUpdateSuccess(false);
+                        }} />
+                        <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
+                            confirmAlert({
+                                title: 'Confirmation',
+                                message: 'Êtes-vous sur de vouloir supprimer ce produit?',
+                                buttons: [
+                                    {
+                                        label: 'Supprimer',
+                                        onClick: () => { deleteProduct(product.id); setDeleteSuccess(true); }
+                                    },
+                                    {
+                                        label: 'Annuler',
+                                        onClick: () => { }
+                                    }
+                                ]
+                            });
+                        }} />
+                    </div>
+                </div>
+
+                <InventoryEditProductForm show={updateProduct} close={close} success={success} product={product} />
+            </div>
+            <hr className="taskLine" />
+        </article>
     );
 }
 
@@ -207,15 +210,15 @@ interface GettingShowVendor {
     show: boolean,
     update: boolean
 }
-function GetVendors({show,update}: GettingShowVendor):JSX.Element {
-    const [ vendors, setVendors ] = useState<Vendor[]>([]);
+function GetVendors({ show, update }: GettingShowVendor): JSX.Element {
+    const [vendors, setVendors] = useState<Vendor[]>([]);
 
     useEffect(() => {
         async function getList() {
             setVendors(await getAllVendor());
         }
         getList();
-    },[show, update]);
+    }, [show, update]);
 
     return (
         <React.Fragment>
@@ -231,8 +234,8 @@ interface GettingShowEditVendor {
     id: number,
     update: boolean,
 }
-function GetVendorsEdit({show, id, update}: GettingShowEditVendor):JSX.Element {
-    const [ vendors, setVendors ] = useState<Vendor[]>([]);
+function GetVendorsEdit({ show, id, update }: GettingShowEditVendor): JSX.Element {
+    const [vendors, setVendors] = useState<Vendor[]>([]);
 
     const isSelected = (vendor: Vendor) => {
         if (vendor.id === id) {
@@ -247,7 +250,7 @@ function GetVendorsEdit({show, id, update}: GettingShowEditVendor):JSX.Element {
             setVendors(await getAllVendor());
         }
         getList();
-    },[show,update]);
+    }, [show, update]);
 
     return (
         <React.Fragment>

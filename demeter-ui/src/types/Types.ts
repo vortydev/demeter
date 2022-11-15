@@ -16,6 +16,7 @@ type News = {
   taskId: number;
   picture: string | null;
   date: Date;
+  priority: boolean;
 
 }
 
@@ -30,6 +31,7 @@ type Task = {
   picture: string | null;
   responsable: string;
   date: Date;
+  priority : boolean;
   receiver: String;
 }
 

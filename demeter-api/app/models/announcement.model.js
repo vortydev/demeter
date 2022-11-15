@@ -6,7 +6,9 @@ module.exports = (sequelize, Sequelize) => {
     active: { type: Sequelize.BOOLEAN },
     author: { type: Sequelize.STRING },
     taskId: { type: Sequelize.INTEGER },
-    date: { type: Sequelize.DATE }
+    date: { type: Sequelize.DATE },
+    priority : {type: Sequelize.BOOLEAN}
+
   });
 
   return Announcement;

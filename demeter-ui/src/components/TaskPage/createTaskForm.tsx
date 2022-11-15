@@ -10,11 +10,12 @@ import { Account, Task } from "../../types/Types";
 interface CRFormProps {
   show: boolean;
   close: () => void;
-  success: (succedd: boolean) => void;
+  success: (success: boolean) => void;
 }
 
 function CreateTaskForm({ show, close, success }: CRFormProps) {
   const [error, setError] = useState<boolean>(false);
+  const [priority, setPriority] = useState<boolean>(false);
   const [listAccount, setListAccount] = useState<Account[]>([]);
 
   useEffect(() => {
@@ -41,6 +42,7 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
       completed: false,
       picture: null,
       date: new Date(),
+      priority : priority, 
       responsable: "",
       receiver: receiver.value,
     };
@@ -48,6 +50,10 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
     if (await createTask(newTask)) {
       console.log(newTask);
       success(true);
+      setTimeout(()=>{
+        success(false)
+      },5000);
+      setPriority(false);
       close();
     } else {
       setError(true);
@@ -86,6 +92,11 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
           <Form.Label>Description</Form.Label>
           <Form.Control as="textarea" rows={3} />
         </Form.Group>
+
+        <Form.Group className="mb-3" controlId="priority">
+              <Form.Check onChange={()=>setPriority(!priority)} type="checkbox" label="Priorité" />
+            </Form.Group>
+
 
         <div className="mt-3 popupBtnBox">
           <Button variant="demeter-dark" onClick={close}>Annuler</Button>

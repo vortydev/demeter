@@ -1,3 +1,4 @@
+import { setPriority } from "os";
 import { useEffect, useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 import { getAccountsByRole } from "../../services/account.functions";
@@ -14,6 +15,7 @@ interface CRFormProps {
 function EditTaskForm({ task, close, success, show }: CRFormProps) {
   const [error, setError] = useState<boolean>(false);
   const [childTask, setChildTask] = useState<Task[]>([]);
+  const [priority, setPriority] = useState<boolean>(task.priority);
   const [listAccount, setListAccount] = useState<Account[]>([]);
 
   useEffect(() => {
@@ -22,7 +24,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
     }
     getList();
 
-  }, [listAccount]);
+  }, [show]);
 
   async function handleSubmit() {
     const taskName = document.getElementById("taskName") as HTMLInputElement;
@@ -33,10 +35,11 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
     const receiver = document.getElementById("receiver") as HTMLInputElement;
 
     const updatedTask: Task = {
-      ... task,
+      ...task,
       title: taskName.value,
       description: description.value,
       categorytaskId: parseFloat(typeTask.value),
+      priority : priority,
       receiver: task.parentId == 0 ?  receiver.value : "",
     };
 
@@ -50,6 +53,10 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
     }
     if (await updateTask(updatedTask) && error === false) {
       success(true);
+      setTimeout(()=>{
+        success(false);
+      },5000);
+      setChildTask([]);
       close();
     } else {
       setError(true);
@@ -88,6 +95,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         active: false,
         picture: null,
         date: new Date(),
+        priority:false,
         responsable:"",
         receiver: "",
       },
@@ -121,6 +129,9 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
           </Form.Select>
         </Form.Group>
 
+        <Form.Group className="mb-3" controlId="priority">
+        <Form.Check defaultChecked={task.priority} onChange={()=>setPriority(!priority)} type="checkbox" label="Priorité" />
+      </Form.Group>
        {task.parentId === 0 &&<Form.Group className="popupSelectBox mb-2">
           <Form.Label className="popupSelectLabel">Destinataire</Form.Label>
           <Form.Select id="receiver" aria-label="Type">

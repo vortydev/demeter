@@ -44,11 +44,11 @@ function NewsPage(): JSX.Element {
   }
 
   return (
-    <div>
+    <section className="newsPage">
       <h1 className="pageTitle">Annonces</h1>
-      {createdSuccess && <Alert>L'annonce à été créée avec succès!</Alert>}
-      {editedSuccess && <Alert>L'annonce à été modifiée avec succès!</Alert>}
-      {deleteSuccess && <Alert>L'annonce à été supprimée avec succès!</Alert>}
+      {createdSuccess && <Alert variant="success">L'annonce à été créée avec succès!</Alert>}
+      {editedSuccess && <Alert variant="success">L'annonce à été modifiée avec succès!</Alert>}
+      {deleteSuccess && <Alert variant="success">L'annonce à été supprimée avec succès!</Alert>}
 
       <p className="loginText">Vous êtes connecté en tant que {connected}</p>
       {(role === "1" || role === "4") &&
@@ -57,6 +57,7 @@ function NewsPage(): JSX.Element {
             <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
             <span>Nouvelle Annonce</span>
           </Button>
+          
           <Button variant="icon-dark" className="centerBtn" onClick={showAllNews}>
             <FontAwesomeIcon className="icon" icon={faEye} size="lg" />
             <span>Afficher toutes les Annonces</span>
@@ -79,7 +80,7 @@ function NewsPage(): JSX.Element {
       ))}
 
       <CreateNewsForm show={createNews} close={close} success={success} />
-    </div>
+    </section>
   );
 }
 

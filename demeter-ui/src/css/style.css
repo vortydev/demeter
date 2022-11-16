@@ -304,7 +304,7 @@ option {
 
 /* btn-icon */
 [class*="btn-icon"] {
-    display: flex;
+    display: flex !important;
     flex-direction: row;
 }
 

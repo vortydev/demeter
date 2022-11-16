@@ -28,9 +28,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
 
   async function handleSubmit() {
     const taskName = document.getElementById("taskName") as HTMLInputElement;
-    const description = document.getElementById(
-      "description"
-    ) as HTMLInputElement;
+    const description = document.getElementById("description") as HTMLInputElement;
     const typeTask = document.getElementById("typeTask") as HTMLInputElement;
     const receiver = document.getElementById("receiver") as HTMLInputElement;
 

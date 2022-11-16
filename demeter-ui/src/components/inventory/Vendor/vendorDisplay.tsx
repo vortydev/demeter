@@ -29,21 +29,26 @@ function VendorDisplay({ show, close }: VendorDisplayProps) {
     return (
         <Modal size="lg" show={show} onHide={close}>
             <div className="popupForm">
-                <h3 className="popupTitle">Liste des fournisseurs</h3>
-                <FontAwesomeIcon className="iconAdd iconEdit cursor" icon={faPlus} size="lg" onClick={() => {
-                    setCreateNewVendor(true);
-                    setSuccess(false);
-                }} />
+                <h2 className="popupTitle mt-2">Liste des fournisseurs</h2>
                 {createdSuccess && <Alert variant="success">Le fournisseur à été ajouté avec succès</Alert>}
-                <Container>
-                    <Row>
-                        <h4>Nom</h4>
-                        <h4>Téléphone</h4>
-                        <h4>Courriel</h4>
-                        <h4>Adresse postale</h4>
-                    </Row>
-                    <VendorList create={createdSuccess} />
-                </Container>
+
+                <div className="btnBar mt-3 mb-3">
+                    <Button variant="icon-outline" className="centerBtn" onClick={() => {
+                        setCreateNewVendor(true);
+                        setSuccess(false);
+                    }}>
+                        <FontAwesomeIcon className="iconAdd iconEdit cursor" icon={faPlus} size="lg" />
+                        <span>Nouveau Fournisseur</span>
+                    </Button>
+                </div>
+
+                <div className="flex vendorListHeader mt-2">
+                    <h4>Nom</h4>
+                    <h4>Téléphone</h4>
+                    <h4>Courriel</h4>
+                </div>
+                <VendorList create={createdSuccess} />
+
                 <div className="mt-3 popupBtnBox">
                     <Button variant="demeter-dark" onClick={close}>Retour</Button>
                 </div>
@@ -95,11 +100,10 @@ function VendorRow({ vendor, setSuccess, setDeleteSuccess }: VendorRow): JSX.Ele
 
     return (
         <div className="vendorListBox cellShade flex">
-            <div className="vendorInfo">
+            <div className="vendorInfo flex">
                 <span>{vendor.vendor}</span>
                 <span>{vendor.phone}</span>
                 <span>{vendor.email}</span>
-                <span>{vendor.address}</span>
             </div>
             <div>
                 <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
@@ -110,7 +114,7 @@ function VendorRow({ vendor, setSuccess, setDeleteSuccess }: VendorRow): JSX.Ele
                 <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
                     confirmAlert({
                         title: 'Confirmation',
-                        message: 'Êtes-vous sur de vouloir supprimer ce fournisseur?',
+                        message: 'Êtes-vous sûr.e de vouloir supprimer ce fournisseur?',
                         buttons: [
                             {
                                 label: 'Oui',

@@ -21,10 +21,6 @@
     display: flex;
 }
 
-.vendorListBox {
-    margin-left: .75rem;
-}
-
 .invUpdateHeader {
     text-align: center;
     padding: 0 .5rem;
@@ -73,4 +69,43 @@
 
 .invPageHeader {
     padding: 0 1.5rem;
+}
+
+.vendorListHeader, .vendorInfo {
+    justify-content: flex-start;
+    /* padding: 0 .5rem; */
+}
+
+.vendorListHeader>h4 {
+    width: 19.5%;
+    color: var(--demeter-grey);
+}
+
+.vendorListHeader>h4:first-child {
+    width: 27%;
+}
+
+.vendorListHeader>h4:last-child {
+    width: 50%;
+}
+
+.vendorInfo {
+    width: 90%;
+    margin-right: auto;
+}
+
+.vendorInfo>span {
+    width: 22%;
+}
+
+.vendorInfo>span:first-child {
+    width: 30%;
+}
+
+.vendorInfo>span:last-child {
+    width: 48%;
+}
+
+.vendorListBox {
+    justify-content: space-between;
 }

@@ -4,7 +4,7 @@
 
 .App-header {
   width: 100%;
-  background-color: #fff;
+  background-color: var(--demeter-black);
   min-height: 10vh;
   display: flex;
   flex-direction: column;
@@ -14,11 +14,23 @@
   font-weight: bold;
   color: white;
   font-family: 'Ovo', serif;
-  padding-top: .5rem;
+  padding: 1rem 0;
 }
 
 .App-header a {
   padding: inherit .75rem inherit .75rem !important;
+}
+
+.appNav a {
+  color: #DDD !important;
+}
+
+.appNav a:hover:not(.active) {
+  color: #CCC !important;
+}
+
+.appNav a.active:hover {
+  color: var(--demeter-green-v) !important;
 }
 
 .App-body {

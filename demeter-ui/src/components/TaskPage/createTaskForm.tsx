@@ -10,11 +10,12 @@ import { Account, Task } from "../../types/Types";
 interface CRFormProps {
   show: boolean;
   close: () => void;
-  success: (succedd: boolean) => void;
+  success: (success: boolean) => void;
 }
 
 function CreateTaskForm({ show, close, success }: CRFormProps) {
   const [error, setError] = useState<boolean>(false);
+  const [priority, setPriority] = useState<boolean>(false);
   const [listAccount, setListAccount] = useState<Account[]>([]);
 
   useEffect(() => {
@@ -26,7 +27,7 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
   }, []);
 
   async function handlesubmit() {
-    const taskName = document.getElementById("taskName") as HTMLInputElement;
+    const taskName = document.getElementById("taskName") as HTMLInputElement; //cannot be null
     const description = document.getElementById("description") as HTMLInputElement;
     const typeTask = document.getElementById("typeTask") as HTMLInputElement;
     const receiver = document.getElementById("receiver") as HTMLInputElement;
@@ -41,6 +42,7 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
       completed: false,
       picture: null,
       date: new Date(),
+      priority : priority, 
       responsable: "",
       receiver: receiver.value,
     };
@@ -48,6 +50,10 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
     if (await createTask(newTask)) {
       console.log(newTask);
       success(true);
+      setTimeout(()=>{
+        success(false)
+      },5000);
+      setPriority(false);
       close();
     } else {
       setError(true);
@@ -87,6 +93,11 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
           <Form.Control as="textarea" rows={3} />
         </Form.Group>
 
+        <Form.Group className="mb-3" controlId="priority">
+              <Form.Check onChange={()=>setPriority(!priority)} type="checkbox" label="Priorité" />
+            </Form.Group>
+
+
         <div className="mt-3 popupBtnBox">
           <Button variant="demeter-dark" onClick={close}>Annuler</Button>
           <Button variant="demeter" onClick={handlesubmit}>Confirmer</Button>
@@ -97,3 +108,5 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
 }
 
 export { CreateTaskForm };
+
+// note news preview 200 character dotdotdot si <200 then ""

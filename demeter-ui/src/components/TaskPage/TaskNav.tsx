@@ -1,6 +1,9 @@
 import { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Nav } from "react-bootstrap";
+import { getCookie } from "typescript-cookie";
 import { CreateTaskForm } from "./createTaskForm";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 interface TaskNavProps {
   taskCategory: number;
@@ -10,50 +13,27 @@ interface TaskNavProps {
 }
 
 function TaskNav({ taskCategory, setTaskCategory, success, setSuccess }: TaskNavProps) {
-  const [createTask, setCreateTask] = useState<boolean>(false);
-
-
-  function close(): void {
-    setCreateTask(false);
-  }
 
   return (
-    <nav className="navbar navbar-expand-sm navbar-light">
-      <div
-        className="collapse navbar-collapse justify-content-center"
-        id="navbarNav"
-      >
-        <ul className="navbar-nav">
-          <li className="nav-item active">
-            <a className="nav-link" onClick={() => setTaskCategory(1)}>
-              Quotidiennes <span className="sr-only">(current)</span>
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" onClick={() => setTaskCategory(2)}>
-              Hebdomadaires
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" onClick={() => setTaskCategory(3)}>
-              Autres
-            </a>
-          </li>
-          <li className="nav-item">
-            <Button
-              variant="outline-dark"
-              onClick={() => {
-                setCreateTask(true);
-                setSuccess(false);
-              }}
-            >
-              +
-            </Button>
-          </li>
-        </ul>
-      </div>
-      <CreateTaskForm show={createTask} close={close} success={setSuccess} />
-    </nav>
+    <section className="accountNav navbar mb-3">
+      <Nav defaultActiveKey="tache1" variant="tabs">
+        <Nav.Item>
+          <Nav.Link onClick={() => setTaskCategory(1)} eventKey="tache1">
+            Quotidiennes
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={() => setTaskCategory(2)} eventKey="tache2">
+            Hebdomadaires
+          </Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={() => setTaskCategory(3)} eventKey="tache3">
+            Autres
+          </Nav.Link>
+        </Nav.Item>
+      </Nav>
+    </section>
   );
 }
 

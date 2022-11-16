@@ -6,6 +6,7 @@ import { Mesurement } from "../../../../types/Types";
 import { pricePerQuantity } from "../../helper";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { confirmAlert } from "react-confirm-alert";
 
 interface IRFProps {
   listIng: IngForRecipe[];
@@ -47,7 +48,22 @@ function IngredientRowForm({
         <span className="ingListCol cellCenter">{ingredient.ingredient.name}</span>
         <span className="ingListColS cellCenter">{ingredient.quantity}{" "}{mesure?.mesurement}</span>
         <span className="ingListColS cellCenter">{cost}$</span>
-        <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={removeIngredient}/>
+        <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
+          confirmAlert({
+            title: 'Confirmation',
+            message: 'Êtes-vous sur de vouloir supprimer cet ingrédient?',
+            buttons: [
+              {
+                label: 'Oui',
+                onClick: () => {removeIngredient()}
+              },
+              {
+                label: 'Non',
+                onClick: () => {}
+              }
+            ]
+          });
+        }}/>
       </div>
     );
   } 

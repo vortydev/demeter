@@ -14,7 +14,7 @@
   font-weight: bold;
   color: white;
   font-family: 'Ovo', serif;
-  margin-top: .25rem;
+  padding-top: .5rem;
 }
 
 .App-header a {
@@ -24,7 +24,7 @@
 .App-body {
   width: 100%;
   height: max-content;
-  margin-bottom: 2.5rem;
+  padding-bottom: 5rem;
 }
 
 .App-footer {

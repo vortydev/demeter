@@ -1,38 +1,51 @@
 import React from 'react';
+import { getCookie } from 'typescript-cookie';
+import { Nav } from "react-bootstrap";
 
 interface NavBarProps {
-    navigateTo : (choice: string) => void;
+    navigateTo: (choice: string) => void;
 }
 
 
-function Navbar({navigateTo}: NavBarProps) {
+function Navbar({ navigateTo }: NavBarProps) {
 
-        return (
-            <nav className="navbar navbar-expand-sm navbar-light">
-            <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul className="navbar-nav">
-                    <li className="nav-item cursor active">
-                        <a className="nav-link" onClick={()=>navigateTo('news')}>Accueil<span className="sr-only">(current)</span></a>
-                    </li>
-                    <li className="nav-item cursor">
-                        <a className="nav-link" onClick={()=>navigateTo('task')}>Tâches</a>
-                    </li>
-                    <li className="nav-item cursor">
-                        <a className="nav-link" onClick={()=>navigateTo('recipe')}>Recettes</a>
-                    </li>
-                    <li className="nav-item cursor">
-                        <a className="nav-link" onClick={()=>navigateTo('inventory')}>Inventaire</a>
-                    </li>
-                    <li className="nav-item cursor">
-                        <a className="nav-link"onClick={()=>navigateTo('accounts')}>Comptes</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        );
-    }
+    const role = getCookie("role");
 
+    return (
+        <section className="appNav">
+            <Nav defaultActiveKey="news">
+                <Nav.Item>
+                    <Nav.Link onClick={() => navigateTo('news')} eventKey="news">
+                        Annonces
+                    </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link onClick={() => navigateTo('task')} eventKey="tache2">
+                        Tâches
+                    </Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    {role !== "2" &&
+                        <Nav.Link onClick={() => navigateTo('inventory')} eventKey="inventory">
+                            Inventaire
+                        </Nav.Link>}
+                </Nav.Item>
 
+                {(role === "1" || role === "4") && <div className="flex">
+                    <Nav.Item>
+                        <Nav.Link onClick={() => navigateTo('recipe')} eventKey="recipe">
+                            Recettes
+                        </Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
+                        <Nav.Link onClick={() => navigateTo('accounts')} eventKey="accounts">
+                            Comptes
+                        </Nav.Link>
+                    </Nav.Item>
+                </div>}
+            </Nav>
+        </section>
+    );
+}
 
-export {Navbar};
-
+export { Navbar };

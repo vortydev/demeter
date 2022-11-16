@@ -8,7 +8,7 @@ import { TaskNav } from "./TaskNav";
 import { TaskRow } from "./TaskRow";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRotateRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRotateLeft, faClock, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { confirmAlert } from "react-confirm-alert";
 
 function TaskPage(): JSX.Element {
@@ -22,6 +22,7 @@ function TaskPage(): JSX.Element {
   const account = getCookie("account") ? getCookie("account") : "Visiteur";
   const role = getCookie("role");
   const [taskCompleted, setTaskCompleted] = useState<boolean>(false);
+  const [createTask, setCreateTask] = useState<boolean>(false);
 
   useEffect(() => {
     async function getList() {
@@ -48,8 +49,12 @@ function TaskPage(): JSX.Element {
     resetTask(allCatTask);
   }
 
+  function close(): void {
+    setCreateTask(false);
+  }
+  
   return (
-    <div>
+    <section className="taskPage">
       <h1 className="pageTitle">Tâches</h1>
       <TaskNav
         taskCategory={taskCategory}
@@ -60,15 +65,37 @@ function TaskPage(): JSX.Element {
       {createdSuccess && <Alert>La tâche à été créée avec succès!</Alert>}
       {deletedSuccess && <Alert>La tâche à été supprimée avec succès!</Alert>}
 
-      {taskCategory === 1 &&
-        <Button className="taskPageResetBtn" variant="outline-dark" onClick={() => {
-          resetTasksByCat()
-        }}>
-          <FontAwesomeIcon className="iconRefresh" icon={faArrowRotateRight} size="lg" />
-          <span>Commencer la journée</span>
-        </Button>}
+      <div className="btnBar taskBtnBar">
+        <Button variant="hidden">
+          <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
+          <span>Nouvelle Tâche</span>
+        </Button>
+        
+        {taskCategory === 1 &&
+          <Button className="centerBtn" variant="icon-dark" onClick={() => {
+            resetTasksByCat();
+          }}>
+            <FontAwesomeIcon className="iconRefresh" icon={faArrowRotateLeft} size="lg" />
+            <span>Commencer la journée</span>
+          </Button>}
 
-      {taskCategory === 2 && <Button className="taskPageResetBtn" variant="outline-dark" onClick={() => resetTasksByCat()}><FontAwesomeIcon className="iconRefresh" icon={faArrowRotateRight} size="lg" /><span>Commencer la semaine</span></Button>}
+        {taskCategory === 2 &&
+          <Button className="centerBtn" variant="icon-dark" onClick={() => {
+            resetTasksByCat();
+          }}>
+            <FontAwesomeIcon className="iconRefresh" icon={faArrowRotateLeft} size="lg" /><span>Commencer la semaine</span>
+          </Button>}
+
+        {(role === "1" || role === "4") &&
+          <Button variant="icon-outline" onClick={() => {
+            setCreateTask(true);
+            setSuccess(false);
+          }}>
+            <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
+            <span>Nouvelle Tâche</span>
+          </Button>
+        }
+      </div>
 
       <div className="taskRowList flex mt-4 mb-4">
         {role !== "2" && role !== "3" && listTask.map((Task) => (
@@ -79,8 +106,14 @@ function TaskPage(): JSX.Element {
         ))}
       </div>
 
-      <Button variant="outline-dark" >Afficher L'Historique</Button>
-    </div>
+      {(role === "1" || role === "4") && <div className="btnBar">
+        <Button variant="icon-dark" className="centerBtn">
+          <FontAwesomeIcon className="icon" icon={faClock} size="lg" />
+          <span>Afficher l'historique</span>
+        </Button>
+      </div>}
+      <CreateTaskForm show={createTask} close={close} success={setSuccess} />
+    </section>
   );
 }
 

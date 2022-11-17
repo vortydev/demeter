@@ -17,6 +17,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
   const [childTask, setChildTask] = useState<Task[]>([]);
   const [priority, setPriority] = useState<boolean>(task.priority);
   const [listAccount, setListAccount] = useState<Account[]>([]);
+  const [empty, setEmpty] = useState<boolean>(false);
 
   useEffect(() => {
     async function getList() {
@@ -32,32 +33,50 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
     const typeTask = document.getElementById("typeTask") as HTMLInputElement;
     const receiver = document.getElementById("receiver") as HTMLInputElement;
 
-    const updatedTask: Task = {
-      ...task,
-      title: taskName.value,
-      description: description.value,
-      categorytaskId: parseFloat(typeTask.value),
-      priority : priority,
-      receiver: task.parentId == 0 ?  receiver.value : "",
-    };
+    setEmpty(false);
 
-    for (const ct of childTask) {
-      if (await (createTask(ct))) {
-        console.log('task created');
+    if (!taskName.value){
+      setEmpty(true);
+      setTimeout(()=>{
+        setEmpty(false);
+      },5000);
+    }
+    else {
+      const updatedTask: Task = {
+        ...task,
+        title: taskName.value,
+        description: description.value,
+        categorytaskId: parseFloat(typeTask.value),
+        priority : priority,
+        receiver: task.parentId == 0 ?  receiver.value : "",
+      };
+
+      for (const ct of childTask) {
+        if (ct.title){
+          if (await (createTask(ct))) {
+            console.log('task created');
+          } else {
+            console.log('bleh t create');
+            setError(true);
+          }
+        }
+        else {
+          setEmpty(true);
+          setTimeout(()=>{
+            setEmpty(false);
+          },5000);
+        }
+      }
+      if (await updateTask(updatedTask) && error === false) {
+        success(true);
+        setTimeout(()=>{
+          success(false);
+        },5000);
+        setChildTask([]);
+        close();
       } else {
-        console.log('bleh t create');
         setError(true);
       }
-    }
-    if (await updateTask(updatedTask) && error === false) {
-      success(true);
-      setTimeout(()=>{
-        success(false);
-      },5000);
-      setChildTask([]);
-      close();
-    } else {
-      setError(true);
     }
   }
 
@@ -112,7 +131,8 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
   return (
     <Modal onHide={close} show={show}>
       <Form className="popupForm">
-        <h3 className="popupTitle">Nouvelle Tâche</h3>
+        <h3 className="popupTitle">Éditer une Tâche</h3>
+        {empty && <Alert variant="danger">Veuillez entrer un nom à la tache.</Alert>}
         <Form.Group className="mb-2" controlId="taskName">
           <Form.Label>Titre</Form.Label>
           <Form.Control defaultValue={task.title} type="text" />

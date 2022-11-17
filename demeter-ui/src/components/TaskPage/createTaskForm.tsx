@@ -93,10 +93,10 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
           <Form.Control as="textarea" rows={3} />
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="priority">
-              <Form.Check onChange={()=>setPriority(!priority)} type="checkbox" label="Priorité" />
-            </Form.Group>
-
+        <Form.Group className="flex mb-2" controlId="priority">
+          <Form.Label className="popupSelectLabel">Prioritaire</Form.Label>
+          <Form.Check className="popupCheck" onChange={() => setPriority(!priority)} type="checkbox"/>
+        </Form.Group>
 
         <div className="mt-3 popupBtnBox">
           <Button variant="demeter-dark" onClick={close}>Annuler</Button>

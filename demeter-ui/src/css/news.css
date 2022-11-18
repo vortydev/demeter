@@ -59,10 +59,34 @@
     align-self: center;
 }
 
-.jointTaskEdit>label {
-    
-}
-
 .jointTaskEdit>[class*="icon"] {
     margin-left: auto;
+}
+
+.jointTaskEdit>span,
+.jointTaskPreview {
+    color: var(--demeter-grey);
+    margin-right: .5rem
+}
+
+.newsBody {
+    border-radius: .25rem;
+    padding: .5rem;
+    width: 100%;
+}
+
+.newsPriority {
+    background-color: var(--demeter-green-h);
+}
+
+.newsTaskBox {
+    justify-content: center;
+}
+
+.newsTaskBox span {
+    align-self: center;
+}
+
+.newsTaskBox input {
+    width: 5rem;
 }

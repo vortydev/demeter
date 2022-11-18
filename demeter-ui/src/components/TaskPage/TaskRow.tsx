@@ -7,7 +7,7 @@ import { EditTaskForm } from "../TaskPage/EditTaskForm";
 
 import "../../css/task.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrashAlt, faArrowRotateLeft, faCheck, faPlay, faTurnUp } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrashAlt, faArrowRotateLeft, faCheck, faTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { confirmAlert } from "react-confirm-alert";
 
 interface TaskRowProps {
@@ -88,7 +88,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
   return (
     <div className="taskRowBox">
       <div className="taskRow flex cellShade">
-        {task.completed && <FontAwesomeIcon className="iconCheck cursor" icon={faCheck} size="lg" />}
+        {task.completed && <FontAwesomeIcon className="iconCheck" icon={faCheck} size="lg" />}
         <span>{task.title}</span>
 
         <div className="flex taskInput">

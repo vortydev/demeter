@@ -7,7 +7,7 @@ import { News, Task } from "../../types/Types";
 import { EditNewsForm } from "./EditNewsForm";
 import "../../css/news.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrashAlt, faArrowRotateLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { getCookie } from "typescript-cookie";
 
 interface NewsPreviewProps {
@@ -16,7 +16,7 @@ interface NewsPreviewProps {
   deleteSuccess: (deleted: boolean) => void;
 }
 
-function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
+function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
   let shortDescription = news.description;
   const [fullText, setFullText] = useState<boolean>(false);
   const [EditNews, setEditNews] = useState<boolean>(false);
@@ -51,22 +51,20 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
     setEditNews(false);
   }
 
-  
-
   async function completeTask() {
     const initials = (document.getElementById(task!.id.toString()) as HTMLInputElement)
-    .value;
-  if (initials !== "") {
-    const completedTask: Task = {
-      ...task!,
-      completed: true,
-      responsable: initials,
-    };
+      .value;
+    if (initials !== "") {
+      const completedTask: Task = {
+        ...task!,
+        completed: true,
+        responsable: initials,
+      };
 
-    if(await updateTask(completedTask)){
-      setCompletedTask(true);
+      if (await updateTask(completedTask)) {
+        setCompletedTask(true);
+      }
     }
-  }
 
   }
 
@@ -84,54 +82,68 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
 
   const role = getCookie("role");
   return (
-    <div className={`flexNewsPreview ${news.priority? " newsPriority"  : ""}`}>
-      <h2 className="newsTitle">{news.title}</h2>
-      <h3 className="newsDate">
-        {theDate.toLocaleDateString()}
-      </h3>
-      <div className="flexNewsBox">
-        {news.picture !== null && (
-          <div className="picture">
-            <img src={news.picture} />
-          </div>
-        )}
-        <p className="newsContent">
-          {text}
-          <b>{dotdotdot}</b>
-        </p>
-        { (role === "1" || role === "4") &&
-          <div className="flexNewsEdit">
-            <FontAwesomeIcon
-              className="iconEdit cursor"
-              icon={faEdit}
-              size="lg"
-              onClick={() => {
-              setEditNews(true);
-              }}
-            />
-            <FontAwesomeIcon
-              className="iconTrash cursor"
-              icon={faTrashAlt}
-              size="lg"
-              onClick={() => {
-                deleteNews(news.id);
-                deleteSuccess(true);
-              }}
-            />
-          </div>
-        }
+    <article className="flexNewsPreview">
+      <div className={`newsBody ${news.priority ? " newsPriority" : ""}`}>
+        <h2 className="newsTitle">{news.title}</h2>
+        <h3 className="newsDate">
+          {theDate.toLocaleDateString()}
+        </h3>
+        <div className="flexNewsBox">
+          {news.picture !== null && (
+            <div className="picture">
+              <img src={news.picture} />
+            </div>
+          )}
+          <p className="newsContent">
+            {text}
+            <b>{dotdotdot}</b>
+          </p>
+          {(role === "1" || role === "4") &&
+            <div className="flexNewsEdit">
+              <FontAwesomeIcon
+                className="iconEdit cursor"
+                icon={faEdit}
+                size="lg"
+                onClick={() => {
+                  setEditNews(true);
+                }}
+              />
+              <FontAwesomeIcon
+                className="iconTrash cursor"
+                icon={faTrashAlt}
+                size="lg"
+                onClick={() => {
+                  deleteNews(news.id);
+                  deleteSuccess(true);
+                }}
+              />
+            </div>
+          }
+        </div>
+
+        {task !== undefined && <div className="newsTaskBox flex mt-2">
+          {task.completed &&
+            <FontAwesomeIcon className="iconCheck mr-1" icon={faCheck} size="lg" />
+          }
+
+          <span className="jointTaskPreview">(Tâche jointe)</span>
+          <span>{task.title}</span>
+
+          {!task.completed && 
+            <input className="ml-2" type="text" id={task.id.toString()} onBlur={completeTask} />
+          }
+
+          {task.completed && (
+            <div className="flex ml-2">
+              <span className="jointTaskPreview">{task.responsable}</span>
+              <FontAwesomeIcon className="iconUndo cursor" icon={faArrowRotateLeft} size="lg" onClick={() => {
+                cancelComplete(task);
+              }} />
+            </div>
+          )}
+        </div>}
       </div>
-      {task !== undefined && !task.completed && (
-        <div>
-          <input className="responable" type="text" id={task.id.toString()} /> {task.title}{" "}
-          <Button onClick={completeTask}>Compléter</Button>
-        </div>
-      )}
-       {task !== undefined && task.completed && (
-        <div>
-          {task.responsable} {task.title}{" "} <Button onClick={()=>cancelComplete(task)}>MAKE INCOMPLETE</Button>
-        </div>
-      )}
+
       <Button
         className="newsBtn"
         variant="link"
@@ -139,11 +151,11 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
       >
         {buttonText}
       </Button>
-      <hr className="newsLine" /> 
 
+      <hr className="newsLine" />
 
-      <EditNewsForm show={EditNews} news={news} task={task} close={close} success={success}/>
-    </div>
+      <EditNewsForm show={EditNews} news={news} task={task} close={close} success={success} />
+    </article>
   );
 }
 

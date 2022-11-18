@@ -136,7 +136,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
 
         {(taskInEdit || task) && (
           <div className="jointTaskEdit flex">
-            <Form.Label className="popupSelectLabel mr-1">Tâche jointe:</Form.Label>
+            <Form.Label className="popupSelectLabel mr-1">(Tâche jointe)</Form.Label>
             <span>{taskInEdit ? taskInEdit.title : task!.title}</span>
             <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
               removeTask();

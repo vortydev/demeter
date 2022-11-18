@@ -75,10 +75,16 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
     <Modal show={show} onHide={close}>
       <Form className="popupForm">
       <h3 className="popupTitle">Nouvelle Tâche</h3>
-      {empty && <Alert variant="danger">Veuillez entrer un nom à la tache.</Alert>}
+      {empty && <Alert variant="danger">Veuillez donner un titre à la tâche.</Alert>}
+
         <Form.Group className="mb-2" controlId="taskName">
           <Form.Label>Titre</Form.Label>
           <Form.Control type="text" />
+        </Form.Group>
+
+        <Form.Group className="mb-2" controlId="description">
+          <Form.Label>Description</Form.Label>
+          <Form.Control as="textarea" rows={3} />
         </Form.Group>
 
         <Form.Group className="popupSelectBox mb-2">
@@ -98,11 +104,6 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
               <option value={employee.accName}>{employee.accName}</option>
             ))}
           </Form.Select>
-        </Form.Group>
-
-        <Form.Group className="mb-2" controlId="description">
-          <Form.Label>Description</Form.Label>
-          <Form.Control as="textarea" rows={3} />
         </Form.Group>
 
         <Form.Group className="flex mb-2" controlId="priority">

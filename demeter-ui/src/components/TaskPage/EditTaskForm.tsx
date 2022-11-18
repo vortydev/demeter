@@ -134,64 +134,68 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
   return (
     <Modal onHide={close} show={show}>
       <Form className="popupForm">
-        <h3 className="popupTitle">Éditer une Tâche</h3>
-        {empty && <Alert variant="danger">Veuillez entrer un nom à la tache.</Alert>}
+        <h3 className="popupTitle">Édition d'une Tâche</h3>
+        {empty && <Alert variant="danger">Veuillez donner un titre à la tâche.</Alert>}
+
         <Form.Group className="mb-2" controlId="taskName">
           <Form.Label>Titre</Form.Label>
           <Form.Control defaultValue={task.title} type="text" />
         </Form.Group>
 
-        <Form.Group className="popupSelectBox mb-2">
-          <Form.Label className="popupSelectLabel">Type</Form.Label>
-          <Form.Select defaultValue={task.categorytaskId} id="typeTask" aria-label="Type">
-            <option value="1">Quotidienne</option>
-            <option value="2">Hebdomadaire</option>
-            <option value="3">Autre</option>
-          </Form.Select>
-        </Form.Group>
+        {task.parentId === 0 && <div>
+          <Form.Group className="mb-2" controlId="description">
+            <Form.Label>Description</Form.Label>
+            <Form.Control defaultValue={task.description} as="textarea" rows={3} />
+          </Form.Group>
+
+          <Form.Group className="popupSelectBox mb-2">
+            <Form.Label className="popupSelectLabel">Destinataire</Form.Label>
+            <Form.Select id="receiver" aria-label="Type">
+              <option value="delivery">Livreur</option>
+              {listAccount.map((employee) => (
+                <option value={employee.accName}>{employee.accName}</option>
+              ))}
+            </Form.Select>
+          </Form.Group>
+
+          <Form.Group className="popupSelectBox mb-2">
+            <Form.Label className="popupSelectLabel">Type</Form.Label>
+            <Form.Select defaultValue={task.categorytaskId} id="typeTask" aria-label="Type">
+              <option value="1">Quotidienne</option>
+              <option value="2">Hebdomadaire</option>
+              <option value="3">Autre</option>
+            </Form.Select>
+          </Form.Group>
+        </div>}
 
         <Form.Group className="flex mb-2" controlId="priority">
-          <Form.Label className="popupSelectLabel">Prioritaire</Form.Label>
+          <Form.Label className="popupLabel">Prioritaire</Form.Label>
           <Form.Check defaultChecked={task.priority} className="popupCheck" onChange={() => setPriority(!priority)} type="checkbox" />
         </Form.Group>
 
-        {task.parentId === 0 && <Form.Group className="popupSelectBox mb-2">
-          <Form.Label className="popupSelectLabel">Destinataire</Form.Label>
-          <Form.Select id="receiver" aria-label="Type">
-            <option value="delivery">Livreur</option>
-            {listAccount.map((employee) => (
-              <option value={employee.accName}>{employee.accName}</option>
-            ))}
-          </Form.Select>
-        </Form.Group>}
-
-        <Form.Group className="mb-2" controlId="description">
-          <Form.Label>Description</Form.Label>
-          <Form.Control defaultValue={task.description} as="textarea" rows={3} />
-        </Form.Group>
-
-        {childTask.map((ct) => (
-          <div className="flex" key={ct.id}>
-            <Form.Group className="mb-3" controlId="subTaskName">
-              <Form.Label>Nom</Form.Label>
-              <Form.Control
-                name="title"
-                value={ct.title}
-                type="text"
-                onChange={(event: {
+        <div className="subTaskList flex">
+          {childTask.map((ct) => (
+            <div className="subTaskBox mb-2">
+              <hr className="loginLine mb-3 mt-2" />
+              <Form.Group className="subTask flex" controlId="subTaskName" key={ct.id}>
+                <Form.Label className="popupLabelFull">Titre sous-tâche</Form.Label>
+                <Form.Control name="title" value={ct.title} type="text" onChange={(event: {
                   target: { name: string | number; value: any };
                 }) => handleChangeSubTask(ct.id, event)}
-              />
-            </Form.Group>
+                />
+                <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
+                  handleRemoveSubTask(ct.id);
+                }} />
+              </Form.Group>
+            </div>
+          ))}
+        </div>
 
-            <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
-              handleRemoveSubTask(ct.id);
-            }} />
-          </div>
-        ))}
-        {task.parentId === 0 && <Button onClick={handleAddSubTask}>
-          Ajouter une tâche subordonnée
-        </Button>}
+        {task.parentId === 0 && <div className="btnBar mt-2 mb-2">
+          <Button variant="outline-dark" onClick={handleAddSubTask}>
+            Ajouter une sous-tâche
+          </Button>
+        </div>}
 
         <div className="mt-3 popupBtnBox">
           <Button variant="demeter-dark" onClick={close}>Annuler</Button>

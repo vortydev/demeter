@@ -151,7 +151,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
                 onBlur={() => completeSt(st)}
               />
             )}
-            {st.completed && <div>
+            {st.completed && <div className="flex taskInput">
               <span className="taskResponsable">{st.responsable}</span>
               <FontAwesomeIcon className="iconUndo cursor" icon={faArrowRotateLeft} size="lg" onClick={() => {
                 cancelComplete(st)

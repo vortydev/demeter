@@ -58,3 +58,29 @@
     width: 60%;
     margin: auto;
 }
+
+.subTaskList {
+    flex-direction: column;
+    width: 100%;
+}
+
+.subTaskBox {
+    width: 100%;
+}
+
+.subTask {
+    width: 100%;
+    justify-content: space-between;
+}
+
+.subTask>input {
+    width: 90%;
+}
+
+.subTaskList .subTaskBox:not(:first-child)>hr {
+    display: none;
+}
+
+.taskInput {
+    min-width: fit-content;
+}

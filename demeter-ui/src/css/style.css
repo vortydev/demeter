@@ -196,16 +196,16 @@ option {
     margin-bottom: .5rem;
 }
 
-.popupSelectBox{
+.popupSelectBox {
     display: inline-block;
     width: 100%;
 }
 
-.popupSelectLabel {
+.popupSelectLabel, .popupLabel {
     margin-right: .5rem;
 }
 
-.popupSelectLabelFull {
+.popupSelectLabelFull, .popupLabelFull {
     width: 100%;
 }
 

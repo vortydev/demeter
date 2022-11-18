@@ -22,6 +22,7 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
   const [EditNews, setEditNews] = useState<boolean>(false);
   const [task, setTask] = useState<Task | undefined>(undefined);
   const [completedTask, setCompletedTask] = useState<boolean>(false);
+  const [longDesc, setLongDesc] = useState<boolean>(true);
 
   useEffect(() => {
     async function getLinkedTask() {
@@ -29,6 +30,13 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
     }
     if (news.taskId !== 0) {
       getLinkedTask();
+    }
+
+    if (news.description.length > 200) {
+      setLongDesc(true);
+    }
+    else {
+      setLongDesc(false);
     }
   }, [task, fullText, editedSuccess, completedTask]);
 
@@ -87,7 +95,7 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
     <div className={`flexNewsPreview ${news.priority? " newsPriority"  : ""}`}>
       <h2 className="newsTitle">{news.title}</h2>
       <h3 className="newsDate">
-        {theDate.toLocaleDateString()}
+        {theDate.toLocaleDateString()} - {news.author}
       </h3>
       <div className="flexNewsBox">
         {news.picture !== null && (
@@ -97,7 +105,7 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
         )}
         <p className="newsContent">
           {text}
-          <b>{dotdotdot}</b>
+          <b>{longDesc && dotdotdot}</b>
         </p>
         { (role === "1" || role === "4") &&
           <div className="flexNewsEdit">
@@ -132,13 +140,13 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
           {task.responsable} {task.title}{" "} <Button onClick={()=>cancelComplete(task)}>MAKE INCOMPLETE</Button>
         </div>
       )}
-      <Button
+      {longDesc && <Button
         className="newsBtn"
         variant="link"
         onClick={() => setFullText(!fullText)}
       >
         {buttonText}
-      </Button>
+      </Button>}
       <hr className="newsLine" /> 
 
 

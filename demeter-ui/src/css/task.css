@@ -42,14 +42,6 @@
     color: var(--demeter-grey);
 }
 
-.taskEditBox {
-    margin-left: auto;
-}
-
-.task {
-    width: auto;
-}
-
 .taskLine {
     margin: .25rem 0 !important;
 }
@@ -83,4 +75,5 @@
 
 .taskInput {
     min-width: fit-content;
+    margin-left: auto;
 }

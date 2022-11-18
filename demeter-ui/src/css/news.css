@@ -54,3 +54,15 @@
 .joinTaskBtn {
     width: 15rem !important;
 }
+
+.jointTaskEdit>span, .jointTaskEdit>label {
+    align-self: center;
+}
+
+.jointTaskEdit>label {
+    
+}
+
+.jointTaskEdit>[class*="icon"] {
+    margin-left: auto;
+}

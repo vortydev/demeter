@@ -58,6 +58,7 @@ function EditPasswordForm({
     <Modal show={show} onHide={close}>
       <Form className="popupForm">
         <h3 className="popupTitle">Édition du Compte</h3>
+        
         {!regexValidPassword && (
           <Alert variant="danger">
             Le mot de passe doit contenir au moins 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial. Sa longueur minimale doit être de 5 caractères.

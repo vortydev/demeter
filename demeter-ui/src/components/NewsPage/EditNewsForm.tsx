@@ -4,6 +4,9 @@ import { updateNews } from "../../services/news.functions";
 import { createTask, deleteTask } from "../../services/task.funtions";
 import { News, Task } from "../../types/Types";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+
 interface CRFormProps {
   show: boolean;
   news: News;
@@ -126,36 +129,52 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
           </Form.Select>
         </Form.Group>
 
-        <Form.Group className="mb-2" controlId="priority">
-          <Form.Check defaultChecked={news.priority} onChange={() => setPriority(!priority)} type="checkbox" label="Priorité" />
+        <Form.Group className="flex" controlId="priority">
+          <Form.Label className="popupSelectLabel">Prioritaire</Form.Label>
+          <Form.Check defaultChecked={news.priority} className="popupCheck" onChange={() => setPriority(!priority)} type="checkbox" />
         </Form.Group>
-        
+
         {(taskInEdit || task) && (
-          <div>
-            {taskInEdit ? taskInEdit.title : task!.title}{" "}
-            <Button onClick={removeTask}>DELETE</Button>
+          <div className="jointTaskEdit flex">
+            <Form.Label className="popupSelectLabel mr-1">Tâche jointe:</Form.Label>
+            <span>{taskInEdit ? taskInEdit.title : task!.title}</span>
+            <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
+              removeTask();
+            }} />
           </div>
         )}
         {!taskInEdit && !task && !addTask && (
-          <Button onClick={() => setAddTask(true)}>Ajouter une tâche</Button>
+          <div className="popupBtnBox mt-2 mb-2">
+            <Button className="joinTaskBtn" variant="outline-dark" onClick={() => setAddTask(true)}>Joindre une tâche</Button>
+          </div>
         )}
         {addTask && (
-          <div>
+          <div className="popupForm">
+            <hr className="loginLine mb-3" />
+            <h4 className="popupTitle">Tâche jointe</h4>
+
             <Form.Group className="mb-2" controlId="tasktitle">
-              <Form.Label>Titre de la tâche</Form.Label>
+              <Form.Label>Nom de la tâche</Form.Label>
               <Form.Control as="textarea" rows={3} />
             </Form.Group>
+
             <Form.Group className="mb-2" controlId="taskdescription">
-              <Form.Label>Description</Form.Label>
+              <Form.Label>Description de la tâche</Form.Label>
               <Form.Control as="textarea" rows={3} />
             </Form.Group>
-            <Button onClick={() => setAddTask(false)}>Annuler</Button>
-            <Button onClick={addingTask}>Confirmer</Button>
+
+            <div className="popupBtnBox mt-2 mb-2">
+              <Button variant="demeter-dark" onClick={() => setAddTask(false)}>Annuler</Button>
+              <Button variant="demeter" onClick={addingTask}>Joindre</Button>
+            </div>
+            <hr className="loginLine mt-2" />
           </div>
         )}
 
-        <Button onClick={handleSubmit}>Confirmer</Button>
-        <Button onClick={close}>Annuler</Button>
+        <div className="popupBtnBox mt-3">
+          <Button variant="demeter-dark" onClick={close}>Annuler</Button>
+          <Button variant="demeter" onClick={handleSubmit}>Confirmer</Button>
+        </div>
       </Form>
     </Modal>
   );

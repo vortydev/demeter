@@ -127,9 +127,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
               className="joinTaskBtn"
               variant="outline-dark"
               onClick={() => setAddTask(true)}
-            >
-              Joindre une tâche
-            </Button>
+            >Joindre une tâche</Button>
           </div>
         )}
 

@@ -8,6 +8,7 @@
     --demeter-green-h: #e4eee9;
     --demeter-orange: #bc5f04;
     --demeter-orange-v: #a65505;
+    --demeter-orange-h: #fff7ef;
     --demeter-grey: #696969;
 }
 
@@ -35,7 +36,8 @@ option {
     color: #495057;
 }
 
-.cursor, select {
+.cursor,
+select {
     cursor: pointer;
 }
 
@@ -87,13 +89,15 @@ option {
     text-align: left;
 }
 
-.cellShade, .cellShadeRow>div {
+.cellShade,
+.cellShadeRow>div {
     padding: .25rem;
     transition: all .15s;
     border-radius: .25rem;
 }
 
-.cellShade:hover, .cellShadeRow>div:hover {
+.cellShade:hover,
+.cellShadeRow>div:hover {
     background-color: var(--demeter-green-h);
 }
 
@@ -143,11 +147,13 @@ option {
     color: var(--demeter-green);
 }
 
-.iconTrash:hover, .iconUndo:hover {
+.iconTrash:hover,
+.iconUndo:hover {
     color: var(--demeter-orange);
 }
 
-.iconAdd:hover + .hide, .iconList:hover + .hide {
+.iconAdd:hover+.hide,
+.iconList:hover+.hide {
     display: block;
 }
 
@@ -201,11 +207,13 @@ option {
     width: 100%;
 }
 
-.popupSelectLabel, .popupLabel {
+.popupSelectLabel,
+.popupLabel {
     margin-right: .5rem;
 }
 
-.popupSelectLabelFull, .popupLabelFull {
+.popupSelectLabelFull,
+.popupLabelFull {
     width: 100%;
 }
 
@@ -231,6 +239,7 @@ option {
     width: fit-content;
     display: inline-flex;
     margin-left: .25rem;
+    cursor: pointer;
 }
 
 .popupCheck>input {
@@ -255,18 +264,23 @@ option {
     color: white;
 }
 
-.btn-demeter-dark, .btn-icon-dark {
+.btn-demeter-dark,
+.btn-icon-dark {
     background-color: var(--demeter-black);
     color: white;
 }
 
-.btn-demeter-dark:hover, .btn-icon-dark:hover {
+.btn-demeter-dark:hover,
+.btn-icon-dark:hover {
     background-color: var(--demeter-black-v);
     border-color: var(--demeter-black-v);
     color: white;
 }
 
-.btn-demeter-dark:focus, .btn-outline-dark:focus, .btn-icon-dark:focus, .btn-icon-outline:focus {
+.btn-demeter-dark:focus,
+.btn-outline-dark:focus,
+.btn-icon-dark:focus,
+.btn-icon-outline:focus {
     border-color: var(--demeter-black-v) !important;
     box-shadow: 0 0 0 .2rem rgba(0, 0, 0, 0.25) !important;
 }
@@ -295,18 +309,21 @@ option {
     box-shadow: none !important;
 }
 
-.btn-outline-dark, .btn-icon-outline {
+.btn-outline-dark,
+.btn-icon-outline {
     color: var(--demeter-black);
     border: 2px solid var(--demeter-black);
 }
 
-.btn-outline-dark:hover, .btn-icon-outline:hover {
+.btn-outline-dark:hover,
+.btn-icon-outline:hover {
     background-color: var(--demeter-black);
     border-color: var(--demeter-black);
     color: white;
 }
 
-.btn-outline-dark:active, .btn-icon-outline:active {
+.btn-outline-dark:active,
+.btn-icon-outline:active {
     color: white !important;
     background-color: var(--demeter-black-v) !important;
 }
@@ -393,11 +410,11 @@ option {
 
 .react-confirm-alert-button-group>button {
     width: 7.5rem !important;
-    background-color: var(--demeter-black) !important; 
+    background-color: var(--demeter-black) !important;
 }
 
 .react-confirm-alert-button-group>button:hover {
-    background-color: var(--demeter-black-v) !important; 
+    background-color: var(--demeter-black-v) !important;
     border-color: var(--demeter-black-v);
 }
 
@@ -407,11 +424,11 @@ option {
 }
 
 .react-confirm-alert-button-group>button:first-child {
-    background-color: var(--demeter-orange) !important; 
+    background-color: var(--demeter-orange) !important;
 }
 
 .react-confirm-alert-button-group>button:first-child:hover {
-    background-color: var(--demeter-orange-v) !important; 
+    background-color: var(--demeter-orange-v) !important;
 }
 
 /* BTN BAR */

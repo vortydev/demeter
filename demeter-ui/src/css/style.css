@@ -196,16 +196,16 @@ option {
     margin-bottom: .5rem;
 }
 
-.popupSelectBox{
+.popupSelectBox {
     display: inline-block;
     width: 100%;
 }
 
-.popupSelectLabel {
+.popupSelectLabel, .popupLabel {
     margin-right: .5rem;
 }
 
-.popupSelectLabelFull {
+.popupSelectLabelFull, .popupLabelFull {
     width: 100%;
 }
 
@@ -225,6 +225,19 @@ option {
 
 .flexPopupRow {
     width: 100%;
+}
+
+.popupCheck {
+    width: fit-content;
+    display: inline-flex;
+    margin-left: .25rem;
+}
+
+.popupCheck>input {
+    margin: 0;
+    position: relative;
+    transform: scale(1.3);
+    align-self: center;
 }
 
 /* buttons with Demeter theme */

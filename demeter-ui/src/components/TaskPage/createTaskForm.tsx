@@ -17,6 +17,7 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
   const [error, setError] = useState<boolean>(false);
   const [priority, setPriority] = useState<boolean>(false);
   const [listAccount, setListAccount] = useState<Account[]>([]);
+  const [empty, setEmpty] = useState<boolean>(false);
 
   useEffect(() => {
     async function getList() {
@@ -27,36 +28,46 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
   }, []);
 
   async function handlesubmit() {
-    const taskName = document.getElementById("taskName") as HTMLInputElement; //cannot be null
+    const taskName = document.getElementById("taskName") as HTMLInputElement;
     const description = document.getElementById("description") as HTMLInputElement;
     const typeTask = document.getElementById("typeTask") as HTMLInputElement;
     const receiver = document.getElementById("receiver") as HTMLInputElement;
 
-    const newTask: Task = {
-      id: 1,
-      title: taskName.value,
-      description: description.value,
-      categorytaskId: parseFloat(typeTask.value),
-      parentId: 0,
-      active:true,
-      completed: false,
-      picture: null,
-      date: new Date(),
-      priority : priority, 
-      responsable: "",
-      receiver: receiver.value,
-    };
+    setEmpty(false);
 
-    if (await createTask(newTask)) {
-      console.log(newTask);
-      success(true);
+    if (!taskName.value){
+      setEmpty(true);
       setTimeout(()=>{
-        success(false)
+        setEmpty(false);
       },5000);
-      setPriority(false);
-      close();
-    } else {
-      setError(true);
+    }
+    else {
+      const newTask: Task = {
+        id: 1,
+        title: taskName.value,
+        description: description.value,
+        categorytaskId: parseFloat(typeTask.value),
+        parentId: 0,
+        active:true,
+        completed: false,
+        picture: null,
+        date: new Date(),
+        priority : priority, 
+        responsable: "",
+        receiver: receiver.value,
+      };
+  
+      if (await createTask(newTask)) {
+        console.log(newTask);
+        success(true);
+        setTimeout(()=>{
+          success(false)
+        },5000);
+        setPriority(false);
+        close();
+      } else {
+        setError(true);
+      }
     }
   }
 
@@ -64,9 +75,16 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
     <Modal show={show} onHide={close}>
       <Form className="popupForm">
       <h3 className="popupTitle">Nouvelle Tâche</h3>
+      {empty && <Alert variant="danger">Veuillez donner un titre à la tâche.</Alert>}
+
         <Form.Group className="mb-2" controlId="taskName">
           <Form.Label>Titre</Form.Label>
           <Form.Control type="text" />
+        </Form.Group>
+
+        <Form.Group className="mb-2" controlId="description">
+          <Form.Label>Description</Form.Label>
+          <Form.Control as="textarea" rows={3} />
         </Form.Group>
 
         <Form.Group className="popupSelectBox mb-2">
@@ -88,15 +106,10 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
           </Form.Select>
         </Form.Group>
 
-        <Form.Group className="mb-2" controlId="description">
-          <Form.Label>Description</Form.Label>
-          <Form.Control as="textarea" rows={3} />
+        <Form.Group className="flex mb-2" controlId="priority">
+          <Form.Label className="popupSelectLabel">Prioritaire</Form.Label>
+          <Form.Check className="popupCheck" onChange={() => setPriority(!priority)} type="checkbox"/>
         </Form.Group>
-
-        <Form.Group className="mb-3" controlId="priority">
-              <Form.Check onChange={()=>setPriority(!priority)} type="checkbox" label="Priorité" />
-            </Form.Group>
-
 
         <div className="mt-3 popupBtnBox">
           <Button variant="demeter-dark" onClick={close}>Annuler</Button>

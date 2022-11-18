@@ -116,8 +116,9 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
           </Form.Select>
         </Form.Group>
 
-        <Form.Group className="mb-2" controlId="priority">
-          <Form.Check onChange={() => setPriority(!priority)} type="checkbox" label="Priorité" />
+        <Form.Group className="flex" controlId="priority">
+          <Form.Label className="popupSelectLabel">Prioritaire</Form.Label>
+          <Form.Check className="popupCheck" onChange={() => setPriority(!priority)} type="checkbox"/>
         </Form.Group>
 
         {!addTask && (
@@ -134,7 +135,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
 
         {addTask && (
           <div className="popupForm">
-            <hr className="loginLine mb-2" />
+            <hr className="loginLine mb-3" />
             <h4 className="popupTitle">Tâche jointe</h4>
             <Form.Group className="mb-2" controlId="tasktitle">
               <Form.Label>Titre de la tâche</Form.Label>

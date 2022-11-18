@@ -108,7 +108,7 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
           <Form.Label className="popupSelectLabel">Rôle</Form.Label>
           <Form.Select aria-label="role" id="role">
             <option value="1">Administrateur</option>
-            <option value="2">Employé</option>
+            <option value="2">Succursale</option>
             <option value="3">Livreur</option>
           </Form.Select>
         </Form.Group>

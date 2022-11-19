@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Task } from "../../types/Types";
-import { TaskRow } from "./TaskRow";
+import { Task } from "../../../types/Types";
+import { TaskRow } from "../TaskRow";
 
 interface OtherTaskProps{
     listTask : Task[];

@@ -18,9 +18,9 @@ import {
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { confirmAlert } from "react-confirm-alert";
-import { DailyTaskDisplay } from "./DailyTaskDisplay";
-import { HebdoTaskDisplay } from "./HebdoTaskDisplay";
-import { OtherTaskDisplay } from "./OtherTaskDisplay";
+import { DailyTaskDisplay } from "./TasksDisplay/DailyTaskDisplay";
+import { HebdoTaskDisplay } from "./TasksDisplay/HebdoTaskDisplay";
+import { OtherTaskDisplay } from "./TasksDisplay/OtherTaskDisplay";
 
 function TaskPage(): JSX.Element {
   const [createdSuccess, setSuccess] = useState<boolean>(false);
@@ -34,25 +34,20 @@ function TaskPage(): JSX.Element {
   const [taskCompleted, setTaskCompleted] = useState<boolean>(false);
   const [createTask, setCreateTask] = useState<boolean>(false);
 
-  useEffect(() => { 
+  useEffect(() => {
     async function getList() {
       const taskByCat: Task[] = await getbyCategorie(taskCategory);
       setAllCatTask(taskByCat);
-      console.log('the filter wtf',taskByCat.filter((t) => t.parentId == 0) );
+
       if (role === "2") {
         const taskForAccount: Task[] = taskByCat.filter(
           (t) => t.receiver === account
         );
         setAccountTask(taskForAccount);
-        console.log('role 2 task :', accountTask);
-
       } else if (role === "3") {
         setAccountTask(taskByCat.filter((t) => t.receiver === "delivery"));
-        console.log('livro task :', accountTask);
-      }
-      else{
+      } else {
         setAccountTask(taskByCat);
-        console.log('all tasks :', accountTask);
       }
     }
     getList();
@@ -87,7 +82,7 @@ function TaskPage(): JSX.Element {
       {createdSuccess && <Alert>La tâche à été créée avec succès!</Alert>}
       {deletedSuccess && <Alert>La tâche à été supprimée avec succès!</Alert>}
 
-      <div className="btnBar taskBtnBar"> 
+      <div className="btnBar taskBtnBar">
         {(role === "1" || role === "4") && (
           <Button
             variant="icon-outline"
@@ -101,72 +96,86 @@ function TaskPage(): JSX.Element {
           </Button>
         )}
 
-
         {taskCategory === 1 && (
-          <div><Button
-            className="centerBtn"
-            variant="icon-dark"
-            onClick={() => {
-              resetTasksByCat();
-            }}
-          >
-            <FontAwesomeIcon
-              className="iconRefresh"
-              icon={faArrowRotateLeft}
-              size="lg"
+          <div>
+            <Button
+              className="centerBtn"
+              variant="icon-dark"
+              onClick={() => {
+                resetTasksByCat();
+              }}
+            >
+              <FontAwesomeIcon
+                className="iconRefresh"
+                icon={faArrowRotateLeft}
+                size="lg"
+              />
+              <span>Commencer la journée</span>
+            </Button>
+
+            <DailyTaskDisplay
+              listTask={accountTask}
+              allCatTask={allCatTask}
+              deleteSuccess={setDelete}
+              editSuccess={setEdit}
+              completedSuccess={setTaskCompleted}
             />
-            <span>Commencer la journée</span>
-          </Button>
-
-          <DailyTaskDisplay listTask={accountTask} allCatTask={allCatTask} deleteSuccess={setDelete} editSuccess={setEdit} completedSuccess={setTaskCompleted} />
           </div>
-
-
         )}
 
         {taskCategory === 2 && (
           <div>
-          <Button
-            className="centerBtn"
-            variant="icon-dark"
-            onClick={() => {
-              resetTasksByCat();
-            }}
-          >
-            <FontAwesomeIcon
-              className="iconRefresh"
-              icon={faArrowRotateLeft}
-              size="lg"
+            <Button
+              className="centerBtn"
+              variant="icon-dark"
+              onClick={() => {
+                resetTasksByCat();
+              }}
+            >
+              <FontAwesomeIcon
+                className="iconRefresh"
+                icon={faArrowRotateLeft}
+                size="lg"
+              />
+              <span>Commencer la semaine</span>
+            </Button>
+
+            <HebdoTaskDisplay
+              listTask={accountTask}
+              allCatTask={allCatTask}
+              deleteSuccess={setDelete}
+              editSuccess={setEdit}
+              completedSuccess={setTaskCompleted}
             />
-            <span>Commencer la semaine</span>
-          </Button>
-          
-          <HebdoTaskDisplay listTask={accountTask} allCatTask={allCatTask} deleteSuccess={setDelete} editSuccess={setEdit} completedSuccess={setTaskCompleted} />
           </div>
         )}
 
-{taskCategory === 3 && (
+        {taskCategory === 3 && (
           <div>
-          <Button
-            className="centerBtn"
-            variant="icon-dark"
-            onClick={() => {
-              resetTasksByCat();
-            }}
-          >
-            <FontAwesomeIcon
-              className="iconRefresh"
-              icon={faArrowRotateLeft}
-              size="lg"
+            <Button
+              className="centerBtn"
+              variant="icon-dark"
+              onClick={() => {
+                resetTasksByCat();
+              }}
+            >
+              <FontAwesomeIcon
+                className="iconRefresh"
+                icon={faArrowRotateLeft}
+                size="lg"
+              />
+              <span>Réinitialiser</span>
+            </Button>
+
+            <OtherTaskDisplay
+              listTask={accountTask}
+              allCatTask={allCatTask}
+              deleteSuccess={setDelete}
+              editSuccess={setEdit}
+              completedSuccess={setTaskCompleted}
             />
-            <span>Réinitialiser</span>
-          </Button>
-          
-          <OtherTaskDisplay listTask={accountTask} allCatTask={allCatTask} deleteSuccess={setDelete} editSuccess={setEdit} completedSuccess={setTaskCompleted} />
           </div>
         )}
-
-        
       </div>
 
       {(role === "1" || role === "4") && (

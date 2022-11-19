@@ -85,4 +85,10 @@ type Ingredient = {
   mesurementId: number;
 }
 
-export type { Account, News, Task, Product, Category, Recipe, Vendor, Mesurement, Ingredient }
+type TaskHistory = {
+  completionDate : Date;
+  taskName : string;
+  whoDid : string;
+}
+
+export type { Account, News, Task, Product, Category, Recipe, Vendor, Mesurement, Ingredient, TaskHistory }

@@ -33,6 +33,8 @@ type Task = {
   date: Date;
   priority : boolean;
   receiver: String;
+  taskMaster: string;
+  whenToDo: string;
 }
 
 type Recipe = {

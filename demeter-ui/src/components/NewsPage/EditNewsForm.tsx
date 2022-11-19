@@ -81,6 +81,8 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
       responsable: "",
       receiver: "",
       priority: false,
+      taskMaster: "",
+      whenToDo:"",
     };
 
     const taskCreated = await createTask(newsTask);

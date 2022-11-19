@@ -24,6 +24,8 @@ exports.create = (req, res) => {
         priority :req.body.priority,
         responsable: req.body.responsable,
         receiver: req.body.receiver,
+        taskMaster: req.body.taskMaster,
+        whenToDo: req.body.whenToDo,
     };
 
   // Save Task in the database

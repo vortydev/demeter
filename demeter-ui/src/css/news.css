@@ -55,8 +55,9 @@
     width: 15rem !important;
 }
 
-.jointTaskEdit>span, .jointTaskEdit>label {
+.jointTaskEdit>label {
     align-self: center;
+    margin-bottom: 0;
 }
 
 .jointTaskEdit>[class*="icon"] {
@@ -66,7 +67,9 @@
 .jointTaskEdit>span,
 .jointTaskPreview {
     color: var(--demeter-grey);
-    margin-right: .5rem
+    margin-right: .5rem;
+    margin-bottom: 0;
+    align-self: center;
 }
 
 .newsBody {

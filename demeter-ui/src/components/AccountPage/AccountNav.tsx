@@ -26,6 +26,11 @@ const AccountNav = ({ subPage, setSubPage }: AccountNavProps) => {
             Livraison
           </Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={() => setSubPage(0)} eventKey="role4">
+            Département
+          </Nav.Link>
+        </Nav.Item>
       </Nav>
     </section>
 

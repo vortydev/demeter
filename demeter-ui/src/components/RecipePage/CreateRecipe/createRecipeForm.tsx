@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
+import { getCookie } from "typescript-cookie";
 import { Recipe } from "../../../types/Types";
 
 
@@ -9,9 +10,35 @@ interface CRFProps {
 
 function CreateRecipeForm({ setRecipeInfo }: CRFProps) {
 
+  const role = getCookie("role");
+  const [departement, setDepartement] = useState<number | null>(null);
+  useEffect(() => {
+    switch (role) {
+      case "5": // Cuisine
+        setDepartement(4);
+        break;
+      case "6": // Boulangerie
+        setDepartement(1);
+        break;
+      case "7": // Viennoiserie
+        setDepartement(3);
+        break;
+      case "8": // Patisserie
+        setDepartement(2);
+        break;
+      default:
+        setDepartement(null);
+        break;
+    }
+  }, []);
+
+
+
+
+
   function updateRecipeInfo() {
     const title = (document.getElementById("title") as HTMLInputElement).value;
-    const category = (document.getElementById("category") as HTMLInputElement).value;
+    const category =  departement !== null ? departement : parseInt((document.getElementById("category") as HTMLInputElement).value);
     const instructions = (document.getElementById("instructions") as HTMLInputElement).value;
     const otherExpenses = (document.getElementById("otherExpenses") as HTMLInputElement).value;
     const nbProduct = (document.getElementById("nbProduct") as HTMLInputElement).value;
@@ -20,7 +47,7 @@ function CreateRecipeForm({ setRecipeInfo }: CRFProps) {
     const recipe: Recipe = {
       id: 1,
       title: title,
-      categoryrecipeId: parseInt(category),
+      categoryrecipeId: category,
       instruction: instructions,
       otherCost: parseFloat(otherExpenses),
       nbUnitCreated: parseInt(nbProduct),
@@ -38,7 +65,7 @@ function CreateRecipeForm({ setRecipeInfo }: CRFProps) {
           <Form.Label>Titre</Form.Label>
           <Form.Control onChange={updateRecipeInfo} type="text" />
         </Form.Group>
-
+{!departement &&
         <Form.Group className="popupSelectBox mb-2" controlId="category">
           <Form.Label className="popupSelectLabel">Département</Form.Label>
           <Form.Select onChange={updateRecipeInfo} aria-label="Département" id="category">
@@ -48,7 +75,7 @@ function CreateRecipeForm({ setRecipeInfo }: CRFProps) {
             <option value="4">Cuisine</option>
           </Form.Select>
         </Form.Group>
-
+}
         <Form.Group onChange={updateRecipeInfo} className="mb-2" controlId="instructions">
           <Form.Label>Instructions</Form.Label>
           <Form.Control as="textarea" rows={3} />

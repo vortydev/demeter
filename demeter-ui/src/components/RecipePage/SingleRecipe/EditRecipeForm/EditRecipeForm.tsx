@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Alert, Button, Form, Modal, Nav } from "react-bootstrap";
+import { getCookie} from "typescript-cookie";
 import { updateRecipe } from "../../../../services/recipe.functions";
 import { Ingredient, Recipe } from "../../../../types/Types";
 import { EditIngredient } from "./EditIngredients";
@@ -23,6 +24,7 @@ function EditRecipeForm({
   setChanged,
   editedSuccess,
 }: ERFProps) {
+  const role = getCookie("role");
   const [recipeInfo, setRecipeInfo] = useState<Recipe>(recipe);
   const [editing, setEditing] = useState<String>("recipe");
 
@@ -31,8 +33,8 @@ function EditRecipeForm({
 
   function updateRecipeInfo() {
     const title = (document.getElementById("title") as HTMLInputElement).value;
-    const category = (document.getElementById("category") as HTMLInputElement)
-      .value;
+    const category = (role !== "1" && role !== "4") ? recipe.categoryrecipeId : parseInt((document.getElementById("category") as HTMLInputElement)
+      .value);
     const instructions = (
       document.getElementById("instructions") as HTMLInputElement
     ).value;
@@ -43,13 +45,12 @@ function EditRecipeForm({
       .value;
 
     const editRecipe: Recipe = {
-      id: recipe.id,
+      ...recipe,
       title: title,
-      categoryrecipeId: parseInt(category),
+      categoryrecipeId: category,
       instruction: instructions,
       otherCost: parseFloat(otherExpenses),
       nbUnitCreated: parseInt(nbProduct),
-      available: true,
     };
     setRecipeInfo(editRecipe);
   }
@@ -108,7 +109,7 @@ function EditRecipeForm({
               />
             </Form.Group>
 
-            <Form.Group className="popupSelectBox mb-2" controlId="category">
+            {(role === "1" || role === "4")&&<Form.Group className="popupSelectBox mb-2" controlId="category">
               <Form.Label className="popupSelectLabel">Département</Form.Label>
               <Form.Select onChange={updateRecipeInfo} defaultValue={recipe.categoryrecipeId} aria-label="Département" id="category">
                 <option value="1">Boulangerie</option>
@@ -116,7 +117,7 @@ function EditRecipeForm({
                 <option value="3">Viennoiserie</option>
                 <option value="4">Cuisine</option>
               </Form.Select>
-            </Form.Group>
+            </Form.Group>}
 
             <Form.Group onChange={updateRecipeInfo} className="mb-2" controlId="instructions">
               <Form.Label>Instructions</Form.Label>

@@ -118,6 +118,8 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         priority: false,
         responsable: "",
         receiver: "",
+        taskMaster:"",
+        whenToDo:"",
       },
     ]);
   };

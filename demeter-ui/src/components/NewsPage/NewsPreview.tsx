@@ -9,6 +9,7 @@ import "../../css/news.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt, faArrowRotateLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { getCookie } from "typescript-cookie";
+import { confirmAlert } from "react-confirm-alert";
 
 interface NewsPreviewProps {
   news: News;
@@ -22,6 +23,7 @@ function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
   const [EditNews, setEditNews] = useState<boolean>(false);
   const [task, setTask] = useState<Task | undefined>(undefined);
   const [completedTask, setCompletedTask] = useState<boolean>(false);
+  const [longDesc, setLongDesc] = useState<boolean>(true);
 
   useEffect(() => {
     async function getLinkedTask() {
@@ -29,6 +31,13 @@ function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
     }
     if (news.taskId !== 0) {
       getLinkedTask();
+    }
+
+    if (news.description.length > 200) {
+      setLongDesc(true);
+    }
+    else {
+      setLongDesc(false);
     }
   }, [task, fullText, editedSuccess, completedTask]);
 
@@ -45,6 +54,9 @@ function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
 
   function success() {
     editedSuccess(true);
+    setTimeout(() => {
+      editedSuccess(false);
+    }, 5000);
   }
 
   function close() {
@@ -86,7 +98,7 @@ function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
       <div className={`newsBody ${news.priority ? " newsPriority" : ""}`}>
         <h2 className="newsTitle">{news.title}</h2>
         <h3 className="newsDate">
-          {theDate.toLocaleDateString()}
+          {theDate.toLocaleDateString()} - {news.author}
         </h3>
         <div className="flexNewsBox">
           {news.picture !== null && (
@@ -96,7 +108,7 @@ function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
           )}
           <p className="newsContent">
             {text}
-            <b>{dotdotdot}</b>
+            <b>{longDesc && dotdotdot}</b>
           </p>
           {(role === "1" || role === "4") &&
             <div className="flexNewsEdit">
@@ -113,8 +125,25 @@ function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
                 icon={faTrashAlt}
                 size="lg"
                 onClick={() => {
-                  deleteNews(news.id);
-                  deleteSuccess(true);
+
+                  confirmAlert({
+                    title: 'Confirmation',
+                    message: 'Êtes-vous sûr.e de vouloir supprimer cette annonce?',
+                    buttons: [{
+                      label: 'Supprimer',
+                      onClick: () => {
+                        deleteNews(news.id);
+                        deleteSuccess(true);
+                        setTimeout(() => {
+                          deleteSuccess(false);
+                        }, 5000);
+                      }
+                    },
+                    {
+                      label: 'Annuler',
+                      onClick: () => { }
+                    }]
+                  });
                 }}
               />
             </div>
@@ -126,10 +155,13 @@ function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
             <FontAwesomeIcon className="iconCheck mr-1" icon={faCheck} size="lg" />
           }
 
-          <span className="jointTaskPreview">(Tâche jointe)</span>
+          {!task.completed &&
+            <label className="jointTaskPreview">(Tâche jointe)</label>
+          }
+          
           <span>{task.title}</span>
 
-          {!task.completed && 
+          {!task.completed &&
             <input className="ml-2" type="text" id={task.id.toString()} onBlur={completeTask} />
           }
 
@@ -142,15 +174,14 @@ function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
             </div>
           )}
         </div>}
+        {longDesc && <Button
+          className="newsBtn"
+          variant="link"
+          onClick={() => setFullText(!fullText)}
+        >
+          {buttonText}
+        </Button>}
       </div>
-
-      <Button
-        className="newsBtn"
-        variant="link"
-        onClick={() => setFullText(!fullText)}
-      >
-        {buttonText}
-      </Button>
 
       <hr className="newsLine" />
 

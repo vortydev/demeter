@@ -149,17 +149,31 @@ function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
             </div>
           }
         </div>
-        {task !== undefined && !task.completed && (
-          <div>
-            <input className="responable" type="text" id={task.id.toString()} /> {task.title}{" "}
-            <Button onClick={completeTask}>Compléter</Button>
-          </div>
-        )}
-        {task !== undefined && task.completed && (
-          <div>
-            {task.responsable} {task.title}{" "} <Button onClick={() => cancelComplete(task)}>MAKE INCOMPLETE</Button>
-          </div>
-        )}
+
+        {task !== undefined && <div className="newsTaskBox flex mt-2">
+          {task.completed &&
+            <FontAwesomeIcon className="iconCheck mr-1" icon={faCheck} size="lg" />
+          }
+
+          {!task.completed &&
+            <label className="jointTaskPreview">(Tâche jointe)</label>
+          }
+          
+          <span>{task.title}</span>
+
+          {!task.completed &&
+            <input className="ml-2" type="text" id={task.id.toString()} onBlur={completeTask} />
+          }
+
+          {task.completed && (
+            <div className="flex ml-2">
+              <span className="jointTaskPreview">{task.responsable}</span>
+              <FontAwesomeIcon className="iconUndo cursor" icon={faArrowRotateLeft} size="lg" onClick={() => {
+                cancelComplete(task);
+              }} />
+            </div>
+          )}
+        </div>}
         {longDesc && <Button
           className="newsBtn"
           variant="link"

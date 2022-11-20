@@ -185,7 +185,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
             <h4 className="popupTitle">Tâche jointe</h4>
             {emptyTask && <Alert variant="danger">Veuillez donner un titre à la tâche.</Alert>}
             <Form.Group className="mb-2" controlId="tasktitle">
-              <Form.Label>Nom de la tâche</Form.Label>
+              <Form.Label>Titre de l'annonce</Form.Label>
               <Form.Control as="textarea" rows={3} />
             </Form.Group>
 

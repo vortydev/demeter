@@ -21,6 +21,7 @@ import { confirmAlert } from "react-confirm-alert";
 import { DailyTaskDisplay } from "./TasksDisplay/DailyTaskDisplay";
 import { HebdoTaskDisplay } from "./TasksDisplay/HebdoTaskDisplay";
 import { OtherTaskDisplay } from "./TasksDisplay/OtherTaskDisplay";
+import { createTaskHistory } from "../../services/taskHistory.functions";
 
 function TaskPage(): JSX.Element {
   const [createdSuccess, setSuccess] = useState<boolean>(false);
@@ -63,7 +64,7 @@ function TaskPage(): JSX.Element {
   async function resetTasksByCat() {
     //Genérer rapport pour historique ici
 
-    for (const task of allCatTask){
+    for (const task of allCatTask) {
       await enterInHistory(task);
     }
     setTaskCompleted(true);
@@ -74,14 +75,20 @@ function TaskPage(): JSX.Element {
     setCreateTask(false);
   }
 
-  async function enterInHistory(task : Task){
-    const historyInfo : TaskHistory = {
-      completionDate : new Date(),
-      taskName : task.title,
-      whoDid : task.responsable
-    }
+  async function enterInHistory(task: Task) {
+    const historyInfo: TaskHistory = {
+      completionDate: new Date(),
+      taskName: task.title,
+      whoDid: task.responsable,
+    };
 
     // createTaskHistory request here
+
+    if (await createTaskHistory(historyInfo)) {
+      console.log("it created the the thing!");
+    } else {
+      console.log("yeah... no");
+    }
   }
 
   return (

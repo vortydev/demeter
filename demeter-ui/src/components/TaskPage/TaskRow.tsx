@@ -60,7 +60,6 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
   }
 
   async function completeSt(st: Task) {
-    // console.log("complete the dam st !", st);
     const initials = (
       document.getElementById(st.id.toString()) as HTMLInputElement
     ).value;
@@ -134,6 +133,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
             });
           }} />
         </div>}
+        <p>{task.description}</p>
       </div>
 
       <div className="taskChildBox">

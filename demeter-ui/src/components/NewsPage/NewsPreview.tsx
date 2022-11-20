@@ -9,6 +9,7 @@ import "../../css/news.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { getCookie } from "typescript-cookie";
+import { confirmAlert } from "react-confirm-alert";
 
 interface NewsPreviewProps {
   news: News;
@@ -125,11 +126,25 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
               icon={faTrashAlt}
               size="lg"
               onClick={() => {
-                deleteNews(news.id);
-                deleteSuccess(true);
-                setTimeout(() => {
-                  deleteSuccess(false);
-                },5000);
+                
+                confirmAlert({
+                  title: 'Confirmation',
+                  message: 'Êtes-vous sûr.e de vouloir supprimer cette annonce?',
+                  buttons: [{
+                    label: 'Supprimer',
+                    onClick: () => {
+                      deleteNews(news.id);
+                      deleteSuccess(true);
+                      setTimeout(() => {
+                        deleteSuccess(false);
+                      },5000);
+                    }
+                  },
+                  {
+                    label: 'Annuler',
+                    onClick: () => { }
+                  }]
+                });
               }}
             />
           </div>

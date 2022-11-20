@@ -53,6 +53,9 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
 
   function success() {
     editedSuccess(true);
+    setTimeout(() => {
+      editedSuccess(false);
+    },5000);
   }
 
   function close() {
@@ -124,6 +127,9 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
               onClick={() => {
                 deleteNews(news.id);
                 deleteSuccess(true);
+                setTimeout(() => {
+                  deleteSuccess(false);
+                },5000);
               }}
             />
           </div>

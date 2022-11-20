@@ -6,7 +6,7 @@ import {
   getbyCategorie,
   resetTask,
 } from "../../services/task.funtions";
-import { Task } from "../../types/Types";
+import { Task, TaskHistory } from "../../types/Types";
 import { CreateTaskForm } from "./createTaskForm";
 import { TaskNav } from "./TaskNav";
 import { TaskRow } from "./TaskRow";
@@ -62,12 +62,26 @@ function TaskPage(): JSX.Element {
 
   async function resetTasksByCat() {
     //Genérer rapport pour historique ici
+
+    for (const task of allCatTask){
+      await enterInHistory(task);
+    }
     setTaskCompleted(true);
     resetTask(allCatTask);
   }
 
   function close(): void {
     setCreateTask(false);
+  }
+
+  async function enterInHistory(task : Task){
+    const historyInfo : TaskHistory = {
+      completionDate : new Date(),
+      taskName : task.title,
+      whoDid : task.responsable
+    }
+
+    // createTaskHistory request here
   }
 
   return (

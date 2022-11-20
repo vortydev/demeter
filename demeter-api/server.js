@@ -134,6 +134,7 @@ require("./app/routes/task.routes")(app); // tâches
 require("./app/routes/teamleadpwd.routes")(app); // mdp de chefs
 require("./app/routes/vendor.routes")(app); // fournisseurs
 require("./app/routes/verify.routes")(app); // vérification de login
+require("./app/routes/taskHistory.routes")(app); // historique des tâches
 
 // set port, listen for requests
 const PORT = process.env.NODE_DOCKER_PORT || 8080;

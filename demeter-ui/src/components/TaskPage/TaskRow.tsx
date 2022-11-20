@@ -60,7 +60,6 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
   }
 
   async function completeSt(st: Task) {
-    // console.log("complete the dam st !", st);
     const initials = (
       document.getElementById(st.id.toString()) as HTMLInputElement
     ).value;
@@ -86,13 +85,14 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
 
   const role = getCookie("role");
   return (
-    <div className="taskRowBox">
+    <article className="taskRowBox">
       <div className="taskRow flex cellShade">
         {task.completed && <FontAwesomeIcon className="iconCheck" icon={faCheck} size="lg" />}
         <span>{task.title}</span>
+        {task.taskMaster !== "" && <span>- {task.taskMaster}</span>}
 
         <div className="flex taskInput">
-          {!task.completed && (
+          {(!task.completed && subListTask.length === 0) && (
             <input
               className="taskMainInput"
               onBlur={complete}
@@ -135,6 +135,8 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
             }} />
           </div>}
         </div>
+
+        <p>{task.description}</p>
       </div>
 
       <div className="taskChildBox">
@@ -202,7 +204,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
         close={closeEditForm}
         success={editSuccess}
       />
-    </div >
+    </article >
   );
 }
 

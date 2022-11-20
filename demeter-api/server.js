@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true })); // parse application/x-www-form
 
 // initilizes the database
 const db = require("./app/models");
-db.sequelize.sync({})                 // {force: true} drops the db
+db.sequelize.sync({force : true})                 // {force: true} drops the db
   .then(() => {
     console.log("Synced db.");
 
@@ -134,6 +134,7 @@ require("./app/routes/task.routes")(app); // tâches
 require("./app/routes/teamleadpwd.routes")(app); // mdp de chefs
 require("./app/routes/vendor.routes")(app); // fournisseurs
 require("./app/routes/verify.routes")(app); // vérification de login
+require("./app/routes/taskHistory.routes")(app); // historique des tâches
 
 // set port, listen for requests
 const PORT = process.env.NODE_DOCKER_PORT || 8080;

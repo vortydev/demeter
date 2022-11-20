@@ -35,6 +35,8 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       priority: false,
       responsable: "",
       receiver: "",
+      taskMaster: "",
+      whenToDo:"",
     };
 
     let taskCreated: Task | null = null;

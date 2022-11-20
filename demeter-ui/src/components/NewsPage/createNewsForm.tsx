@@ -36,7 +36,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
 
     if (addTask) {
       // Retrive task info
-      const taskTitle = document.getElementById(
+      const taskTitle = document.getElementById( //not null
         "tasktitle"
       ) as HTMLInputElement;
       const taskDesc = document.getElementById(
@@ -55,8 +55,8 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       }
     }
 
-    const title = document.getElementById("title") as HTMLInputElement;
-    const author = document.getElementById("author") as HTMLInputElement;
+    const title = document.getElementById("title") as HTMLInputElement; // not null
+    const author = document.getElementById("author") as HTMLInputElement; // not null
     const receiver = document.getElementById("receiver") as HTMLInputElement;
     const description = document.getElementById("description") as HTMLInputElement;
 

@@ -121,5 +121,3 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
 }
 
 export { CreateTaskForm };
-
-// note news preview 200 character dotdotdot si <200 then ""

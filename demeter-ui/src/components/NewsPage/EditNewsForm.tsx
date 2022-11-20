@@ -6,6 +6,7 @@ import { News, Task } from "../../types/Types";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { confirmAlert } from "react-confirm-alert";
 
 interface CRFormProps {
   show: boolean;
@@ -20,29 +21,41 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
   const [taskInEdit, setTaskInEdit] = useState<Task | undefined>(task);
   const [addTask, setAddTask] = useState<boolean>(false);
   const [priority, setPriority] = useState<boolean>(news.priority);
+  const [emptyTask, setEmptyTask] = useState<boolean>(false);
+  const [empty, setEmpty] = useState<boolean>(false);
 
   async function handleSubmit() {
+    setEmpty(false);
+
     const title = document.getElementById("title") as HTMLInputElement;
     const author = document.getElementById("author") as HTMLInputElement;
     const receiver = document.getElementById("receiver") as HTMLInputElement;
     const description = document.getElementById("description") as HTMLInputElement;
 
-    const editNews: News = {
-      ...news,
-      title: title.value,
-      description: description.value,
-      author: author.value,
-      roleId: receiver.value,
-      taskId: taskInEdit ? taskInEdit.id : 0,
-      priority: priority,
+    if (!title.value || !author.value){
+      setEmpty(true);
+      setTimeout(() => {
+        setEmpty(false);
+      },5000);
+    }
+    else {
+      const editNews: News = {
+        ...news,
+        title: title.value,
+        description: description.value,
+        author: author.value,
+        roleId: receiver.value,
+        taskId: taskInEdit ? taskInEdit.id : 0,
+        priority: priority,
 
-    };
+      };
 
-    if (await updateNews(news.id, editNews)) {
-      success();
-      close();
-    } else {
-      setError(true);
+      if (await updateNews(news.id, editNews)) {
+        success();
+        close();
+      } else {
+        setError(true);
+      }
     }
   }
 
@@ -63,33 +76,42 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
   }
 
   async function addingTask() {
+    setEmptyTask(false);
+
     const taskTitle = document.getElementById("tasktitle") as HTMLInputElement;
     const taskDesc = document.getElementById(
       "taskdescription"
     ) as HTMLInputElement;
 
-    const newsTask = {
-      id: 1,
-      title: taskTitle.value,
-      description: taskDesc.value,
-      categorytaskId: 4, // Ne s'Affichent pas dans la liste de tâches
-      parentId: 0,
-      active: true,
-      completed: false,
-      picture: null,
-      date: new Date(),
-      responsable: "",
-      receiver: "",
-      priority: false,
-    };
-
-    const taskCreated = await createTask(newsTask);
-    if (taskCreated) {
-      setTaskInEdit(taskCreated);
-      setAddTask(false);
+    if (!taskTitle.value){
+      setEmptyTask(true);
+      setTimeout(() => {
+        setEmptyTask(false);
+      }, 5000);
     } else {
-      console.log("that task wasnt created");
-      setTaskInEdit(undefined);
+      const newsTask = {
+        id: 1,
+        title: taskTitle.value,
+        description: taskDesc.value,
+        categorytaskId: 4, // Ne s'Affichent pas dans la liste de tâches
+        parentId: 0,
+        active: true,
+        completed: false,
+        picture: null,
+        date: new Date(),
+        responsable: "",
+        receiver: "",
+        priority: false,
+      };
+
+      const taskCreated = await createTask(newsTask);
+      if (taskCreated) {
+        setTaskInEdit(taskCreated);
+        setAddTask(false);
+      } else {
+        console.log("that task wasnt created");
+        setTaskInEdit(undefined);
+      }
     }
   }
 
@@ -99,7 +121,8 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
         <h3 className="popupTitle">Édition d'une Annonce</h3>
 
         {error && (<Alert variant="danger">La mise à jour n'a pas fonctionnée.</Alert>)}
-
+        {empty && <Alert variant="danger">Veuillez donner un titre et un auteur à la tâche</Alert>}
+        
         <Form.Group className="mb-2" controlId="title">
           <Form.Label>Titre</Form.Label>
           <Form.Control defaultValue={news.title} type="text" />
@@ -139,7 +162,20 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
             <Form.Label className="popupSelectLabel mr-1">(Tâche jointe)</Form.Label>
             <span>{taskInEdit ? taskInEdit.title : task!.title}</span>
             <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
-              removeTask();
+              confirmAlert({
+                title: 'Confirmation',
+                message: 'Êtes-vous sûr.e de vouloir supprimer cette tâche?',
+                buttons: [{
+                  label: 'Supprimer',
+                  onClick: () => {
+                    removeTask();
+                  }
+                },
+                {
+                  label: 'Annuler',
+                  onClick: () => { }
+                }]
+              });
             }} />
           </div>
         )}
@@ -152,7 +188,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
           <div className="popupForm">
             <hr className="loginLine mb-3" />
             <h4 className="popupTitle">Tâche jointe</h4>
-
+            {emptyTask && <Alert variant="danger">Veuillez donner un titre à la tâche.</Alert>}
             <Form.Group className="mb-2" controlId="tasktitle">
               <Form.Label>Nom de la tâche</Form.Label>
               <Form.Control as="textarea" rows={3} />

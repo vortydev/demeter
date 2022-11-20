@@ -32,6 +32,9 @@ function NewsPage(): JSX.Element {
 
   function success(): void {
     setSuccess(true);
+    setTimeout(() => {
+      setSuccess(false);
+    },5000);
     close();
   }
 

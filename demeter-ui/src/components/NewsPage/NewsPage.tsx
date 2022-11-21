@@ -7,7 +7,7 @@ import { CreateNewsForm } from "./createNewsForm";
 import { NewsPreview } from "./NewsPreview";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faList } from "@fortawesome/free-solid-svg-icons";
 
 function NewsPage(): JSX.Element {
   const [createNews, setCreateNews] = useState<boolean>(false);
@@ -15,6 +15,7 @@ function NewsPage(): JSX.Element {
   const [deleteSuccess, setDeleteSuccess] = useState<boolean>(false);
   const [editedSuccess, setEditedSucess] = useState<boolean>(false);
   const [newsList, setNewsList] = useState<News[]>([]);
+
   const connected = getCookie("account") ? getCookie("account") : "Visiteur";
   const role = getCookie("role");
 
@@ -27,10 +28,13 @@ function NewsPage(): JSX.Element {
       }
     }
     getList();
-  }, [createdSuccess, editedSuccess, deleteSuccess]);
+  }, [createdSuccess, editedSuccess, deleteSuccess, role]);
 
   function success(): void {
     setSuccess(true);
+    setTimeout(() => {
+      setSuccess(false);
+    },5000);
     close();
   }
 
@@ -50,7 +54,7 @@ function NewsPage(): JSX.Element {
       {editedSuccess && <Alert variant="success">L'annonce à été modifiée avec succès!</Alert>}
       {deleteSuccess && <Alert variant="success">L'annonce à été supprimée avec succès!</Alert>}
 
-      <p className="loginText">Vous êtes connecté en tant que {connected}</p>
+      <p className="loginText">Vous êtes connecté.e en tant que {connected}</p>
       {(role === "1" || role === "4") &&
         <div className="btnBar newsAdd mb-4">
           <Button variant="hidden">
@@ -59,7 +63,7 @@ function NewsPage(): JSX.Element {
           </Button>
           
           <Button variant="icon-dark" className="centerBtn" onClick={showAllNews}>
-            <FontAwesomeIcon className="icon" icon={faEye} size="lg" />
+            <FontAwesomeIcon className="icon" icon={faList} size="lg" />
             <span>Afficher toutes les Annonces</span>
           </Button>
 

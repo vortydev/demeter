@@ -54,3 +54,38 @@
 .joinTaskBtn {
     width: 15rem !important;
 }
+
+.jointTaskEdit>label {
+    align-self: center;
+    margin-bottom: 0;
+}
+
+.jointTaskEdit>[class*="icon"] {
+    margin-left: auto;
+}
+
+.jointTaskEdit>span,
+.jointTaskPreview {
+    color: var(--demeter-grey);
+    margin-right: .5rem;
+    margin-bottom: 0;
+    align-self: center;
+}
+
+.newsBody {
+    border-radius: .25rem;
+    padding: .5rem;
+    width: 100%;
+}
+
+.newsTaskBox {
+    justify-content: center;
+}
+
+.newsTaskBox span {
+    align-self: center;
+}
+
+.newsTaskBox input {
+    width: 5rem;
+}

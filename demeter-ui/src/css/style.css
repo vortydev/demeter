@@ -413,6 +413,10 @@ select {
     background: hsla(0, 0%, 0%, .85) !important;
 }
 
+div.react-confirm-alert-overlay {
+    z-index: 9999;
+}
+
 .react-confirm-alert-button-group>button {
     width: 7.5rem !important;
     background-color: var(--demeter-black) !important;

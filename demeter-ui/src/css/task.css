@@ -1,5 +1,5 @@
 .taskRowList {
-    width: 60%;
+    /* width: 60%; */
     min-width: 400px;
     margin: auto;
     flex-direction: column;
@@ -38,16 +38,8 @@
     width: 100%;
 }
 
-.taskChildRow.cellShade:hover>.iconBullet {
+.taskChildRow.cellShade:hover>.iconBullet, .taskChildRow.cellShade.priority>.iconBullet {
     color: var(--demeter-grey);
-}
-
-.taskEditBox {
-    margin-left: auto;
-}
-
-.task {
-    width: auto;
 }
 
 .taskLine {
@@ -57,6 +49,7 @@
 .taskBtnBar {
     width: 60%;
     margin: auto;
+    flex-direction: row-reverse;
 }
 
 .subTaskList {
@@ -83,4 +76,24 @@
 
 .taskInput {
     min-width: fit-content;
+    margin-left: auto;
+}
+
+.taskDesc {
+    width: 100%;
+    color: var(--demeter-grey);
+    text-align: left;
+    line-height: 1.25;
+}
+
+.taskDisplayList {
+    width: 60%;
+    margin: auto;
+}
+
+.taskDisplayList h3 {
+    width: 100%;
+    margin: 0;
+    text-align: left;
+    color: var(--demeter-green);
 }

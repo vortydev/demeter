@@ -31,10 +31,18 @@ function AccountList({
 
   useEffect(() => {
     async function getList() {
-      setListAccount(await getAccountsByRole(currentRole));
+      if (currentRole === 0) {
+        let listDepartement: Account[] = [];
+        for (let i = 5; i <= 8; ++i) {
+          const listTemp = listDepartement.concat(await getAccountsByRole(i));
+          listDepartement = listTemp;
+        }
+        setListAccount(listDepartement);
+      } else {
+        setListAccount(await getAccountsByRole(currentRole));
+      }
     }
     getList();
-
   }, [currentRole, createSuccess, deleteSuccess]);
 
   //  allows the system to refresh after deleting a second account
@@ -46,7 +54,11 @@ function AccountList({
   return (
     <div className="accountList">
       {listAccount.map((account) => (
-        <AccountRow currentAccount={account} setEditSuccess={setEditSuccess} setDeleteSuccess={setDeleteSuccess} />
+        <AccountRow
+          currentAccount={account}
+          setEditSuccess={setEditSuccess}
+          setDeleteSuccess={setDeleteSuccess}
+        />
       ))}
     </div>
   );
@@ -73,26 +85,38 @@ function AccountRow({
     <div className="cellShade flex">
       <span className="accountName">{currentAccount.accName}</span>
       <div className="accountEditBox">
-        <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
-          setEditAccount(true);
-        }} />
-        <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
-          confirmAlert({
-            title: 'Confirmation',
-            message: 'Êtes-vous sûr·e de vouloir supprimer ce compte?',
-            buttons: [
-              {
-                label: 'Supprimer',
-                onClick: () => { deleteAccount(currentAccount.accName); setDeleteSuccess(true); }
-              },
-              {
-                label: 'Annuler',
-                onClick: () => { }
-              }
-            ]
-          });
-
-        }} />
+        <FontAwesomeIcon
+          className="iconEdit cursor"
+          icon={faEdit}
+          size="lg"
+          onClick={() => {
+            setEditAccount(true);
+          }}
+        />
+        <FontAwesomeIcon
+          className="iconTrash cursor"
+          icon={faTrashAlt}
+          size="lg"
+          onClick={() => {
+            confirmAlert({
+              title: "Confirmation",
+              message: "Êtes-vous sûr·e de vouloir supprimer ce compte?",
+              buttons: [
+                {
+                  label: "Supprimer",
+                  onClick: () => {
+                    deleteAccount(currentAccount.accName);
+                    setDeleteSuccess(true);
+                  },
+                },
+                {
+                  label: "Annuler",
+                  onClick: () => {},
+                },
+              ],
+            });
+          }}
+        />
       </div>
       <EditPasswordForm
         show={editAccount}

@@ -11,6 +11,11 @@ function Navbar({ navigateTo }: NavBarProps) {
 
     const role = getCookie("role");
 
+    const accessRecipe : string[] = ["1", "4", "5", "6", "7", "8"];
+    const accessInventory : string[] = ["1", "3", "4"];
+    const accessAccount : string[]= ["1","4"];
+
+
     return (
         <section className="appNav">
             <Nav defaultActiveKey="news">
@@ -25,24 +30,26 @@ function Navbar({ navigateTo }: NavBarProps) {
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    {role !== "2" &&
+                    {(accessInventory.find((R)=> R === role) !== undefined) &&
                         <Nav.Link onClick={() => navigateTo('inventory')} eventKey="inventory">
                             Inventaire
                         </Nav.Link>}
                 </Nav.Item>
 
-                {(role === "1" || role === "4") && <div className="flex">
+                {(accessRecipe.find((R)=> R === role) !== undefined) && 
                     <Nav.Item>
                         <Nav.Link onClick={() => navigateTo('recipe')} eventKey="recipe">
                             Recettes
                         </Nav.Link>
                     </Nav.Item>
+                }
+                {(accessAccount.find((R)=> R === role) !== undefined) &&
                     <Nav.Item>
                         <Nav.Link onClick={() => navigateTo('accounts')} eventKey="accounts">
                             Comptes
                         </Nav.Link>
-                    </Nav.Item>
-                </div>}
+                    </Nav.Item>}
+             
             </Nav>
         </section>
     );

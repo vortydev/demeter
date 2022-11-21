@@ -27,6 +27,10 @@ db.sequelize.sync({})                 // {force: true} drops the db
           { id: "2", role: "Employé" },
           { id: "3", role: "Livreur" },
           { id: "4", role: "Developpeur" },
+          { id: "5", role: "Cuisine" },
+          { id: "6", role: "Boulangerie" },
+          { id: "7", role: "Viennoiserie" },
+          { id: "8", role: "Pâtisserie" },
         ],
         { ignoreDuplicates: true }
       )
@@ -134,6 +138,7 @@ require("./app/routes/task.routes")(app); // tâches
 require("./app/routes/teamleadpwd.routes")(app); // mdp de chefs
 require("./app/routes/vendor.routes")(app); // fournisseurs
 require("./app/routes/verify.routes")(app); // vérification de login
+require("./app/routes/taskHistory.routes")(app); // historique des tâches
 
 // set port, listen for requests
 const PORT = process.env.NODE_DOCKER_PORT || 8080;

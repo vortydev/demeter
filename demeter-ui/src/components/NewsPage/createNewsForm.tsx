@@ -14,8 +14,13 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
   const [error, setError] = useState<boolean>(false);
   const [addTask, setAddTask] = useState<boolean>(false);
   const [priority, setPriority] = useState<boolean>(false);
+  const [emptyTask, setEmptyTask] = useState<boolean>(false);
+  const [empty, setEmpty] = useState<boolean>(false);
 
   async function handlesubmit(): Promise<void> {
+
+    setEmpty(false);
+    setEmptyTask(false);
 
     let newsTask: Task = {
       id: 1,
@@ -30,6 +35,8 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       priority: false,
       responsable: "",
       receiver: "",
+      taskMaster: "",
+      whenToDo:"",
     };
 
     let taskCreated: Task | null = null;
@@ -42,46 +49,62 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       const taskDesc = document.getElementById(
         "taskdescription"
       ) as HTMLInputElement;
-      // Assign task infos
-      newsTask.title = taskTitle.value;
-      newsTask.description = taskDesc.value;
 
-      // create task
-      taskCreated = await createTask(newsTask);
-      // validate
-      console.log(taskCreated);
-      if (taskCreated === null) {
-        setError(true);
+      if (!taskTitle.value){
+        setEmptyTask(true);
+        setTimeout(() => {
+          setEmptyTask(false);
+        }, 5000);
+      } else {
+        // Assign task infos
+        newsTask.title = taskTitle.value;
+        newsTask.description = taskDesc.value;
+
+        // create task
+        taskCreated = await createTask(newsTask);
+        // validate
+        console.log(taskCreated);
+        if (taskCreated === null) {
+          setError(true);
+        }
       }
     }
 
     const title = document.getElementById("title") as HTMLInputElement;
-    const author = document.getElementById("author") as HTMLInputElement;
+    const author = document.getElementById("author") as HTMLInputElement; 
     const receiver = document.getElementById("receiver") as HTMLInputElement;
     const description = document.getElementById("description") as HTMLInputElement;
 
-    const newNews: News = {
-      id: 1,
-      title: title.value,
-      description: description.value,
-      author: author.value,
-      img: null,
-      active: true,
-      roleId: receiver.value,
-      taskId: taskCreated ? taskCreated.id : 0,
-      picture: null,
-      date: new Date(),
-      priority: priority,
-    };
+    if (!title.value || !author.value){
+      setEmpty(true);
+      setTimeout(() => {
+        setEmpty(false);
+      },5000);
+    }
+    else {
+      const newNews: News = {
+        id: 1,
+        title: title.value,
+        description: description.value,
+        author: author.value,
+        img: null,
+        active: true,
+        roleId: receiver.value,
+        taskId: taskCreated ? taskCreated.id : 0,
+        picture: null,
+        date: new Date(),
+        priority: priority,
+      };
 
-    setError(false);
+      setError(false);
 
-    if ((await createNews(newNews)) && !error) {
-      setAddTask(false);
-      setPriority(false);
-      success();
-    } else {
-      setError(true);
+      if ((await createNews(newNews)) && !error) {
+        setAddTask(false);
+        setPriority(false);
+        success();
+      } else {
+        setError(true);
+      }
     }
   }
 
@@ -89,7 +112,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
     <Modal show={show} onHide={close}>
       <Form className="popupForm">
         <h3 className="popupTitle">Nouvelle Annonce</h3>
-
+        {empty && <Alert variant="danger">Veuillez donner un titre et un auteur à la tâche</Alert>}
         <Form.Group className="mb-2" controlId="title">
           <Form.Label>Titre</Form.Label>
           <Form.Control type="text" />
@@ -127,9 +150,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
               className="joinTaskBtn"
               variant="outline-dark"
               onClick={() => setAddTask(true)}
-            >
-              Joindre une tâche
-            </Button>
+            >Joindre une tâche</Button>
           </div>
         )}
 
@@ -137,6 +158,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
           <div className="popupForm">
             <hr className="loginLine mb-3" />
             <h4 className="popupTitle">Tâche jointe</h4>
+            {emptyTask && <Alert variant="danger">Veuillez donner un titre à la tâche.</Alert>}
             <Form.Group className="mb-2" controlId="tasktitle">
               <Form.Label>Titre de la tâche</Form.Label>
               <Form.Control as="textarea" rows={3} />

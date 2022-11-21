@@ -1,35 +1,27 @@
 const db = require("../models");
-const Task = db.tasks;
-const CategoryTask = db.categorytasks;
+const TH = db.taskHistory;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Task
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.title) {
+  if (!req.body.taskName) {
     res.status(400).send({
       message: "Content can not be empty!",
     });
     return;
   }
 
-    // Create a Task
-    const task = {
-        title: req.body.title,
-        categorytaskId: req.body.categorytaskId,
-        parentId: req.body.parentId | null,
-        description: req.body.description,
-        completed: req.body.completed | false,
-        active: req.body.active | true,
-        priority :req.body.priority,
-        responsable: req.body.responsable,
-        receiver: req.body.receiver,
-        taskMaster: req.body.taskMaster,
-        whenToDo: req.body.whenToDo,
+    // Create a TaskHistory
+    const taskHistory = {
+        completionDate: req.body.completionDate,
+        taskName: req.body.taskName,
+        whoDid: req.body.whoDid,
+        
     };
 
   // Save Task in the database
-  Task.create(task)
+  TH.create(taskHistory)
     .then((data) => {
       res.send(data);
     })
@@ -42,12 +34,7 @@ exports.create = (req, res) => {
 
 // Retrieve all Tasks from the database.
 exports.findAll = (req, res) => {
-  const category = req.query.categorytaskId;
-  const parent = req.query.parentId;
-  var conditionC = category ? { categorytaskId: { [Op.eq]: category } } : null;
-  var conditionP = parent ? { parentId: { [Op.eq]: parent } } : null;
-  if (conditionC !== null) {
-    Task.findAll({ where: conditionC, parentId : null })
+    TH.findAll()
       .then((data) => {
         res.send(data);
       })
@@ -58,26 +45,14 @@ exports.findAll = (req, res) => {
             "Some error occurred while retrieving announcements.",
         });
       });
-  } else if (conditionP !== null) {
-    Task.findAll({ where: conditionP })
-      .then((data) => {
-        res.send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message:
-            err.message ||
-            "Some error occurred while retrieving announcements.",
-        });
-      });
-  }
+  
 };
 
 // Find a single Task with an id
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Task.findByPk(id)
+  TH.findByPk(id)
     .then((data) => {
       if (data) {
         res.send(data);
@@ -98,7 +73,7 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Task.update(req.body, {
+  TH.update(req.body, {
     where: { id: id },
   })
     .then((num) => {
@@ -122,8 +97,7 @@ exports.update = (req, res) => {
 // Delete a Task with the specified id in the request
 exports.delete = (req, res) => {
   const id = req.params.id;
-  console.log("controller", id);
-  Task.destroy({
+  TH.destroy({
     where: { id: id },
   })
     .then((num) => {
@@ -146,7 +120,7 @@ exports.delete = (req, res) => {
 
 // Delete all Vendors from the database.
 exports.deleteAll = (req, res) => {
-  Task.destroy({
+  TH.destroy({
     where: {},
     truncate: false,
   })
@@ -160,42 +134,3 @@ exports.deleteAll = (req, res) => {
     });
 };
 
-// category task
-exports.findOneCategoryTask = (req, res) => {
-  const id = req.params.id;
-
-  CategoryTask.findByPk(id)
-    .then((data) => {
-      if (data) {
-        res.send(data);
-      } else {
-        res.status(404).send({
-          message: `Cannot find task category with id=${id}.`,
-        });
-      }
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message: "Error retrieving task category with id=" + id,
-      });
-    });
-};
-
-exports.findAllCategoryTask = (req, res) => {
-  const categorytask = req.query.category;
-  var condition = categorytask
-    ? { category: { [Op.like]: `%${categorytask}%` } }
-    : null;
-
-  CategoryTask.findAll({ where: condition })
-    .then((data) => {
-      res.send(data);
-    })
-    .catch((err) => {
-      res.status(500).send({
-        message:
-          err.message ||
-          "Some error occurred while retrieving task categories.",
-      });
-    });
-};

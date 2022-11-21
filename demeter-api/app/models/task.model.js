@@ -5,9 +5,11 @@ module.exports = (sequelize, Sequelize) => {
         completed: { type: Sequelize.BOOLEAN },
         active: { type: Sequelize.BOOLEAN },
         responsable: { type: Sequelize.STRING }, 
+        taskMaster: { type: Sequelize.STRING }, 
         parentId: { type: Sequelize.INTEGER },
         priority : {type: Sequelize.BOOLEAN},
-        receiver: { type: Sequelize.STRING }
+        receiver: { type: Sequelize.STRING },
+        whenToDo: { type: Sequelize.STRING }, 
     });
     
     return Task;

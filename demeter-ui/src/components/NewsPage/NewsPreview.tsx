@@ -7,8 +7,9 @@ import { News, Task } from "../../types/Types";
 import { EditNewsForm } from "./EditNewsForm";
 import "../../css/news.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTrashAlt, faArrowRotateLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { getCookie } from "typescript-cookie";
+import { confirmAlert } from "react-confirm-alert";
 
 interface NewsPreviewProps {
   news: News;
@@ -16,12 +17,13 @@ interface NewsPreviewProps {
   deleteSuccess: (deleted: boolean) => void;
 }
 
-function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
+function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
   let shortDescription = news.description;
   const [fullText, setFullText] = useState<boolean>(false);
   const [EditNews, setEditNews] = useState<boolean>(false);
   const [task, setTask] = useState<Task | undefined>(undefined);
   const [completedTask, setCompletedTask] = useState<boolean>(false);
+  const [longDesc, setLongDesc] = useState<boolean>(true);
 
   useEffect(() => {
     async function getLinkedTask() {
@@ -29,6 +31,13 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
     }
     if (news.taskId !== 0) {
       getLinkedTask();
+    }
+
+    if (news.description.length > 200) {
+      setLongDesc(true);
+    }
+    else {
+      setLongDesc(false);
     }
   }, [task, fullText, editedSuccess, completedTask]);
 
@@ -45,28 +54,29 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
 
   function success() {
     editedSuccess(true);
+    setTimeout(() => {
+      editedSuccess(false);
+    }, 5000);
   }
 
   function close() {
     setEditNews(false);
   }
 
-  
-
   async function completeTask() {
     const initials = (document.getElementById(task!.id.toString()) as HTMLInputElement)
-    .value;
-  if (initials !== "") {
-    const completedTask: Task = {
-      ...task!,
-      completed: true,
-      responsable: initials,
-    };
+      .value;
+    if (initials !== "") {
+      const completedTask: Task = {
+        ...task!,
+        completed: true,
+        responsable: initials,
+      };
 
-    if(await updateTask(completedTask)){
-      setCompletedTask(true);
+      if (await updateTask(completedTask)) {
+        setCompletedTask(true);
+      }
     }
-  }
 
   }
 
@@ -84,66 +94,99 @@ function NewsPreview({ news, editedSuccess ,deleteSuccess }: NewsPreviewProps) {
 
   const role = getCookie("role");
   return (
-    <div className={`flexNewsPreview ${news.priority? " newsPriority"  : ""}`}>
-      <h2 className="newsTitle">{news.title}</h2>
-      <h3 className="newsDate">
-        {theDate.toLocaleDateString()}
-      </h3>
-      <div className="flexNewsBox">
-        {news.picture !== null && (
-          <div className="picture">
-            <img src={news.picture} />
-          </div>
-        )}
-        <p className="newsContent">
-          {text}
-          <b>{dotdotdot}</b>
-        </p>
-        { (role === "1" || role === "4") &&
-          <div className="flexNewsEdit">
-            <FontAwesomeIcon
-              className="iconEdit cursor"
-              icon={faEdit}
-              size="lg"
-              onClick={() => {
-              setEditNews(true);
-              }}
-            />
-            <FontAwesomeIcon
-              className="iconTrash cursor"
-              icon={faTrashAlt}
-              size="lg"
-              onClick={() => {
-                deleteNews(news.id);
-                deleteSuccess(true);
-              }}
-            />
-          </div>
-        }
+    <article className="flexNewsPreview">
+      <div className={`newsBody ${news.priority ? "priority" : ""}`}>
+        <h2 className="newsTitle">{news.title}</h2>
+        <h3 className="newsDate">
+          {theDate.toLocaleDateString()} - {news.author}
+        </h3>
+        <div className="flexNewsBox">
+          {news.picture !== null && (
+            <div className="picture">
+              <img src={news.picture} />
+            </div>
+          )}
+          <p className="newsContent">
+            {text}
+            <b>{longDesc && dotdotdot}</b>
+          </p>
+          {(role === "1" || role === "4") &&
+            <div className="flexNewsEdit">
+              <FontAwesomeIcon
+                className="iconEdit cursor"
+                icon={faEdit}
+                size="lg"
+                onClick={() => {
+                  setEditNews(true);
+                }}
+              />
+              <FontAwesomeIcon
+                className="iconTrash cursor"
+                icon={faTrashAlt}
+                size="lg"
+                onClick={() => {
+
+                  confirmAlert({
+                    title: 'Confirmation',
+                    message: 'Êtes-vous sûr.e de vouloir supprimer cette annonce?',
+                    buttons: [{
+                      label: 'Supprimer',
+                      onClick: () => {
+                        deleteNews(news.id);
+                        deleteSuccess(true);
+                        setTimeout(() => {
+                          deleteSuccess(false);
+                        }, 5000);
+                      }
+                    },
+                    {
+                      label: 'Annuler',
+                      onClick: () => { }
+                    }]
+                  });
+                }}
+              />
+            </div>
+          }
+        </div>
+
+        {task !== undefined && <div className="newsTaskBox flex mt-2">
+          {task.completed &&
+            <FontAwesomeIcon className="iconCheck mr-1" icon={faCheck} size="lg" />
+          }
+
+          {!task.completed &&
+            <label className="jointTaskPreview">(Tâche jointe)</label>
+          }
+          
+          <span>{task.title}</span>
+
+          {!task.completed &&
+            <input className="ml-2" type="text" id={task.id.toString()} onBlur={completeTask} />
+          }
+
+          {task.completed && (
+            <div className="flex ml-2">
+              <span className="jointTaskPreview">{task.responsable}</span>
+              <FontAwesomeIcon className="iconUndo cursor" icon={faArrowRotateLeft} size="lg" onClick={() => {
+                cancelComplete(task);
+              }} />
+            </div>
+          )}
+        </div>}
+        {longDesc && <Button
+          className="newsBtn"
+          variant="link"
+          onClick={() => setFullText(!fullText)}
+        >
+          {buttonText}
+        </Button>}
       </div>
-      {task !== undefined && !task.completed && (
-        <div>
-          <input className="responable" type="text" id={task.id.toString()} /> {task.title}{" "}
-          <Button onClick={completeTask}>Compléter</Button>
-        </div>
-      )}
-       {task !== undefined && task.completed && (
-        <div>
-          {task.responsable} {task.title}{" "} <Button onClick={()=>cancelComplete(task)}>MAKE INCOMPLETE</Button>
-        </div>
-      )}
-      <Button
-        className="newsBtn"
-        variant="link"
-        onClick={() => setFullText(!fullText)}
-      >
-        {buttonText}
-      </Button>
-      <hr className="newsLine" /> 
 
+      <hr className="newsLine" />
 
-      <EditNewsForm show={EditNews} news={news} task={task} close={close} success={success}/>
-    </div>
+      <EditNewsForm show={EditNews} news={news} task={task} close={close} success={success} />
+    </article>
   );
 }
 

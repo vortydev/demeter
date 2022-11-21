@@ -118,86 +118,91 @@ function TaskPage(): JSX.Element {
         )}
 
         {taskCategory === 1 && (
-          <div>
-            <Button
-              className="centerBtn"
-              variant="icon-dark"
-              onClick={() => {
-                resetTasksByCat();
-              }}
-            >
-              <FontAwesomeIcon
-                className="iconRefresh"
-                icon={faArrowRotateLeft}
-                size="lg"
-              />
-              <span>Commencer la journée</span>
-            </Button>
-
-            <DailyTaskDisplay
-              listTask={accountTask}
-              allCatTask={allCatTask}
-              deleteSuccess={setDelete}
-              editSuccess={setEdit}
-              completedSuccess={setTaskCompleted}
+          <Button
+            className="centerBtn"
+            variant="icon-dark"
+            onClick={() => {
+              resetTasksByCat();
+            }}
+          >
+            <FontAwesomeIcon
+              className="iconRefresh"
+              icon={faArrowRotateLeft}
+              size="lg"
             />
-          </div>
+            <span>Commencer la journée</span>
+          </Button>
         )}
 
         {taskCategory === 2 && (
-          <div>
-            <Button
-              className="centerBtn"
-              variant="icon-dark"
-              onClick={() => {
-                resetTasksByCat();
-              }}
-            >
-              <FontAwesomeIcon
-                className="iconRefresh"
-                icon={faArrowRotateLeft}
-                size="lg"
-              />
-              <span>Commencer la semaine</span>
-            </Button>
-
-            <HebdoTaskDisplay
-              listTask={accountTask}
-              allCatTask={allCatTask}
-              deleteSuccess={setDelete}
-              editSuccess={setEdit}
-              completedSuccess={setTaskCompleted}
+          <Button
+            className="centerBtn"
+            variant="icon-dark"
+            onClick={() => {
+              resetTasksByCat();
+            }}
+          >
+            <FontAwesomeIcon
+              className="iconRefresh"
+              icon={faArrowRotateLeft}
+              size="lg"
             />
-          </div>
+            <span>Commencer la semaine</span>
+          </Button>
         )}
 
         {taskCategory === 3 && (
-          <div>
-            <Button
-              className="centerBtn"
-              variant="icon-dark"
-              onClick={() => {
-                resetTasksByCat();
-              }}
-            >
-              <FontAwesomeIcon
-                className="iconRefresh"
-                icon={faArrowRotateLeft}
-                size="lg"
-              />
-              <span>Réinitialiser</span>
-            </Button>
-
-            <OtherTaskDisplay
-              listTask={accountTask}
-              allCatTask={allCatTask}
-              deleteSuccess={setDelete}
-              editSuccess={setEdit}
-              completedSuccess={setTaskCompleted}
+          <Button
+            className="centerBtn"
+            variant="icon-dark"
+            onClick={() => {
+              resetTasksByCat();
+            }}
+          >
+            <FontAwesomeIcon
+              className="iconRefresh"
+              icon={faArrowRotateLeft}
+              size="lg"
             />
-          </div>
+            <span>Réinitialiser</span>
+          </Button>
         )}
+
+        {(role === "1" || role === "4") && (<Button variant="hidden">
+          <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
+          <span>Nouvelle Tâche</span>
+        </Button>)
+        }
       </div>
+
+      <div className="taskDisplayList mt-3">
+        {taskCategory === 1 && <DailyTaskDisplay
+          listTask={accountTask}
+          allCatTask={allCatTask}
+          deleteSuccess={setDelete}
+          editSuccess={setEdit}
+          completedSuccess={setTaskCompleted}
+        />}
+
+        {taskCategory === 2 && <HebdoTaskDisplay
+          listTask={accountTask}
+          allCatTask={allCatTask}
+          deleteSuccess={setDelete}
+          editSuccess={setEdit}
+          completedSuccess={setTaskCompleted}
+        />}
+
+        {taskCategory === 3 && <OtherTaskDisplay
+          listTask={accountTask}
+          allCatTask={allCatTask}
+          deleteSuccess={setDelete}
+          editSuccess={setEdit}
+          completedSuccess={setTaskCompleted}
+        />
+        }
+      </div>
+
+
 
       {(role === "1" || role === "4") && (
         <div className="btnBar">

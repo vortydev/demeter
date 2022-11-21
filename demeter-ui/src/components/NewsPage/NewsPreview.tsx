@@ -95,7 +95,7 @@ function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
   const role = getCookie("role");
   return (
     <article className="flexNewsPreview">
-      <div className={`newsBody ${news.priority ? " newsPriority" : ""}`}>
+      <div className={`newsBody ${news.priority ? "priority" : ""}`}>
         <h2 className="newsTitle">{news.title}</h2>
         <h3 className="newsDate">
           {theDate.toLocaleDateString()} - {news.author}

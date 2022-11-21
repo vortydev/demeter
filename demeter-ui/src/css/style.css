@@ -10,6 +10,7 @@
     --demeter-orange-v: #a65505;
     --demeter-orange-h: #fff7ef;
     --demeter-grey: #696969;
+    --demeter-purple: rgb(117, 67, 180, .15);
 }
 
 /* defaults */
@@ -61,6 +62,10 @@ select {
     font-size: 1rem !important;
     margin: .5rem 0 !important;
     text-align: center;
+}
+
+.priority {
+    background-color: var(--demeter-purple);
 }
 
 .hide {
@@ -438,10 +443,6 @@ select {
     flex-direction: row;
     justify-content: center;
     display: inline-flex;
-}
-
-.btnBar>:nth-child(even)+.btn-hidden {
-    display: none;
 }
 
 .btnBar>button {

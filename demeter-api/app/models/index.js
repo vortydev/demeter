@@ -76,4 +76,6 @@ db.recipes.belongsToMany(db.products, { through: db.rel_productrecipe });
 db.mesurements.hasMany(db.rel_productrecipe);
 db.rel_productrecipe.belongsTo(db.mesurements, { foreignKey: "mesurementId" });
 
+db.taskHistory = require("./taskHistory.model")(sequelize, Sequelize);
+
 module.exports = db;

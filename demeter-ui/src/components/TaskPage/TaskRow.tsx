@@ -141,7 +141,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
 
       <div className="taskChildBox">
         {subListTask.map((st) => (
-          <div className={`taskChildRow flex cellShade ${task.priority ? "priority" : ""}`}>
+          <div className={`taskChildRow flex cellShade ${st.priority ? "priority" : ""}`}>
             {!st.completed && <FontAwesomeIcon className="iconBullet mr-2 ml-1" icon={faTurnUp} size="sm" />}
             {st.completed && <FontAwesomeIcon className="iconCheck" icon={faCheck} size="lg" />}
 

@@ -42,6 +42,14 @@
     color: var(--demeter-grey);
 }
 
+.taskChildBox .taskChildRow:not(:last-child) {
+    margin-bottom: .25rem;
+}
+
+.taskChildBox .taskChildRow:first-child {
+    margin-top: .25rem;
+}
+
 .taskLine {
     margin: .25rem 0 !important;
 }

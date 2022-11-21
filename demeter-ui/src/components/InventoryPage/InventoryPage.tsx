@@ -14,7 +14,6 @@ import { Product } from '../../types/Types';
 import { InventoryEditProductForm } from './InventoryUpdateProduct';
 
 function InventoryPage(): JSX.Element {
-
     const [createNewProduct, setCreateNewProduct] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
     const [deletedSuccess, setDeleted] = useState<boolean>(false);
@@ -102,7 +101,6 @@ interface Getting {
     setUpdateSuccess: (success: boolean) => void;
     updateSuccess: boolean;
 }
-
 function ListingProducts({ createSuccess, setDeleteSuccess, deleteSuccess, setUpdateSuccess, updateSuccess }: Getting): JSX.Element {
 
     const [products, setProducts] = useState<Product[]>([]);
@@ -134,7 +132,6 @@ interface ProductDisplayProps {
     setDeleteSuccess: (success: boolean) => void;
     setUpdateSuccess: (success: boolean) => void;
 }
-
 function ProductsDisplay({ product, setDeleteSuccess, setUpdateSuccess }: ProductDisplayProps): JSX.Element {
     const [updateProduct, setUpdatedProduct] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
@@ -191,5 +188,18 @@ function ProductsDisplay({ product, setDeleteSuccess, setUpdateSuccess }: Produc
         </article>
     );
 }
+
+/*how to do the filter
+search bar for custom researches of a product?
+dropdown for categories + all
+dropdown for vendor + all if time
+
+component filter category
+getAllCategories
+category dropdown
+when selected category change if not 0 then get products from this category
+if 0 do normal
+
+*/
 
 export { InventoryPage };

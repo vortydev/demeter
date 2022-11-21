@@ -48,7 +48,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
       const updatedTask: Task = {
         ...task,
         title: taskName.value,
-        description: description.value,
+        description: task.parentId === 0 ? description.value : "",
         categorytaskId: parseFloat(typeTask.value),
         priority: priority,
         receiver: task.parentId === 0 ? receiver.value : "",
@@ -118,8 +118,8 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         priority: false,
         responsable: "",
         receiver: "",
-        taskMaster:"",
-        whenToDo:"",
+        taskMaster: "",
+        whenToDo: "",
       },
     ]);
   };
@@ -144,31 +144,29 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
           <Form.Control defaultValue={task.title} type="text" />
         </Form.Group>
 
-        {task.parentId === 0 && <div>
-          <Form.Group className="mb-2" controlId="description">
-            <Form.Label>Description</Form.Label>
-            <Form.Control defaultValue={task.description} as="textarea" rows={3} />
-          </Form.Group>
+        <Form.Group className={`mb-2 ${task.parentId !== 0 ? "hide" : ""}`} controlId="description">
+          <Form.Label>Description</Form.Label>
+          <Form.Control defaultValue={task.description} as="textarea" rows={3} />
+        </Form.Group>
 
-          <Form.Group className="popupSelectBox mb-2">
-            <Form.Label className="popupSelectLabel">Destinataire</Form.Label>
-            <Form.Select id="receiver" aria-label="Type">
-              <option value="delivery">Livreur</option>
-              {listAccount.map((employee) => (
-                <option value={employee.accName}>{employee.accName}</option>
-              ))}
-            </Form.Select>
-          </Form.Group>
+        <Form.Group className={`popupSelectBox mb-2 ${task.parentId !== 0 ? "hide" : ""}`}>
+          <Form.Label className="popupSelectLabel">Destinataire</Form.Label>
+          <Form.Select defaultValue={task.receiver} id="receiver" aria-label="Type">
+            <option value="delivery">Livreur</option>
+            {listAccount.map((employee) => (
+              <option value={employee.accName}>{employee.accName}</option>
+            ))}
+          </Form.Select>
+        </Form.Group>
 
-          <Form.Group className="popupSelectBox mb-2">
-            <Form.Label className="popupSelectLabel">Type</Form.Label>
-            <Form.Select defaultValue={task.categorytaskId} id="typeTask" aria-label="Type">
-              <option value="1">Quotidienne</option>
-              <option value="2">Hebdomadaire</option>
-              <option value="3">Autre</option>
-            </Form.Select>
-          </Form.Group>
-        </div>}
+        <Form.Group className={`popupSelectBox mb-2 ${task.parentId !== 0 ? "hide" : ""}`}>
+          <Form.Label className="popupSelectLabel">Type</Form.Label>
+          <Form.Select defaultValue={task.categorytaskId} id="typeTask" aria-label="Type">
+            <option value="1">Quotidienne</option>
+            <option value="2">Hebdomadaire</option>
+            <option value="3">Autre</option>
+          </Form.Select>
+        </Form.Group>
 
         <Form.Group className="flex mb-2" controlId="priority">
           <Form.Label className="popupLabel">Prioritaire</Form.Label>
@@ -183,8 +181,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
                 <Form.Label className="popupLabelFull">Titre sous-tâche</Form.Label>
                 <Form.Control name="title" value={ct.title} type="text" onChange={(event: {
                   target: { name: string | number; value: any };
-                }) => handleChangeSubTask(ct.id, event)}
-                />
+                }) => handleChangeSubTask(ct.id, event)} />
                 <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
                   handleRemoveSubTask(ct.id);
                 }} />

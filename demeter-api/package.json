@@ -1,12 +1,10 @@
 {
   "name": "demeter-api",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "private": true,
   "description": "backend",
   "main": "server.js",
   "license": "ISC",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "dependencies": {
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
@@ -23,6 +21,7 @@
     "sequelize",
     "mysql",
     "rest",
-    "api"
+    "api",
+    "docker"
   ]
 }

@@ -1,5 +1,4 @@
-import { Category, Mesurement, Product, Vendor } from '../../../types/Types';;
-import 'react-confirm-alert/src/react-confirm-alert.css';
+import { Category, Mesurement, Vendor } from '../../../types/Types';
 
 interface CategorySelect {
     category: Category;

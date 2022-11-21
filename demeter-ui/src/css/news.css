@@ -64,7 +64,11 @@
     margin-left: auto;
 }
 
-.jointTaskEdit>span,
+.jointTaskEdit>span {
+    align-self: center;
+}
+
+.jointTaskEdit>label,
 .jointTaskPreview {
     color: var(--demeter-grey);
     margin-right: .5rem;

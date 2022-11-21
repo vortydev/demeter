@@ -45,7 +45,7 @@ exports.findAll = (req, res) => {
     const vendorId = req.query.vendorId;
     var vendor = vendorId ? { vendorId: { [Op.like]: `%${vendorId}%`} } : null;
 
-    Product.findAll({ where: category || vendor })
+    Product.findAll({ where: {[Op.and]: [ category, vendor ]} })
         .then(data => {
             res.send(data);
         })

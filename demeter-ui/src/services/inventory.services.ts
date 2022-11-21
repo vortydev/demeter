@@ -18,6 +18,10 @@ class InventoryService {
     return http.get<Array<Product>>(`/products?vendorId=${vendorId}`);
   }
 
+  getByCategoryVendor(categoryId: string, vendorId: string){
+    return http.get<Array<Product>>(`/products?categoryId=${categoryId}&vendorId=${vendorId}`);
+  }
+
   create(data: Product) {
     return http.post<Product>("/products", data);
   }

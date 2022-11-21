@@ -49,6 +49,18 @@ function getProduct(id: string): any {
   return products; 
  }
 
+ async function getProductsByCategoryVendor(category: string, vendor: string){
+    const products = InventoryService.getByCategoryVendor(category, vendor)
+    .then((response: any) => {
+      return response.data;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return [];
+    });
+  return products; 
+ }
+
 async function createProduct(data:Product): Promise<boolean>{
     const productCreated = InventoryService.create(data)
     .then((product) => {
@@ -149,5 +161,6 @@ export {
     getAllMesurements,
     getMesurementById,
     getProductsByCategory,
-    getProductsByVendor
+    getProductsByVendor,
+    getProductsByCategoryVendor
 };

@@ -8,7 +8,7 @@ import { getCookie } from 'typescript-cookie';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList, faPlus, faArrowsRotate, faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { confirmAlert } from 'react-confirm-alert';
-import { getAll, deleteProduct, getProductsByCategory, getProductsByVendor } from '../../services/inventory.functions';
+import { getAll, deleteProduct, getProductsByCategory, getProductsByVendor, getProductsByCategoryVendor } from '../../services/inventory.functions';
 import { Product } from '../../types/Types';
 import { InventoryEditProductForm } from './InventoryUpdateProduct';
 import { FilterInventory } from './SubComponents/FilterInventory';
@@ -114,7 +114,7 @@ function ListingProducts({ createSuccess, setDeleteSuccess, deleteSuccess, setUp
             }
             else {
                 if (categoryFilter != "0" && vendorFilter != "0"){
-
+                    setProducts(await getProductsByCategoryVendor(categoryFilter, vendorFilter));
                 }
                 else if (categoryFilter != "0") {
                     setProducts(await getProductsByCategory(categoryFilter));

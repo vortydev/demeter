@@ -27,7 +27,6 @@
 
 .taskRow {
     width: 100%;
-    justify-content: flex-end;
 }
 
 .taskResponsable {
@@ -85,6 +84,7 @@
 .taskInput {
     min-width: fit-content;
     margin-left: auto;
+    align-self: center;
 }
 
 .taskDesc {

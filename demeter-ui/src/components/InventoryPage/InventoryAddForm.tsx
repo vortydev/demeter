@@ -1,20 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Form, Button, Modal, Alert } from 'react-bootstrap';
 import { Product } from '../../types/Types';
-import { GetCategoryEdit, GetMesurementsEdit, GetVendorsEdit } from './inventory';
-import { getProduct, updateProduct } from '../../services/inventory.functions';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { GetCategory, GetMesurements, GetVendors } from './SubComponents/InventoryGetAdd';
+import { createProduct } from '../../services/inventory.functions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { VendorForm } from './Vendor/inventoryAddVendorForm';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { VendorForm } from './Vendor/AddVendorForm';
 
 interface CRFormProps {
     show: boolean;
-    product: Product;
     close: () => void;
     success: () => void;
 }
 
-function InventoryEditProductForm({ show, close, success, product }: CRFormProps) {
+function InventoryForm({ show, close, success }: CRFormProps) {
     const [createNewVendor, setCreateNewVendor] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
 
@@ -34,14 +33,7 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
         setCreateNewVendor(false);
     }
 
-    setTimeout(() => {
-        setAlerting(false);
-        setAlerting1(false);
-        setAlerting2(false);
-        setAlerting3(false);
-    }, 5000);
-
-    async function editProduct(): Promise<void> {
+    async function addProduct(): Promise<void> {
         const name = document.getElementById("name") as HTMLInputElement;
         const category = document.getElementById("category") as HTMLInputElement;
         const vendor = document.getElementById("vendor") as HTMLInputElement;
@@ -62,7 +54,7 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
         setAlerting2(false);
         setAlerting3(false);
 
-        if (!name.value || !qtyUnit.value || !format.value || !price.value || !qtyInv.value) {
+        if (!name.value || !qtyUnit.value || !format.value || !price.value || !qtyInv.value || !vendor.value) {
             setAlerting(true);
         }
         else if (!regexPrice.test(price.value) && !regexPrice1.test(price.value) && !regexPrice2.test(price.value)) {
@@ -82,8 +74,8 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
                 price.value = price.value.concat(".00");
             }
 
-            const editedProduct: Product = {
-                id: product.id,
+            const newProduct: Product = {
+                id: 1,
                 name: name.value,
                 categoryproductId: category.value,
                 vendorId: vendor.value,
@@ -94,9 +86,9 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
                 qtyInv: qtyInv.value
             };
 
-            console.log(editedProduct);
+            console.log(newProduct);
 
-            if (await updateProduct(editedProduct, product.id)) {
+            if (await createProduct(newProduct)) {
                 success();
             }
             else {
@@ -105,34 +97,39 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
         }
     }
 
+    setTimeout(() => {
+        setAlerting(false);
+        setAlerting1(false);
+        setAlerting2(false);
+        setAlerting3(false);
+    }, 5000);
+
     return (
         <Modal show={show} onHide={close}>
             <Form className="popupForm">
-                <h3 className="popupTitle">Édition d'un Produit</h3>
-
+                <h3 className="popupTitle">Nouveau Produit</h3>
                 {alerting && <Alert variant="danger">Veuillez remplir tous les champs.</Alert>}
                 {alerting1 && <Alert variant="danger">Veuillez entrer le prix au format #.## ou #,##.</Alert>}
                 {alerting2 && <Alert variant="danger">Veuillez entrer un nombre.</Alert>}
                 {alerting3 && <Alert variant="danger">Veuillez entrer un nombre.</Alert>}
-
                 <div className="popupRowSplit mb-2">
                     <Form.Group controlId="name">
                         <Form.Label>Nom</Form.Label>
-                        <Form.Control type="text" defaultValue={product.name} />
+                        <Form.Control type="text" />
                     </Form.Group>
 
                     <Form.Group controlId="category">
                         <Form.Label className="popupSelectLabelFull">Type</Form.Label>
-                        <Form.Select aria-label="categorie" id="category" defaultValue={product.categoryproductId}>
-                            <GetCategoryEdit show={show} id={parseInt(product.categoryproductId)} />
+                        <Form.Select aria-label="categorie" id="category">
+                            <GetCategory show={show} />
                         </Form.Select>
                     </Form.Group>
                 </div>
 
                 <Form.Group className="vendorBox mb-2" controlId="vendor">
                     <Form.Label className="popupSelectLabel">Fournisseur</Form.Label>
-                    <Form.Select aria-label="vendor" id="vendor" defaultValue={product.vendorId}>
-                        <GetVendorsEdit show={show} id={parseInt(product.vendorId)} update={createdSuccess}/>
+                    <Form.Select aria-label="vendor" id="vendor">
+                        <GetVendors show={show} update={createdSuccess} />
                     </Form.Select>
                     <div className="vendorListBox">
                         <FontAwesomeIcon className="iconAdd iconEdit cursor" icon={faPlus} size="lg" onClick={() => {
@@ -141,41 +138,42 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
                         }} />
                     </div>
                 </Form.Group>
+                
 
                 <div className="popupRowSplit mb-2">
                     <Form.Group controlId="qty_unit">
                         <Form.Label>Format (Qt)</Form.Label>
-                        <Form.Control type="text" defaultValue={product.qtyUnit} />
+                        <Form.Control type="text" />
                     </Form.Group>
 
                     <Form.Group controlId="mesurement">
                         <Form.Label className="popupSelectLabelFull">Mesure</Form.Label>
-                        <Form.Select aria-label="mesurement" id="mesurement" defaultValue={product.mesurementId}>
-                            <GetMesurementsEdit show={show} id={parseInt(product.mesurementId)} />
+                        <Form.Select aria-label="mesurement" id="mesurement">
+                            <GetMesurements show={show} />
                         </Form.Select>
                     </Form.Group>
                 </div>
 
                 <Form.Group className="mb-2" controlId="format">
                     <Form.Label>Format (Nom)</Form.Label>
-                    <Form.Control type="text" defaultValue={product.format} />
+                    <Form.Control type="text" />
                 </Form.Group>
 
                 <div className="popupRowSplit mb-2">
                     <Form.Group controlId="price">
                         <Form.Label>Prix</Form.Label>
-                        <Form.Control type="text" defaultValue={product.price} />
+                        <Form.Control type="text" />
                     </Form.Group>
 
                     <Form.Group controlId="qty_inv">
                         <Form.Label>Quantité en stock</Form.Label>
-                        <Form.Control type="text" defaultValue={product.qtyInv} />
+                        <Form.Control type="text" />
                     </Form.Group>
                 </div>
 
                 <div className="mt-3 popupBtnBox">
                     <Button variant="demeter-dark" onClick={close}>Annuler</Button>
-                    <Button variant="demeter" onClick={editProduct}>Confirmer</Button>
+                    <Button variant="demeter" onClick={addProduct}>Confirmer</Button>
                 </div>
             </Form>
             <VendorForm show={createNewVendor} close={closeVendor} success={successVendor} />
@@ -183,7 +181,4 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
     );
 }
 
-export { InventoryEditProductForm };
-
-
-
+export { InventoryForm };

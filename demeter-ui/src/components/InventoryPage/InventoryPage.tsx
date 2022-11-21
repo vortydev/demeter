@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Button, Alert } from 'react-bootstrap';
 import { InventoryForm } from './InventoryAddForm';
 import { InventoryUpdate } from './InventoryUpdate';
@@ -7,11 +7,11 @@ import { VendorDisplay } from './Vendor/VendorDisplay';
 import { getCookie } from 'typescript-cookie';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList, faPlus, faArrowsRotate, faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import React from 'react';
 import { confirmAlert } from 'react-confirm-alert';
-import { getAll, deleteProduct } from '../../services/inventory.functions';
+import { getAll, deleteProduct, getProductsByCategory, getProductsByVendor, getProductsByCategoryVendor } from '../../services/inventory.functions';
 import { Product } from '../../types/Types';
 import { InventoryEditProductForm } from './InventoryUpdateProduct';
+import { FilterInventory } from './SubComponents/FilterInventory';
 
 function InventoryPage(): JSX.Element {
     const [createNewProduct, setCreateNewProduct] = useState<boolean>(false);
@@ -20,6 +20,8 @@ function InventoryPage(): JSX.Element {
     const [updatedSuccess, setUpdated] = useState<boolean>(false);
     const [updateProducts, setUpdatedProducts] = useState<boolean>(false);
     const [vendorDisplay, setVendor] = useState<boolean>(false);
+    const [categoryFilter, setCategoryFilter] = useState<string>("0");
+    const [vendorFilter, setVendorFilter] = useState<string>("0");
 
     function success(): void {
         setSuccess(true);
@@ -61,9 +63,7 @@ function InventoryPage(): JSX.Element {
                 </Button>
             </div>
             }
-            {/* <div className="invFilterBox mb-2">
-                <span>filtres de l'inventaire</span>
-            </div> */}
+            <FilterInventory setCategory={setCategoryFilter} setVendor={setVendorFilter}/>
             <div className="invTable mb-2">
                 {createdSuccess && <Alert variant="success">Le produit a été créé avec succès!</Alert>}
                 {deletedSuccess && <Alert variant="success">Le produit a été supprimé avec succès!</Alert>}
@@ -74,7 +74,7 @@ function InventoryPage(): JSX.Element {
                         <div className="invCol"><h2>Format</h2></div>
                         <div className="invColThin"><h2>Quantité</h2></div>
                     </Row>
-                    <ListingProducts createSuccess={createdSuccess} setDeleteSuccess={setDeleted} deleteSuccess={deletedSuccess} setUpdateSuccess={setUpdated} updateSuccess={updatedSuccess} />
+                    <ListingProducts createSuccess={createdSuccess} setDeleteSuccess={setDeleted} deleteSuccess={deletedSuccess} setUpdateSuccess={setUpdated} updateSuccess={updatedSuccess} categoryFilter={categoryFilter} vendorFilter={vendorFilter} />
                 </Container>
             </div>
             <div className="btnBar mt-3">
@@ -100,17 +100,32 @@ interface Getting {
     deleteSuccess: boolean;
     setUpdateSuccess: (success: boolean) => void;
     updateSuccess: boolean;
+    categoryFilter: string;
+    vendorFilter: string;
 }
-function ListingProducts({ createSuccess, setDeleteSuccess, deleteSuccess, setUpdateSuccess, updateSuccess }: Getting): JSX.Element {
+function ListingProducts({ createSuccess, setDeleteSuccess, deleteSuccess, setUpdateSuccess, updateSuccess, categoryFilter, vendorFilter }: Getting): JSX.Element {
 
     const [products, setProducts] = useState<Product[]>([]);
 
     useEffect(() => {
         async function getList() {
-            setProducts(await getAll());
+            if (categoryFilter == "0" && vendorFilter == "0") {
+                setProducts(await getAll());
+            }
+            else {
+                if (categoryFilter != "0" && vendorFilter != "0"){
+                    setProducts(await getProductsByCategoryVendor(categoryFilter, vendorFilter));
+                }
+                else if (categoryFilter != "0") {
+                    setProducts(await getProductsByCategory(categoryFilter));
+                }
+                else if (vendorFilter != "0") {
+                    setProducts(await getProductsByVendor(vendorFilter));
+                }
+            }
         }
         getList();
-    }, [createSuccess, deleteSuccess, updateSuccess]);
+    }, [createSuccess, deleteSuccess, updateSuccess, categoryFilter, vendorFilter]);
 
     //  allows the system to refresh after deleting a second product
     setTimeout(() => {
@@ -188,18 +203,5 @@ function ProductsDisplay({ product, setDeleteSuccess, setUpdateSuccess }: Produc
         </article>
     );
 }
-
-/*how to do the filter
-search bar for custom researches of a product?
-dropdown for categories + all
-dropdown for vendor + all if time
-
-component filter category
-getAllCategories
-category dropdown
-when selected category change if not 0 then get products from this category
-if 0 do normal
-
-*/
 
 export { InventoryPage };

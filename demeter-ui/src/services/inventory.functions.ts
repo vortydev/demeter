@@ -37,6 +37,30 @@ function getProduct(id: string): any {
   return products; 
  }
 
+ async function getProductsByVendor(vendor: string){
+    const products = InventoryService.getByVendor(vendor)
+    .then((response: any) => {
+      return response.data;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return [];
+    });
+  return products; 
+ }
+
+ async function getProductsByCategoryVendor(category: string, vendor: string){
+    const products = InventoryService.getByCategoryVendor(category, vendor)
+    .then((response: any) => {
+      return response.data;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return [];
+    });
+  return products; 
+ }
+
 async function createProduct(data:Product): Promise<boolean>{
     const productCreated = InventoryService.create(data)
     .then((product) => {
@@ -136,5 +160,7 @@ export {
     getAllCategories,
     getAllMesurements,
     getMesurementById,
-    getProductsByCategory
+    getProductsByCategory,
+    getProductsByVendor,
+    getProductsByCategoryVendor
 };

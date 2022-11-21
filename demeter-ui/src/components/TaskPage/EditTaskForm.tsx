@@ -167,7 +167,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         </div>
 
         <Form.Group className={`popupSelectBox mb-2 ${task.parentId !== 0 ? "hide" : ""}`}>
-          <Form.Label className="popupSelectLabel">Type</Form.Label>
+          <Form.Label className="popupLabel">Type</Form.Label>
           <Form.Select defaultValue={task.categorytaskId} id="typeTask" aria-label="Type">
             <option value="1">Quotidienne</option>
             <option value="2">Hebdomadaire</option>

@@ -6,8 +6,8 @@ import { Alert, Button, Container, Modal, Row } from "react-bootstrap";
 import { confirmAlert } from "react-confirm-alert";
 import { deleteVendor, getAllVendor } from "../../../services/vendor.functions";
 import { Vendor } from "../../../types/Types";
-import { VendorForm } from "./inventoryAddVendorForm";
-import { VendorEdit } from "./vendorEditForm";
+import { VendorForm } from "./AddVendorForm";
+import { VendorEdit } from "./VendorEditForm";
 
 interface VendorDisplayProps {
     show: boolean;

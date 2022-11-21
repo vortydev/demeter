@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Form, Button, Modal, Alert} from 'react-bootstrap';
 import { Product } from '../../types/Types';
-import { ListingProductsEdit } from './inventory';
 import { updateProduct, getProductsByCategory } from '../../services/inventory.functions'
+import React from 'react';
 
 interface CRFormProps {
     show: boolean;
@@ -91,6 +91,57 @@ function InventoryUpdate({ show, close, success }: CRFormProps) {
                 </div>
             </Form>
         </Modal >
+    );
+}
+
+interface GettingShow {
+    show: boolean,
+}
+function ListingProductsEdit(show: GettingShow): JSX.Element {
+
+    const [products, setProducts] = useState<Product[]>([]);
+
+    useEffect(() => {
+        async function getList() {
+            setProducts(await getProductsByCategory("2"));
+        }
+        getList();
+    }, [show]);
+
+    return (
+        <React.Fragment>
+            {products.map((product) => (
+                <ProductsDisplayEdit product={product} />
+            ))}
+        </React.Fragment>
+    );
+
+}
+
+interface ProductDisplayEditProps {
+    product: Product;
+}
+
+function ProductsDisplayEdit({ product }: ProductDisplayEditProps): JSX.Element {
+
+    return (
+        <Form.Group className="flex cellShade mb-1" controlId={`product${product.id}`}>
+            <Form.Group controlId={`product${product.id}`}>
+                <Form.Control type="hidden" value={product.id} />
+            </Form.Group>
+
+            <div className="invMAJrowLarge cellCenter">
+                {product.name}
+            </div>
+
+            <div className="invMAJrowLarge cellCenter">
+                {product.format}
+            </div>
+
+            <Form.Group className="invMAJrowThin" controlId={`qty_inv${product.id}`}>
+                <Form.Control type="text" defaultValue={`${product.qtyInv}`} />
+            </Form.Group>
+        </Form.Group>
     );
 }
 

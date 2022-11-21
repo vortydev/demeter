@@ -27,7 +27,6 @@
 
 .taskRow {
     width: 100%;
-    justify-content: flex-end;
 }
 
 .taskResponsable {
@@ -40,6 +39,14 @@
 
 .taskChildRow.cellShade:hover>.iconBullet, .taskChildRow.cellShade.priority>.iconBullet {
     color: var(--demeter-grey);
+}
+
+.taskChildBox .taskChildRow:not(:last-child) {
+    margin-bottom: .25rem;
+}
+
+.taskChildBox .taskChildRow:first-child {
+    margin-top: .25rem;
 }
 
 .taskLine {
@@ -77,6 +84,7 @@
 .taskInput {
     min-width: fit-content;
     margin-left: auto;
+    align-self: center;
 }
 
 .taskDesc {

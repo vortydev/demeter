@@ -32,7 +32,7 @@ type Task = {
   responsable: string;
   date: Date;
   priority : boolean;
-  receiver: String;
+  receiver: string;
   taskMaster: string;
   whenToDo: string;
 }

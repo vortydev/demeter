@@ -87,7 +87,8 @@ function RecipePage({
             setRecipePage={setRecipePage}
           />
         </div>
-        {role === "1" && (
+
+        {(role === "1" || role === "4") && (
           <div className="filterBox">
             <Button
               variant="secondary"

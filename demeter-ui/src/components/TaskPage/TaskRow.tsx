@@ -87,61 +87,60 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
   return (
     <article className="taskRowBox">
       <div className={`taskRow flex cellShade ${task.priority ? "priority" : ""}`}>
-        {task.completed && <FontAwesomeIcon className="iconCheck" icon={faCheck} size="lg" />}
-        <span>{task.title}</span>
-        {task.taskMaster !== "" && <span>- {task.taskMaster}</span>}
+          {task.completed && <FontAwesomeIcon className="iconCheck" icon={faCheck} size="lg" />}
+          <span>{task.title}</span>
+          {task.taskMaster !== "" && <span className="taskResponsable ml-2">({task.taskMaster})</span>}
 
-        <div className="flex taskInput">
-          {(!task.completed && subListTask.length === 0) && (
-            <input
-              className="taskMainInput"
-              onBlur={complete}
-              type="text"
-              id={task.id.toString()}
-            />
-          )}
+          <div className="flex taskInput">
+            {(!task.completed && subListTask.length === 0) && (
+              <input
+                className="taskMainInput"
+                onBlur={complete}
+                type="text"
+                id={task.id.toString()}
+              />
+            )}
 
-          {task.completed && <div className="flex">
-            <span className="taskResponsable">{task.responsable}</span>
-            <FontAwesomeIcon className="iconUndo cursor" icon={faArrowRotateLeft} size="lg" onClick={() => {
-              cancelComplete(task);
-            }} />
-          </div>}
+            {task.completed && <div className="flex">
+              <span className="taskResponsable">{task.responsable}</span>
+              <FontAwesomeIcon className="iconUndo cursor" icon={faArrowRotateLeft} size="lg" onClick={() => {
+                cancelComplete(task);
+              }} />
+            </div>}
 
-          {(role === "1" || role === "4") && <div className="taskEditBox">
-            <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
-              setToEdit(task);
-              setEditForm(true);
-            }} />
-            <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
-              confirmAlert({
-                title: 'Confirmation',
-                message: 'Êtes-vous sûr.e de vouloir supprimer cette tâche?',
-                buttons: [{
-                  label: 'Supprimer',
-                  onClick: () => {
-                    deleteTask(task.id);
-                    deleteSuccess(true);
-                    setTimeout(() => {
-                      deleteSuccess(false)
-                    }, 5000);
-                  }
-                },
-                {
-                  label: 'Annuler',
-                  onClick: () => { }
-                }]
-              });
-            }} />
-          </div>}
-        </div>
-
-        <span className="taskDesc mt-1">{task.description}</span>
+            {(role === "1" || role === "4") && <div className="taskEditBox">
+              <FontAwesomeIcon className="iconEdit cursor" icon={faEdit} size="lg" onClick={() => {
+                setToEdit(task);
+                setEditForm(true);
+              }} />
+              <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
+                confirmAlert({
+                  title: 'Confirmation',
+                  message: 'Êtes-vous sûr.e de vouloir supprimer cette tâche?',
+                  buttons: [{
+                    label: 'Supprimer',
+                    onClick: () => {
+                      deleteTask(task.id);
+                      deleteSuccess(true);
+                      setTimeout(() => {
+                        deleteSuccess(false)
+                      }, 5000);
+                    }
+                  },
+                  {
+                    label: 'Annuler',
+                    onClick: () => { }
+                  }]
+                });
+              }} />
+            </div>}
+          </div>
+          <span className="taskDesc">{task.description}</span>
       </div>
 
       <div className="taskChildBox">
         {subListTask.map((st) => (
-          <div className={`taskChildRow flex cellShade ${task.priority ? "priority" : ""}`}>
+          <div className={`taskChildRow flex cellShade ${st.priority ? "priority" : ""}`}>
             {!st.completed && <FontAwesomeIcon className="iconBullet mr-2 ml-1" icon={faTurnUp} size="sm" />}
             {st.completed && <FontAwesomeIcon className="iconCheck" icon={faCheck} size="lg" />}
 

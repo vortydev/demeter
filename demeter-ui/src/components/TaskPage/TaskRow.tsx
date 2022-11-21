@@ -86,7 +86,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
   const role = getCookie("role");
   return (
     <article className="taskRowBox">
-      <div className="taskRow flex cellShade">
+      <div className={`taskRow flex cellShade ${task.priority ? "priority" : ""}`}>
         {task.completed && <FontAwesomeIcon className="iconCheck" icon={faCheck} size="lg" />}
         <span>{task.title}</span>
         {task.taskMaster !== "" && <span>- {task.taskMaster}</span>}
@@ -136,12 +136,12 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
           </div>}
         </div>
 
-        <p>{task.description}</p>
+        <span className="taskDesc mt-1">{task.description}</span>
       </div>
 
       <div className="taskChildBox">
         {subListTask.map((st) => (
-          <div className="taskChildRow flex cellShade">
+          <div className={`taskChildRow flex cellShade ${task.priority ? "priority" : ""}`}>
             {!st.completed && <FontAwesomeIcon className="iconBullet mr-2 ml-1" icon={faTurnUp} size="sm" />}
             {st.completed && <FontAwesomeIcon className="iconCheck" icon={faCheck} size="lg" />}
 

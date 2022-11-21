@@ -78,10 +78,6 @@
     width: 100%;
 }
 
-.newsPriority {
-    background-color: var(--demeter-green-h);
-}
-
 .newsTaskBox {
     justify-content: center;
 }

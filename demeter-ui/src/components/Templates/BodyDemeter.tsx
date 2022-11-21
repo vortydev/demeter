@@ -7,6 +7,7 @@ import { SingleRecipePage } from "../RecipePage/SingleRecipe/SingleRecipePage";
 import { TaskPage } from "../TaskPage/TaskPage";
 import { Recipe } from "../../types/Types";
 import { useState } from "react";
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 interface BodyDemeterProps {
   selected: string;

@@ -43,9 +43,9 @@ function InventoryForm({ show, close, success }: CRFormProps) {
         const price = document.getElementById("price") as HTMLInputElement;
         const qtyInv = document.getElementById("qty_inv") as HTMLInputElement;
 
-        var regexPrice = new RegExp (/[0-9]+[.][0-9]{2}/);
-        var regexPrice1 = new RegExp (/[0-9]+[,][0-9]{2}/);
-        var regexPrice2 = new RegExp (/^[0-9]+$/);
+        var regexPrice = new RegExp(/[0-9]+[.][0-9]{2}/);
+        var regexPrice1 = new RegExp(/[0-9]+[,][0-9]{2}/);
+        var regexPrice2 = new RegExp(/^[0-9]+$/);
         var regexNumber = new RegExp(/[0-9]+/);
 
         setError(false);
@@ -112,6 +112,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                 {alerting1 && <Alert variant="danger">Veuillez entrer le prix au format #.## ou #,##.</Alert>}
                 {alerting2 && <Alert variant="danger">Veuillez entrer un nombre.</Alert>}
                 {alerting3 && <Alert variant="danger">Veuillez entrer un nombre.</Alert>}
+                
                 <div className="popupRowSplit mb-2">
                     <Form.Group controlId="name">
                         <Form.Label>Nom</Form.Label>
@@ -132,13 +133,13 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                         <GetVendors show={show} update={createdSuccess} />
                     </Form.Select>
                     <div className="vendorListBox">
-                        <FontAwesomeIcon className="iconAdd iconEdit cursor" icon={faPlus} size="lg" onClick={() => {
+                        <FontAwesomeIcon className="iconAdd iconEdit cursor ml-1" icon={faPlus} size="lg" onClick={() => {
                             setCreateNewVendor(true);
                             setSuccess(false);
                         }} />
                     </div>
                 </Form.Group>
-                
+
 
                 <div className="popupRowSplit mb-2">
                     <Form.Group controlId="qty_unit">

@@ -27,9 +27,7 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
 
   async function handlesubmit() {
     const taskName = document.getElementById("taskName") as HTMLInputElement;
-    const description = document.getElementById(
-      "description"
-    ) as HTMLInputElement;
+    const description = document.getElementById("description") as HTMLInputElement;
     const receiver = document.getElementById("receiver") as HTMLInputElement;
     const when = document.getElementById("when") as HTMLInputElement;
     const taskMaster = document.getElementById("taskMaster") as HTMLInputElement;
@@ -79,7 +77,7 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
   }
 
   return (
-    <Modal show={show} onHide={()=>{ setTypeTask("0");close();}}>
+    <Modal show={show} onShow={()=>setTypeTask("1")} onHide={() => { close(); }}>
       <Form className="popupForm">
         <h3 className="popupTitle">Nouvelle Tâche</h3>
         {empty && (
@@ -96,19 +94,49 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
           <Form.Control as="textarea" rows={3} />
         </Form.Group>
 
-        <Form.Group className="popupSelectBox mb-2">
-          <Form.Label className="popupSelectLabel">Type</Form.Label>
-          <Form.Select onChange={typeTask} id="typeTask" aria-label="Type">
-            <option value="1">Quotidienne</option>
-            <option value="2">Hebdomadaire</option>
-            <option value="3">Autre</option>
-          </Form.Select>
-        </Form.Group>
+        <div className="popupRowSplit mb-2">
+          <Form.Group className="popupSelectBox">
+            <Form.Label className="popupSelectLabel">Destinataire</Form.Label>
+            <Form.Select id="receiver" aria-label="Type">
+              {listAccount.map((employee) => (
+                <option value={employee.accName}>{employee.accName}</option>
+              ))}
+              <option value="delivery">Livreur</option>
+            </Form.Select>
+          </Form.Group>
 
-        {tt === "2" && (
-          <div>
-            {" "}
-            <Form.Group className="popupSelectBox mb-2">
+          <Form.Group className="flex" controlId="priority">
+            <Form.Label className="popupSelectLabel">Prioritaire</Form.Label>
+            <Form.Check
+              className="popupCheck"
+              onChange={() => setPriority(!priority)}
+              type="checkbox"
+            />
+          </Form.Group>
+        </div>
+
+        <div className="popupRowSplit mb-2">
+          <Form.Group className="popupSelectBox">
+            <Form.Label className="popupSelectLabel">Type</Form.Label>
+            <Form.Select onChange={typeTask} id="typeTask" aria-label="Type">
+              <option value="1">Quotidienne</option>
+              <option value="2">Hebdomadaire</option>
+              <option value="3">Autre</option>
+            </Form.Select>
+          </Form.Group>
+
+          {tt === "1" && (
+            <Form.Group className="popupSelectBox">
+              <Form.Label className="popupSelectLabel">Quand</Form.Label>
+              <Form.Select onChange={typeTask} id="when" aria-label="Type">
+                <option value="open">Ouverture</option>
+                <option value="preClose">Pré-fermeture</option>
+                <option value="close">Fermeture</option>
+              </Form.Select>
+            </Form.Group>
+          )}
+          {tt === "2" && (
+            <Form.Group className="popupSelectBox">
               <Form.Label className="popupSelectLabel">Jour</Form.Label>
               <Form.Select onChange={typeTask} id="when" aria-label="Type">
                 <option value="mon">Lundi</option>
@@ -120,52 +148,21 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
                 <option value="sun">Dimanche</option>
               </Form.Select>
             </Form.Group>
-            <Form.Group className="mb-2" controlId="taskMaster">
-              <Form.Label>Responsable</Form.Label>
-              <Form.Control type="text" />
-            </Form.Group>
-          </div>
+          )}
+        </div>
+
+        {tt === "2" && (
+          <Form.Group className="mb-2" controlId="taskMaster">
+            <Form.Label className="popupLabelFull">Responsable</Form.Label>
+            <Form.Control type="text" />
+          </Form.Group>
         )}
-
-{tt === "1" && (
-          <div>
-            {" "}
-            <Form.Group className="popupSelectBox mb-2">
-              <Form.Label className="popupSelectLabel">Jour</Form.Label>
-              <Form.Select onChange={typeTask} id="when" aria-label="Type">
-                <option value="open">Ouverture</option>
-                <option value="preClose">Pré-fermeture</option>
-                <option value="close">Fermeture</option>
-
-              </Form.Select>
-            </Form.Group>
-          </div>
-        )}
-
-        <Form.Group className="popupSelectBox mb-2">
-          <Form.Label className="popupSelectLabel">Destinataire</Form.Label>
-          <Form.Select id="receiver" aria-label="Type">
-            <option value="delivery">Livreur</option>
-            {listAccount.map((employee) => (
-              <option value={employee.accName}>{employee.accName}</option>
-            ))}
-          </Form.Select>
-        </Form.Group>
-
-        <Form.Group className="flex mb-2" controlId="priority">
-          <Form.Label className="popupSelectLabel">Prioritaire</Form.Label>
-          <Form.Check
-            className="popupCheck"
-            onChange={() => setPriority(!priority)}
-            type="checkbox"
-          />
-        </Form.Group>
 
         <div className="mt-3 popupBtnBox">
-          <Button variant="demeter-dark" onClick={()=>{ setTypeTask("0");close();}}>
+          <Button variant="demeter-dark" onClick={() => { setTypeTask("0"); close(); }}>
             Annuler
           </Button>
-          <Button variant="demeter" onClick={()=>{ setTypeTask("0"); handlesubmit();}}>
+          <Button variant="demeter" onClick={() => { setTypeTask("0"); handlesubmit(); }}>
             Confirmer
           </Button>
         </div>

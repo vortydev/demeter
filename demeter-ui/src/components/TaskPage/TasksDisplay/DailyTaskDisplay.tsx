@@ -27,7 +27,7 @@ function DailyTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
   }, [listTask]);
 
   return (
-    <div className="taskDisplay">
+    <article className="taskDisplay">
       <h3>Ouverture</h3>
       <hr className="taskLine" />
       <div className="taskRowList flex mb-4">
@@ -69,7 +69,7 @@ function DailyTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
           />
         ))}
       </div>
-    </div>
+    </article>
   );
 }
 

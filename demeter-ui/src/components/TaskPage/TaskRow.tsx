@@ -89,7 +89,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
       <div className={`taskRow flex cellShade ${task.priority ? "priority" : ""}`}>
           {task.completed && <FontAwesomeIcon className="iconCheck" icon={faCheck} size="lg" />}
           <span>{task.title}</span>
-          {task.taskMaster !== "" && <span>- {task.taskMaster}</span>}
+          {task.taskMaster !== "" && <span className="taskResponsable ml-2">({task.taskMaster})</span>}
 
           <div className="flex taskInput">
             {(!task.completed && subListTask.length === 0) && (

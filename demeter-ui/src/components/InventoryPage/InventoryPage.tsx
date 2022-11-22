@@ -8,7 +8,7 @@ import { getCookie } from 'typescript-cookie';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList, faPlus, faArrowsRotate, faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { confirmAlert } from 'react-confirm-alert';
-import { getAll, deleteProduct, getProductsByCategory, getProductsByVendor, getProductsByCategoryVendor } from '../../services/inventory.functions';
+import { getAll, deleteProduct, getProductsByCategory, getProductsByVendor, getProductsByCategoryVendor, getProductsByName, getProductsByCategoryName, getProductsByNameVendor, getProductsByCategoryVendorName } from '../../services/inventory.functions';
 import { Product } from '../../types/Types';
 import { InventoryEditProductForm } from './InventoryUpdateProduct';
 import { FilterInventory } from './SubComponents/FilterInventory';
@@ -114,20 +114,30 @@ function ListingProducts({ createSuccess, setDeleteSuccess, deleteSuccess, setUp
             if (categoryFilter == "0" && vendorFilter == "0" && nameFilter == "") {
                 setProducts(await getAll());
             }
-            else {
-                if (categoryFilter != "0" && vendorFilter != "0"){
-                    setProducts(await getProductsByCategoryVendor(categoryFilter, vendorFilter));
-                }
-                else if (categoryFilter != "0") {
-                    setProducts(await getProductsByCategory(categoryFilter));
-                }
-                else if (vendorFilter != "0") {
-                    setProducts(await getProductsByVendor(vendorFilter));
-                }
+            else if (categoryFilter != "0" && vendorFilter != "0" && nameFilter != ""){
+                setProducts(await getProductsByCategoryVendorName(categoryFilter, vendorFilter, nameFilter));
+            }
+            else if (categoryFilter != "0" && vendorFilter != "0"){
+                setProducts(await getProductsByCategoryVendor(categoryFilter, vendorFilter));
+            }
+            else if (categoryFilter != "0" && nameFilter != ""){
+                setProducts(await getProductsByCategoryName(categoryFilter, nameFilter));
+            }
+            else if (nameFilter != "" && vendorFilter != "0"){
+                setProducts(await getProductsByNameVendor(nameFilter, vendorFilter));
+            }
+            else if (categoryFilter != "0") {
+                setProducts(await getProductsByCategory(categoryFilter));
+            }
+            else if (vendorFilter != "0") {
+                setProducts(await getProductsByVendor(vendorFilter));
+            }
+            else if (nameFilter != "") {
+                setProducts(await getProductsByName(nameFilter));
             }
         }
         getList();
-    }, [createSuccess, deleteSuccess, updateSuccess, categoryFilter, vendorFilter]);
+    }, [createSuccess, deleteSuccess, updateSuccess, categoryFilter, vendorFilter, nameFilter]);
 
     //  allows the system to refresh after deleting a second product
     setTimeout(() => {

@@ -44,8 +44,10 @@ exports.findAll = (req, res) => {
     var category = categoryId ? { categoryproductId: { [Op.like]: `%${categoryId}%` } } : null;
     const vendorId = req.query.vendorId;
     var vendor = vendorId ? { vendorId: { [Op.like]: `%${vendorId}%`} } : null;
+    const research = req.query.research;
+    var name = research ? { name: { [Op.like]: `%${research}%` } } : null;
 
-    Product.findAll({ where: {[Op.and]: [ category, vendor ]} })
+    Product.findAll({ where: {[Op.and]: [ category, vendor, name ]} })
         .then(data => {
             res.send(data);
         })

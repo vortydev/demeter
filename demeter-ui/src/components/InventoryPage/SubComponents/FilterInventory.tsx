@@ -8,8 +8,9 @@ import { CategoryDropDown, VendorDropDown } from "./Inventory";
 interface Filter {
     setCategory: (id: string) => void;
     setVendor: (id: string) => void;
+    setName: (name: string) => void;
 }
-function FilterInventory({ setCategory, setVendor }: Filter): JSX.Element {
+function FilterInventory({ setCategory, setVendor, setName }: Filter): JSX.Element {
     const [categories, setCategories] = useState<Category[]>([]);
     const categoryAll: Category = {"id": 0, "category": "Tous les produits"}
     const [vendors, setVendors] = useState<Vendor[]>([]);
@@ -27,13 +28,19 @@ function FilterInventory({ setCategory, setVendor }: Filter): JSX.Element {
     function update(){
         const category = (document.getElementById("categoryFilter") as HTMLInputElement).value;
         const vendor = (document.getElementById("vendorFilter") as HTMLInputElement).value;
+        const name = (document.getElementById("nameFilter") as HTMLInputElement).value;
         setCategory(category);
         setVendor(vendor);
+        setName(name);
     }
 
     return (
         <React.Fragment>
             <Form>
+                <Form.Group controlId="nameFilter">
+                    <Form.Control onChange={update} type="text"/>
+                </Form.Group>
+
                 <Form.Group controlId="categoryFilter">
                     <Form.Select onChange={update}>
                         <CategoryDropDown category={categoryAll}/>

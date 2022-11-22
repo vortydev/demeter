@@ -22,6 +22,7 @@ function InventoryPage(): JSX.Element {
     const [vendorDisplay, setVendor] = useState<boolean>(false);
     const [categoryFilter, setCategoryFilter] = useState<string>("0");
     const [vendorFilter, setVendorFilter] = useState<string>("0");
+    const [nameFilter, setNameFilter] = useState<string>("");
 
     function success(): void {
         setSuccess(true);
@@ -63,7 +64,7 @@ function InventoryPage(): JSX.Element {
                 </Button>
             </div>
             }
-            <FilterInventory setCategory={setCategoryFilter} setVendor={setVendorFilter}/>
+            <FilterInventory setCategory={setCategoryFilter} setVendor={setVendorFilter} setName={setNameFilter}/>
             <div className="invTable mb-2">
                 {createdSuccess && <Alert variant="success">Le produit a été créé avec succès!</Alert>}
                 {deletedSuccess && <Alert variant="success">Le produit a été supprimé avec succès!</Alert>}
@@ -74,7 +75,7 @@ function InventoryPage(): JSX.Element {
                         <div className="invCol"><h2>Format</h2></div>
                         <div className="invColThin"><h2>Quantité</h2></div>
                     </Row>
-                    <ListingProducts createSuccess={createdSuccess} setDeleteSuccess={setDeleted} deleteSuccess={deletedSuccess} setUpdateSuccess={setUpdated} updateSuccess={updatedSuccess} categoryFilter={categoryFilter} vendorFilter={vendorFilter} />
+                    <ListingProducts createSuccess={createdSuccess} setDeleteSuccess={setDeleted} deleteSuccess={deletedSuccess} setUpdateSuccess={setUpdated} updateSuccess={updatedSuccess} categoryFilter={categoryFilter} vendorFilter={vendorFilter} nameFilter={nameFilter}/>
                 </Container>
             </div>
             <div className="btnBar mt-3">
@@ -102,14 +103,15 @@ interface Getting {
     updateSuccess: boolean;
     categoryFilter: string;
     vendorFilter: string;
+    nameFilter: string;
 }
-function ListingProducts({ createSuccess, setDeleteSuccess, deleteSuccess, setUpdateSuccess, updateSuccess, categoryFilter, vendorFilter }: Getting): JSX.Element {
+function ListingProducts({ createSuccess, setDeleteSuccess, deleteSuccess, setUpdateSuccess, updateSuccess, categoryFilter, vendorFilter, nameFilter }: Getting): JSX.Element {
 
     const [products, setProducts] = useState<Product[]>([]);
 
     useEffect(() => {
         async function getList() {
-            if (categoryFilter == "0" && vendorFilter == "0") {
+            if (categoryFilter == "0" && vendorFilter == "0" && nameFilter == "") {
                 setProducts(await getAll());
             }
             else {

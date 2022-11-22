@@ -61,6 +61,54 @@ function getProduct(id: string): any {
   return products; 
  }
 
+ async function getProductsByName(research: string){
+    const products = InventoryService.getByName(research)
+    .then((response: any) => {
+      return response.data;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return [];
+    });
+  return products; 
+ }
+
+ async function getProductsByCategoryName(category: string, research: string){
+    const products = InventoryService.getByCategoryName(category, research)
+    .then((response: any) => {
+      return response.data;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return [];
+    });
+  return products; 
+ }
+
+ async function getProductsByNameVendor(research: string, vendor: string){
+    const products = InventoryService.getByCategoryVendor(research, vendor)
+    .then((response: any) => {
+      return response.data;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return [];
+    });
+  return products; 
+ }
+
+ async function getProductsByCategoryVendorName(category: string, vendor: string, research: string){
+    const products = InventoryService.getByCategoryVendorName(category, vendor, research)
+    .then((response: any) => {
+      return response.data;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return [];
+    });
+  return products; 
+ }
+
 async function createProduct(data:Product): Promise<boolean>{
     const productCreated = InventoryService.create(data)
     .then((product) => {
@@ -162,5 +210,9 @@ export {
     getMesurementById,
     getProductsByCategory,
     getProductsByVendor,
-    getProductsByCategoryVendor
+    getProductsByCategoryVendor,
+    getProductsByName,
+    getProductsByCategoryName,
+    getProductsByNameVendor,
+    getProductsByCategoryVendorName
 };

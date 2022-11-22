@@ -26,6 +26,7 @@
     text-align: left;
     max-width: 85%;
     margin-bottom: unset;
+    white-space: pre-wrap;
 }
 
 .newsBtn {

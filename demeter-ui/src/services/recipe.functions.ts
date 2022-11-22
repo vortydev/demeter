@@ -28,11 +28,9 @@ async function createRecipe(
         qty: ing.quantity,
         mesurementId: parseInt(ing.mesurementId),
       };
-      console.log('ingredient to create : ', ingToCreate, "in recipe :", recipeCreated.id);
 
       const ingCreated = await createIngredient(ingToCreate);
       if (!ingCreated) {
-        console.log('the ingredient wasnt created.');
         return false;
         
       }

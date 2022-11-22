@@ -22,6 +22,7 @@ import { DailyTaskDisplay } from "./TasksDisplay/DailyTaskDisplay";
 import { HebdoTaskDisplay } from "./TasksDisplay/HebdoTaskDisplay";
 import { OtherTaskDisplay } from "./TasksDisplay/OtherTaskDisplay";
 import { createTaskHistory } from "../../services/taskHistory.functions";
+import { TaskHistoryModal } from "./TaskHistory/TaskHistoryModal";
 
 function TaskPage(): JSX.Element {
   const [createdSuccess, setSuccess] = useState<boolean>(false);
@@ -34,6 +35,7 @@ function TaskPage(): JSX.Element {
   const role = getCookie("role");
   const [taskCompleted, setTaskCompleted] = useState<boolean>(false);
   const [createTask, setCreateTask] = useState<boolean>(false);
+  const [seeHistory, setSeeHistory] = useState<boolean>(false);
 
   useEffect(() => {
     async function getList() {
@@ -63,8 +65,9 @@ function TaskPage(): JSX.Element {
 
   async function resetTasksByCat() {
     //Genérer rapport pour historique ici
-
-    const date = new Date();
+    const today = new Date();
+    const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    console.log('the date', date);
     for (const task of allCatTask) {
       await enterInHistory(task, date);
     }
@@ -74,6 +77,7 @@ function TaskPage(): JSX.Element {
 
   function close(): void {
     setCreateTask(false);
+    setSeeHistory(false);
   }
 
   async function enterInHistory(task: Task, date: Date) {
@@ -81,14 +85,13 @@ function TaskPage(): JSX.Element {
       completionDate: date,
       taskName: task.title,
       whoDid: task.responsable,
+      parentId: task.parentId,
     };
 
     // createTaskHistory request here
 
-    if (await createTaskHistory(historyInfo)) {
-      console.log("it created the the thing!");
-    } else {
-      console.log("yeah... no");
+    if (!await createTaskHistory(historyInfo)) {
+      console.error("failed to add to history");
     }
   }
 
@@ -203,17 +206,16 @@ function TaskPage(): JSX.Element {
         }
       </div>
 
-
-
       {(role === "1" || role === "4") && (
         <div className="btnBar">
-          <Button variant="icon-dark" className="centerBtn">
+          <Button onClick={() => setSeeHistory(true)} variant="icon-dark" className="centerBtn">
             <FontAwesomeIcon className="icon" icon={faClock} size="lg" />
             <span>Afficher l'historique</span>
           </Button>
         </div>
       )}
       <CreateTaskForm show={createTask} close={close} success={setSuccess} />
+      <TaskHistoryModal show={seeHistory} close={close} newHistory={taskCompleted} />
     </section>
   );
 }

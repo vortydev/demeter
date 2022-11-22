@@ -89,6 +89,7 @@ type TaskHistory = {
   completionDate : Date;
   taskName : string;
   whoDid : string;
+  parentId: number | null;
 }
 
 export type { Account, News, Task, Product, Category, Recipe, Vendor, Mesurement, Ingredient, TaskHistory }

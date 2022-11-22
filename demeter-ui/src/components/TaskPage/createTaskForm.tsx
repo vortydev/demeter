@@ -77,7 +77,7 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
   }
 
   return (
-    <Modal show={show} onShow={()=>setTypeTask("1")} onHide={() => { close(); }}>
+    <Modal show={show} onShow={() => setTypeTask("1")} onHide={() => { close(); }}>
       <Form className="popupForm">
         <h3 className="popupTitle">Nouvelle Tâche</h3>
         {empty && (

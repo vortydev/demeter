@@ -13,7 +13,7 @@ function InstructionModal({ show, setShow, recipe }: InstructionModalProps) {
       <div className="popupForm">
         <h3 className="popupTitle">Instructions</h3>
         <p>{recipe!.instruction}</p>
-        <div className="popupBtnBox">
+        <div className="popupBtnBox mt-3">
           <Button variant="demeter-dark" onClick={() => setShow(false)}>Retour</Button>
         </div>
       </div>

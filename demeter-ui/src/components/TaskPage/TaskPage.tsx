@@ -64,8 +64,9 @@ function TaskPage(): JSX.Element {
   async function resetTasksByCat() {
     //Genérer rapport pour historique ici
 
+    const date = new Date();
     for (const task of allCatTask) {
-      await enterInHistory(task);
+      await enterInHistory(task, date);
     }
     setTaskCompleted(true);
     resetTask(allCatTask);
@@ -75,9 +76,9 @@ function TaskPage(): JSX.Element {
     setCreateTask(false);
   }
 
-  async function enterInHistory(task: Task) {
+  async function enterInHistory(task: Task, date: Date) {
     const historyInfo: TaskHistory = {
-      completionDate: new Date(),
+      completionDate: date,
       taskName: task.title,
       whoDid: task.responsable,
     };

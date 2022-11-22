@@ -8,6 +8,9 @@ module.exports = (sequelize, Sequelize) => {
       },
       whoDid: {
         type: Sequelize.STRING
+      },
+      parentId: {
+        type: Sequelize.INTEGER
       }
     });
   

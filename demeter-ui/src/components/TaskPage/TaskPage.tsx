@@ -66,7 +66,7 @@ function TaskPage(): JSX.Element {
   async function resetTasksByCat() {
     //Genérer rapport pour historique ici
     const today = new Date();
-    const date = new Date(today.getFullYear(), today.getMonth(),today.getDate() );
+    const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     console.log('the date', date);
     for (const task of allCatTask) {
       await enterInHistory(task, date);
@@ -85,13 +85,14 @@ function TaskPage(): JSX.Element {
       completionDate: date,
       taskName: task.title,
       whoDid: task.responsable,
+      parentId: task.parentId,
     };
 
     // createTaskHistory request here
 
     if (!await createTaskHistory(historyInfo)) {
-console.error("failed to add to history");
-    } 
+      console.error("failed to add to history");
+    }
   }
 
   return (
@@ -205,11 +206,9 @@ console.error("failed to add to history");
         }
       </div>
 
-
-
       {(role === "1" || role === "4") && (
         <div className="btnBar">
-          <Button onClick={()=>setSeeHistory(true)} variant="icon-dark" className="centerBtn">
+          <Button onClick={() => setSeeHistory(true)} variant="icon-dark" className="centerBtn">
             <FontAwesomeIcon className="icon" icon={faClock} size="lg" />
             <span>Afficher l'historique</span>
           </Button>

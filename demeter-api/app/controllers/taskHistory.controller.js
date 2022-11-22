@@ -17,7 +17,7 @@ exports.create = (req, res) => {
         completionDate: req.body.completionDate,
         taskName: req.body.taskName,
         whoDid: req.body.whoDid,
-        
+        parentId: req.body.parentId,
     };
 
   // Save Task in the database

@@ -80,7 +80,6 @@ select {
     text-align: right;
 }
 
-
 /* GRID-LIKE ELEMENTS */
 .cellCenter {
     line-height: 1;
@@ -104,6 +103,10 @@ select {
 .cellShade:hover,
 .cellShadeRow>div:hover {
     background-color: var(--demeter-green-h);
+}
+
+.cellShade span, .cellShade div .cellShade label, .cellShade input {
+    align-self: center;
 }
 
 /* app variables i guess */
@@ -188,6 +191,7 @@ select {
 
 .popupForm p {
     white-space: pre-wrap;
+    margin-bottom: 0;
 }
 
 .popupBtnBox {
@@ -205,6 +209,12 @@ select {
 .popupTitle {
     text-align: center;
     margin-bottom: .5rem;
+}
+
+.popupHint {
+    color: var(--demeter-grey);
+    text-align: center;
+    line-height: 1.25;
 }
 
 .popupSelectBox {

@@ -34,7 +34,14 @@ exports.create = (req, res) => {
 
 // Retrieve all Tasks from the database.
 exports.findAll = (req, res) => {
-    TH.findAll()
+
+    const week = req.query.week;
+    var condition = week
+      ? { complationDate: { [Op.gte]: `%${week}%` } }
+      : null;
+
+
+    TH.findAll({condition})
       .then((data) => {
         res.send(data);
       })

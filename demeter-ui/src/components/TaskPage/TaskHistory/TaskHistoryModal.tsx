@@ -39,6 +39,7 @@ function TaskHistoryModal({ show, newHistory, close }: taskHistoryProps) {
     <Modal show={show} onClose={close}>
       <Modal.Title>HISTORIQUE</Modal.Title>
       <Modal.Body>
+        <p>Cliquer sur une date pour voir la complétion des tâches ce jour-là</p>
       {weekPrior.map((day) => (
         <span onClick={()=>setDay(day)}>{(new Date(day)).toLocaleDateString()}</span>
       ))}

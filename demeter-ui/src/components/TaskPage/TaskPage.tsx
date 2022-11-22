@@ -65,8 +65,9 @@ function TaskPage(): JSX.Element {
 
   async function resetTasksByCat() {
     //Genérer rapport pour historique ici
-
-    const date = new Date();
+    const today = new Date();
+    const date = new Date(today.getFullYear(), today.getMonth(),today.getDate() );
+    console.log('the date', date);
     for (const task of allCatTask) {
       await enterInHistory(task, date);
     }
@@ -88,11 +89,9 @@ function TaskPage(): JSX.Element {
 
     // createTaskHistory request here
 
-    if (await createTaskHistory(historyInfo)) {
-      console.log("it created the the thing!");
-    } else {
-      console.log("yeah... no");
-    }
+    if (!await createTaskHistory(historyInfo)) {
+console.error("failed to add to history");
+    } 
   }
 
   return (

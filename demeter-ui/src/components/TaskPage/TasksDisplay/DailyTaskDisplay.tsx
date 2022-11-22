@@ -16,13 +16,10 @@ function DailyTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
   const [listTaskClose, setLTC] = useState<Task[]>([]);
 
   useEffect(() => {
-    console.log('lt in daily', listTask);
     const noChildList = listTask.filter((t) => t.parentId == 0);
     setLTO(noChildList.filter(t => t.whenToDo === "open"));
     setLTPC(noChildList.filter(t => t.whenToDo === "preClose"));
     setLTC(noChildList.filter(t => t.whenToDo === "close"));
-
-    console.log('ncl', noChildList);
 
   }, [listTask]);
 

@@ -15,6 +15,7 @@ function NewsPage(): JSX.Element {
   const [deleteSuccess, setDeleteSuccess] = useState<boolean>(false);
   const [editedSuccess, setEditedSucess] = useState<boolean>(false);
   const [newsList, setNewsList] = useState<News[]>([]);
+  const [pwModal, setpwModal]= useState<boolean>(false);
 
   const connected = getCookie("account") ? getCookie("account") : "Visiteur";
   const role = getCookie("role");
@@ -40,10 +41,22 @@ function NewsPage(): JSX.Element {
 
   function close(): void {
     setCreateNews(false);
+    setpwModal(false);
   }
 
   async function showAllNews() {
     setNewsList(await getAllNews());
+
+  }
+
+
+  function checkPermission(){
+
+    if(role === "2"){
+      setpwModal(true);
+    }else {
+      setCreateNews(true);
+    }
 
   }
 
@@ -68,7 +81,7 @@ function NewsPage(): JSX.Element {
           </Button>
 
           <Button variant="icon-outline" onClick={() => {
-            setCreateNews(true);
+            checkPermission();
             setSuccess(false);
           }}
           >

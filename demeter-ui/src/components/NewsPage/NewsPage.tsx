@@ -80,7 +80,7 @@ function NewsPage(): JSX.Element {
 
       {newsList.length === 0 && <p>Aucune annonce présentement.</p>}
       {newsList.map((news) => (
-        <NewsPreview news={news} editedSuccess={setEditedSucess} deleteSuccess={setDeleteSuccess} />
+        <NewsPreview news={news} editSuccess={editedSuccess} editedSuccess={setEditedSucess} deleteSuccess={setDeleteSuccess} />
       ))}
 
       <CreateNewsForm show={createNews} close={close} success={success} />

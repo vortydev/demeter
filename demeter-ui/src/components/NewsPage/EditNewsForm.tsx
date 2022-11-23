@@ -63,12 +63,16 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
     if (taskInEdit) {
       if (await deleteTask(taskInEdit.id)) {
         console.log("Tâche supprimée");
+        success();
+        setTaskInEdit(undefined);
       } else {
         console.log("uh...");
       }
     } else {
       if (await deleteTask(task!.id)) {
         console.log("Sous-tâche supprimée");
+        success();
+        setTaskInEdit(undefined);
       } else {
         console.log("uh...");
       }
@@ -103,6 +107,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
     const taskCreated = await createTask(newsTask);
     if (taskCreated) {
       setTaskInEdit(taskCreated);
+      success();
       setAddTask(false);
     } else {
       console.log("that task wasnt created");

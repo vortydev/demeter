@@ -44,7 +44,10 @@ exports.findAll = (req, res) => {
     ? { categoryrecipeId: { [Op.like]: `%${category}%` } }
     : null;
 
-  Recipe.findAll({ where: condition })
+  const research = req.query.research;
+  var title = research ? { title: { [Op.like]: `%${research}%` } } : null;
+
+  Recipe.findAll({ where: {[Op.and]: [condition, title]} })
     .then((data) => {
       res.send(data);
     })

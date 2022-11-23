@@ -10,6 +10,14 @@ class RecipeService {
     return http.get<Recipe>(`/recipes?categoryrecipeId=${categoryId}`);
   }
 
+  getByCategoryName(categoryId: number, research: string) {
+    return http.get<Recipe>(`/recipes?categoryrecipeId=${categoryId}&research=${research}`);
+  }
+
+  getByName(research: string) {
+    return http.get<Recipe>(`/recipes?research=${research}`);
+  }
+
   get(id: string) {
     return http.get<Recipe>(`/recipes/${id}`);
   }

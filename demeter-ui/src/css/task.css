@@ -114,9 +114,8 @@
 }
 
 .hisDayList .hisDayBtn {
-    width: 32%;
-    min-width: 10rem;
-    max-width: 48%;
+    width: 10rem;
+    margin-inline: .5rem;
 }
 
 .hisTaskList {

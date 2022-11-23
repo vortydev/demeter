@@ -65,6 +65,30 @@ async function getRecipesByCategory(category: number | null) {
   }
 }
 
+async function getRecipesByCategoryName(category: number | null, research: string){
+  if (category !== null) {
+    const recipes = RecipeService.getByCategoryName(category, research)
+      .then((response: any) => {
+        return response.data;
+      })
+      .catch((e: Error) => {
+        console.log(e);
+        return [];
+      });
+    return recipes;
+  } else {
+    const recipes = RecipeService.getByName(research)
+      .then((response) => {
+        return response.data;
+      })
+      .catch((e: Error) => {
+        console.log(e);
+        return [];
+      });
+    return recipes;
+  }
+}
+
 async function deleteRecipe(id: number) {
   console.log("in delete recipe");
 
@@ -97,4 +121,4 @@ async function updateRecipe(id: number, recipe: Recipe){
     return updated;
 }
 
-export { createRecipe, getRecipesByCategory, deleteRecipe, updateRecipe };
+export { createRecipe, getRecipesByCategory, deleteRecipe, updateRecipe, getRecipesByCategoryName };

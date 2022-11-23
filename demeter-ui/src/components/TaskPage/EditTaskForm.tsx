@@ -35,6 +35,8 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
     const description = document.getElementById("description") as HTMLInputElement;
     const typeTask = document.getElementById("typeTask") as HTMLInputElement;
     const receiver = document.getElementById("receiver") as HTMLInputElement;
+    const when = document.getElementById("when") as HTMLInputElement;
+    const taskMaster = document.getElementById("taskMaster") as HTMLInputElement;
 
     setEmpty(false);
 
@@ -52,6 +54,8 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         categorytaskId: parseFloat(typeTask.value),
         priority: priority,
         receiver: task.parentId === 0 ? receiver.value : "",
+        whenToDo: when.value,
+        taskMaster:taskMaster.value,
       };
 
       for (const ct of childTask) {

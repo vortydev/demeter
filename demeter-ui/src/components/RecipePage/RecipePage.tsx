@@ -4,6 +4,7 @@ import { Recipe } from "../../types/Types";
 import "../../css/recipe.css";
 import { RecipeList } from "./RecipeList";
 import { getCookie } from "typescript-cookie";
+import { RecipeFilter } from "./RecipeFilter";
 
 interface RecipePageProps {
   selectedPage: string;
@@ -26,6 +27,8 @@ function RecipePage({
 }: RecipePageProps): JSX.Element {
   const role = getCookie("role");
   const [filter, setFilter] = useState<number | null>(null);
+  const [nameFilter, setNameFilter] = useState<string>("");
+
   useEffect(() => {
     switch (role) {
       case "5":
@@ -66,6 +69,8 @@ function RecipePage({
         <Alert variant="success">La recette à été suprimée avec succès!</Alert>
       )}
 
+      <RecipeFilter setName={setNameFilter}/>
+
       <div className="recipeContent flex mt-4">
         <div className="recipeListBox">
           <Button
@@ -85,6 +90,7 @@ function RecipePage({
             deletedSuccess={deletedSuccess}
             setSelectedPage={setSelectedPage}
             setRecipePage={setRecipePage}
+            nameFilter={nameFilter}
           />
         </div>
 

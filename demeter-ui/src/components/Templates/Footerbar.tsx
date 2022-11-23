@@ -5,6 +5,7 @@ import logoDemeterW from "../../img/DemeterLogoWhite.png";
 
 function handleLogout(): void {
   removeCookie("account");
+  removeCookie("role");
   window.location.reload();
 }
 

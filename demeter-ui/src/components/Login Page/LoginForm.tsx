@@ -23,8 +23,8 @@ function LoginForm(): JSX.Element {
     } else {
       const verification = await verifyLogin(accName.value, pw.value)
       if (verification !== null) {
-        setCookie("account", accName.value);
-        setCookie("role", verification);
+        setCookie("account", accName.value,  { expires: 1 });
+        setCookie("role", verification,  { expires: 1 } );
         window.location.reload();
       } else {
         setValid(false);

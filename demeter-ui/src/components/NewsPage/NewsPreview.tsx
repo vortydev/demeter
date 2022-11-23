@@ -13,11 +13,12 @@ import { confirmAlert } from "react-confirm-alert";
 
 interface NewsPreviewProps {
   news: News;
+  editSuccess: boolean;
   editedSuccess: (editedSuccess: boolean) => void;
   deleteSuccess: (deleted: boolean) => void;
 }
 
-function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
+function NewsPreview({ news, editSuccess, editedSuccess, deleteSuccess }: NewsPreviewProps) {
   let shortDescription = news.description;
   const [fullText, setFullText] = useState<boolean>(false);
   const [EditNews, setEditNews] = useState<boolean>(false);
@@ -39,7 +40,7 @@ function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
     else {
       setLongDesc(false);
     }
-  }, [task, fullText, editedSuccess, completedTask]);
+  }, [fullText, editSuccess, completedTask]);
 
   if (news.description.length > 200) {
     shortDescription = news.description.substring(0, 200);

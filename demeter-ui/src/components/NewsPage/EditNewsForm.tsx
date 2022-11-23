@@ -63,12 +63,16 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
     if (taskInEdit) {
       if (await deleteTask(taskInEdit.id)) {
         console.log("Tâche supprimée");
+        success();
+        setTaskInEdit(undefined);
       } else {
         console.log("uh...");
       }
     } else {
       if (await deleteTask(task!.id)) {
         console.log("Sous-tâche supprimée");
+        success();
+        setTaskInEdit(undefined);
       } else {
         console.log("uh...");
       }
@@ -83,30 +87,39 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
       "taskdescription"
     ) as HTMLInputElement;
 
-    const newsTask = {
-      id: 1,
-      title: taskTitle.value,
-      description: taskDesc.value,
-      categorytaskId: 4, // Ne s'Affichent pas dans la liste de tâches
-      parentId: 0,
-      active: true,
-      completed: false,
-      picture: null,
-      date: new Date(),
-      responsable: "",
-      receiver: "",
-      priority: false,
-      taskMaster: "",
-      whenToDo: "",
-    };
-
-    const taskCreated = await createTask(newsTask);
-    if (taskCreated) {
-      setTaskInEdit(taskCreated);
-      setAddTask(false);
-    } else {
-      console.log("that task wasnt created");
-      setTaskInEdit(undefined);
+    if (!taskTitle.value){
+      setEmptyTask(true);
+      setTimeout(() => {
+        setEmptyTask(false);
+      }, 5000);
+    }
+    else {
+      const newsTask = {
+        id: 1,
+        title: taskTitle.value,
+        description: taskDesc.value,
+        categorytaskId: 4, // Ne s'Affichent pas dans la liste de tâches
+        parentId: 0,
+        active: true,
+        completed: false,
+        picture: null,
+        date: new Date(),
+        responsable: "",
+        receiver: "",
+        priority: false,
+        taskMaster: "",
+        whenToDo: "",
+      };
+  
+      const taskCreated = await createTask(newsTask);
+      if (taskCreated) {
+        setTaskInEdit(taskCreated);
+        success();
+        setAddTask(false);
+      } else {
+        console.log("that task wasnt created");
+        setTaskInEdit(undefined);
+      }
     }
   }
 

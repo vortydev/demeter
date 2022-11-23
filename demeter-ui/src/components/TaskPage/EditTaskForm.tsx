@@ -149,8 +149,8 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
           <Form.Control defaultValue={task.description} as="textarea" rows={3} />
         </Form.Group>
 
-        <div className="popupRowSplit mb-2">
-          <Form.Group className={`popupSelectBox ${task.parentId !== 0 ? "hide" : ""}`}>
+        <div className={`popupRowSplit mb-2 ${task.parentId !== 0 ? "hide" : ""}`}>
+          <Form.Group className="popupSelectBox">
             <Form.Label className="popupSelectLabel">Destinataire</Form.Label>
             <Form.Select defaultValue={task.receiver} id="receiver" aria-label="Type">
               {listAccount.map((employee) => (
@@ -166,14 +166,48 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
           </Form.Group>
         </div>
 
-        <Form.Group className={`popupSelectBox mb-2 ${task.parentId !== 0 ? "hide" : ""}`}>
-          <Form.Label className="popupLabel">Type</Form.Label>
-          <Form.Select defaultValue={task.categorytaskId} id="typeTask" aria-label="Type">
-            <option value="1">Quotidienne</option>
-            <option value="2">Hebdomadaire</option>
-            <option value="3">Autre</option>
-          </Form.Select>
-        </Form.Group>
+        <div className="popupRowSplit mb-2">
+          <Form.Group className={`popupSelectBox mb-2 ${task.parentId !== 0 ? "hide" : ""}`}>
+            <Form.Label className="popupLabel">Type</Form.Label>
+            <Form.Select defaultValue={task.categorytaskId} id="typeTask" aria-label="Type">
+              <option value="1">Quotidienne</option>
+              <option value="2">Hebdomadaire</option>
+              <option value="3">Autre</option>
+            </Form.Select>
+          </Form.Group>
+
+          {task.parentId === 0 && (
+            <Form.Group className="popupSelectBox">
+              <Form.Label className="popupSelectLabel">Quand</Form.Label>
+              <Form.Select defaultValue={task.whenToDo} id="when" aria-label="Type">
+                <option value="open">Ouverture</option>
+                <option value="preClose">Pré-fermeture</option>
+                <option value="close">Fermeture</option>
+              </Form.Select>
+            </Form.Group>
+          )}
+          {task.parentId === 0 && (
+            <Form.Group className="popupSelectBox">
+              <Form.Label className="popupSelectLabel">Jour</Form.Label>
+              <Form.Select defaultValue={task.whenToDo} id="when" aria-label="Type">
+                <option value="mon">Lundi</option>
+                <option value="tue">Mardi</option>
+                <option value="wed">Mercredi</option>
+                <option value="thu">Jeudi</option>
+                <option value="fri">Vendredi</option>
+                <option value="sat">Samedi</option>
+                <option value="sun">Dimanche</option>
+              </Form.Select>
+            </Form.Group>
+          )}
+        </div>
+
+        {task.parentId === 0 && (
+          <Form.Group className="mb-2" controlId="taskMaster">
+            <Form.Label className="popupLabelFull">Responsable</Form.Label>
+            <Form.Control defaultValue={task.taskMaster} type="text" />
+          </Form.Group>
+        )}
 
         <div className="subTaskList flex">
           {childTask.map((ct) => (

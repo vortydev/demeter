@@ -37,7 +37,7 @@
     width: 100%;
 }
 
-.taskChildRow.cellShade:hover>.iconBullet, .taskChildRow.cellShade.priority>.iconBullet {
+.cellShade:hover>.iconBullet, .cellShade.priority>.iconBullet {
     color: var(--demeter-grey);
 }
 
@@ -104,4 +104,39 @@
     margin: 0;
     text-align: left;
     color: var(--demeter-green);
+}
+
+.hisDayList {
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    display: inline-flex;
+}
+
+.hisDayList .hisDayBtn {
+    width: 32%;
+    min-width: 10rem;
+    max-width: 48%;
+}
+
+.hisTaskList {
+    width: 100%;
+}
+
+.hisTaskRow {
+    width: 100%;
+}
+
+.hisTaskRow .hisTask {
+    width: 75%;
+}
+
+.hisTaskRow span:last-child {
+    width: 4.25rem;
+    text-align: right;
+    margin-left: auto;
+}
+
+.hisTaskList>div:first-child hr.taskLine {
+    display: none;
 }

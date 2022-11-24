@@ -54,7 +54,6 @@ function TaskPage(): JSX.Element {
       }
     }
     getList();
-    setTaskCompleted(false);
   }, [
     taskCategory,
     createdSuccess,
@@ -71,8 +70,11 @@ function TaskPage(): JSX.Element {
     for (const task of allCatTask) {
       await enterInHistory(task, date);
     }
-    setTaskCompleted(true);
     resetTask(allCatTask);
+    setTaskCompleted(true);
+    setTimeout(() => {
+      setTaskCompleted(false);
+    }, 50);
   }
 
   function close(): void {
@@ -96,8 +98,7 @@ function TaskPage(): JSX.Element {
   }
 
   return (
-    <section className="taskPage">
-      <h1 className="pageTitle">Tâches</h1>
+    <section className="appPage">
       <TaskNav
         taskCategory={taskCategory}
         setTaskCategory={setTaskCategory}
@@ -107,19 +108,12 @@ function TaskPage(): JSX.Element {
       {createdSuccess && <Alert>La tâche à été créée avec succès!</Alert>}
       {deletedSuccess && <Alert>La tâche à été supprimée avec succès!</Alert>}
 
-      <div className="btnBar taskBtnBar">
-        {(role === "1" || role === "4") && (
-          <Button
-            variant="icon-outline"
-            onClick={() => {
-              setCreateTask(true);
-              setSuccess(false);
-            }}
-          >
-            <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
-            <span>Nouvelle Tâche</span>
-          </Button>
-        )}
+      <div className="btnBar">
+        {/* EMPTY BTN */}
+        {(role === "1" || role === "4") && (<Button variant="hidden">
+          <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
+          <span>Nouvelle Tâche</span>
+        </Button>)}
 
         {taskCategory === 1 && (
           <Button
@@ -172,11 +166,18 @@ function TaskPage(): JSX.Element {
           </Button>
         )}
 
-        {(role === "1" || role === "4") && (<Button variant="hidden">
-          <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
-          <span>Nouvelle Tâche</span>
-        </Button>)
-        }
+        {(role === "1" || role === "4") && (
+          <Button
+            variant="icon-outline"
+            onClick={() => {
+              setCreateTask(true);
+              setSuccess(false);
+            }}
+          >
+            <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
+            <span>Nouvelle Tâche</span>
+          </Button>
+        )}
       </div>
 
       <div className="taskDisplayList mt-3">

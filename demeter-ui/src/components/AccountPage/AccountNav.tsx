@@ -9,7 +9,7 @@ interface AccountNavProps {
 const AccountNav = ({ subPage, setSubPage }: AccountNavProps) => {
   // use subPage to change the class of the a and make it green and pretty :3
   return (
-    <section className="accountNav navbar">
+    <section className="navbar">
       <Nav defaultActiveKey="role1" variant="tabs">
         <Nav.Item>
           <Nav.Link onClick={() => setSubPage(1)} eventKey="role1">

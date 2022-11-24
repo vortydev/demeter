@@ -47,10 +47,10 @@ function InventoryPage(): JSX.Element {
     }, 5000);
 
     const role = getCookie("role");
+
     return (
-        <section className="invPage">
-            <h1 className="pageTitle">Inventaire</h1>
-            {(role === "1" || role === "4") && <div className="btnBar mt-3 mb-4">
+        <section className="appPage">
+            {(role === "1" || role === "4") && <div className="btnBar mt-5 mb-4">
                 <Button variant="icon-outline" className="leftBtn" onClick={() => setVendor(true)}>
                     <FontAwesomeIcon className="iconList" icon={faList} size="lg" />
                     <span>Fournisseurs</span>
@@ -62,9 +62,10 @@ function InventoryPage(): JSX.Element {
                     <FontAwesomeIcon className="iconPlus" icon={faPlus} size="lg" />
                     <span>Nouveau Produit</span>
                 </Button>
-            </div>
-            }
-            <FilterInventory setCategory={setCategoryFilter} setVendor={setVendorFilter} setName={setNameFilter}/>
+            </div>}
+
+            <FilterInventory setCategory={setCategoryFilter} setVendor={setVendorFilter} setName={setNameFilter} />
+            
             <div className="invTable mb-2">
                 {createdSuccess && <Alert variant="success">Le produit a été créé avec succès!</Alert>}
                 {deletedSuccess && <Alert variant="success">Le produit a été supprimé avec succès!</Alert>}
@@ -75,7 +76,7 @@ function InventoryPage(): JSX.Element {
                         <div className="invCol"><h2>Format</h2></div>
                         <div className="invColThin"><h2>Quantité</h2></div>
                     </Row>
-                    <ListingProducts createSuccess={createdSuccess} setDeleteSuccess={setDeleted} deleteSuccess={deletedSuccess} setUpdateSuccess={setUpdated} updateSuccess={updatedSuccess} categoryFilter={categoryFilter} vendorFilter={vendorFilter} nameFilter={nameFilter}/>
+                    <ListingProducts createSuccess={createdSuccess} setDeleteSuccess={setDeleted} deleteSuccess={deletedSuccess} setUpdateSuccess={setUpdated} updateSuccess={updatedSuccess} categoryFilter={categoryFilter} vendorFilter={vendorFilter} nameFilter={nameFilter} />
                 </Container>
             </div>
             <div className="btnBar mt-3">
@@ -111,28 +112,28 @@ function ListingProducts({ createSuccess, setDeleteSuccess, deleteSuccess, setUp
 
     useEffect(() => {
         async function getList() {
-            if (categoryFilter == "0" && vendorFilter == "0" && nameFilter == "") {
+            if (categoryFilter === "0" && vendorFilter === "0" && nameFilter === "") {
                 setProducts(await getAll());
             }
-            else if (categoryFilter != "0" && vendorFilter != "0" && nameFilter != ""){
+            else if (categoryFilter !== "0" && vendorFilter !== "0" && nameFilter !== "") {
                 setProducts(await getProductsByCategoryVendorName(categoryFilter, vendorFilter, nameFilter));
             }
-            else if (categoryFilter != "0" && vendorFilter != "0"){
+            else if (categoryFilter !== "0" && vendorFilter !== "0") {
                 setProducts(await getProductsByCategoryVendor(categoryFilter, vendorFilter));
             }
-            else if (categoryFilter != "0" && nameFilter != ""){
+            else if (categoryFilter !== "0" && nameFilter !== "") {
                 setProducts(await getProductsByCategoryName(categoryFilter, nameFilter));
             }
-            else if (nameFilter != "" && vendorFilter != "0"){
+            else if (nameFilter !== "" && vendorFilter !== "0") {
                 setProducts(await getProductsByNameVendor(nameFilter, vendorFilter));
             }
-            else if (categoryFilter != "0") {
+            else if (categoryFilter !== "0") {
                 setProducts(await getProductsByCategory(categoryFilter));
             }
-            else if (vendorFilter != "0") {
+            else if (vendorFilter !== "0") {
                 setProducts(await getProductsByVendor(vendorFilter));
             }
-            else if (nameFilter != "") {
+            else if (nameFilter !== "") {
                 setProducts(await getProductsByName(nameFilter));
             }
         }

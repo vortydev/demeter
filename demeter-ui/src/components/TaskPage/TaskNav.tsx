@@ -15,7 +15,7 @@ interface TaskNavProps {
 function TaskNav({ taskCategory, setTaskCategory, success, setSuccess }: TaskNavProps) {
 
   return (
-    <section className="accountNav navbar mb-3">
+    <section className="navbar">
       <Nav defaultActiveKey="tache1" variant="tabs">
         <Nav.Item>
           <Nav.Link onClick={() => setTaskCategory(1)} eventKey="tache1">

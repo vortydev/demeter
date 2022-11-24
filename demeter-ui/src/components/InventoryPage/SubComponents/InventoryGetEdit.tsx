@@ -94,4 +94,4 @@ function GetMesurementsEdit({ show, id }: GettingShowEdit): JSX.Element {
     );
 }
 
-export {GetCategoryEdit, GetVendorsEdit, GetMesurementsEdit};
+export { GetCategoryEdit, GetVendorsEdit, GetMesurementsEdit };

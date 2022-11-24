@@ -43,7 +43,7 @@ function FilterInventory({ setCategory, setVendor, setName }: Filter): JSX.Eleme
     return (
         <React.Fragment>
             <div className={`filterBar mb-4 ${(role === "1" || role === "4") ? "mt-2" : "mt-4"}`}>
-                <Form.Group className="filterSearch flex" controlId="nameFilter">
+                <Form.Group className="filterSearch flex mr-1" controlId="nameFilter">
                     <FontAwesomeIcon className="icon mr-1" icon={faMagnifyingGlass} size="lg" />
                     <Form.Control onChange={update} type="text" />
                 </Form.Group>

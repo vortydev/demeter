@@ -53,12 +53,6 @@
     margin: .25rem 0 !important;
 }
 
-.taskBtnBar {
-    width: 60%;
-    margin: auto;
-    flex-direction: row-reverse;
-}
-
 .subTaskList {
     flex-direction: column;
     width: 100%;
@@ -95,7 +89,7 @@
 }
 
 .taskDisplayList {
-    width: 60%;
+    width: 80%;
     margin: auto;
 }
 

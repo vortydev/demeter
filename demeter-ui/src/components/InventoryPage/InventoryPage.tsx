@@ -49,7 +49,7 @@ function InventoryPage(): JSX.Element {
     const role = getCookie("role");
 
     return (
-        <section className="invPage">
+        <section className="appPage">
             {(role === "1" || role === "4") && <div className="btnBar mt-5 mb-4">
                 <Button variant="icon-outline" className="leftBtn" onClick={() => setVendor(true)}>
                     <FontAwesomeIcon className="iconList" icon={faList} size="lg" />

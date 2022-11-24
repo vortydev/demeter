@@ -59,7 +59,7 @@ function RecipePage({
   }, 5000);
 
   return (
-    <div className="recipePage">
+    <div className="appPage">
       {createdSuccess && (
         <Alert variant="success">La recette à été créée avec succès!</Alert>
       )}

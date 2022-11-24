@@ -60,11 +60,12 @@ function CreateRecipePage({ setSelectedPage, setCreated }: CRPProps) {
   }
 
   return (
-    <section className="createRecipePage">
-      <h1 className="pageTitle">Nouvelle Recette</h1>
+    <section className="appPage">
+      <h2 className="pageTitle mt-4">Nouvelle Recette</h2>
       {empty && <Alert variant="danger">Veuillez remplir tous les champs de la recette.</Alert>}
       {emptyIng && <Alert variant="danger">Veuillez ajouter des ingrédients.</Alert>}
       {invalid && (<Alert variant="danger">Informations invalides, la recette n'a pas été créée.</Alert>)}
+      
       <div className="pageSplit">
         <CreateRecipeForm setRecipeInfo={setRecipeInfo} />
         <IngredientListForm setRecipeCost={setRecipeCost} listIng={listIng} />

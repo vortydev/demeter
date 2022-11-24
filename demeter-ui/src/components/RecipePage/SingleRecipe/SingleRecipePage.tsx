@@ -39,11 +39,10 @@ function SingleRecipePage({
   }, [listChanged]);
 
   return (
-    <section className="singleRecipePage">
-      <h1 className="pageTitle">Vue d'une Recette</h1>
+    <section className="appPage">
       {editSuccess && (<Alert variant="success">La recette à été modifiée avec succès !</Alert>)}
 
-      <div className="singleRecipeTitle flex mt-2">
+      <div className="singleRecipeTitle flex mt-4">
         <h2>{recipe!.title}</h2>
         <FontAwesomeIcon className="iconEdit cursor ml-2" icon={faEdit} size="lg" onClick={() => {
           setEditRecipe(true);

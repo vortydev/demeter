@@ -39,7 +39,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
         completedSuccess(true);
         setTimeout(() => {
           completedSuccess(false)
-        }, 5000);
+        }, 50);
       }
     }
   }
@@ -55,7 +55,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
       completedSuccess(true);
       setTimeout(() => {
         completedSuccess(false)
-      }, 5000);
+      }, 50);
     }
   }
 
@@ -74,7 +74,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
         completedSuccess(true);
         setTimeout(() => {
           completedSuccess(false)
-        }, 5000);
+        }, 50);
       }
     }
   }

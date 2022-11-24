@@ -70,11 +70,11 @@ function TaskPage(): JSX.Element {
     for (const task of allCatTask) {
       await enterInHistory(task, date);
     }
+    resetTask(allCatTask);
     setTaskCompleted(true);
     setTimeout(() => {
       setTaskCompleted(false);
-    }, 5000);
-    resetTask(allCatTask);
+    }, 50);
   }
 
   function close(): void {

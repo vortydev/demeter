@@ -57,7 +57,7 @@ function NewsPreview({ news, editSuccess, editedSuccess, deleteSuccess }: NewsPr
     editedSuccess(true);
     setTimeout(() => {
       editedSuccess(false);
-    }, 5000);
+    }, 2500);
   }
 
   function close() {
@@ -78,7 +78,7 @@ function NewsPreview({ news, editSuccess, editedSuccess, deleteSuccess }: NewsPr
         setCompletedTask(true);
         setTimeout(() => {
           setCompletedTask(false);
-        }, 5000);
+        }, 50);
       }
     }
 
@@ -95,7 +95,7 @@ function NewsPreview({ news, editSuccess, editedSuccess, deleteSuccess }: NewsPr
       setCompletedTask(true);
       setTimeout(() => {
         setCompletedTask(false);
-      }, 5000);
+      }, 50);
     }
   }
 

@@ -21,6 +21,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
   const [priority, setPriority] = useState<boolean>(task.priority);
   const [listAccount, setListAccount] = useState<Account[]>([]);
   const [empty, setEmpty] = useState<boolean>(false);
+  const [tt, setTypeTask] = useState<string>("1");
 
   useEffect(() => {
     async function getList() {
@@ -54,8 +55,8 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         categorytaskId: parseFloat(typeTask.value),
         priority: priority,
         receiver: task.parentId === 0 ? receiver.value : "",
-        whenToDo: when.value,
-        taskMaster:taskMaster.value,
+        whenToDo: (task.parentId === 0 && tt !== "3") ? when.value : "",
+        taskMaster: (task.parentId === 0 && tt === "2") ? taskMaster.value : "",
       };
 
       for (const ct of childTask) {
@@ -98,7 +99,6 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         } else if (event.target.name === "title") {
           ct.title = event.target.value;
         }
-
       }
       return ct;
     });
@@ -113,7 +113,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         id: Number(new Date()),
         title: "",
         description: "",
-        categorytaskId: task.categorytaskId,
+        categorytaskId: parseFloat(tt),
         parentId: task.id,
         completed: false,
         active: false,
@@ -137,8 +137,13 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
     setChildTask(values);
   };
 
+  function typeTask() {
+    const typeTask = document.getElementById("typeTask") as HTMLInputElement;
+    setTypeTask(typeTask.value);
+  }
+
   return (
-    <Modal onHide={close} show={show}>
+    <Modal onHide={close} show={show} onShow={() => setTypeTask(task.categorytaskId.toString())}>
       <Form className="popupForm">
         <h3 className="popupTitle">Édition d'une Tâche</h3>
         {empty && <Alert variant="danger">Veuillez donner un titre à la tâche.</Alert>}
@@ -153,8 +158,8 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
           <Form.Control defaultValue={task.description} as="textarea" rows={3} />
         </Form.Group>
 
-        <div className={`popupRowSplit mb-2 ${task.parentId !== 0 ? "hide" : ""}`}>
-          <Form.Group className="popupSelectBox">
+        <div className="popupRowSplit mb-2">
+          <Form.Group className={`popupSelectBox ${task.parentId !== 0 ? "hide" : ""}`}>
             <Form.Label className="popupSelectLabel">Destinataire</Form.Label>
             <Form.Select defaultValue={task.receiver} id="receiver" aria-label="Type">
               {listAccount.map((employee) => (
@@ -170,30 +175,30 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
           </Form.Group>
         </div>
 
-        <div className="popupRowSplit mb-2">
-          <Form.Group className={`popupSelectBox mb-2 ${task.parentId !== 0 ? "hide" : ""}`}>
+        <div className={`popupRowSplit mb-2 ${task.parentId !== 0 ? "hide" : ""}`}>
+          <Form.Group className="popupSelectBox">
             <Form.Label className="popupLabel">Type</Form.Label>
-            <Form.Select defaultValue={task.categorytaskId} id="typeTask" aria-label="Type">
+            <Form.Select defaultValue={task.categorytaskId} onChange={typeTask} id="typeTask" aria-label="Type">
               <option value="1">Quotidienne</option>
               <option value="2">Hebdomadaire</option>
               <option value="3">Autre</option>
             </Form.Select>
           </Form.Group>
 
-          {task.parentId === 0 && (
+          {(task.parentId === 0 && tt === "1") && (
             <Form.Group className="popupSelectBox">
               <Form.Label className="popupSelectLabel">Quand</Form.Label>
-              <Form.Select defaultValue={task.whenToDo} id="when" aria-label="Type">
+              <Form.Select defaultValue={task.whenToDo} onChange={typeTask} id="when" aria-label="Type">
                 <option value="open">Ouverture</option>
                 <option value="preClose">Pré-fermeture</option>
                 <option value="close">Fermeture</option>
               </Form.Select>
             </Form.Group>
           )}
-          {task.parentId === 0 && (
+          {(task.parentId === 0 && tt === "2") && (
             <Form.Group className="popupSelectBox">
               <Form.Label className="popupSelectLabel">Jour</Form.Label>
-              <Form.Select defaultValue={task.whenToDo} id="when" aria-label="Type">
+              <Form.Select defaultValue={task.whenToDo} onChange={typeTask} id="when" aria-label="Type">
                 <option value="mon">Lundi</option>
                 <option value="tue">Mardi</option>
                 <option value="wed">Mercredi</option>
@@ -206,7 +211,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
           )}
         </div>
 
-        {task.parentId === 0 && (
+        {(task.parentId === 0 && tt === "2") && (
           <Form.Group className="mb-2" controlId="taskMaster">
             <Form.Label className="popupLabelFull">Responsable</Form.Label>
             <Form.Control defaultValue={task.taskMaster} type="text" />

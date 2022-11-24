@@ -41,8 +41,8 @@ function CreateRecipePage({ setSelectedPage, setCreated }: CRPProps) {
       setTimeout(() => {
         setEmptyIng(false);
       }, 5000);
-    } 
-    else if (recipeInfo.title == "" || !recipeInfo.categoryrecipeId || !recipeInfo.instruction || recipeInfo.otherCost < 0 || recipeInfo.nbUnitCreated <= 0) {
+    }
+    else if (recipeInfo.title === "" || !recipeInfo.categoryrecipeId || !recipeInfo.instruction || recipeInfo.otherCost < 0 || recipeInfo.nbUnitCreated <= 0) {
       setEmpty(true);
       setTimeout(() => {
         setEmpty(false);
@@ -56,7 +56,7 @@ function CreateRecipePage({ setSelectedPage, setCreated }: CRPProps) {
         setInvalid(true);
       }
     }
-    
+
   }
 
   return (

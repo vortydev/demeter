@@ -267,6 +267,7 @@ select {
 /* buttons with Demeter theme */
 .btn {
     transition: all 0.15s;
+    justify-content: center;
 }
 
 .btn-demeter {

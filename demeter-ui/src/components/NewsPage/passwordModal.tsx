@@ -8,7 +8,7 @@ interface pwModalProps {
   setCreateNews: (auth: boolean) => void;
 }
 
-function passwordModal({ show, setCreateNews, close }: pwModalProps) {
+function PasswordModal({ show, setCreateNews, close }: pwModalProps) {
   async function validatePw() {
     const pw = (document.getElementById("password") as HTMLInputElement).value;
     const createNewsPw = await getPasswordFor("createNews");
@@ -35,4 +35,4 @@ function passwordModal({ show, setCreateNews, close }: pwModalProps) {
   );
 }
 
-export {passwordModal};
+export { PasswordModal };

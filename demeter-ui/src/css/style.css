@@ -475,3 +475,21 @@ div.react-confirm-alert-overlay {
 .btnBar>button.rightBtn {
     margin-left: auto;
 }
+
+.filterBar {
+    display: inline-flex;
+    width: 100%;
+    justify-content: center;
+}
+
+.filterBar input {
+    width: 15rem;
+}
+
+.filterBar select {
+    align-self: center;
+}
+
+.filterSearch {
+    
+}

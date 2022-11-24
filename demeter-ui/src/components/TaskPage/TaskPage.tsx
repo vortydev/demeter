@@ -54,7 +54,6 @@ function TaskPage(): JSX.Element {
       }
     }
     getList();
-    setTaskCompleted(false);
   }, [
     taskCategory,
     createdSuccess,
@@ -71,8 +70,11 @@ function TaskPage(): JSX.Element {
     for (const task of allCatTask) {
       await enterInHistory(task, date);
     }
-    setTaskCompleted(true);
     resetTask(allCatTask);
+    setTaskCompleted(true);
+    setTimeout(() => {
+      setTaskCompleted(false);
+    }, 50);
   }
 
   function close(): void {

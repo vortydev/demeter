@@ -26,7 +26,7 @@ db.sequelize.sync({})                 // {force: true} drops the db
           { id: "1", role: "Administrateur" },
           { id: "2", role: "Employé" },
           { id: "3", role: "Livreur" },
-          { id: "4", role: "Developpeur" },
+          { id: "4", role: "Développeur" },
           { id: "5", role: "Cuisine" },
           { id: "6", role: "Boulangerie" },
           { id: "7", role: "Viennoiserie" },
@@ -109,7 +109,7 @@ db.sequelize.sync({})                 // {force: true} drops the db
             accName: "dev",
             accPassword:
               "$2a$10$McypW7KhpbdC1A9lDH8g5equNOzUYuSi243dPZxtfLXwKZ9La2V.W",
-              // TODO needs to be put in .env files
+            // TODO needs to be put in .env files
             roleId: 4,
             stateId: 2,
           },

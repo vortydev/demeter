@@ -450,28 +450,3 @@ div.react-confirm-alert-overlay {
 .react-confirm-alert-button-group>button:first-child:hover {
     background-color: var(--demeter-orange-v) !important;
 }
-
-/* BTN BAR */
-.btnBar {
-    width: 100%;
-    text-align: center;
-    flex-direction: row;
-    justify-content: center;
-    display: inline-flex;
-}
-
-.btnBar>button {
-    min-width: 10rem;
-}
-
-.btnBar>button.centerBtn {
-    margin-inline: auto;
-}
-
-.btnBar>button.leftBtn {
-    margin-right: auto;
-}
-
-.btnBar>button.rightBtn {
-    margin-left: auto;
-}

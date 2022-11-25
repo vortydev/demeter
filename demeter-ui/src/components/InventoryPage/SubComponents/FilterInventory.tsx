@@ -5,6 +5,10 @@ import { getAllVendor } from "../../../services/vendor.functions";
 import { Category, Vendor } from "../../../types/Types";
 import { CategoryDropDown, VendorDropDown } from "./Inventory";
 
+import { getCookie } from 'typescript-cookie';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+
 interface Filter {
     setCategory: (id: string) => void;
     setVendor: (id: string) => void;
@@ -12,9 +16,9 @@ interface Filter {
 }
 function FilterInventory({ setCategory, setVendor, setName }: Filter): JSX.Element {
     const [categories, setCategories] = useState<Category[]>([]);
-    const categoryAll: Category = {"id": 0, "category": "Tous les produits"}
+    const categoryAll: Category = { "id": 0, "category": "Tous les produits" }
     const [vendors, setVendors] = useState<Vendor[]>([]);
-    const vendorAll: Vendor = {"id": 0, "vendor": "Tout les fournisseurs", "phone": "", "email": "", "address": ""};
+    const vendorAll: Vendor = { "id": 0, "vendor": "Tous les fournisseurs", "phone": "", "email": "", "address": "" };
     const [refresh, setRefresh] = useState<boolean>(false);
 
     useEffect(() => {
@@ -24,8 +28,8 @@ function FilterInventory({ setCategory, setVendor, setName }: Filter): JSX.Eleme
         }
         getList();
     }, [refresh]);
-    
-    function update(){
+
+    function update() {
         const category = (document.getElementById("categoryFilter") as HTMLInputElement).value;
         const vendor = (document.getElementById("vendorFilter") as HTMLInputElement).value;
         const name = (document.getElementById("nameFilter") as HTMLInputElement).value;
@@ -34,33 +38,34 @@ function FilterInventory({ setCategory, setVendor, setName }: Filter): JSX.Eleme
         setName(name);
     }
 
+    const role = getCookie("role");
+
     return (
         <React.Fragment>
-            <Form>
-                <Form.Group controlId="nameFilter">
-                    <Form.Control onChange={update} type="text"/>
+            <div className={`filterBar mb-4 ${(role === "1" || role === "4") ? "mt-2" : "mt-4"}`}>
+                <Form.Group className="filterSearch flex mr-1" controlId="nameFilter">
+                    <FontAwesomeIcon className="icon mr-1" icon={faMagnifyingGlass} size="lg" />
+                    <Form.Control onChange={update} type="text" />
                 </Form.Group>
 
-                <Form.Group controlId="categoryFilter">
-                    <Form.Select onChange={update}>
-                        <CategoryDropDown category={categoryAll}/>
+                <Form.Group className="filterDrop flex">
+                    <Form.Select id="categoryFilter" onChange={update}>
+                        <CategoryDropDown category={categoryAll} />
                         {categories.map((category) => (
                             <CategoryDropDown category={category} />
                         ))}
                     </Form.Select>
-                </Form.Group>
 
-                <Form.Group controlId="vendorFilter">
-                    <Form.Select onChange={update}>
-                        <VendorDropDown vendor={vendorAll}/>
+                    <Form.Select id="vendorFilter" onChange={update}>
+                        <VendorDropDown vendor={vendorAll} />
                         {vendors.map((vendor) => (
                             <VendorDropDown vendor={vendor} />
                         ))}
                     </Form.Select>
                 </Form.Group>
-            </Form>
+            </div>
         </React.Fragment>
     );
 }
 
-export {FilterInventory};
+export { FilterInventory };

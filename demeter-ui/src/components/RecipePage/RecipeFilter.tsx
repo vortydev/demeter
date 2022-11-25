@@ -1,25 +1,32 @@
 import React from "react";
 import { Form } from "react-bootstrap";
 
+import { getCookie } from 'typescript-cookie';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+
 interface Filter {
     setName: (name: string) => void;
 }
-function RecipeFilter({setName}: Filter): JSX.Element {
+function RecipeFilter({ setName }: Filter): JSX.Element {
 
-    function update(){
+    function update() {
         const name = (document.getElementById("nameFilter") as HTMLInputElement).value;
         setName(name);
     }
 
+    const role = getCookie("role");
+
     return (
         <React.Fragment>
-            <Form>
-                <Form.Group controlId="nameFilter">
-                    <Form.Control onChange={update} type="text"/>
+            <div className="filterBar mb-4 mt-5">
+                <Form.Group className="filterSearch flex" controlId="nameFilter">
+                    <FontAwesomeIcon className="icon mr-1" icon={faMagnifyingGlass} size="lg" />
+                    <Form.Control onChange={update} type="text" />
                 </Form.Group>
-            </Form>
+            </div>
         </React.Fragment>
     );
 }
 
-export {RecipeFilter};
+export { RecipeFilter };

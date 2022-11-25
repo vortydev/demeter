@@ -48,15 +48,15 @@ function NewsPage(): JSX.Element {
   }
 
   return (
-    <section className="newsPage">
-      <h1 className="pageTitle">Annonces</h1>
+    <section className="appPage">
       {createdSuccess && <Alert variant="success">L'annonce à été créée avec succès!</Alert>}
       {editedSuccess && <Alert variant="success">L'annonce à été modifiée avec succès!</Alert>}
       {deleteSuccess && <Alert variant="success">L'annonce à été supprimée avec succès!</Alert>}
 
-      <p className="loginText">Vous êtes connecté.e en tant que {connected}</p>
+      <p className="loginText mt-4 mb-3">Vous êtes connecté.e en tant que {connected}</p>
+
       {(role === "1" || role === "4") &&
-        <div className="btnBar newsAdd mb-4">
+        <div className="btnBar mb-4">
           <Button variant="hidden">
             <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
             <span>Nouvelle Annonce</span>

@@ -59,9 +59,7 @@ function RecipePage({
   }, 5000);
 
   return (
-    <div className="recipePage">
-      <h1 className="pageTitle">Carnet de Recettes</h1>
-
+    <div className="appPage">
       {createdSuccess && (
         <Alert variant="success">La recette à été créée avec succès!</Alert>
       )}
@@ -71,7 +69,7 @@ function RecipePage({
 
       <RecipeFilter setName={setNameFilter}/>
 
-      <div className="recipeContent flex mt-4">
+      <div className="recipeContent flex mt-2">
         <div className="recipeListBox">
           <Button
             className="mb-2"

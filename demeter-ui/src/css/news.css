@@ -1,5 +1,5 @@
 .flexNewsPreview {
-    width: 60%;
+    width: 80%;
     margin: auto;
     text-align: center;
     flex-direction: column;
@@ -45,6 +45,10 @@
     width: 50%;
     border-radius: 5px;
     margin: .5rem auto 2rem;
+}
+
+.flexNewsPreview:last-child .newsLine {
+    display: none !important;
 }
 
 .newsAdd {
@@ -93,4 +97,11 @@
 
 .newsTaskBox input {
     width: 5rem;
+}
+
+/* NEWS RESPONSIVE */
+@media only screen and (max-width: 800px) { 
+    .flexNewsPreview {
+        width: 100%;
+    }
 }

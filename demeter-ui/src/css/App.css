@@ -39,6 +39,7 @@
   padding-bottom: 5rem;
 }
 
+/* FOOTER */
 .App-footer {
   background-color: var(--demeter-black);
   height: fit-content;
@@ -50,7 +51,7 @@
 .flexFooter {
   align-items: baseline;
   justify-content: space-between;
-  margin: .75rem .5rem;
+  padding: .75rem .5rem;
 }
 
 .App-footer p {
@@ -77,4 +78,128 @@
 
 .footerText {
   align-self: center;
+}
+
+/* FILTER BAR */
+.filterBar {
+  display: inline-flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.filterBar input {
+  width: 15rem;
+}
+
+.filterBar select {
+  align-self: center;
+  margin-inline: .5rem;
+}
+
+.filterSearch, .filterDrop {
+  justify-content: center;
+}
+
+/* PAGE NAVBAR */
+.navbar {
+  font-size: 1.75rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.navbar>.nav {
+  margin: auto;
+}
+
+.navbar a {
+  padding: inherit .75rem inherit .75rem !important;
+}
+
+.appPage {
+  width: 80%;
+  margin: auto;
+}
+
+/* BTN BAR */
+.btnBar {
+  width: 100%;
+  text-align: center;
+  flex-direction: row;
+  justify-content: center;
+  display: inline-flex;
+}
+
+.btnBar>button {
+  min-width: 10rem;
+}
+
+.btnBar>button.centerBtn {
+  margin-inline: auto;
+}
+
+.btnBar>button.leftBtn {
+  margin-right: auto;
+}
+
+.btnBar>button.rightBtn {
+  margin-left: auto;
+}
+
+/* RESPONSIVE */
+@media only screen and (max-width: 800px) {
+  .App-header {
+    padding: .5rem 0;
+  }
+  .appNav .nav {
+    flex-direction: row;
+  }
+  .appNav .nav-item {
+    width: 50%;
+  }
+
+  .App-body {
+    padding-bottom: 2rem;
+  }
+  .appPage {
+    width: 90%;
+  }
+  
+  .btnBar {
+    flex-direction: column;
+  }
+  .btnBar>button {
+    width: 90%;
+    margin: auto;
+  }
+  .btnBar>button:not(:last-child),
+  .filterBar>div:not(:last-child) {
+    margin-bottom: .5rem;
+  }
+  .btnBar .btn-hidden {
+    display: none;
+  }
+
+  .filterBar {
+    flex-direction: column;
+  }
+  .filterSearch, .filterDrop {
+    display: inline-flex;
+    margin: auto;
+    width: 100%;
+  }
+
+  .App-footer {
+    bottom: unset;
+    top: 100%;
+    position: sticky;
+  }
+  .flexFooter, .footerText {
+    flex-direction: column;
+  }
+  .demeterLogo, .flexFooter .deco {
+    margin: auto;
+  }
+  .demeterLogo, .footerText {
+    margin-bottom: .5rem;
+  }
 }

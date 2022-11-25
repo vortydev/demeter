@@ -23,50 +23,78 @@ function TaskHistoryModal({ show, newHistory, close }: taskHistoryProps) {
     // filtre qui prends chaque date unique de history et les mets dans setWeekPrior
 
     setHistory(await getWeeklyHistory(aWeekBefore));
-    setWeekPrior(history.map(task => task.completionDate).filter((value, index, self) => self.indexOf(value) === index));
+    setWeekPrior(
+      history
+        .map((task) => task.completionDate)
+        .filter((value, index, self) => self.indexOf(value) === index)
+    );
 
     // console.log(history.map(task => task.completionDate).filter((value, index, self) => self.indexOf(value) === index));
   }
 
   useEffect(() => {
     getList();
-  }, [newHistory]);
+  }, [show, newHistory]);
 
   function setDay(day: Date) {
-    setDaysHistory(history.filter((t) => t.completionDate === day));
+    if (daysHistory.length === 0) {
+      setDaysHistory(history.filter((t) => t.completionDate === day));
+    } else {
+      setDaysHistory([]);
+    }
   }
 
   return (
     <Modal show={show} onClose={close}>
       <div className="popupForm">
         <h3 className="popupTitle">Historique des tâches</h3>
-        <p className="popupHint">Cliquer sur une date pour voir la complétion des tâches ce jour-là</p>
+        <p className="popupHint">
+          Cliquer sur une date pour voir la complétion des tâches ce jour-là
+        </p>
 
         <div className="hisDayList flex mt-3 mb-2">
           {weekPrior.map((day) => (
-            <Button className="hisDayBtn mb-2" variant="demeter-dark" onClick={() => setDay(day)}>
-              {(new Date(day)).toLocaleDateString()}
+            <Button
+              className="hisDayBtn mb-2"
+              variant="demeter-dark"
+              onClick={() => setDay(day)}
+            >
+              {new Date(day).toLocaleDateString()}
             </Button>
           ))}
         </div>
 
-        {daysHistory.length > 0 &&
+        {daysHistory.length > 0 && (
           <div className="hisTaskList">
-            {daysHistory.map((t) => (<div>
-              {t.parentId === 0 && <hr className="taskLine" />}
-              <div className="hisTaskRow flex cellShade">
-                {t.parentId !== 0 &&
-                  <FontAwesomeIcon className="iconBullet mr-2" icon={faTurnUp} size="sm" />}
-                <span className="hisTask">{t.taskName}</span>
-                <span className="taskResponsable">{t.whoDid}</span>
+            {daysHistory.map((t) => (
+              <div>
+                {t.parentId === 0 && <hr className="taskLine" />}
+                <div className="hisTaskRow flex cellShade">
+                  {t.parentId !== 0 && (
+                    <FontAwesomeIcon
+                      className="iconBullet mr-2"
+                      icon={faTurnUp}
+                      size="sm"
+                    />
+                  )}
+                  <span className="hisTask">{t.taskName}</span>
+                  <span className="taskResponsable">{t.whoDid}</span>
+                </div>
               </div>
-            </div>
             ))}
           </div>
-        }
+        )}
 
         <div className="popupBtnBox mt-3">
-          <Button variant="demeter-dark" onClick={close}>Retour</Button>
+          <Button
+            variant="demeter-dark"
+            onClick={() => {
+              setDaysHistory([]);
+              close();
+            }}
+          >
+            Retour
+          </Button>
         </div>
       </div>
     </Modal>

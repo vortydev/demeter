@@ -120,7 +120,19 @@ function TaskPage(): JSX.Element {
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {
-              resetTasksByCat();
+              confirmAlert({
+                title: 'Confirmation',
+                message: 'Êtes-vous sûr.e de vouloir de vouloir réinitialiser la feuille de tâches?',
+                buttons: [{
+                  label: 'Oui',
+                  onClick: () => {
+                    resetTasksByCat();
+                  }
+                },{
+                  label: 'Annuler',
+                    onClick: () => { }
+                }]
+              });
             }}
           >
             <FontAwesomeIcon
@@ -137,7 +149,19 @@ function TaskPage(): JSX.Element {
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {
-              resetTasksByCat();
+              confirmAlert({
+                title: 'Confirmation',
+                message: 'Êtes-vous sûr.e de vouloir de vouloir réinitialiser la feuille de tâches?',
+                buttons: [{
+                  label: 'Oui',
+                  onClick: () => {
+                    resetTasksByCat();
+                  }
+                },{
+                  label: 'Annuler',
+                    onClick: () => { }
+                }]
+              });
             }}
           >
             <FontAwesomeIcon
@@ -154,7 +178,19 @@ function TaskPage(): JSX.Element {
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {
-              resetTasksByCat();
+              confirmAlert({
+                title: 'Confirmation',
+                message: 'Êtes-vous sûr.e de vouloir de vouloir réinitialiser la feuille de tâches?',
+                buttons: [{
+                  label: 'Oui',
+                  onClick: () => {
+                    resetTasksByCat();
+                  }
+                },{
+                  label: 'Annuler',
+                    onClick: () => { }
+                }]
+              });
             }}
           >
             <FontAwesomeIcon

@@ -36,6 +36,9 @@ function TaskPage(): JSX.Element {
   const [taskCompleted, setTaskCompleted] = useState<boolean>(false);
   const [createTask, setCreateTask] = useState<boolean>(false);
   const [seeHistory, setSeeHistory] = useState<boolean>(false);
+  const [weekPrior, setWeekPrior] = useState<Date[]>([]);
+  const today = new Date();
+  const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
   useEffect(() => {
     async function getList() {
@@ -63,9 +66,6 @@ function TaskPage(): JSX.Element {
   ]);
 
   async function resetTasksByCat() {
-    //Genérer rapport pour historique ici
-    const today = new Date();
-    const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     console.log('the date', date);
     for (const task of allCatTask) {
       await enterInHistory(task, date);
@@ -117,6 +117,7 @@ function TaskPage(): JSX.Element {
 
         {taskCategory === 1 && (
           <Button
+            disabled={weekPrior.find((d) => d === date) !== undefined}
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {
@@ -146,6 +147,7 @@ function TaskPage(): JSX.Element {
 
         {taskCategory === 2 && (
           <Button
+          disabled = {today.getDay() !== 1}
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {
@@ -252,7 +254,7 @@ function TaskPage(): JSX.Element {
         </div>
       )}
       <CreateTaskForm show={createTask} close={close} success={setSuccess} />
-      <TaskHistoryModal show={seeHistory} close={close} newHistory={taskCompleted} />
+      <TaskHistoryModal show={seeHistory} close={close} newHistory={taskCompleted} weekPrior={weekPrior} setWeekPrior={setWeekPrior}/>
     </section>
   );
 }

@@ -264,6 +264,17 @@ select {
     cursor: pointer;
 }
 
+@media only screen and (max-width: 800px) {
+    .modal-dialog {
+        width: 95vw;
+        margin-inline: auto;
+    }
+    .popupBtnBox>button {
+        width: 8rem;
+        margin-inline: .5rem;
+    }
+}
+
 /* buttons with Demeter theme */
 .btn {
     transition: all 0.15s;

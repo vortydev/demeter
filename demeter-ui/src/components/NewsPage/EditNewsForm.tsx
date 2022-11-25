@@ -207,7 +207,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
               <Form.Control as="textarea" rows={3} />
             </Form.Group>
 
-            <div className="popupBtnBox mt-2 mb-2">
+            <div className="popupBtnBox mt-3 mb-2">
               <Button variant="demeter-dark" onClick={() => setAddTask(false)}>Annuler</Button>
               <Button variant="demeter" onClick={addingTask}>Joindre</Button>
             </div>

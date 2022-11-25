@@ -38,7 +38,7 @@ function CreateRecipeForm({ setRecipeInfo }: CRFProps) {
 
   function updateRecipeInfo() {
     const title = (document.getElementById("title") as HTMLInputElement).value;
-    const category =  departement !== null ? departement : parseInt((document.getElementById("category") as HTMLInputElement).value);
+    const category = departement !== null ? departement : parseInt((document.getElementById("category") as HTMLInputElement).value);
     const instructions = (document.getElementById("instructions") as HTMLInputElement).value;
     const otherExpenses = (document.getElementById("otherExpenses") as HTMLInputElement).value;
     const nbProduct = (document.getElementById("nbProduct") as HTMLInputElement).value;
@@ -65,17 +65,19 @@ function CreateRecipeForm({ setRecipeInfo }: CRFProps) {
           <Form.Label>Titre</Form.Label>
           <Form.Control onChange={updateRecipeInfo} type="text" />
         </Form.Group>
-{!departement &&
-        <Form.Group className="popupSelectBox mb-2" controlId="category">
-          <Form.Label className="popupSelectLabel">Département</Form.Label>
-          <Form.Select onChange={updateRecipeInfo} aria-label="Département" id="category">
-            <option value="1">Boulangerie</option>
-            <option value="2">Pâtisserie</option>
-            <option value="3">Viennoiserie</option>
-            <option value="4">Cuisine</option>
-          </Form.Select>
-        </Form.Group>
-}
+
+        {!departement &&
+          <Form.Group className="popupSelectBox mb-2" controlId="category">
+            <Form.Label className="popupSelectLabel">Département</Form.Label>
+            <Form.Select onChange={updateRecipeInfo} aria-label="Département" id="category">
+              <option value="1">Boulangerie</option>
+              <option value="2">Pâtisserie</option>
+              <option value="3">Viennoiserie</option>
+              <option value="4">Cuisine</option>
+            </Form.Select>
+          </Form.Group>
+        }
+        
         <Form.Group onChange={updateRecipeInfo} className="mb-2" controlId="instructions">
           <Form.Label>Instructions</Form.Label>
           <Form.Control as="textarea" rows={3} />

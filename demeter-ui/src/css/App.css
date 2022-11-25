@@ -172,7 +172,8 @@
     margin: auto;
   }
   .btnBar>button:not(:last-child),
-  .filterBar>div:not(:last-child) {
+  .filterBar>div:not(:last-child),
+  .filterDrop>select:not(:last-child) {
     margin-bottom: .5rem;
   }
   .btnBar .btn-hidden {

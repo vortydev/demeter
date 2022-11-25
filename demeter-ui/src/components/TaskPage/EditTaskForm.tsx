@@ -221,7 +221,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         <div className="subTaskList flex">
           {childTask.map((ct) => (
             <div className="subTaskBox mb-2">
-              <hr className="loginLine mb-3 mt-2" />
+              <hr className="loginLine mt-3 mb-3" />
               <Form.Group className="subTask flex" controlId="subTaskName" key={ct.id}>
                 <Form.Label className="popupLabelFull">Titre sous-tâche</Form.Label>
                 <Form.Control name="title" value={ct.title} type="text" onChange={(event: {
@@ -235,14 +235,14 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
           ))}
         </div>
 
-        {task.parentId === 0 && <div className="btnBar mt-2 mb-2">
+        {task.parentId === 0 && <div className="btnBar mt-3 mb-2">
           <Button variant="outline-dark" onClick={handleAddSubTask}>
             Ajouter une sous-tâche
           </Button>
         </div>}
 
         <div className="mt-3 popupBtnBox">
-          <Button variant="demeter-dark" onClick={close}>Annuler</Button>
+          <Button variant="demeter-dark" onClick={() => {setChildTask([]); close();}}>Annuler</Button>
           <Button variant="demeter" onClick={handleSubmit}>Confirmer</Button>
         </div>
       </Form>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Alert, Button, Form, Modal, Nav } from "react-bootstrap";
-import { getCookie} from "typescript-cookie";
+import { getCookie } from "typescript-cookie";
 import { updateRecipe } from "../../../../services/recipe.functions";
 import { Ingredient, Recipe } from "../../../../types/Types";
 import { EditIngredient } from "./EditIngredients";
@@ -56,7 +56,7 @@ function EditRecipeForm({
   }
 
   async function editRecipe() {
-    if (recipeInfo.title == "" || !recipeInfo.categoryrecipeId || !recipeInfo.instruction || recipeInfo.otherCost < 0 || recipeInfo.nbUnitCreated <= 0) {
+    if (recipeInfo.title === "" || !recipeInfo.categoryrecipeId || !recipeInfo.instruction || recipeInfo.otherCost < 0 || recipeInfo.nbUnitCreated <= 0) {
       setEmpty(true);
       setTimeout(() => {
         setEmpty(false);
@@ -109,7 +109,7 @@ function EditRecipeForm({
               />
             </Form.Group>
 
-            {(role === "1" || role === "4")&&<Form.Group className="popupSelectBox mb-2" controlId="category">
+            {(role === "1" || role === "4") && <Form.Group className="popupSelectBox mb-2" controlId="category">
               <Form.Label className="popupSelectLabel">Département</Form.Label>
               <Form.Select onChange={updateRecipeInfo} defaultValue={recipe.categoryrecipeId} aria-label="Département" id="category">
                 <option value="1">Boulangerie</option>

@@ -87,17 +87,18 @@
   justify-content: center;
 }
 
-.filterBar input {
+.filterBar input, .filterSearch input {
   width: 15rem;
 }
 
-.filterBar select {
+.filterBar select, .filterBar button {
   align-self: center;
   margin-inline: .5rem;
 }
 
 .filterSearch, .filterDrop {
   justify-content: center;
+  align-self: center;
 }
 
 /* PAGE NAVBAR */

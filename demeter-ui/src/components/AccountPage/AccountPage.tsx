@@ -4,6 +4,8 @@ import { AccountList } from "./AccountList";
 import { AccountNav } from "./AccountNav";
 import { CreateAccountForm } from "./CreateAccountForm";
 import "../../css/account.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 function AccountPage(): JSX.Element {
   const [createAccount, setCreateAccount] = useState<boolean>(false);
@@ -44,13 +46,14 @@ function AccountPage(): JSX.Element {
         />
         <Button
           className="addAcc"
-          variant="demeter-dark"
+          variant="icon-dark"
           onClick={() => {
             setCreateAccount(true);
             setSuccess(false);
           }}
         >
-          Nouveau Compte
+          <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
+          <span>Nouveau Compte</span>
         </Button>
       </div>
       <CreateAccountForm show={createAccount} close={close} success={success} />

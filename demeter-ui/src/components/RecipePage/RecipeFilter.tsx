@@ -19,12 +19,10 @@ function RecipeFilter({ setName }: Filter): JSX.Element {
 
     return (
         <React.Fragment>
-            <div className="filterBar mb-4 mt-5">
-                <Form.Group className="filterSearch flex" controlId="nameFilter">
-                    <FontAwesomeIcon className="icon mr-1" icon={faMagnifyingGlass} size="lg" />
-                    <Form.Control onChange={update} type="text" />
-                </Form.Group>
-            </div>
+            <Form.Group className="filterSearch flex" controlId="nameFilter">
+                <FontAwesomeIcon className="icon mr-1" icon={faMagnifyingGlass} size="lg" />
+                <Form.Control onChange={update} type="text" />
+            </Form.Group>
         </React.Fragment>
     );
 }

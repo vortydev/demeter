@@ -1,6 +1,7 @@
 import { Button, Form, Modal } from "react-bootstrap";
 import bcrypt from "bcryptjs";
-import { getPasswordFor } from "../../services/teamleadpwds.functions";
+import { getAccountsByRole } from "../../services/account.functions";
+import { Account } from "../../types/Types";
 
 interface pwModalProps {
   show: boolean;
@@ -11,10 +12,14 @@ interface pwModalProps {
 function PasswordModal({ show, setCreateNews, close }: pwModalProps) {
   async function validatePw() {
     const pw = (document.getElementById("password") as HTMLInputElement).value;
-    const createNewsPw = await getPasswordFor("createNews");
-    if (await bcrypt.compare(pw, createNewsPw)) {
-      close();
-      setCreateNews(true);
+
+    const appPasswords : Account[] = await getAccountsByRole(9);
+
+    for(const appPw of appPasswords){
+      if (await bcrypt.compare(pw, appPw.accPassword)) {
+        close();
+        setCreateNews(true);
+      }
     }
   }
   return (

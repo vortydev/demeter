@@ -74,7 +74,7 @@ function TaskPage(): JSX.Element {
     setTaskCompleted(true);
     setTimeout(() => {
       setTaskCompleted(false);
-    }, 50);
+    }, 100);
   }
 
   function close(): void {

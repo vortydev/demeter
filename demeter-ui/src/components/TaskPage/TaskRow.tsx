@@ -93,7 +93,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
         {task.taskMaster !== "" && <span className="taskMaster">({task.taskMaster})</span>}
 
         <div className="taskMobile">
-          <div className="taskInputBox">
+          <div className="taskInputBox flex">
             <div className="flex taskInput">
               {(!task.completed && subListTask.length === 0) && (
                 <input

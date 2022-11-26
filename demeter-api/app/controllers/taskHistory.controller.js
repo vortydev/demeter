@@ -38,10 +38,10 @@ exports.findAll = (req, res) => {
     const week = req.query.week;
     const today = req.query.today;
     var conditionW = week
-      ? { complationDate: { [Op.gte]: `%${week}%` } }
+      ? { completionDate: { [Op.gte]: `%${week}%` } }
       : null;
       var conditionT = today
-      ? { complationDate: { [Op.eq]: `%${today}%` } }
+      ? { completionDate: { [Op.eq]: `%${today}%` } }
       : null;
 
 if(conditionW !== null)

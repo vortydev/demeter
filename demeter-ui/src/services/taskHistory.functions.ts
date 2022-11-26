@@ -29,6 +29,11 @@ async function getWeeklyHistory(date: Date) {
 async function getTodayHistory(date: Date) {
   const taskHistory = TaskHistoryService.getTodayHistory(date)
     .then((response: any) => {
+      console.log('the date sent', date);
+      console.log('the response',response.data[0].completionDate);
+
+      const received = new Date(response.data[0].completionDate);
+      console.log('transform', received);
      return true;
     })
     .catch((e: Error) => {

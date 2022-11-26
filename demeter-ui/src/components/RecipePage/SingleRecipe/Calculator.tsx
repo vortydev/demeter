@@ -34,8 +34,8 @@ function Calculator({ listIng, nbUnit, otherCost }: CalculatorProps) {
   }
   return (
     <div className="calculatorBox flex">
-      <span>Coût total : {totalCost} $</span>
-      <span>Coût unitaire : {totalCost / nbUnit} $</span>
+      <span>Coût total : {Math.round(totalCost + Number.EPSILON * 100) / 100} $</span>
+      <span>Coût unitaire : {Math.round(totalCost / nbUnit + Number.EPSILON * 100)/ 100} $</span>
 
       <Form className="mt-3">
         <Form.Group
@@ -47,7 +47,7 @@ function Calculator({ listIng, nbUnit, otherCost }: CalculatorProps) {
           <Form.Control defaultValue={0} type="number" />
         </Form.Group>
       </Form>
-      <span>Coût personnalisé : {(totalCost / nbUnit) * customNB} $</span>
+      <span>Coût personnalisé : {Math.round(((totalCost / nbUnit) * customNB) + Number.EPSILON* 100)/ 100} $</span>
     </div>
   );
 }

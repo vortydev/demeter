@@ -21,7 +21,7 @@ import { confirmAlert } from "react-confirm-alert";
 import { DailyTaskDisplay } from "./TasksDisplay/DailyTaskDisplay";
 import { HebdoTaskDisplay } from "./TasksDisplay/HebdoTaskDisplay";
 import { OtherTaskDisplay } from "./TasksDisplay/OtherTaskDisplay";
-import { createTaskHistory } from "../../services/taskHistory.functions";
+import { createTaskHistory, getTodayHistory } from "../../services/taskHistory.functions";
 import { TaskHistoryModal } from "./TaskHistory/TaskHistoryModal";
 
 function TaskPage(): JSX.Element {
@@ -36,7 +36,7 @@ function TaskPage(): JSX.Element {
   const [taskCompleted, setTaskCompleted] = useState<boolean>(false);
   const [createTask, setCreateTask] = useState<boolean>(false);
   const [seeHistory, setSeeHistory] = useState<boolean>(false);
-  const [weekPrior, setWeekPrior] = useState<Date[]>([]);
+  const [dayStarted, setDayStarted]=useState<boolean>(false);
   const today = new Date();
   const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
@@ -44,6 +44,9 @@ function TaskPage(): JSX.Element {
     async function getList() {
       const taskByCat: Task[] = await getbyCategorie(taskCategory);
       setAllCatTask(taskByCat);
+
+      setDayStarted(await getTodayHistory(date));
+      console.log(await getTodayHistory(date));
 
       if (role === "2") {
         const taskForAccount: Task[] = taskByCat.filter(
@@ -117,7 +120,7 @@ function TaskPage(): JSX.Element {
 
         {taskCategory === 1 && (
           <Button
-            disabled={weekPrior.find((d) => d === date) !== undefined}
+          disabled={dayStarted}
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {
@@ -147,7 +150,7 @@ function TaskPage(): JSX.Element {
 
         {taskCategory === 2 && (
           <Button
-          disabled = {today.getDay() !== 1}
+          disabled = {today.getDay() !== 1 && (role !== "1" && role !== "4")}
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {
@@ -254,7 +257,7 @@ function TaskPage(): JSX.Element {
         </div>
       )}
       <CreateTaskForm show={createTask} close={close} success={setSuccess} />
-      <TaskHistoryModal show={seeHistory} close={close} newHistory={taskCompleted} weekPrior={weekPrior} setWeekPrior={setWeekPrior}/>
+      <TaskHistoryModal show={seeHistory} close={close} newHistory={taskCompleted}/>
     </section>
   );
 }

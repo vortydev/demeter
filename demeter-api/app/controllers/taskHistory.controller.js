@@ -36,12 +36,16 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
 
     const week = req.query.week;
-    var condition = week
+    const today = req.query.today;
+    var conditionW = week
       ? { complationDate: { [Op.gte]: `%${week}%` } }
       : null;
+      var conditionT = today
+      ? { complationDate: { [Op.eq]: `%${today}%` } }
+      : null;
 
-
-    TH.findAll({condition})
+if(conditionW !== null)
+    {TH.findAll({conditionW})
       .then((data) => {
         res.send(data);
       })
@@ -51,7 +55,20 @@ exports.findAll = (req, res) => {
             err.message ||
             "Some error occurred while retrieving announcements.",
         });
-      });
+      });}
+
+      if(conditionT!== null)
+    {TH.findAll({conditionT})
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message ||
+            "Some error occurred while retrieving announcements.",
+        });
+      });}
   
 };
 

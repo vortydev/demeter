@@ -8,14 +8,13 @@ import { faTurnUp } from "@fortawesome/free-solid-svg-icons";
 interface taskHistoryProps {
   show: boolean;
   newHistory: boolean;
-  weekPrior: Date[];
-  setWeekPrior: (dates: Date[]) => void;
   close: () => void;
 }
 
-function TaskHistoryModal({ show, newHistory, weekPrior, setWeekPrior, close }: taskHistoryProps) {
+function TaskHistoryModal({ show, newHistory,  close }: taskHistoryProps) {
   const [history, setHistory] = useState<TaskHistory[]>([]);
   const [daysHistory, setDaysHistory] = useState<TaskHistory[]>([]);
+  const [weekPrior, setWeekPrior] = useState<Date[]>([]);
 
   async function getList() {
     const today = new Date();

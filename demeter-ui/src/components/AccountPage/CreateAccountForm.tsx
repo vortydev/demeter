@@ -114,6 +114,7 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
             <option value="6">Boulangerie</option>
             <option value="7">Viennoiserie</option>
             <option value="8">Pâtisserie</option>
+            <option value="9">App</option>
           </Form.Select>
         </Form.Group>
 

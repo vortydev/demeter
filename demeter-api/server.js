@@ -31,6 +31,7 @@ db.sequelize.sync({})                 // {force: true} drops the db
           { id: "6", role: "Boulangerie" },
           { id: "7", role: "Viennoiserie" },
           { id: "8", role: "Pâtisserie" },
+          { id: "9", role: "app" },
         ],
         { ignoreDuplicates: true }
       )

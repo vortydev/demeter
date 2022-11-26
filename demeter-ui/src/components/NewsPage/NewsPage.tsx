@@ -8,6 +8,7 @@ import { NewsPreview } from "./NewsPreview";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faList } from "@fortawesome/free-solid-svg-icons";
+import { PasswordModal } from "./passwordModal";
 
 function NewsPage(): JSX.Element {
   const [createNews, setCreateNews] = useState<boolean>(false);
@@ -15,6 +16,7 @@ function NewsPage(): JSX.Element {
   const [deleteSuccess, setDeleteSuccess] = useState<boolean>(false);
   const [editedSuccess, setEditedSucess] = useState<boolean>(false);
   const [newsList, setNewsList] = useState<News[]>([]);
+  const [pwModal, setpwModal] = useState<boolean>(false);
 
   const connected = getCookie("account") ? getCookie("account") : "Visiteur";
   const role = getCookie("role");
@@ -34,17 +36,25 @@ function NewsPage(): JSX.Element {
     setSuccess(true);
     setTimeout(() => {
       setSuccess(false);
-    },5000);
+    }, 5000);
     close();
   }
 
   function close(): void {
     setCreateNews(false);
+    setpwModal(false);
   }
 
   async function showAllNews() {
     setNewsList(await getAllNews());
+  }
 
+  function checkPermission() {
+    if (role === "2") {
+      setpwModal(true);
+    } else {
+      setCreateNews(true);
+    }
   }
 
   return (
@@ -55,35 +65,47 @@ function NewsPage(): JSX.Element {
 
       <p className="loginText mt-4 mb-3">Vous êtes connecté.e en tant que {connected}</p>
 
-      {(role === "1" || role === "4") &&
+      {(role === "1" || role === "2" || role === "4") && (
         <div className="btnBar mb-4">
           <Button variant="hidden">
             <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
             <span>Nouvelle Annonce</span>
           </Button>
-          
-          <Button variant="icon-dark" className="centerBtn" onClick={showAllNews}>
-            <FontAwesomeIcon className="icon" icon={faList} size="lg" />
-            <span>Afficher toutes les Annonces</span>
-          </Button>
+          {(role === "1" || role === "4") && (
+            <Button
+              variant="icon-dark"
+              className="centerBtn"
+              onClick={showAllNews}
+            >
+              <FontAwesomeIcon className="icon" icon={faList} size="lg" />
+              <span>Afficher toutes les Annonces</span>
+            </Button>
+          )}
 
-          <Button variant="icon-outline" onClick={() => {
-            setCreateNews(true);
-            setSuccess(false);
-          }}
+          <Button
+            variant="icon-outline"
+            onClick={() => {
+              checkPermission();
+              setSuccess(false);
+            }}
           >
             <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
             <span>Nouvelle Annonce</span>
           </Button>
         </div>
-      }
+      )}
 
       {newsList.length === 0 && <p>Aucune annonce présentement.</p>}
       {newsList.map((news) => (
-        <NewsPreview news={news} editSuccess={editedSuccess} editedSuccess={setEditedSucess} deleteSuccess={setDeleteSuccess} />
+        <NewsPreview
+          news={news}
+          editedSuccess={setEditedSucess}
+          deleteSuccess={setDeleteSuccess} editSuccess={false}        />
       ))}
 
       <CreateNewsForm show={createNews} close={close} success={success} />
+      <PasswordModal show={pwModal} close={close} setCreateNews={setCreateNews} />
+
     </section>
   );
 }

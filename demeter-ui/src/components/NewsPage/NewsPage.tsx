@@ -67,7 +67,7 @@ function NewsPage(): JSX.Element {
 
       {(role === "1" || role === "2" || role === "4") && (
         <div className="btnBar mb-4">
-          <Button variant="hidden">
+          <Button variant={`hidden ${ role === "2" ? "hide" : ""}`}>
             <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
             <span>Nouvelle Annonce</span>
           </Button>

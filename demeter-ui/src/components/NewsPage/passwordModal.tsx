@@ -13,29 +13,32 @@ function PasswordModal({ show, setCreateNews, close }: pwModalProps) {
   async function validatePw() {
     const pw = (document.getElementById("password") as HTMLInputElement).value;
 
-    const appPasswords : Account[] = await getAccountsByRole(9);
+    const appPasswords: Account[] = await getAccountsByRole(9);
 
-    for(const appPw of appPasswords){
+    for (const appPw of appPasswords) {
       if (await bcrypt.compare(pw, appPw.accPassword)) {
         close();
         setCreateNews(true);
       }
     }
   }
+  
   return (
     <Modal show={show}>
-      <Modal.Title>Permission requise</Modal.Title>
-      <Modal.Body>
-        <p>Créer une annonce est une action restrainte</p>
+      <div className="popupForm">
+        <h3 className="popupTitle">Permission requise</h3>
+        <p className="popupHint">Créer une annonce est une action restrainte</p>
+
         <Form.Group className="mb-2" controlId="password">
           <Form.Label>Mot de passe</Form.Label>
           <Form.Control type="password" />
         </Form.Group>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={validatePw}>Envoyer</Button>
-        <Button onClick={close}>Annuler</Button>
-      </Modal.Footer>
+
+        <div className="popupBtnBox">
+          <Button onClick={close}>Annuler</Button>
+          <Button onClick={validatePw}>Envoyer</Button>
+        </div>
+      </div>
     </Modal>
   );
 }

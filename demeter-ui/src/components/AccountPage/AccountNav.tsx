@@ -31,6 +31,11 @@ const AccountNav = ({ subPage, setSubPage }: AccountNavProps) => {
             Département
           </Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={() => setSubPage(9)} eventKey="role9">
+            App
+          </Nav.Link>
+        </Nav.Item>
       </Nav>
     </section>
 

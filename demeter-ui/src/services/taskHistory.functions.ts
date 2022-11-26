@@ -15,10 +15,8 @@ async function createTaskHistory(data: TaskHistory) {
 }
 
 async function getWeeklyHistory(date: Date) {
-  console.log('in get weekly');
   const taskHistory = TaskHistoryService.getWeeklyHistory(date)
     .then((response: any) => {
-      console.log('it work');
       return response.data;
     })
     .catch((e: Error) => {
@@ -28,4 +26,20 @@ async function getWeeklyHistory(date: Date) {
   return taskHistory;
 }
 
-export { createTaskHistory, getWeeklyHistory }
+async function getTodayHistory(date: Date) {
+  const taskHistory = TaskHistoryService.getTodayHistory(date)
+    .then((response: any) => {
+      console.log('the date sent', date);
+      console.log('the response',response.data[0].completionDate);
+
+      const received = new Date(response.data[0].completionDate);
+      console.log('transform', received);
+     return true;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return false;
+    });
+  return taskHistory;
+}
+export { createTaskHistory, getWeeklyHistory, getTodayHistory };

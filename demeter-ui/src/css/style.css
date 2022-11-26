@@ -72,6 +72,10 @@ select {
     display: none !important;
 }
 
+.invisible {
+    visibility: hidden;
+}
+
 .center {
     text-align: center;
 }

@@ -48,11 +48,11 @@ function TaskHistoryModal({ show, newHistory,  close }: taskHistoryProps) {
     <Modal show={show} onClose={close}>
       <div className="popupForm">
         <h3 className="popupTitle">Historique des tâches</h3>
-        <p className="popupHint">
+        <p className="popupHint mb-3">
           Cliquer sur une date pour voir la complétion des tâches ce jour-là
         </p>
 
-        <div className="hisDayList flex mt-3 mb-2">
+        <div className="hisDayList flex mb-2">
           {weekPrior.map((day) => (
             <Button
               className="hisDayBtn mb-2"

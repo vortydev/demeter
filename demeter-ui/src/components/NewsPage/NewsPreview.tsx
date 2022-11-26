@@ -103,20 +103,20 @@ function NewsPreview({ news, editSuccess, editedSuccess, deleteSuccess }: NewsPr
   return (
     <article className="flexNewsPreview">
       <div className={`newsBody ${news.priority ? "priority" : ""}`}>
-        <h2 className="newsTitle">{news.title}</h2>
-        <h3 className="newsDate">
-          {theDate.toLocaleDateString()} - {news.author}
-        </h3>
-        <div className="flexNewsBox">
-          {news.picture !== null && (
-            <div className="picture">
-              <img src={news.picture} />
+        <div className="btnBar flex">
+          {(role === "1" || role === "4") &&
+            <div className="flexNewsEdit invisible">
+              <FontAwesomeIcon className="icon" icon={faEdit} size="lg" />
+              <FontAwesomeIcon className="icon" icon={faEdit} size="lg" />
             </div>
-          )}
-          <p className="newsContent">
-            {text}
-            <b>{longDesc && dotdotdot}</b>
-          </p>
+          }
+          <div className="newsHeader">
+            <h2 className="newsTitle">{news.title}</h2>
+            <h3 className="newsDate">
+              {theDate.toLocaleDateString()} - {news.author}
+            </h3>
+          </div>
+
           {(role === "1" || role === "4") &&
             <div className="flexNewsEdit">
               <FontAwesomeIcon
@@ -157,6 +157,18 @@ function NewsPreview({ news, editSuccess, editedSuccess, deleteSuccess }: NewsPr
           }
         </div>
 
+        <div className="flexNewsBox">
+          {news.picture !== null && (
+            <div className="picture">
+              <img src={news.picture} />
+            </div>
+          )}
+          <p className="newsContent">
+            {text}
+            <b>{longDesc && dotdotdot}</b>
+          </p>
+        </div>
+
         {task !== undefined && <div className="newsTaskBox flex mt-2">
           {task.completed &&
             <FontAwesomeIcon className="iconCheck mr-1" icon={faCheck} size="lg" />
@@ -165,7 +177,7 @@ function NewsPreview({ news, editSuccess, editedSuccess, deleteSuccess }: NewsPr
           {!task.completed &&
             <label className="jointTaskPreview">(Tâche jointe)</label>
           }
-          
+
           <span>{task.title}</span>
 
           {!task.completed &&

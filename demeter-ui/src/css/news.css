@@ -6,15 +6,18 @@
 }
 
 .flexNewsBox {
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .flexNewsEdit {
-    margin-left: auto;
-    margin-bottom: auto;
-    width: 15%;
+    width: fit-content;
     display: block;
-    text-align: right;
+    /* text-align: right; */
+}
+
+.newsHeader {
+    width: fit-content;
+    margin-inline: auto;
 }
 
 .newsTitle {

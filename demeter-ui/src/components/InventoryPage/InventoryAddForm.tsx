@@ -144,7 +144,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                 <div className="popupRowSplit mb-2">
                     <Form.Group controlId="qty_unit">
                         <Form.Label>Format (Qt)</Form.Label>
-                        <Form.Control type="text" />
+                        <Form.Control  defaultValue={"0"} type="text" />
                     </Form.Group>
 
                     <Form.Group controlId="mesurement">
@@ -157,18 +157,18 @@ function InventoryForm({ show, close, success }: CRFormProps) {
 
                 <Form.Group className="mb-2" controlId="format">
                     <Form.Label>Format (Nom)</Form.Label>
-                    <Form.Control type="text" />
+                    <Form.Control placeholder="Ex.: Boite de 30, Sac de 5Lb, etc." type="text" />
                 </Form.Group>
 
                 <div className="popupRowSplit mb-2">
                     <Form.Group controlId="price">
                         <Form.Label>Prix</Form.Label>
-                        <Form.Control type="text" />
+                        <Form.Control defaultValue={"0"} type="text" />
                     </Form.Group>
 
                     <Form.Group controlId="qty_inv">
                         <Form.Label>Quantité en stock</Form.Label>
-                        <Form.Control type="text" />
+                        <Form.Control  defaultValue={"0"} type="text" />
                     </Form.Group>
                 </div>
 

@@ -92,7 +92,6 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
         </div>
         {task.taskMaster !== "" && <span className="taskMaster">({task.taskMaster})</span>}
 
-        <div className="taskMobile">
           <div className="taskInputBox flex">
             <div className="flex taskInput">
               {(!task.completed && subListTask.length === 0) && (
@@ -140,7 +139,6 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
             </div>
           </div>
           <span className="taskDesc">{task.description}</span>
-        </div>
       </div>
 
       <div className="taskChildBox">
@@ -152,8 +150,8 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
               <span>{st.title}</span>
             </div>
 
-            <div className="taskInputBox">
-              <div className="flex taskInput">
+            <div className="taskInputBox flex">
+              <div className="taskInput flex">
                 {!st.completed && (
                   <input
                     className="responable"

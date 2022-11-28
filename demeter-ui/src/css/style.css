@@ -58,6 +58,10 @@ select {
     border-radius: .25rem;
 }
 
+:focus-visible {
+    outline: none;
+}
+
 .alert {
     font-size: 1rem !important;
     margin: .5rem 0 !important;
@@ -70,6 +74,10 @@ select {
 
 .hide {
     display: none !important;
+}
+
+.invisible {
+    visibility: hidden;
 }
 
 .center {

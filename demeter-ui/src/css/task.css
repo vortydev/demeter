@@ -38,7 +38,7 @@
     width: 100%;
 }
 
-.cellShade:hover>.iconBullet, .cellShade.priority>.iconBullet {
+.cellShade:hover .iconBullet, .cellShade.priority .iconBullet {
     color: var(--demeter-grey);
 }
 
@@ -163,7 +163,7 @@
     .taskInput {
         margin-left: 0;
     }
-    .taskMaster, .taskDesc {
+    /* .taskMaster, .taskDesc {
         width: 100%;
         text-align: left;
     }
@@ -173,5 +173,8 @@
     .taskMobile {
         display: flex;
         flex-direction: column-reverse;
+    } */
+    .taskDesc {
+        display: none;
     }
 }

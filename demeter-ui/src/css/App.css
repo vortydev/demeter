@@ -87,16 +87,19 @@
   justify-content: center;
 }
 
-.filterBar input, .filterSearch input {
+.filterBar input,
+.filterSearch input {
   width: 15rem;
 }
 
-.filterBar select, .filterBar button {
+.filterBar select,
+.filterBar button {
   align-self: center;
   margin-inline: .5rem;
 }
 
-.filterSearch, .filterDrop {
+.filterSearch,
+.filterDrop {
   justify-content: center;
   align-self: center;
 }
@@ -151,9 +154,11 @@
   .App-header {
     padding: .5rem 0;
   }
+
   .appNav .nav {
     flex-direction: row;
   }
+
   .appNav .nav-item {
     width: 50%;
   }
@@ -161,22 +166,64 @@
   .App-body {
     padding-bottom: 2rem;
   }
+
   .appPage {
     width: 90%;
   }
-  
+
+  .navbar {
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 1.5rem
+  }
+
+  .navbar .nav-item {
+    margin-bottom: .5rem;
+    width: 100%;
+  }
+  .navbar .nav-item:last-child {
+    margin-bottom: 0;
+  }
+  .navbar .nav-tabs {
+    border: none;
+  }
+
+  .navbar .nav-link {
+    border-radius: .25rem !important;
+    border: 2px solid var(--demeter-green) !important;
+    color: var(--demeter-green-v) !important;
+    margin-bottom: 0;
+    padding: .25rem 0 !important
+  }
+  .navbar .nav-link:not(.active):hover {
+    border-color: var(--demeter-green-v) !important;
+    color: var(--demeter-green-v) !important;
+  }
+  .navbar .nav-link.active {
+    background-color: var(--demeter-green) !important;
+    color: white !important;
+  }
+  .navbar .nav-link.active:hover {
+    background-color: var(--demeter-green-v) !important;
+  }
+
   .btnBar {
     flex-direction: column;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
+
   .btnBar>button {
     width: 90%;
     margin: auto;
   }
+
   .btnBar>button:not(:last-child),
   .filterBar>div:not(:last-child),
   .filterDrop>select:not(:last-child) {
     margin-bottom: .5rem;
   }
+
   .btnBar .btn-hidden {
     display: none;
   }
@@ -184,7 +231,9 @@
   .filterBar {
     flex-direction: column;
   }
-  .filterSearch, .filterDrop {
+
+  .filterSearch,
+  .filterDrop {
     display: inline-flex;
     margin: auto;
     width: 100%;
@@ -195,13 +244,19 @@
     top: 100%;
     position: sticky;
   }
-  .flexFooter, .footerText {
+
+  .flexFooter,
+  .footerText {
     flex-direction: column;
   }
-  .demeterLogo, .flexFooter .deco {
+
+  .demeterLogo,
+  .flexFooter .deco {
     margin: auto;
   }
-  .demeterLogo, .footerText {
+
+  .demeterLogo,
+  .footerText {
     margin-bottom: .5rem;
   }
 }

@@ -9,8 +9,6 @@ import {
 import { Task, TaskHistory } from "../../types/Types";
 import { CreateTaskForm } from "./createTaskForm";
 import { TaskNav } from "./TaskNav";
-import { TaskRow } from "./TaskRow";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRotateLeft,
@@ -108,8 +106,8 @@ function TaskPage(): JSX.Element {
         success={createdSuccess}
         setSuccess={setSuccess}
       />
-      {createdSuccess && <Alert>La tâche à été créée avec succès!</Alert>}
-      {deletedSuccess && <Alert>La tâche à été supprimée avec succès!</Alert>}
+      {createdSuccess && <Alert variant="success">La tâche à été créée avec succès!</Alert>}
+      {deletedSuccess && <Alert variant="success">La tâche à été supprimée avec succès!</Alert>}
 
       <div className="btnBar">
         {/* EMPTY BTN */}

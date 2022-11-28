@@ -64,8 +64,10 @@ select {
 
 .alert {
     font-size: 1rem !important;
-    margin: .5rem 0 !important;
+    margin: 1rem auto !important;
     text-align: center;
+    min-width: 20rem;
+    width: fit-content;
 }
 
 .priority {

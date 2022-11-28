@@ -1,5 +1,5 @@
 import http from "../http-common";
-import {TaskHistory } from "../types/Types";
+import { TaskHistory } from "../types/Types";
 
 class TaskHistoryService {
   getAll() {
@@ -10,10 +10,17 @@ class TaskHistoryService {
     return http.get<TaskHistory>(`/th/${id}`);
   }
 
+  getWeeklyHistory(date: Date){
+    return http.get<TaskHistory>(`/th?week=${date}`);
+  }
+
+  getTodayHistory(date: Date){
+    return http.get<TaskHistory>(`/th?today=${date}`);
+  }
+
   create(data:TaskHistory) {
     return http.post<TaskHistory>("/th", data);
   }
-
 
   delete(id: number) {
     return http.delete<any>(`/th/${id}`);

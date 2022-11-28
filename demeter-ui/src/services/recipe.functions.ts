@@ -28,11 +28,9 @@ async function createRecipe(
         qty: ing.quantity,
         mesurementId: parseInt(ing.mesurementId),
       };
-      console.log('ingredient to create : ', ingToCreate, "in recipe :", recipeCreated.id);
 
       const ingCreated = await createIngredient(ingToCreate);
       if (!ingCreated) {
-        console.log('the ingredient wasnt created.');
         return false;
         
       }
@@ -56,6 +54,30 @@ async function getRecipesByCategory(category: number | null) {
     return recipes;
   } else {
     const recipes = RecipeService.getAll()
+      .then((response) => {
+        return response.data;
+      })
+      .catch((e: Error) => {
+        console.log(e);
+        return [];
+      });
+    return recipes;
+  }
+}
+
+async function getRecipesByCategoryName(category: number | null, research: string){
+  if (category !== null) {
+    const recipes = RecipeService.getByCategoryName(category, research)
+      .then((response: any) => {
+        return response.data;
+      })
+      .catch((e: Error) => {
+        console.log(e);
+        return [];
+      });
+    return recipes;
+  } else {
+    const recipes = RecipeService.getByName(research)
       .then((response) => {
         return response.data;
       })
@@ -99,4 +121,4 @@ async function updateRecipe(id: number, recipe: Recipe){
     return updated;
 }
 
-export { createRecipe, getRecipesByCategory, deleteRecipe, updateRecipe };
+export { createRecipe, getRecipesByCategory, deleteRecipe, updateRecipe, getRecipesByCategoryName };

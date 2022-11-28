@@ -4,6 +4,8 @@ import { IngForRecipe } from "../../../../types/RecipeTypes.types";
 import { getRecipeCost } from "../../helper";
 import { AddIngredientForm } from "./AddIngredientForm";
 import { IngredientRowForm } from "./IngredientRowForm";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 interface ILFProps {
   listIng: IngForRecipe[];
@@ -31,10 +33,15 @@ function IngredientListForm({ listIng, setRecipeCost }: ILFProps) {
       <div className="ingListEmpty popupForm">
         <span>Aucun Ingrédient</span>
 
-        <Button className="mt-3" variant="demeter-dark" onClick={() => {
+        <div className="btnBar mt-3">
+          <Button variant="icon-dark" onClick={() => {
             setAddIngredient(true);
             setDeleteIngredient(false);
-          }}>+ Ingrédient</Button>
+          }}>
+            <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
+            <span>Ingrédient</span>
+          </Button>
+        </div>
 
         <AddIngredientForm
           show={addIngredient}
@@ -47,7 +54,7 @@ function IngredientListForm({ listIng, setRecipeCost }: ILFProps) {
 
   return (
     <div className="ingListForm popupForm">
-      {deleteIngredient && ( <Alert variant="success">Ingrédient supprimé avec succès!</Alert>)}
+      {deleteIngredient && (<Alert variant="success">Ingrédient supprimé avec succès!</Alert>)}
       <div className="ingListHeader flex mb-2">
         <span className="ingListCol">Nom</span>
         <span className="ingListColS">Quantité</span>
@@ -63,11 +70,16 @@ function IngredientListForm({ listIng, setRecipeCost }: ILFProps) {
         ))}
       </div>
 
-      <Button className="mt-1" variant="demeter-dark"
-        onClick={() => {
-          setAddIngredient(true);
-          setDeleteIngredient(false);
-        }}>+ Ingrédient</Button>
+      <div className="btnBar mt-2">
+        <Button variant="icon-dark"
+          onClick={() => {
+            setAddIngredient(true);
+            setDeleteIngredient(false);
+          }}>
+          <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
+          <span>Ingrédient</span>
+        </Button>
+      </div>
 
       <AddIngredientForm
         show={addIngredient}

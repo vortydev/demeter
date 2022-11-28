@@ -2,7 +2,7 @@ import { setPriority } from "os";
 import { useEffect, useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 import { getAccountsByRole } from "../../services/account.functions";
-import { createTask, deleteTask, getTasksByParent, updateTask } from "../../services/task.funtions";
+import { createTask, updateTask } from "../../services/task.funtions";
 import { Account, Task } from "../../types/Types";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,6 +21,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
   const [priority, setPriority] = useState<boolean>(task.priority);
   const [listAccount, setListAccount] = useState<Account[]>([]);
   const [empty, setEmpty] = useState<boolean>(false);
+  const [tt, setTypeTask] = useState<string>("1");
 
   useEffect(() => {
     async function getList() {
@@ -35,6 +36,8 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
     const description = document.getElementById("description") as HTMLInputElement;
     const typeTask = document.getElementById("typeTask") as HTMLInputElement;
     const receiver = document.getElementById("receiver") as HTMLInputElement;
+    const when = document.getElementById("when") as HTMLInputElement;
+    const taskMaster = document.getElementById("taskMaster") as HTMLInputElement;
 
     setEmpty(false);
 
@@ -48,10 +51,12 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
       const updatedTask: Task = {
         ...task,
         title: taskName.value,
-        description: description.value,
+        description: task.parentId === 0 ? description.value : "",
         categorytaskId: parseFloat(typeTask.value),
         priority: priority,
         receiver: task.parentId === 0 ? receiver.value : "",
+        whenToDo: (task.parentId === 0 && tt !== "3") ? when.value : "",
+        taskMaster: (task.parentId === 0 && tt === "2") ? taskMaster.value : "",
       };
 
       for (const ct of childTask) {
@@ -94,7 +99,6 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         } else if (event.target.name === "title") {
           ct.title = event.target.value;
         }
-
       }
       return ct;
     });
@@ -109,7 +113,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         id: Number(new Date()),
         title: "",
         description: "",
-        categorytaskId: task.categorytaskId,
+        categorytaskId: parseFloat(tt),
         parentId: task.id,
         completed: false,
         active: false,
@@ -118,8 +122,8 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         priority: false,
         responsable: "",
         receiver: "",
-        taskMaster:"",
-        whenToDo:"",
+        taskMaster: "",
+        whenToDo: "",
       },
     ]);
   };
@@ -133,8 +137,13 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
     setChildTask(values);
   };
 
+  function typeTask() {
+    const typeTask = document.getElementById("typeTask") as HTMLInputElement;
+    setTypeTask(typeTask.value);
+  }
+
   return (
-    <Modal onHide={close} show={show}>
+    <Modal onHide={close} show={show} onShow={() => setTypeTask(task.categorytaskId.toString())}>
       <Form className="popupForm">
         <h3 className="popupTitle">Édition d'une Tâche</h3>
         {empty && <Alert variant="danger">Veuillez donner un titre à la tâche.</Alert>}
@@ -144,47 +153,80 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
           <Form.Control defaultValue={task.title} type="text" />
         </Form.Group>
 
-        {task.parentId === 0 && <div>
-          <Form.Group className="mb-2" controlId="description">
-            <Form.Label>Description</Form.Label>
-            <Form.Control defaultValue={task.description} as="textarea" rows={3} />
-          </Form.Group>
+        <Form.Group className={`mb-2 ${task.parentId !== 0 ? "hide" : ""}`} controlId="description">
+          <Form.Label>Description</Form.Label>
+          <Form.Control defaultValue={task.description} as="textarea" rows={3} />
+        </Form.Group>
 
-          <Form.Group className="popupSelectBox mb-2">
+        <div className="popupRowSplit mb-2">
+          <Form.Group className={`popupSelectBox ${task.parentId !== 0 ? "hide" : ""}`}>
             <Form.Label className="popupSelectLabel">Destinataire</Form.Label>
-            <Form.Select id="receiver" aria-label="Type">
-              <option value="delivery">Livreur</option>
+            <Form.Select defaultValue={task.receiver} id="receiver" aria-label="Type">
               {listAccount.map((employee) => (
                 <option value={employee.accName}>{employee.accName}</option>
               ))}
+              <option value="delivery">Livreur</option>
             </Form.Select>
           </Form.Group>
 
-          <Form.Group className="popupSelectBox mb-2">
-            <Form.Label className="popupSelectLabel">Type</Form.Label>
-            <Form.Select defaultValue={task.categorytaskId} id="typeTask" aria-label="Type">
+          <Form.Group className="flex" controlId="priority">
+            <Form.Label className="popupLabel">Prioritaire</Form.Label>
+            <Form.Check defaultChecked={task.priority} className="popupCheck" onChange={() => setPriority(!priority)} type="checkbox" />
+          </Form.Group>
+        </div>
+
+        <div className={`popupRowSplit mb-2 ${task.parentId !== 0 ? "hide" : ""}`}>
+          <Form.Group className="popupSelectBox">
+            <Form.Label className="popupLabel">Type</Form.Label>
+            <Form.Select defaultValue={task.categorytaskId} onChange={typeTask} id="typeTask" aria-label="Type">
               <option value="1">Quotidienne</option>
               <option value="2">Hebdomadaire</option>
               <option value="3">Autre</option>
             </Form.Select>
           </Form.Group>
-        </div>}
 
-        <Form.Group className="flex mb-2" controlId="priority">
-          <Form.Label className="popupLabel">Prioritaire</Form.Label>
-          <Form.Check defaultChecked={task.priority} className="popupCheck" onChange={() => setPriority(!priority)} type="checkbox" />
-        </Form.Group>
+          {(task.parentId === 0 && tt === "1") && (
+            <Form.Group className="popupSelectBox">
+              <Form.Label className="popupSelectLabel">Quand</Form.Label>
+              <Form.Select defaultValue={task.whenToDo} onChange={typeTask} id="when" aria-label="Type">
+                <option value="open">Ouverture</option>
+                <option value="preClose">Pré-fermeture</option>
+                <option value="close">Fermeture</option>
+              </Form.Select>
+            </Form.Group>
+          )}
+          {(task.parentId === 0 && tt === "2") && (
+            <Form.Group className="popupSelectBox">
+              <Form.Label className="popupSelectLabel">Jour</Form.Label>
+              <Form.Select defaultValue={task.whenToDo} onChange={typeTask} id="when" aria-label="Type">
+                <option value="mon">Lundi</option>
+                <option value="tue">Mardi</option>
+                <option value="wed">Mercredi</option>
+                <option value="thu">Jeudi</option>
+                <option value="fri">Vendredi</option>
+                <option value="sat">Samedi</option>
+                <option value="sun">Dimanche</option>
+              </Form.Select>
+            </Form.Group>
+          )}
+        </div>
+
+        {(task.parentId === 0 && tt === "2") && (
+          <Form.Group className="mb-2" controlId="taskMaster">
+            <Form.Label className="popupLabelFull">Responsable</Form.Label>
+            <Form.Control defaultValue={task.taskMaster} type="text" />
+          </Form.Group>
+        )}
 
         <div className="subTaskList flex">
           {childTask.map((ct) => (
             <div className="subTaskBox mb-2">
-              <hr className="loginLine mb-3 mt-2" />
+              <hr className="loginLine mt-3 mb-3" />
               <Form.Group className="subTask flex" controlId="subTaskName" key={ct.id}>
                 <Form.Label className="popupLabelFull">Titre sous-tâche</Form.Label>
                 <Form.Control name="title" value={ct.title} type="text" onChange={(event: {
                   target: { name: string | number; value: any };
-                }) => handleChangeSubTask(ct.id, event)}
-                />
+                }) => handleChangeSubTask(ct.id, event)} />
                 <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
                   handleRemoveSubTask(ct.id);
                 }} />
@@ -193,14 +235,14 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
           ))}
         </div>
 
-        {task.parentId === 0 && <div className="btnBar mt-2 mb-2">
+        {task.parentId === 0 && <div className="btnBar mt-3 mb-2">
           <Button variant="outline-dark" onClick={handleAddSubTask}>
             Ajouter une sous-tâche
           </Button>
         </div>}
 
         <div className="mt-3 popupBtnBox">
-          <Button variant="demeter-dark" onClick={close}>Annuler</Button>
+          <Button variant="demeter-dark" onClick={() => {setChildTask([]); close();}}>Annuler</Button>
           <Button variant="demeter" onClick={handleSubmit}>Confirmer</Button>
         </div>
       </Form>

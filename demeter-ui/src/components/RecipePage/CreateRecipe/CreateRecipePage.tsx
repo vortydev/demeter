@@ -41,8 +41,8 @@ function CreateRecipePage({ setSelectedPage, setCreated }: CRPProps) {
       setTimeout(() => {
         setEmptyIng(false);
       }, 5000);
-    } 
-    else if (recipeInfo.title == "" || !recipeInfo.categoryrecipeId || !recipeInfo.instruction || recipeInfo.otherCost < 0 || recipeInfo.nbUnitCreated <= 0) {
+    }
+    else if (recipeInfo.title === "" || !recipeInfo.categoryrecipeId || !recipeInfo.instruction || recipeInfo.otherCost < 0 || recipeInfo.nbUnitCreated <= 0) {
       setEmpty(true);
       setTimeout(() => {
         setEmpty(false);
@@ -56,15 +56,16 @@ function CreateRecipePage({ setSelectedPage, setCreated }: CRPProps) {
         setInvalid(true);
       }
     }
-    
+
   }
 
   return (
-    <section className="createRecipePage">
-      <h1 className="pageTitle">Nouvelle Recette</h1>
+    <section className="appPage">
+      <h2 className="pageTitle mt-4">Nouvelle Recette</h2>
       {empty && <Alert variant="danger">Veuillez remplir tous les champs de la recette.</Alert>}
       {emptyIng && <Alert variant="danger">Veuillez ajouter des ingrédients.</Alert>}
       {invalid && (<Alert variant="danger">Informations invalides, la recette n'a pas été créée.</Alert>)}
+      
       <div className="pageSplit">
         <CreateRecipeForm setRecipeInfo={setRecipeInfo} />
         <IngredientListForm setRecipeCost={setRecipeCost} listIng={listIng} />

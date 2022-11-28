@@ -13,11 +13,12 @@ import { confirmAlert } from "react-confirm-alert";
 
 interface NewsPreviewProps {
   news: News;
+  editSuccess: boolean;
   editedSuccess: (editedSuccess: boolean) => void;
   deleteSuccess: (deleted: boolean) => void;
 }
 
-function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
+function NewsPreview({ news, editSuccess, editedSuccess, deleteSuccess }: NewsPreviewProps) {
   let shortDescription = news.description;
   const [fullText, setFullText] = useState<boolean>(false);
   const [EditNews, setEditNews] = useState<boolean>(false);
@@ -39,7 +40,7 @@ function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
     else {
       setLongDesc(false);
     }
-  }, [task, fullText, editedSuccess, completedTask]);
+  }, [fullText, editSuccess, completedTask]);
 
   if (news.description.length > 200) {
     shortDescription = news.description.substring(0, 200);
@@ -56,7 +57,7 @@ function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
     editedSuccess(true);
     setTimeout(() => {
       editedSuccess(false);
-    }, 5000);
+    }, 2500);
   }
 
   function close() {
@@ -75,6 +76,9 @@ function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
 
       if (await updateTask(completedTask)) {
         setCompletedTask(true);
+        setTimeout(() => {
+          setCompletedTask(false);
+        }, 50);
       }
     }
 
@@ -89,6 +93,9 @@ function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
 
     if (await updateTask(nvmTask)) {
       setCompletedTask(true);
+      setTimeout(() => {
+        setCompletedTask(false);
+      }, 50);
     }
   }
 
@@ -96,20 +103,20 @@ function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
   return (
     <article className="flexNewsPreview">
       <div className={`newsBody ${news.priority ? "priority" : ""}`}>
-        <h2 className="newsTitle">{news.title}</h2>
-        <h3 className="newsDate">
-          {theDate.toLocaleDateString()} - {news.author}
-        </h3>
-        <div className="flexNewsBox">
-          {news.picture !== null && (
-            <div className="picture">
-              <img src={news.picture} />
+        <div className="btnBar flex">
+          {(role === "1" || role === "4") &&
+            <div className="flexNewsEdit invisible">
+              <FontAwesomeIcon className="icon" icon={faEdit} size="lg" />
+              <FontAwesomeIcon className="icon" icon={faEdit} size="lg" />
             </div>
-          )}
-          <p className="newsContent">
-            {text}
-            <b>{longDesc && dotdotdot}</b>
-          </p>
+          }
+          <div className="newsHeader">
+            <h2 className="newsTitle">{news.title}</h2>
+            <h3 className="newsDate">
+              {theDate.toLocaleDateString()} - {news.author}
+            </h3>
+          </div>
+
           {(role === "1" || role === "4") &&
             <div className="flexNewsEdit">
               <FontAwesomeIcon
@@ -150,6 +157,18 @@ function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
           }
         </div>
 
+        <div className="flexNewsBox">
+          {news.picture !== null && (
+            <div className="picture">
+              <img src={news.picture} />
+            </div>
+          )}
+          <p className="newsContent">
+            {text}
+            <b>{longDesc && dotdotdot}</b>
+          </p>
+        </div>
+
         {task !== undefined && <div className="newsTaskBox flex mt-2">
           {task.completed &&
             <FontAwesomeIcon className="iconCheck mr-1" icon={faCheck} size="lg" />
@@ -158,7 +177,7 @@ function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
           {!task.completed &&
             <label className="jointTaskPreview">(Tâche jointe)</label>
           }
-          
+
           <span>{task.title}</span>
 
           {!task.completed &&

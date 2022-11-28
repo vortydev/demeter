@@ -14,6 +14,30 @@ class InventoryService {
     return http.get<Array<Product>>(`/products?categoryId=${categoryId}`);
   }
 
+  getByVendor(vendorId: string){
+    return http.get<Array<Product>>(`/products?vendorId=${vendorId}`);
+  }
+
+  getByCategoryVendor(categoryId: string, vendorId: string){
+    return http.get<Array<Product>>(`/products?categoryId=${categoryId}&vendorId=${vendorId}`);
+  }
+
+  getByName(research: string){
+    return http.get<Array<Product>>(`/products?research=${research}`);
+  }
+
+  getByCategoryName(categoryId: string, research: string) {
+    return http.get<Array<Product>>(`/products?categoryId=${categoryId}&research=${research}`);
+  }
+
+  getByNameVendor(research: string, vendorId: string){
+    return http.get<Array<Product>>(`/products?vendorId=${vendorId}&research=${research}`);
+  }
+
+  getByCategoryVendorName(categoryId: string, vendorId: string, research: string){
+    return http.get<Array<Product>>(`/products?categoryId=${categoryId}&vendorId=${vendorId}&research=${research}`);
+  }
+
   create(data: Product) {
     return http.post<Product>("/products", data);
   }

@@ -21,7 +21,8 @@ import { confirmAlert } from "react-confirm-alert";
 import { DailyTaskDisplay } from "./TasksDisplay/DailyTaskDisplay";
 import { HebdoTaskDisplay } from "./TasksDisplay/HebdoTaskDisplay";
 import { OtherTaskDisplay } from "./TasksDisplay/OtherTaskDisplay";
-import { createTaskHistory } from "../../services/taskHistory.functions";
+import { createTaskHistory, getTodayHistory } from "../../services/taskHistory.functions";
+import { TaskHistoryModal } from "./TaskHistory/TaskHistoryModal";
 
 function TaskPage(): JSX.Element {
   const [createdSuccess, setSuccess] = useState<boolean>(false);
@@ -34,11 +35,18 @@ function TaskPage(): JSX.Element {
   const role = getCookie("role");
   const [taskCompleted, setTaskCompleted] = useState<boolean>(false);
   const [createTask, setCreateTask] = useState<boolean>(false);
+  const [seeHistory, setSeeHistory] = useState<boolean>(false);
+  const [dayStarted, setDayStarted]=useState<boolean>(false);
+  const today = new Date();
+  const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
   useEffect(() => {
     async function getList() {
       const taskByCat: Task[] = await getbyCategorie(taskCategory);
       setAllCatTask(taskByCat);
+
+      setDayStarted(await getTodayHistory(date));
+      console.log(await getTodayHistory(date));
 
       if (role === "2") {
         const taskForAccount: Task[] = taskByCat.filter(
@@ -52,7 +60,6 @@ function TaskPage(): JSX.Element {
       }
     }
     getList();
-    setTaskCompleted(false);
   }, [
     taskCategory,
     createdSuccess,
@@ -62,38 +69,39 @@ function TaskPage(): JSX.Element {
   ]);
 
   async function resetTasksByCat() {
-    //Genérer rapport pour historique ici
-
+    console.log('the date', date);
     for (const task of allCatTask) {
-      await enterInHistory(task);
+      await enterInHistory(task, date);
     }
-    setTaskCompleted(true);
     resetTask(allCatTask);
+    setTaskCompleted(true);
+    setTimeout(() => {
+      setTaskCompleted(false);
+    }, 100);
   }
 
   function close(): void {
     setCreateTask(false);
+    setSeeHistory(false);
   }
 
-  async function enterInHistory(task: Task) {
+  async function enterInHistory(task: Task, date: Date) {
     const historyInfo: TaskHistory = {
-      completionDate: new Date(),
+      completionDate: date,
       taskName: task.title,
       whoDid: task.responsable,
+      parentId: task.parentId,
     };
 
     // createTaskHistory request here
 
-    if (await createTaskHistory(historyInfo)) {
-      console.log("it created the the thing!");
-    } else {
-      console.log("yeah... no");
+    if (!await createTaskHistory(historyInfo)) {
+      console.error("failed to add to history");
     }
   }
 
   return (
-    <section className="taskPage">
-      <h1 className="pageTitle">Tâches</h1>
+    <section className="appPage">
       <TaskNav
         taskCategory={taskCategory}
         setTaskCategory={setTaskCategory}
@@ -103,26 +111,32 @@ function TaskPage(): JSX.Element {
       {createdSuccess && <Alert>La tâche à été créée avec succès!</Alert>}
       {deletedSuccess && <Alert>La tâche à été supprimée avec succès!</Alert>}
 
-      <div className="btnBar taskBtnBar">
-        {(role === "1" || role === "4") && (
-          <Button
-            variant="icon-outline"
-            onClick={() => {
-              setCreateTask(true);
-              setSuccess(false);
-            }}
-          >
-            <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
-            <span>Nouvelle Tâche</span>
-          </Button>
-        )}
+      <div className="btnBar">
+        {/* EMPTY BTN */}
+        {(role === "1" || role === "4") && (<Button variant="hidden">
+          <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
+          <span>Nouvelle Tâche</span>
+        </Button>)}
 
         {taskCategory === 1 && (
           <Button
+          disabled={dayStarted}
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {
-              resetTasksByCat();
+              confirmAlert({
+                title: 'Confirmation',
+                message: 'Êtes-vous sûr.e de vouloir de vouloir réinitialiser la feuille de tâches?',
+                buttons: [{
+                  label: 'Oui',
+                  onClick: () => {
+                    resetTasksByCat();
+                  }
+                },{
+                  label: 'Annuler',
+                    onClick: () => { }
+                }]
+              });
             }}
           >
             <FontAwesomeIcon
@@ -136,10 +150,23 @@ function TaskPage(): JSX.Element {
 
         {taskCategory === 2 && (
           <Button
+          disabled = {today.getDay() !== 1 && (role !== "1" && role !== "4")}
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {
-              resetTasksByCat();
+              confirmAlert({
+                title: 'Confirmation',
+                message: 'Êtes-vous sûr.e de vouloir de vouloir réinitialiser la feuille de tâches?',
+                buttons: [{
+                  label: 'Oui',
+                  onClick: () => {
+                    resetTasksByCat();
+                  }
+                },{
+                  label: 'Annuler',
+                    onClick: () => { }
+                }]
+              });
             }}
           >
             <FontAwesomeIcon
@@ -156,7 +183,19 @@ function TaskPage(): JSX.Element {
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {
-              resetTasksByCat();
+              confirmAlert({
+                title: 'Confirmation',
+                message: 'Êtes-vous sûr.e de vouloir de vouloir réinitialiser la feuille de tâches?',
+                buttons: [{
+                  label: 'Oui',
+                  onClick: () => {
+                    resetTasksByCat();
+                  }
+                },{
+                  label: 'Annuler',
+                    onClick: () => { }
+                }]
+              });
             }}
           >
             <FontAwesomeIcon
@@ -168,11 +207,18 @@ function TaskPage(): JSX.Element {
           </Button>
         )}
 
-        {(role === "1" || role === "4") && (<Button variant="hidden">
-          <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
-          <span>Nouvelle Tâche</span>
-        </Button>)
-        }
+        {(role === "1" || role === "4") && (
+          <Button
+            variant="icon-outline"
+            onClick={() => {
+              setCreateTask(true);
+              setSuccess(false);
+            }}
+          >
+            <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
+            <span>Nouvelle Tâche</span>
+          </Button>
+        )}
       </div>
 
       <div className="taskDisplayList mt-3">
@@ -202,17 +248,16 @@ function TaskPage(): JSX.Element {
         }
       </div>
 
-
-
       {(role === "1" || role === "4") && (
         <div className="btnBar">
-          <Button variant="icon-dark" className="centerBtn">
+          <Button onClick={() => setSeeHistory(true)} variant="icon-dark" className="centerBtn">
             <FontAwesomeIcon className="icon" icon={faClock} size="lg" />
             <span>Afficher l'historique</span>
           </Button>
         </div>
       )}
       <CreateTaskForm show={createTask} close={close} success={setSuccess} />
+      <TaskHistoryModal show={seeHistory} close={close} newHistory={taskCompleted}/>
     </section>
   );
 }

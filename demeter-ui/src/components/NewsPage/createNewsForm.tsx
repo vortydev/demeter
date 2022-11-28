@@ -131,7 +131,6 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
         <Form.Group className="popupSelectBox mb-2" controlId="receiver">
           <Form.Label className="popupSelectLabel">Destinataires</Form.Label>
           <Form.Select aria-label="target">
-            {/* TODO fetch from bd? */}
             <option value="1">Administrateurs</option>
             <option value="2">Employés</option>
             <option value="3">Livreurs</option>
@@ -161,14 +160,14 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
             {emptyTask && <Alert variant="danger">Veuillez donner un titre à la tâche.</Alert>}
             <Form.Group className="mb-2" controlId="tasktitle">
               <Form.Label>Titre de la tâche</Form.Label>
-              <Form.Control as="textarea" rows={3} />
+              <Form.Control type="text" />
             </Form.Group>
             <Form.Group className="mb-2" controlId="taskdescription">
               <Form.Label>Description de la tâche</Form.Label>
               <Form.Control as="textarea" rows={3} />
             </Form.Group>
 
-            <div className="popupBtnBox mt-2 mb-2">
+            <div className="popupBtnBox mt-3 mb-2">
               <Button variant="demeter-dark" onClick={() => setAddTask(false)}>
                 Annuler
               </Button>
@@ -177,7 +176,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
           </div>
         )}
 
-        <div className="mt-2 popupBtnBox">
+        <div className="mt-3 popupBtnBox">
           <Button variant="demeter-dark" onClick={close}>
             Annuler
           </Button>

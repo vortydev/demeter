@@ -17,7 +17,7 @@ exports.create = (req, res) => {
         completionDate: req.body.completionDate,
         taskName: req.body.taskName,
         whoDid: req.body.whoDid,
-        
+        parentId: req.body.parentId,
     };
 
   // Save Task in the database
@@ -34,7 +34,18 @@ exports.create = (req, res) => {
 
 // Retrieve all Tasks from the database.
 exports.findAll = (req, res) => {
-    TH.findAll()
+
+    const week = req.query.week;
+    const today = req.query.today;
+    var conditionW = week
+      ? { completionDate: { [Op.gte]: `%${week}%` } }
+      : null;
+      var conditionT = today
+      ? { completionDate: { [Op.eq]: `%${today}%` } }
+      : null;
+
+if(conditionW !== null)
+    {TH.findAll({conditionW})
       .then((data) => {
         res.send(data);
       })
@@ -44,7 +55,20 @@ exports.findAll = (req, res) => {
             err.message ||
             "Some error occurred while retrieving announcements.",
         });
-      });
+      });}
+
+      if(conditionT!== null)
+    {TH.findAll({conditionT})
+      .then((data) => {
+        res.send(data);
+      })
+      .catch((err) => {
+        res.status(500).send({
+          message:
+            err.message ||
+            "Some error occurred while retrieving announcements.",
+        });
+      });}
   
 };
 

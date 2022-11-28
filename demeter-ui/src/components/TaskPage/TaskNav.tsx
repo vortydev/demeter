@@ -1,9 +1,4 @@
-import { useState } from "react";
-import { Button, Nav } from "react-bootstrap";
-import { getCookie } from "typescript-cookie";
-import { CreateTaskForm } from "./createTaskForm";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Nav } from "react-bootstrap";
 
 interface TaskNavProps {
   taskCategory: number;
@@ -15,7 +10,7 @@ interface TaskNavProps {
 function TaskNav({ taskCategory, setTaskCategory, success, setSuccess }: TaskNavProps) {
 
   return (
-    <section className="accountNav navbar mb-3">
+    <section className="navbar">
       <Nav defaultActiveKey="tache1" variant="tabs">
         <Nav.Item>
           <Nav.Link onClick={() => setTaskCategory(1)} eventKey="tache1">

@@ -14,7 +14,7 @@ exports.create = (req, res) => {
         return;
     }
 
-    // Create an account
+    // Create a product
     const product = {
         name: req.body.name,
         categoryproductId: req.body.categoryproductId,
@@ -26,7 +26,7 @@ exports.create = (req, res) => {
         format: req.body.format
     };
 
-    // Save account in the database
+    // Save product in the database
     Product.create(product)
         .then(data => {
             res.send(data);
@@ -38,12 +38,16 @@ exports.create = (req, res) => {
         });
 };
 
-// Retrieve all Accounts from the database.
+// Retrieve all products from the database.
 exports.findAll = (req, res) => {
     const categoryId = req.query.categoryId;
     var category = categoryId ? { categoryproductId: { [Op.like]: `%${categoryId}%` } } : null;
+    const vendorId = req.query.vendorId;
+    var vendor = vendorId ? { vendorId: { [Op.like]: `%${vendorId}%`} } : null;
+    const research = req.query.research;
+    var name = research ? { name: { [Op.like]: `%${research}%` } } : null;
 
-    Product.findAll({ where: category })
+    Product.findAll({ where: {[Op.and]: [ category, vendor, name ]} })
         .then(data => {
             res.send(data);
         })
@@ -54,7 +58,7 @@ exports.findAll = (req, res) => {
         });
 };
 
-// Find a single Account with an id
+// Find a single product with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
@@ -100,7 +104,7 @@ exports.update = (req, res) => {
         });
 };
 
-// Delete an Account with the specified id in the request
+// Delete a product with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
 
@@ -125,7 +129,7 @@ exports.delete = (req, res) => {
         });
 };
 
-// Delete all Accounts from the database.
+// Delete all products from the database.
 exports.deleteAll = (req, res) => {
     Product.destroy({
         where: {},

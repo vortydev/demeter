@@ -32,7 +32,7 @@ type Task = {
   responsable: string;
   date: Date;
   priority : boolean;
-  receiver: String;
+  receiver: string;
   taskMaster: string;
   whenToDo: string;
 }
@@ -89,6 +89,12 @@ type TaskHistory = {
   completionDate : Date;
   taskName : string;
   whoDid : string;
+  parentId: number | null;
 }
 
-export type { Account, News, Task, Product, Category, Recipe, Vendor, Mesurement, Ingredient, TaskHistory }
+type TLP = { // Team Lead Password
+  pwdName:String;
+  pwdPassword: String;
+}
+
+export type { Account, News, Task, Product, Category, Recipe, Vendor, Mesurement, Ingredient, TaskHistory, TLP }

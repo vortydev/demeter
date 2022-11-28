@@ -26,11 +26,12 @@ db.sequelize.sync({})                 // {force: true} drops the db
           { id: "1", role: "Administrateur" },
           { id: "2", role: "Employé" },
           { id: "3", role: "Livreur" },
-          { id: "4", role: "Developpeur" },
+          { id: "4", role: "Développeur" },
           { id: "5", role: "Cuisine" },
           { id: "6", role: "Boulangerie" },
           { id: "7", role: "Viennoiserie" },
           { id: "8", role: "Pâtisserie" },
+          { id: "9", role: "app" },
         ],
         { ignoreDuplicates: true }
       )
@@ -109,7 +110,7 @@ db.sequelize.sync({})                 // {force: true} drops the db
             accName: "dev",
             accPassword:
               "$2a$10$McypW7KhpbdC1A9lDH8g5equNOzUYuSi243dPZxtfLXwKZ9La2V.W",
-              // TODO needs to be put in .env files
+            // TODO needs to be put in .env files
             roleId: 4,
             stateId: 2,
           },
@@ -128,20 +129,20 @@ app.get("/", (req, res) => {
 });
 
 // routes
-require("./app/routes/account.routes")(app); // utilisateurs
-require("./app/routes/announcement.routes")(app); // annonces
-require("./app/routes/categories.routes")(app); // catégories et autres tables de "typage"
-require("./app/routes/product.routes")(app); // produits
-require("./app/routes/recipe.routes")(app); // recettes
-require("./app/routes/rel_productrecipe.routes")(app);
-require("./app/routes/task.routes")(app); // tâches
-require("./app/routes/teamleadpwd.routes")(app); // mdp de chefs
-require("./app/routes/vendor.routes")(app); // fournisseurs
-require("./app/routes/verify.routes")(app); // vérification de login
-require("./app/routes/taskHistory.routes")(app); // historique des tâches
+require("./app/routes/account.routes")(app);            // utilisateurs
+require("./app/routes/announcement.routes")(app);       // annonces
+require("./app/routes/categories.routes")(app);         // catégories et autres tables de "typage"
+require("./app/routes/product.routes")(app);            // produits
+require("./app/routes/recipe.routes")(app);             // recettes
+require("./app/routes/rel_productrecipe.routes")(app);  // table relationnelle recette/produit
+require("./app/routes/task.routes")(app);               // tâches
+require("./app/routes/teamleadpwd.routes")(app);        // mdp de chefs
+require("./app/routes/vendor.routes")(app);             // fournisseurs
+require("./app/routes/verify.routes")(app);             // vérification de login
+require("./app/routes/taskHistory.routes")(app);        // historique des tâches
 
 // set port, listen for requests
-const PORT = process.env.NODE_DOCKER_PORT || 8080;
+const PORT = process.env.NODE_DOCKER_PORT;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });

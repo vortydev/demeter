@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getRecipesByCategory } from "../../services/recipe.functions";
+import { getRecipesByCategory, getRecipesByCategoryName } from "../../services/recipe.functions";
 import { Recipe } from "../../types/Types";
 
 
@@ -10,19 +10,24 @@ interface RecipeListProps {
   deletedSuccess: boolean;
   setSelectedPage: (page: string) => void;
   setRecipePage: (recipe: Recipe) => void;
+  nameFilter: string;
 }
 
-function RecipeList({ filter, selectedPage, deletedSuccess, setSelectedPage, setRecipePage }: RecipeListProps) {
+function RecipeList({ filter, selectedPage, deletedSuccess, setSelectedPage, setRecipePage, nameFilter }: RecipeListProps) {
   const [listRecipe, setListRecipe] = useState<Recipe[]>([]);
 
   useEffect(() => {
 
     async function getList() {
-      setListRecipe(await getRecipesByCategory(filter));
+      if (nameFilter != ""){
+        setListRecipe(await getRecipesByCategoryName(filter, nameFilter));
+      } else {
+        setListRecipe(await getRecipesByCategory(filter));
+      }
     }
     getList();
 
-  }, [filter, selectedPage, deletedSuccess]);
+  }, [filter, selectedPage, deletedSuccess, nameFilter]);
 
 
 

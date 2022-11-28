@@ -9,7 +9,7 @@ import { EditRecipeForm } from "./EditRecipeForm/EditRecipeForm";
 import { IngredientList } from "./IngredientList";
 import { InstructionModal } from "./InstructionModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 
 interface SingleRecipePageProps {
   recipe: Recipe | null;
@@ -39,11 +39,10 @@ function SingleRecipePage({
   }, [listChanged]);
 
   return (
-    <section className="singleRecipePage">
-      <h1 className="pageTitle">Vue d'une Recette</h1>
+    <section className="appPage">
       {editSuccess && (<Alert variant="success">La recette à été modifiée avec succès !</Alert>)}
 
-      <div className="singleRecipeTitle flex mt-2">
+      <div className="singleRecipeTitle flex mt-4">
         <h2>{recipe!.title}</h2>
         <FontAwesomeIcon className="iconEdit cursor ml-2" icon={faEdit} size="lg" onClick={() => {
           setEditRecipe(true);
@@ -87,9 +86,12 @@ function SingleRecipePage({
         </div>
       </div>
 
-      <Button className="singleRecipeBack" variant="demeter-dark" onClick={() => setSelectedPage("recipe")}>
-        ← Retour
-      </Button>
+      <div className="btnBar">
+        <Button className="centerBtn flex" variant="icon-dark" onClick={() => setSelectedPage("recipe")}>
+          <FontAwesomeIcon className="icon" icon={faArrowLeft} size="lg" />
+          <span>Retour</span>
+        </Button>
+      </div>
 
       <InstructionModal
         show={showInstruction}

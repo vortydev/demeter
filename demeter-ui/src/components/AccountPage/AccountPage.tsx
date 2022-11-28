@@ -4,6 +4,8 @@ import { AccountList } from "./AccountList";
 import { AccountNav } from "./AccountNav";
 import { CreateAccountForm } from "./CreateAccountForm";
 import "../../css/account.css"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 function AccountPage(): JSX.Element {
   const [createAccount, setCreateAccount] = useState<boolean>(false);
@@ -29,11 +31,11 @@ function AccountPage(): JSX.Element {
 
   return (
     <section>
-      <h1 className="pageTitle">Comptes</h1>
       <AccountNav subPage={subPage} setSubPage={setSubPage} />
       {createdSuccess && <Alert variant="success">Le compte a été créé avec succès!</Alert>}
       {editedSuccess && <Alert variant="success">Le compte a été modifié avec succès!</Alert>}
       {deletedSuccess && <Alert variant="success">Le compte a été supprimé avec succès!</Alert>}
+
       <div className="flex accountContent">
         <AccountList
           currentRole={subPage}
@@ -44,13 +46,14 @@ function AccountPage(): JSX.Element {
         />
         <Button
           className="addAcc"
-          variant="demeter-dark"
+          variant="icon-dark"
           onClick={() => {
             setCreateAccount(true);
             setSuccess(false);
           }}
         >
-          Nouveau Compte
+          <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
+          <span>Nouveau Compte</span>
         </Button>
       </div>
       <CreateAccountForm show={createAccount} close={close} success={success} />

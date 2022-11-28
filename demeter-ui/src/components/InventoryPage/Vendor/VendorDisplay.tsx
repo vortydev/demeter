@@ -6,8 +6,8 @@ import { Alert, Button, Container, Modal, Row } from "react-bootstrap";
 import { confirmAlert } from "react-confirm-alert";
 import { deleteVendor, getAllVendor } from "../../../services/vendor.functions";
 import { Vendor } from "../../../types/Types";
-import { VendorForm } from "./inventoryAddVendorForm";
-import { VendorEdit } from "./vendorEditForm";
+import { VendorForm } from "./AddVendorForm";
+import { VendorEdit } from "./VendorEditForm";
 
 interface VendorDisplayProps {
     show: boolean;
@@ -16,9 +16,14 @@ interface VendorDisplayProps {
 function VendorDisplay({ show, close }: VendorDisplayProps) {
     const [createNewVendor, setCreateNewVendor] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
+    const [deleted, setDeleteSuccess] = useState<boolean>(false);
+    const [update, setUpdate] = useState<boolean>(false);
 
     function successVendor(): void {
         setSuccess(true);
+        setTimeout(() => {
+            setSuccess(false);
+        }, 5000);
         closeVendor();
     }
 
@@ -31,7 +36,8 @@ function VendorDisplay({ show, close }: VendorDisplayProps) {
             <div className="popupForm">
                 <h2 className="popupTitle mt-2">Liste des fournisseurs</h2>
                 {createdSuccess && <Alert variant="success">Le fournisseur à été ajouté avec succès</Alert>}
-
+                {deleted && <Alert variant="success">Le fournisseur à été supprimé avec succès</Alert>}
+                {update && <Alert variant="success">Le fournisseur à été modifié avec succès</Alert> }
                 <div className="btnBar mt-3 mb-3">
                     <Button variant="icon-outline" className="centerBtn" onClick={() => {
                         setCreateNewVendor(true);
@@ -47,7 +53,7 @@ function VendorDisplay({ show, close }: VendorDisplayProps) {
                     <h4>Téléphone</h4>
                     <h4>Courriel</h4>
                 </div>
-                <VendorList create={createdSuccess} />
+                <VendorList create={createdSuccess} deleted={deleted} setDeleteSuccess={setDeleteSuccess} update={update} setUpdate={setUpdate} />
 
                 <div className="mt-3 popupBtnBox">
                     <Button variant="demeter-dark" onClick={close}>Retour</Button>
@@ -60,11 +66,13 @@ function VendorDisplay({ show, close }: VendorDisplayProps) {
 
 interface VendorOperationSuccess {
     create: boolean,
+    deleted: boolean,
+    setDeleteSuccess: (success: boolean) => void,
+    update: boolean,
+    setUpdate: (success: boolean) => void,
 }
-function VendorList({ create }: VendorOperationSuccess) {
+function VendorList({ create, deleted, setDeleteSuccess, update, setUpdate }: VendorOperationSuccess) {
     const [vendors, setVendors] = useState<Vendor[]>([]);
-    const [update, setUpdate] = useState<boolean>(false);
-    const [deleted, setDeleteSuccess] = useState<boolean>(false);
 
     useEffect(() => {
         async function getList() {
@@ -91,6 +99,9 @@ function VendorRow({ vendor, setSuccess, setDeleteSuccess }: VendorRow): JSX.Ele
 
     function success(): void {
         setSuccess(true);
+        setTimeout(() => {
+            setSuccess(false);
+        },5000);
         close();
     }
 
@@ -118,7 +129,12 @@ function VendorRow({ vendor, setSuccess, setDeleteSuccess }: VendorRow): JSX.Ele
                         buttons: [
                             {
                                 label: 'Oui',
-                                onClick: () => { deleteVendor(vendor.id); setDeleteSuccess(true); }
+                                onClick: () => { deleteVendor(vendor.id);
+                                        setDeleteSuccess(true); 
+                                        setTimeout(() => {
+                                            setDeleteSuccess(false);
+                                        },5000);
+                                    }
                             },
                             {
                                 label: 'Non',

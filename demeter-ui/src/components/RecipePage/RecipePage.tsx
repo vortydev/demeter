@@ -4,6 +4,9 @@ import { Recipe } from "../../types/Types";
 import "../../css/recipe.css";
 import { RecipeList } from "./RecipeList";
 import { getCookie } from "typescript-cookie";
+import { RecipeFilter } from "./RecipeFilter";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 interface RecipePageProps {
   selectedPage: string;
@@ -26,6 +29,8 @@ function RecipePage({
 }: RecipePageProps): JSX.Element {
   const role = getCookie("role");
   const [filter, setFilter] = useState<number | null>(null);
+  const [nameFilter, setNameFilter] = useState<string>("");
+
   useEffect(() => {
     switch (role) {
       case "5":
@@ -56,9 +61,7 @@ function RecipePage({
   }, 5000);
 
   return (
-    <div className="recipePage">
-      <h1 className="pageTitle">Carnet de Recettes</h1>
-
+    <section className="appPage">
       {createdSuccess && (
         <Alert variant="success">La recette à été créée avec succès!</Alert>
       )}
@@ -66,18 +69,22 @@ function RecipePage({
         <Alert variant="success">La recette à été suprimée avec succès!</Alert>
       )}
 
-      <div className="recipeContent flex mt-4">
+      <div className="recipeContent flex mt-5">
         <div className="recipeListBox">
-          <Button
-            className="mb-2"
-            variant="demeter-dark"
-            onClick={() => {
-              setSelectedPage("CreateRecipe");
-              closeAllAlerts();
-            }}
-          >
-            Nouvelle Recette
-          </Button>
+          <div className="filterBar mb-2">
+            <RecipeFilter setName={setNameFilter} />
+            <Button
+              className="ml-3"
+              variant="icon-dark"
+              onClick={() => {
+                setSelectedPage("CreateRecipe");
+                closeAllAlerts();
+              }}
+            >
+              <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
+              <span>Nouvelle Recette</span>
+            </Button>
+          </div>
 
           <RecipeList
             filter={filter}
@@ -85,9 +92,11 @@ function RecipePage({
             deletedSuccess={deletedSuccess}
             setSelectedPage={setSelectedPage}
             setRecipePage={setRecipePage}
+            nameFilter={nameFilter}
           />
         </div>
-        {role === "1" && (
+
+        {(role === "1" || role === "4") && (
           <div className="filterBox">
             <Button
               variant="secondary"
@@ -141,7 +150,7 @@ function RecipePage({
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 }
 

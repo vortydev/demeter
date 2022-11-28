@@ -110,6 +110,7 @@ function AddIngredientForm({ show, setShow, listIng }: AIFProps) {
         <h3 className="popupTitle">Ajouter un ingrédient</h3>
         {empty && <Alert variant="danger">Veuillez remplir tous les champs.</Alert>}
         {ingAlready && <Alert variant="danger">Cet ingrédient est déjà dans la recette</Alert>}
+        
         <Form.Group className="popupSelectBox mb-2" controlId="product">
           <Form.Label className="popupSelectLabel">Produit</Form.Label>
           <Form.Select onChange={updateMesurementOptions} id="product">
@@ -131,15 +132,6 @@ function AddIngredientForm({ show, setShow, listIng }: AIFProps) {
               <option value={mesure.id.toString()}>{mesure.mesurement}</option>
             ))}
           </Form.Select>
-
-          {/* <Form.Group className="popupSelectBox" controlId="mesurement">
-            <Form.Label className="popupSelectLabel">Mesure</Form.Label>
-            <Form.Select id="mesurement">
-              {mesureList.map((mesure) => (
-                <option value={mesure.id.toString()}>{mesure.mesurement}</option>
-              ))}
-            </Form.Select>
-          </Form.Group> */}
         </div>
 
         <div className="popupBtnBox mt-3">

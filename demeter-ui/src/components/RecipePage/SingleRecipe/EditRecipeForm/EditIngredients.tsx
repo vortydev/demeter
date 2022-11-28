@@ -7,7 +7,7 @@ import { IngForRecipe } from "../../../../types/RecipeTypes.types";
 import { Ingredient, Mesurement, Product } from "../../../../types/Types";
 import { IngredientRow } from "../IngredientRow";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt, faPlus } from "@fortawesome/free-solid-svg-icons";
 
 
 interface EditIngredientProps {
@@ -98,17 +98,17 @@ function EditIngredient({ listIng, recipeId, setChanged }: EditIngredientProps) 
       <div className="cellShade flex ingListRow mb-2">
         <IngredientRow ingredient={ing} />
         <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
-          confirmAlert({  // so ethel here you need to give this confirm alert a z-index over the modal's z-index
+          confirmAlert({
             title: 'Confirmation',
             message: 'Êtes-vous sur de vouloir supprimer cet ingrédient?',
             buttons: [
               {
                 label: 'Oui',
-                onClick: () => {removeIngredient(ing); setDeleteSuccess(true)}
+                onClick: () => { removeIngredient(ing); setDeleteSuccess(true) }
               },
               {
                 label: 'Non',
-                onClick: () => {}
+                onClick: () => { }
               }
             ]
           });
@@ -116,8 +116,10 @@ function EditIngredient({ listIng, recipeId, setChanged }: EditIngredientProps) 
       </div>
     ))}
 
-    {!addingIng && <div className="center">
-      <Button onClick={() => setAddingIng(true)} variant="outline-dark">+ Ingrédient</Button>
+    {!addingIng && <div className="btnBar">
+      <Button onClick={() => setAddingIng(true)} variant="icon-outline">
+      <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
+        <span>Ingrédient</span></Button>
     </div>}
 
     {addingIng &&

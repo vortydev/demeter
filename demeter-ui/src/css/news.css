@@ -1,20 +1,23 @@
 .flexNewsPreview {
-    width: 60%;
+    width: 80%;
     margin: auto;
     text-align: center;
     flex-direction: column;
 }
 
 .flexNewsBox {
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .flexNewsEdit {
-    margin-left: auto;
-    margin-bottom: auto;
-    width: 15%;
+    width: fit-content;
     display: block;
-    text-align: right;
+    /* text-align: right; */
+}
+
+.newsHeader {
+    width: fit-content;
+    margin-inline: auto;
 }
 
 .newsTitle {
@@ -26,6 +29,7 @@
     text-align: left;
     max-width: 85%;
     margin-bottom: unset;
+    white-space: pre-wrap;
 }
 
 .newsBtn {
@@ -46,6 +50,10 @@
     margin: .5rem auto 2rem;
 }
 
+.flexNewsPreview:last-child .newsLine {
+    display: none !important;
+}
+
 .newsAdd {
     width: 80%;
     margin: auto;
@@ -64,7 +72,11 @@
     margin-left: auto;
 }
 
-.jointTaskEdit>span,
+.jointTaskEdit>span {
+    align-self: center;
+}
+
+.jointTaskEdit>label,
 .jointTaskPreview {
     color: var(--demeter-grey);
     margin-right: .5rem;
@@ -88,4 +100,11 @@
 
 .newsTaskBox input {
     width: 5rem;
+}
+
+/* NEWS RESPONSIVE */
+@media only screen and (max-width: 800px) { 
+    .flexNewsPreview {
+        width: 100%;
+    }
 }

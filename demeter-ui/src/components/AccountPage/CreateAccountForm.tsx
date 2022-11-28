@@ -98,6 +98,13 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
           <Form.Label>Mot de passe</Form.Label>
           <Form.Control type="password" />
         </Form.Group>
+        <p>Doit avoir au minimum :  <br/>
+          5 caractères <br/>
+          1 majuscule <br/>
+          1 minuscule <br/>
+          1 chiffre <br/>
+          1 caractère spécial <br/>
+        </p>
 
         <Form.Group className="mb-2" controlId="passwordConfirm">
           <Form.Label>Confirmer le mot de passe</Form.Label>

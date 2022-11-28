@@ -24,6 +24,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
   const [emptyTask, setEmptyTask] = useState<boolean>(false);
   const [empty, setEmpty] = useState<boolean>(false);
 
+
   async function handleSubmit() {
     setEmpty(false);
 
@@ -47,7 +48,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
         roleId: receiver.value,
         taskId: taskInEdit ? taskInEdit.id : 0,
         priority: priority,
-
+        img: news.img,
       };
 
       if (await updateNews(news.id, editNews)) {
@@ -201,6 +202,8 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
             <hr className="loginLine mt-2" />
           </div>
         )}
+
+        <img src={(news.img !== undefined) ? ('data:image/jpeg;base64,' + btoa(news.img)) : ""} width={300} />
 
         <div className="popupBtnBox mt-3">
           <Button variant="demeter-dark" onClick={close}>Annuler</Button>

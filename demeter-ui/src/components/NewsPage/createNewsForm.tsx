@@ -31,7 +31,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       parentId: 0,
       active: true,
       completed: false,
-      picture: filebase64,
+      picture: null,
       date: new Date(),
       priority: false,
       responsable: "",
@@ -89,7 +89,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
         title: title.value,
         description: description.value,
         author: author.value,
-        img: null,
+        img: filebase64,
         active: true,
         roleId: receiver.value,
         taskId: taskCreated ? taskCreated.id : 0,
@@ -204,7 +204,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
         }
 
         <div className="mt-2 popupBtnBox">
-          <Button variant="demeter-dark" onClick={close}>
+          <Button variant="demeter-dark" onClick={() => { setFileBase64(""); close(); }}>
             Annuler
           </Button>
           <Button variant="demeter" onClick={handlesubmit}>

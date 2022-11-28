@@ -10,7 +10,7 @@ type News = {
   title: string;
   description: string;
   author: string;
-  img: Blob | null;
+  img: string | undefined;
   active: boolean;
   roleId: string;
   taskId: number;

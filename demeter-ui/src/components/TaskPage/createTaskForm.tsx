@@ -160,10 +160,10 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
         )}
 
         <div className="mt-3 popupBtnBox">
-          <Button variant="demeter-dark" onClick={() => { setFileBase64(""); setTypeTask("0"); close(); }}>
+          <Button variant="demeter-dark" onClick={() => {setTypeTask("0"); close(); }}>
             Annuler
           </Button>
-          <Button variant="demeter" onClick={() => {setTypeTask("0"); handlesubmit(); }}>
+          <Button variant="demeter" onClick={() => {handlesubmit(); }}>
             Confirmer
           </Button>
         </div>

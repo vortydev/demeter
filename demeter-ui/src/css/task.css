@@ -1,5 +1,4 @@
 .taskRowList {
-    /* width: 60%; */
     min-width: 400px;
     margin: auto;
     flex-direction: column;
@@ -13,8 +12,13 @@
     align-self: center;
 }
 
-.taskRowBox input, .taskRowBox .taskResponsable, .taskMaster {
+.taskRowBox input, .taskRowBox .taskResponsable {
     margin-inline: .5rem;
+}
+
+.taskMaster {
+    margin-left: .5rem;
+    margin-right: auto;
 }
 
 .taskRowBox input {
@@ -26,16 +30,13 @@
     align-self: center;
 }
 
-.taskRow {
+.taskRow, .taskChildRow {
     width: 100%;
+    justify-content: space-between;
 }
 
 .taskResponsable, .taskMaster {
     color: var(--demeter-grey);
-}
-
-.taskChildRow {
-    width: 100%;
 }
 
 .cellShade:hover .iconBullet, .cellShade.priority .iconBullet {
@@ -152,6 +153,9 @@
         text-align: left;
         width: 100%;
     }
+    .taskMaster {
+        margin-right: 0;
+    }
     .taskChildRow, .taskRow {
         flex-direction: column;
     }
@@ -163,17 +167,6 @@
     .taskInput {
         margin-left: 0;
     }
-    /* .taskMaster, .taskDesc {
-        width: 100%;
-        text-align: left;
-    }
-    .taskMaster {
-        margin-inline: 0;
-    }
-    .taskMobile {
-        display: flex;
-        flex-direction: column-reverse;
-    } */
     .taskDesc {
         display: none;
     }

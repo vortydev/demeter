@@ -89,8 +89,8 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
         <div className="flex taskName">
           {task.completed && <FontAwesomeIcon className="iconCheck" icon={faCheck} size="lg" />}
           <span>{task.title}</span>
+          {task.taskMaster !== "" && <span className="taskMaster">({task.taskMaster})</span>}
         </div>
-        {task.taskMaster !== "" && <span className="taskMaster">({task.taskMaster})</span>}
 
           <div className="taskInputBox flex">
             <div className="flex taskInput">

@@ -21,6 +21,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
   const [priority, setPriority] = useState<boolean>(task.priority);
   const [listAccount, setListAccount] = useState<Account[]>([]);
   const [empty, setEmpty] = useState<boolean>(false);
+  
 
   useEffect(() => {
     async function getList() {
@@ -191,7 +192,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
             </div>
           ))}
         </div>
-
+       
         {task.parentId === 0 && <div className="btnBar mt-2 mb-2">
           <Button variant="outline-dark" onClick={handleAddSubTask}>
             Ajouter une sous-tâche

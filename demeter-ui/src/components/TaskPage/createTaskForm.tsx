@@ -17,7 +17,7 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
   const [listAccount, setListAccount] = useState<Account[]>([]);
   const [empty, setEmpty] = useState<boolean>(false);
   const [tt, setTypeTask] = useState<string>("1");
-  const [image, setImage] = useState('');
+  
 
   useEffect(() => {
     async function getList() {
@@ -26,16 +26,12 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
     getList();
   }, []);
 
-  async function handlesubmit(){
+  async function handlesubmit() {
     const taskName = document.getElementById("taskName") as HTMLInputElement;
     const description = document.getElementById("description") as HTMLInputElement;
     const receiver = document.getElementById("receiver") as HTMLInputElement;
     const when = document.getElementById("when") as HTMLInputElement;
     const taskMaster = document.getElementById("taskMaster") as HTMLInputElement;
-    
-    const formdata = new FormData()
-    formdata.append('image',image)
-    console.log(formdata)
 
     setEmpty(false);
 
@@ -81,12 +77,8 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
     setTypeTask(typeTask.value);
   }
 
-  function handleImage(e:any){
-    setImage(e.target.files[0])
-  }
-
   return (
-    <Modal show={show} onShow={()=>setTypeTask("1")} onHide={() => { close(); }}>
+    <Modal show={show} onShow={() => setTypeTask("1")} onHide={() => { close(); }}>
       <Form className="popupForm">
         <h3 className="popupTitle">Nouvelle Tâche</h3>
         {empty && (
@@ -166,13 +158,12 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
             <Form.Control type="text" />
           </Form.Group>
         )}
-      
-        <input type="file" name="file" accept='image/png, image/jpeg' onChange={handleImage} />
+
         <div className="mt-3 popupBtnBox">
-          <Button variant="demeter-dark" onClick={() => { setTypeTask("0"); close(); }}>
+          <Button variant="demeter-dark" onClick={() => { setFileBase64(""); setTypeTask("0"); close(); }}>
             Annuler
           </Button>
-          <Button variant="demeter" onClick={() => { setTypeTask("0"); handlesubmit(); }}>
+          <Button variant="demeter" onClick={() => {setTypeTask("0"); handlesubmit(); }}>
             Confirmer
           </Button>
         </div>

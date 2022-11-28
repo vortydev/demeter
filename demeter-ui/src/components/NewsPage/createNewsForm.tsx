@@ -16,6 +16,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
   const [priority, setPriority] = useState<boolean>(false);
   const [emptyTask, setEmptyTask] = useState<boolean>(false);
   const [empty, setEmpty] = useState<boolean>(false);
+  const [filebase64, setFileBase64] = useState<string>("");
 
   async function handlesubmit(): Promise<void> {
 
@@ -30,13 +31,13 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       parentId: 0,
       active: true,
       completed: false,
-      picture: null,
+      picture: filebase64,
       date: new Date(),
       priority: false,
       responsable: "",
       receiver: "",
       taskMaster: "",
-      whenToDo:"",
+      whenToDo: "",
     };
 
     let taskCreated: Task | null = null;
@@ -50,7 +51,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
         "taskdescription"
       ) as HTMLInputElement;
 
-      if (!taskTitle.value){
+      if (!taskTitle.value) {
         setEmptyTask(true);
         setTimeout(() => {
           setEmptyTask(false);
@@ -64,6 +65,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
         taskCreated = await createTask(newsTask);
         // validate
         console.log(taskCreated);
+        setFileBase64("");
         if (taskCreated === null) {
           setError(true);
         }
@@ -71,15 +73,15 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
     }
 
     const title = document.getElementById("title") as HTMLInputElement;
-    const author = document.getElementById("author") as HTMLInputElement; 
+    const author = document.getElementById("author") as HTMLInputElement;
     const receiver = document.getElementById("receiver") as HTMLInputElement;
     const description = document.getElementById("description") as HTMLInputElement;
 
-    if (!title.value || !author.value){
+    if (!title.value || !author.value) {
       setEmpty(true);
       setTimeout(() => {
         setEmpty(false);
-      },5000);
+      }, 5000);
     }
     else {
       const newNews: News = {
@@ -104,6 +106,19 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
         success();
       } else {
         setError(true);
+      }
+    }
+  }
+
+  function convertFile(files: FileList | null) {
+    if (files) {
+      const fileRef = files[0] || ""
+      const fileType: string = fileRef.type || ""
+      console.log("This file upload is of type:", fileType)
+      const reader = new FileReader()
+      reader.readAsBinaryString(fileRef)
+      reader.onload = (ev: any) => {
+        setFileBase64(`data:${fileType};base64,${btoa(ev.target.result)}`)
       }
     }
   }
@@ -141,7 +156,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
 
         <Form.Group className="flex" controlId="priority">
           <Form.Label className="popupSelectLabel">Prioritaire</Form.Label>
-          <Form.Check className="popupCheck" onChange={() => setPriority(!priority)} type="checkbox"/>
+          <Form.Check className="popupCheck" onChange={() => setPriority(!priority)} type="checkbox" />
         </Form.Group>
 
         {!addTask && (
@@ -176,6 +191,17 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
             <hr className="loginLine mt-2" />
           </div>
         )}
+
+        <input type="file" onChange={(e) => convertFile(e.target.files)} />
+        <hr />
+        {filebase64 &&
+
+          <>
+            {(filebase64.indexOf("image/") > -1) &&
+              <img src={filebase64} width={300} />
+            }
+          </>
+        }
 
         <div className="mt-2 popupBtnBox">
           <Button variant="demeter-dark" onClick={close}>

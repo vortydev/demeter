@@ -158,15 +158,15 @@ function NewsPreview({ news, editSuccess, editedSuccess, deleteSuccess }: NewsPr
         </div>
 
         <div className="flexNewsBox">
-          {news.picture !== null && (
-            <div className="picture">
-              <img src={news.picture} />
-            </div>
-          )}
           <p className="newsContent">
             {text}
             <b>{longDesc && dotdotdot}</b>
           </p>
+          {news.img !== null && (
+            <div className="image">
+              <img src={news.img} alt="" />
+            </div>
+          )}
         </div>
 
         {task !== undefined && <div className="newsTaskBox flex mt-2">

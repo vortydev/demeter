@@ -38,7 +38,8 @@ option {
 }
 
 .cursor,
-select {
+select,
+input[type="file"] {
     cursor: pointer;
 }
 
@@ -272,6 +273,20 @@ select {
     transform: scale(1.3);
     align-self: center;
     cursor: pointer;
+}
+
+.popupImgBox {
+    width: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.popupImgBox img {
+    margin-top: .75rem;
+    margin-inline: auto;
+    border: 2px solid var(--demeter-black);
+    border-radius: .25rem;
 }
 
 @media only screen and (max-width: 800px) {

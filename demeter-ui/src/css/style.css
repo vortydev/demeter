@@ -289,6 +289,19 @@ input[type="file"] {
     border-radius: .25rem;
 }
 
+.inputHint {
+    width: 100%;
+    text-align: left;
+    display: none;
+    color: var(--demeter-grey);
+    line-height: 1.25;
+}
+
+.popupForm input#password:focus + .pwdHint {
+    display: inline-block;
+    margin-top: .5rem;
+}
+
 @media only screen and (max-width: 800px) {
     .modal-dialog {
         width: 95vw;

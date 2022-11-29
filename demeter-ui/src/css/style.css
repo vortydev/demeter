@@ -297,7 +297,7 @@ input[type="file"] {
     line-height: 1.25;
 }
 
-.popupForm input#password:focus + .pwdHint {
+.popupForm input#password:focus + .inputHint {
     display: inline-block;
     margin-top: .5rem;
 }

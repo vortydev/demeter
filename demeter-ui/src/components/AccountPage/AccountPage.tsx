@@ -30,8 +30,9 @@ function AccountPage(): JSX.Element {
   }, 5000);
 
   return (
-    <section>
+    <section className="appPage">
       <AccountNav subPage={subPage} setSubPage={setSubPage} />
+      
       {createdSuccess && <Alert variant="success">Le compte a été créé avec succès!</Alert>}
       {editedSuccess && <Alert variant="success">Le compte a été modifié avec succès!</Alert>}
       {deletedSuccess && <Alert variant="success">Le compte a été supprimé avec succès!</Alert>}

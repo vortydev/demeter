@@ -158,7 +158,7 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
 
                 <Form.Group className="mb-2" controlId="format">
                     <Form.Label>Format (Nom)</Form.Label>
-                    <Form.Control type="text" defaultValue={product.format} />
+                    <Form.Control placeholder="Ex.: Boite de 30, Sac de 5 kg, etc." type="text" defaultValue={product.format} />
                 </Form.Group>
 
                 <div className="popupRowSplit mb-2">

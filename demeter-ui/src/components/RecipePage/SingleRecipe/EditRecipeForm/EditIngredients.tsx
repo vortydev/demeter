@@ -22,6 +22,7 @@ function EditIngredient({ listIng, recipeId, setChanged }: EditIngredientProps) 
   const [mesureList, setListMesurement] = useState<Mesurement[]>([]);
   const [deleteSuccess, setDeleteSuccess] = useState<boolean>(false);
   const [empty, setEmpty] = useState<boolean>(false);
+  const [specificMesure, setSpecificMesure] = useState<Mesurement[]>(mesureList);
   const [ingAlready, setIngAlready] = useState<boolean>(false);
 
   useEffect(() => {
@@ -88,6 +89,37 @@ function EditIngredient({ listIng, recipeId, setChanged }: EditIngredientProps) 
 
   }
 
+  function updateMesurementOptions() {
+    const ingredient = (document.getElementById("product") as HTMLInputElement)
+      .value;
+
+    const productSelected: Product | undefined = productList.find(
+      (x) => x.id === parseInt(ingredient)
+    );
+
+    console.log(productSelected!.mesurementId);
+
+    const mesureId = parseInt(productSelected!.mesurementId);
+
+    if (mesureId === 1 || mesureId === 2 || mesureId === 6) {
+      setSpecificMesure(
+        mesureList.filter(
+          (mesure) => mesure.id === 1 || mesure.id === 2 || mesure.id === 6
+        )
+      );
+
+    } else if (mesureId === 3 || mesureId == 4) {
+      setSpecificMesure(
+        mesureList.filter((mesure) => mesure.id === 3 || mesure.id === 4)
+      );
+    } else {
+      setSpecificMesure(
+        mesureList.filter((mesure) => mesure.id === 5)
+      );
+    }
+
+  }
+
   return (<div className="popupForm">
     <div className="ingListHeader flex mb-2">
       <span className="ingListCol">Nom</span>
@@ -130,7 +162,7 @@ function EditIngredient({ listIng, recipeId, setChanged }: EditIngredientProps) 
 
         <Form.Group className="popupSelectBox mb-2" controlId="product">
           <Form.Label className="popupSelectLabel">Produit</Form.Label>
-          <Form.Select id="product">
+          <Form.Select onChange={updateMesurementOptions} id="product">
             <option>Choisir un ingrédient</option>
             {productList.map((product) => (
               <option value={product.id.toString()}>{product.name}</option>
@@ -144,7 +176,7 @@ function EditIngredient({ listIng, recipeId, setChanged }: EditIngredientProps) 
             <Form.Control type="number" />
           </Form.Group>
           <Form.Select id="mesurement">
-            {mesureList.map((mesure) => (
+            {specificMesure.map((mesure) => (
               <option value={mesure.id.toString()}>{mesure.mesurement}</option>
             ))}
           </Form.Select>

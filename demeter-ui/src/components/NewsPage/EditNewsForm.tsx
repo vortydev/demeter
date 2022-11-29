@@ -45,7 +45,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
         description: description.value,
         author: author.value,
         roleId: receiver.value,
-        taskId: taskInEdit ? taskInEdit.id : 0,
+        taskId: taskInEdit ? taskInEdit.id : news.taskId,
         priority: priority,
 
       };

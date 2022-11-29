@@ -1,8 +1,7 @@
-import { setPriority } from "os";
 import { useEffect, useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 import { getAccountsByRole } from "../../services/account.functions";
-import { createTask, deleteTask, getTasksByParent, updateTask } from "../../services/task.funtions";
+import { createTask, updateTask } from "../../services/task.funtions";
 import { Account, Task } from "../../types/Types";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -117,7 +116,6 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         parentId: task.id,
         completed: false,
         active: false,
-        picture: null,
         date: new Date(),
         priority: false,
         responsable: "",

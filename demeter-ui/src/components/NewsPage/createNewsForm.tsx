@@ -31,7 +31,6 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       parentId: 0,
       active: true,
       completed: false,
-      picture: null,
       date: new Date(),
       priority: false,
       responsable: "",
@@ -44,12 +43,8 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
 
     if (addTask) {
       // Retrive task info
-      const taskTitle = document.getElementById(
-        "tasktitle"
-      ) as HTMLInputElement;
-      const taskDesc = document.getElementById(
-        "taskdescription"
-      ) as HTMLInputElement;
+      const taskTitle = document.getElementById("tasktitle") as HTMLInputElement;
+      const taskDesc = document.getElementById("taskdescription") as HTMLInputElement;
 
       if (!taskTitle.value) {
         setEmptyTask(true);
@@ -63,6 +58,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
 
         // create task
         taskCreated = await createTask(newsTask);
+
         // validate
         console.log(taskCreated);
         setFileBase64("");
@@ -76,6 +72,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
     const author = document.getElementById("author") as HTMLInputElement;
     const receiver = document.getElementById("receiver") as HTMLInputElement;
     const description = document.getElementById("description") as HTMLInputElement;
+    // const img = document.getElementById("image") as HTMLInputElement;
 
     if (!title.value || !author.value) {
       setEmpty(true);
@@ -93,7 +90,6 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
         active: true,
         roleId: receiver.value,
         taskId: taskCreated ? taskCreated.id : 0,
-        picture: null,
         date: new Date(),
         priority: priority,
       };
@@ -194,8 +190,8 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
 
         <input type="file" onChange={(e) => convertFile(e.target.files)} />
         <hr />
-        {filebase64 &&
 
+        {filebase64 &&
           <>
             {(filebase64.indexOf("image/") > -1) &&
               <img src={filebase64} width={300} />

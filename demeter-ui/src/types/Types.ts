@@ -10,11 +10,10 @@ type News = {
   title: string;
   description: string;
   author: string;
-  img: string | undefined;
+  img: string;
   active: boolean;
   roleId: string;
   taskId: number;
-  picture: string | null;
   date: Date;
   priority: boolean;
 
@@ -28,7 +27,6 @@ type Task = {
   parentId: number | null;
   completed: boolean;
   active: boolean;
-  picture: string | null;
   responsable: string;
   date: Date;
   priority : boolean;

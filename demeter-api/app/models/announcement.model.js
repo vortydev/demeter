@@ -8,7 +8,6 @@ module.exports = (sequelize, Sequelize) => {
     taskId: { type: Sequelize.INTEGER },
     date: { type: Sequelize.DATE },
     priority : {type: Sequelize.BOOLEAN}
-
   });
 
   return Announcement;

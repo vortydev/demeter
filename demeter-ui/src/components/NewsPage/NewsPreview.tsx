@@ -101,9 +101,9 @@ function NewsPreview({ news, editedSuccess, deleteSuccess }: NewsPreviewProps) {
           {theDate.toLocaleDateString()} - {news.author}
         </h3>
         <div className="flexNewsBox">
-          {news.picture !== null && (
-            <div className="picture">
-              <img src={news.picture} />
+          {news.img !== null && (
+            <div className="image">
+              <img src={news.img} />
             </div>
           )}
           <p className="newsContent">

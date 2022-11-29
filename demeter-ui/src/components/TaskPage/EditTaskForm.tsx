@@ -114,7 +114,6 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         parentId: task.id,
         completed: false,
         active: false,
-        picture: null,
         date: new Date(),
         priority: false,
         responsable: "",

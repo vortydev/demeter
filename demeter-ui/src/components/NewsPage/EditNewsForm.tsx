@@ -23,7 +23,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
   const [priority, setPriority] = useState<boolean>(news.priority);
   const [emptyTask, setEmptyTask] = useState<boolean>(false);
   const [empty, setEmpty] = useState<boolean>(false);
-
+  const [filebase64, setFileBase64] = useState<string>("");
 
   async function handleSubmit() {
     setEmpty(false);
@@ -40,6 +40,8 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
       }, 5000);
     }
     else {
+      setFileBase64(news.img);
+
       const editNews: News = {
         ...news,
         title: title.value,
@@ -48,7 +50,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
         roleId: receiver.value,
         taskId: taskInEdit ? taskInEdit.id : 0,
         priority: priority,
-        img: news.img,
+        img: filebase64,
       };
 
       if (await updateNews(news.id, editNews)) {
@@ -80,9 +82,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
     setEmptyTask(false);
 
     const taskTitle = document.getElementById("tasktitle") as HTMLInputElement;
-    const taskDesc = document.getElementById(
-      "taskdescription"
-    ) as HTMLInputElement;
+    const taskDesc = document.getElementById("taskdescription") as HTMLInputElement;
 
     const newsTask = {
       id: 1,
@@ -92,7 +92,6 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
       parentId: 0,
       active: true,
       completed: false,
-      picture: null,
       date: new Date(),
       responsable: "",
       receiver: "",
@@ -108,6 +107,19 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
     } else {
       console.log("that task wasnt created");
       setTaskInEdit(undefined);
+    }
+  }
+
+  function convertFile(files: FileList | null) {
+    if (files) {
+      const fileRef = files[0] || ""
+      const fileType: string = fileRef.type || ""
+      console.log("This file upload is of type:", fileType)
+      const reader = new FileReader()
+      reader.readAsBinaryString(fileRef)
+      reader.onload = (ev: any) => {
+        setFileBase64(`data:${fileType};base64,${btoa(ev.target.result)}`)
+      }
     }
   }
 
@@ -199,11 +211,20 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
               <Button variant="demeter-dark" onClick={() => setAddTask(false)}>Annuler</Button>
               <Button variant="demeter" onClick={addingTask}>Joindre</Button>
             </div>
+
             <hr className="loginLine mt-2" />
           </div>
         )}
 
-        <img src={(news.img !== undefined) ? ('data:image/jpeg;base64,' + btoa(news.img)) : ""} width={300} />
+        <input type="file" onChange={(e) => convertFile(e.target.files)} />
+
+        <Form.Group controlId="image">
+          <img src={news.img} />
+        </Form.Group>
+
+        {/* <img src={filebase64} width={300} /> */}
+
+        {/* <img src={(news.img !== undefined) ? ('data:image/jpeg;base64,' + btoa(news.img)) : ""} width={300} /> */}
 
         <div className="popupBtnBox mt-3">
           <Button variant="demeter-dark" onClick={close}>Annuler</Button>

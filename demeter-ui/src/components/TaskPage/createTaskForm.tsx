@@ -49,7 +49,6 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
         parentId: 0,
         active: true,
         completed: false,
-        picture: null,
         date: new Date(),
         priority: priority,
         responsable: "",

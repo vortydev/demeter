@@ -9,7 +9,7 @@ import { EditRecipeForm } from "./EditRecipeForm/EditRecipeForm";
 import { IngredientList } from "./IngredientList";
 import { InstructionModal } from "./InstructionModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faArrowLeft, faTrashAlt, faList } from "@fortawesome/free-solid-svg-icons";
 
 interface SingleRecipePageProps {
   recipe: Recipe | null;
@@ -58,11 +58,12 @@ function SingleRecipePage({
           <Calculator listIng={listIng} nbUnit={recipe!.nbUnitCreated} otherCost={recipe!.otherCost} />
 
           <div className="singleRecipeBtnBox flex mt-4">
-            <Button variant="demeter-dark" onClick={() => setShowInstruction(true)}>
-              Instructions
+            <Button variant="icon-dark" onClick={() => setShowInstruction(true)}>
+              <FontAwesomeIcon className="icon" icon={faList} size="lg" />
+              <span>Instructions</span>
             </Button>
 
-            <Button variant="danger" onClick={() => {
+            <Button variant="icon-danger" onClick={() => {
               confirmAlert({
                 title: 'Confirmation',
                 message: 'Êtes-vous sûr de vouloir supprimer cette recette?',
@@ -81,7 +82,10 @@ function SingleRecipePage({
                   }
                 ]
               });
-            }}>Supprimer</Button>
+            }}>
+              <FontAwesomeIcon className="icon" icon={faTrashAlt} size="lg" />
+              <span>Supprimer</span>
+              </Button>
           </div>
         </div>
       </div>

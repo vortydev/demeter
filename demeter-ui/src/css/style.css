@@ -459,6 +459,12 @@ input[type="file"] {
     border-radius: .25rem .25rem 0 0;
 }
 
+.nav-link.active:focus {
+    border-color: #dee2e6 #dee2e6 #fff !important;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
 /* confirmation alert */
 .react-confirm-alert-body {
     color: black !important;

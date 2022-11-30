@@ -71,7 +71,7 @@ function RecipePage({
 
       <div className="recipeContent flex mt-5">
         <div className="recipeListBox">
-          <div className="filterBar mb-2">
+          <div className="filterBar mb-3">
             <RecipeFilter setName={setNameFilter} />
             <Button
               className="ml-3"

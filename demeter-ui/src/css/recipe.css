@@ -174,3 +174,34 @@
     width: 10rem;
     margin-bottom: .75rem;
 }
+
+@media only screen and (max-width: 800px) { 
+    .recipeContent {
+        width: 100%;
+        flex-direction: column-reverse;
+        justify-content: center;
+    }
+    .filterBox {
+        margin-inline: auto;
+        margin-bottom: 2rem;
+    }
+    .filterBox button {
+        min-width: 15rem;
+    }
+    .recipeListBox {
+        margin: 0;
+        width: 100%;
+    }
+
+    .ingListCol, .editIngListCol {
+        width: 50% !important;
+    }
+    .ingListColS, .editIngListColS {
+        width: 25% !important;
+    }
+
+    .ingListRow svg {
+        margin-inline: auto;
+        margin-top: .25rem;
+    }
+}

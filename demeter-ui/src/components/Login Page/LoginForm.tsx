@@ -2,6 +2,7 @@ import { SyntheticEvent, useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { setCookie } from "typescript-cookie";
 import { verifyLogin } from "../../services/account.functions";
+import bcrypt from "bcryptjs";
 
 function LoginForm(): JSX.Element {
   const [valid, setValid] = useState<boolean>(true);
@@ -23,8 +24,8 @@ function LoginForm(): JSX.Element {
     } else {
       const verification = await verifyLogin(accName.value, pw.value)
       if (verification !== null) {
-        setCookie("account", accName.value,  { expires: 1 });
-        setCookie("role", verification,  { expires: 1 } );
+        setCookie("account", await bcrypt.hash(accName.value,10) ,  { expires: 1, secure: true, sameSite: 'strict' });
+        setCookie("role", verification,  { expires: 1, secure: true, sameSite: 'strict' } );  // gotta do the same than account
         window.location.reload();
       } else {
         setValid(false);

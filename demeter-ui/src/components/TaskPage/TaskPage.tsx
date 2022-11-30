@@ -152,7 +152,7 @@ function TaskPage(): JSX.Element {
 
         {taskCategory === 2 && (
           <Button
-          disabled = {today.getDay() !== 1 && (role !== "1" && role !== "4") || dayStarted}
+          disabled = {(today.getDay() !== 1 || dayStarted ) && (role !== "1" && role !== "4")}
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {

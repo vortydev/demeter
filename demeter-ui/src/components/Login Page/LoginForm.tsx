@@ -24,8 +24,8 @@ function LoginForm(): JSX.Element {
     } else {
       const verification = await verifyLogin(accName.value, pw.value)
       if (verification !== null) {
-        setCookie("account", await bcrypt.hash(accName.value,10) ,  { expires: 1, secure: true, sameSite: 'strict' }); // lc.find(compare()===true)
-        setCookie("role", verification,  { expires: 1, secure: true, sameSite: 'strict' } );
+        setCookie("account", await bcrypt.hash(accName.value,10) ,  { expires: 1, secure: true, sameSite: 'strict' });
+        setCookie("role", verification,  { expires: 1, secure: true, sameSite: 'strict' } );  // gotta do the same than account
         window.location.reload();
       } else {
         setValid(false);

@@ -36,9 +36,9 @@
 }
 
 .loginForm {
-    width: 40%;
+    width: 50%;
     margin: auto;
-    min-width: 10rem;
+    min-width: 20rem;
 }
 
 .LoginForm .loginField {

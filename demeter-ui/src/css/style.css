@@ -323,7 +323,6 @@ input[type="file"] {
     background-color: var(--demeter-green);
     color: white;
 }
-
 .btn-demeter:hover {
     background-color: var(--demeter-green-v);
     color: white;
@@ -334,7 +333,6 @@ input[type="file"] {
     background-color: var(--demeter-black);
     color: white;
 }
-
 .btn-demeter-dark:hover,
 .btn-icon-dark:hover {
     background-color: var(--demeter-black-v);
@@ -354,21 +352,32 @@ input[type="file"] {
     background-color: var(--demeter-orange);
     color: white;
 }
-
 .btn-demeter-waxed:hover {
     background-color: var(--demeter-orange-v);
     color: white;
+}
+.btn-demeter-waxed:focus {
+    border-color: var(--demeter-orange-v) !important;
+    box-shadow: 0 0 0 .2rem rgb(200, 102, 4, 0.25) !important;
+}
+
+.btn-danger:focus {
+    border-color: #c82333 !important;
+    box-shadow: 0 0 0 .2rem rgb(200, 35, 51, 0.25) !important;
+}
+
+.btn-secondary:focus {
+    border-color: #5a6268 !important;
+    box-shadow: 0 0 0 .2rem rgb(90, 98, 104, 0.25) !important;
 }
 
 .btn-link {
     color: var(--demeter-green);
     text-decoration: solid;
 }
-
 .btn-link:hover {
     color: var(--demeter-green-v);
 }
-
 .btn-link:focus {
     border: none !important;
     box-shadow: none !important;

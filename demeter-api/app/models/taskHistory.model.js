@@ -11,6 +11,9 @@ module.exports = (sequelize, Sequelize) => {
       },
       parentId: {
         type: Sequelize.INTEGER
+      },
+      categoryTaskId: {
+        type: Sequelize.INTEGER
       }
     });
   

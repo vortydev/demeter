@@ -6,8 +6,8 @@
     --demeter-green: #439e75;
     --demeter-green-v: #3E8E6A;
     --demeter-green-h: #e4eee9;
-    --demeter-orange: #bc5f04;
-    --demeter-orange-v: #a65505;
+    --demeter-orange: #c86604;
+    --demeter-orange-v: #bc5f04;
     --demeter-orange-h: #fff7ef;
     --demeter-grey: #696969;
     --demeter-purple: rgb(117, 67, 180, .15);
@@ -287,6 +287,19 @@ input[type="file"] {
     margin-inline: auto;
     border: 2px solid var(--demeter-black);
     border-radius: .25rem;
+}
+
+.inputHint {
+    width: 100%;
+    text-align: left;
+    display: none;
+    color: var(--demeter-grey);
+    line-height: 1.25;
+}
+
+.popupForm input#password:focus + .inputHint {
+    display: inline-block;
+    margin-top: .5rem;
 }
 
 @media only screen and (max-width: 800px) {

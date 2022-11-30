@@ -26,14 +26,10 @@ async function getWeeklyHistory(date: Date) {
   return taskHistory;
 }
 
-async function getTodayHistory(date: Date) {
-  const taskHistory = TaskHistoryService.getTodayHistory(date)
+async function ifTodayHistory(date: Date, taskCategory: number) {
+  const taskHistory = TaskHistoryService.ifTodayHistory(date, taskCategory)
     .then((response: any) => {
-      console.log('the date sent', date);
-      console.log('the response',response.data[0].completionDate);
-
-      const received = new Date(response.data[0].completionDate);
-      console.log('transform', received);
+      console.log('the return should be true');
      return true;
     })
     .catch((e: Error) => {
@@ -42,4 +38,7 @@ async function getTodayHistory(date: Date) {
     });
   return taskHistory;
 }
-export { createTaskHistory, getWeeklyHistory, getTodayHistory };
+
+
+
+export { createTaskHistory, getWeeklyHistory, ifTodayHistory };

@@ -102,7 +102,7 @@ function NewsPreview({ news, editSuccess, editedSuccess, deleteSuccess }: NewsPr
   const role = getCookie("role");
   return (
     <article className="flexNewsPreview">
-      <div className={`newsBody ${news.priority ? "priority" : ""}`}>
+      <div className={`newsBody cellShade ${news.priority ? "priority" : ""}`}>
         <div className="btnBar flex">
           {(role === "1" || role === "4") &&
             <div className="flexNewsEdit invisible">

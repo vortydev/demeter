@@ -39,6 +39,18 @@ async function deleteAccount(accName: string) {
   return deleted;
 }
 
+async function getAccounts() {
+  const accounts = AccountService.getAll()
+    .then((response: any) => {
+      return response.data;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return [];
+    });
+  return accounts;
+}
+
 async function getAccountsByRole(role: number) {
   const accounts = AccountService.getByRole(role)
     .then((response: any) => {
@@ -74,4 +86,4 @@ async function verifyLogin(accName: string, accPwd: string) :Promise<number | nu
   
 }
 
-export { createAccount, updateAccount, getAccountsByRole, verifyLogin, deleteAccount };
+export { createAccount, updateAccount, getAccounts, getAccountsByRole, verifyLogin, deleteAccount };

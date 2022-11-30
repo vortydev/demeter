@@ -10,14 +10,12 @@ type News = {
   title: string;
   description: string;
   author: string;
-  img: string | null;
+  img: string;
   active: boolean;
   roleId: string;
   taskId: number;
-  picture: string | null;
   date: Date;
   priority: boolean;
-
 }
 
 type Task = {
@@ -28,7 +26,6 @@ type Task = {
   parentId: number | null;
   completed: boolean;
   active: boolean;
-  picture: string | null;
   responsable: string;
   date: Date;
   priority : boolean;
@@ -90,6 +87,7 @@ type TaskHistory = {
   taskName : string;
   whoDid : string;
   parentId: number | null;
+  categorytaskId: number;
 }
 
 type TLP = { // Team Lead Password

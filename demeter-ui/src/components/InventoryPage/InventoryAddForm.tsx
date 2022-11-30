@@ -112,7 +112,7 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                 {alerting1 && <Alert variant="danger">Veuillez entrer le prix au format #.## ou #,##.</Alert>}
                 {alerting2 && <Alert variant="danger">Veuillez entrer un nombre.</Alert>}
                 {alerting3 && <Alert variant="danger">Veuillez entrer un nombre.</Alert>}
-                
+
                 <div className="popupRowSplit mb-2">
                     <Form.Group controlId="name">
                         <Form.Label>Nom</Form.Label>
@@ -140,11 +140,10 @@ function InventoryForm({ show, close, success }: CRFormProps) {
                     </div>
                 </Form.Group>
 
-
                 <div className="popupRowSplit mb-2">
                     <Form.Group controlId="qty_unit">
                         <Form.Label>Format (Qt)</Form.Label>
-                        <Form.Control type="text" />
+                        <Form.Control defaultValue={"0"} type="text" />
                     </Form.Group>
 
                     <Form.Group controlId="mesurement">
@@ -157,18 +156,18 @@ function InventoryForm({ show, close, success }: CRFormProps) {
 
                 <Form.Group className="mb-2" controlId="format">
                     <Form.Label>Format (Nom)</Form.Label>
-                    <Form.Control type="text" />
+                    <Form.Control placeholder="Ex.: Boite de 30, Sac de 5 kg, etc." type="text" />
                 </Form.Group>
 
                 <div className="popupRowSplit mb-2">
                     <Form.Group controlId="price">
                         <Form.Label>Prix</Form.Label>
-                        <Form.Control type="text" />
+                        <Form.Control defaultValue={"0"} type="text" />
                     </Form.Group>
 
                     <Form.Group controlId="qty_inv">
                         <Form.Label>Quantité en stock</Form.Label>
-                        <Form.Control type="text" />
+                        <Form.Control defaultValue={"0"} type="text" />
                     </Form.Group>
                 </div>
 

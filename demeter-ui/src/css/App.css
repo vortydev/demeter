@@ -37,6 +37,8 @@
   width: 100%;
   height: max-content;
   padding-bottom: 5rem;
+  max-width: 1920px;
+  margin-inline: auto;
 }
 
 /* FOOTER */
@@ -172,8 +174,8 @@
   }
 
   .navbar {
-    margin-top: 1.5rem;
-    margin-bottom: 2rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
     font-size: 1.5rem
   }
 
@@ -220,7 +222,7 @@
 
   .btnBar>button:not(:last-child),
   .filterBar>div:not(:last-child),
-  .filterDrop>select:not(:last-child) {
+  .filterDrop>select {
     margin-bottom: .5rem;
   }
 

@@ -64,7 +64,7 @@
 }
 
 .flexInvQt > p {
-    margin-left: auto;
+min-width: 3rem;
 }
 
 .invPageHeader {
@@ -108,4 +108,24 @@
 
 .vendorListBox {
     justify-content: space-between;
+}
+
+@media only screen and (max-width: 800px) { 
+    .invPageHeader, .invUpdateHeader {
+        padding: 0;
+    }
+    .invPageHeader h2 {
+        font-size: 1.75rem;
+        margin: 0;
+        padding: 0;
+    }
+    .invCol, .invColThin {
+        padding: 0;
+    }
+    .flexInvQt {
+        flex-direction: column;
+    }
+    #qty_inv2 {
+        min-width: 2.75rem;
+    }      
 }

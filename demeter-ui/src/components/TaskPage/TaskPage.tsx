@@ -9,8 +9,6 @@ import {
 import { Task, TaskHistory } from "../../types/Types";
 import { CreateTaskForm } from "./createTaskForm";
 import { TaskNav } from "./TaskNav";
-import { TaskRow } from "./TaskRow";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRotateLeft,
@@ -21,7 +19,7 @@ import { confirmAlert } from "react-confirm-alert";
 import { DailyTaskDisplay } from "./TasksDisplay/DailyTaskDisplay";
 import { HebdoTaskDisplay } from "./TasksDisplay/HebdoTaskDisplay";
 import { OtherTaskDisplay } from "./TasksDisplay/OtherTaskDisplay";
-import { createTaskHistory, getTodayHistory } from "../../services/taskHistory.functions";
+import { createTaskHistory, ifTodayHistory } from "../../services/taskHistory.functions";
 import { TaskHistoryModal } from "./TaskHistory/TaskHistoryModal";
 
 function TaskPage(): JSX.Element {
@@ -44,9 +42,10 @@ function TaskPage(): JSX.Element {
     async function getList() {
       const taskByCat: Task[] = await getbyCategorie(taskCategory);
       setAllCatTask(taskByCat);
-
-      setDayStarted(await getTodayHistory(date));
-      console.log(await getTodayHistory(date));
+      setDayStarted(await ifTodayHistory(date, taskCategory));
+      console.log("taskpage await", await ifTodayHistory(date, taskCategory))
+      console.log('day Started for :', taskCategory, ":", dayStarted);
+     
 
       if (role === "2") {
         const taskForAccount: Task[] = taskByCat.filter(
@@ -86,11 +85,12 @@ function TaskPage(): JSX.Element {
   }
 
   async function enterInHistory(task: Task, date: Date) {
-    const historyInfo: TaskHistory = {
+    const historyInfo: TaskHistory = {  
       completionDate: date,
       taskName: task.title,
       whoDid: task.responsable,
       parentId: task.parentId,
+      categorytaskId: task.categorytaskId,
     };
 
     // createTaskHistory request here
@@ -108,8 +108,8 @@ function TaskPage(): JSX.Element {
         success={createdSuccess}
         setSuccess={setSuccess}
       />
-      {createdSuccess && <Alert>La tâche à été créée avec succès!</Alert>}
-      {deletedSuccess && <Alert>La tâche à été supprimée avec succès!</Alert>}
+      {createdSuccess && <Alert variant="success">La tâche à été créée avec succès!</Alert>}
+      {deletedSuccess && <Alert variant="success">La tâche à été supprimée avec succès!</Alert>}
 
       <div className="btnBar">
         {/* EMPTY BTN */}
@@ -150,7 +150,7 @@ function TaskPage(): JSX.Element {
 
         {taskCategory === 2 && (
           <Button
-          disabled = {today.getDay() !== 1 && (role !== "1" && role !== "4")}
+          disabled = {(today.getDay() !== 1 || dayStarted ) && (role !== "1" && role !== "4")}
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {

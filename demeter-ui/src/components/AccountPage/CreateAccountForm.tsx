@@ -38,7 +38,7 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
 
     const regexPassword = new RegExp(/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,}/);
 
-    if (!accountName.value){
+    if (!accountName.value) {
       setEmptyAccName(false);
     }
     else if (pw.value !== pwc.value || !pw.value || !pwc.value) {
@@ -97,6 +97,13 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
         <Form.Group className="mb-2" controlId="password">
           <Form.Label>Mot de passe</Form.Label>
           <Form.Control type="password" />
+          <p className="inputHint">Le mot de passe doit contenir au minimum :  <br />
+            - 5 caractères <br />
+            - 1 majuscule <br />
+            - 1 minuscule <br />
+            - 1 chiffre <br />
+            - 1 caractère spécial
+          </p>
         </Form.Group>
 
         <Form.Group className="mb-2" controlId="passwordConfirm">

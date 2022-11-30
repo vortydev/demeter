@@ -10,8 +10,8 @@ var corsOptions = {
 
 // express setup
 app.use(cors(corsOptions)); // use CORS options
-app.use(express.json()); // parse application/json
-app.use(express.urlencoded({ extended: true })); // parse application/x-www-form-urlencoded
+app.use(express.json({limit: "25mb"})); // parse application/json
+app.use(express.urlencoded({ extended: true, limit: "25mb" })); // parse application/x-www-form-urlencoded
 
 // initilizes the database
 const db = require("./app/models");

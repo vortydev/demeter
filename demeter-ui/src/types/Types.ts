@@ -90,6 +90,7 @@ type TaskHistory = {
   taskName : string;
   whoDid : string;
   parentId: number | null;
+  categorytaskId: number;
 }
 
 type TLP = { // Team Lead Password

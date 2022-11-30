@@ -18,6 +18,8 @@ exports.create = (req, res) => {
         taskName: req.body.taskName,
         whoDid: req.body.whoDid,
         parentId: req.body.parentId,
+        categorytaskId: req.body.categorytaskId,
+
     };
 
   // Save Task in the database
@@ -37,11 +39,15 @@ exports.findAll = (req, res) => {
 
     const week = req.query.week;
     const today = req.query.today;
+    const category = req.query.categorytaskId;
     var conditionW = week
       ? { completionDate: { [Op.gte]: `%${week}%` } }
       : null;
       var conditionT = today
       ? { completionDate: { [Op.eq]: `%${today}%` } }
+      : null;
+      var conditionC = category
+      ? { categorytaskId: { [Op.eq]: `%${category}%` } }
       : null;
 
 if(conditionW !== null)
@@ -58,7 +64,7 @@ if(conditionW !== null)
       });}
 
       if(conditionT!== null)
-    {TH.findAll({conditionT})
+    {TH.findAll({ where: {[Op.and]: [ conditionT, conditionC]} })
       .then((data) => {
         res.send(data);
       })

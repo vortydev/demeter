@@ -2,7 +2,7 @@ import { faEdit, faPlus, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { useEffect, useState } from "react";
-import { Alert, Button, Container, Modal, Row } from "react-bootstrap";
+import { Alert, Button, Modal } from "react-bootstrap";
 import { confirmAlert } from "react-confirm-alert";
 import { deleteVendor, getAllVendor } from "../../../services/vendor.functions";
 import { Vendor } from "../../../types/Types";
@@ -37,7 +37,7 @@ function VendorDisplay({ show, close }: VendorDisplayProps) {
                 <h2 className="popupTitle mt-2">Liste des fournisseurs</h2>
                 {createdSuccess && <Alert variant="success">Le fournisseur à été ajouté avec succès</Alert>}
                 {deleted && <Alert variant="success">Le fournisseur à été supprimé avec succès</Alert>}
-                {update && <Alert variant="success">Le fournisseur à été modifié avec succès</Alert> }
+                {update && <Alert variant="success">Le fournisseur à été modifié avec succès</Alert>}
                 <div className="btnBar mt-3 mb-3">
                     <Button variant="icon-outline" className="centerBtn" onClick={() => {
                         setCreateNewVendor(true);
@@ -89,19 +89,19 @@ function VendorList({ create, deleted, setDeleteSuccess, update, setUpdate }: Ve
     );
 }
 
-interface VendorRow {
+interface VendorRowI {
     vendor: Vendor;
     setSuccess: (success: boolean) => void;
     setDeleteSuccess: (success: boolean) => void;
 }
-function VendorRow({ vendor, setSuccess, setDeleteSuccess }: VendorRow): JSX.Element {
+function VendorRow({ vendor, setSuccess, setDeleteSuccess }: VendorRowI): JSX.Element {
     const [updateVendor, setUpdateVendor] = useState<boolean>(false);
 
     function success(): void {
         setSuccess(true);
         setTimeout(() => {
             setSuccess(false);
-        },5000);
+        }, 5000);
         close();
     }
 
@@ -129,12 +129,13 @@ function VendorRow({ vendor, setSuccess, setDeleteSuccess }: VendorRow): JSX.Ele
                         buttons: [
                             {
                                 label: 'Oui',
-                                onClick: () => { deleteVendor(vendor.id);
-                                        setDeleteSuccess(true); 
-                                        setTimeout(() => {
-                                            setDeleteSuccess(false);
-                                        },5000);
-                                    }
+                                onClick: () => {
+                                    deleteVendor(vendor.id);
+                                    setDeleteSuccess(true);
+                                    setTimeout(() => {
+                                        setDeleteSuccess(false);
+                                    }, 5000);
+                                }
                             },
                             {
                                 label: 'Non',

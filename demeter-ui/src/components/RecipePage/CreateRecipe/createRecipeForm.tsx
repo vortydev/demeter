@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Alert, Button, Form, Modal } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { getCookie } from "typescript-cookie";
 import { Recipe } from "../../../types/Types";
 
@@ -31,10 +31,6 @@ function CreateRecipeForm({ setRecipeInfo }: CRFProps) {
         break;
     }
   }, []);
-
-
-
-
 
   function updateRecipeInfo() {
     const title = (document.getElementById("title") as HTMLInputElement).value;
@@ -77,7 +73,7 @@ function CreateRecipeForm({ setRecipeInfo }: CRFProps) {
             </Form.Select>
           </Form.Group>
         }
-        
+
         <Form.Group onChange={updateRecipeInfo} className="mb-2" controlId="instructions">
           <Form.Label>Instructions</Form.Label>
           <Form.Control as="textarea" rows={3} />

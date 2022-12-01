@@ -10,8 +10,10 @@ function LoginPage(): JSX.Element {
           <h1 className="loginTitle">Demeter</h1>
           <hr className="loginLine" />
         </div>
+
         <LoginForm />
       </div>
+      
       <img className="loginImg" src={logoLVR} alt="Bannière Les Vraies Richesses" />
     </div>
   );

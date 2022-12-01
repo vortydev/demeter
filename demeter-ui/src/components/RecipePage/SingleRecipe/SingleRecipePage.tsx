@@ -85,7 +85,7 @@ function SingleRecipePage({
             }}>
               <FontAwesomeIcon className="icon" icon={faTrashAlt} size="lg" />
               <span>Supprimer</span>
-              </Button>
+            </Button>
           </div>
         </div>
       </div>

@@ -20,7 +20,7 @@ function HebdoTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
   const [listTaskSun, setLTSun] = useState<Task[]>([]);
 
   useEffect(() => {
-    const noChildList = listTask.filter((t) => t.parentId == 0);
+    const noChildList = listTask.filter((t) => t.parentId === 0);
     setLTMon(listTask.filter(t => t.whenToDo === "mon"));
     setLTTue(listTask.filter(t => t.whenToDo === "tue"));
     setLTWed(listTask.filter(t => t.whenToDo === "wed"));

@@ -47,7 +47,7 @@ function AddIngredientForm({ show, setShow, listIng }: AIFProps) {
         )
       );
 
-    } else if (mesureId === 3 || mesureId == 4) {
+    } else if (mesureId === 3 || mesureId === 4) {
       setSpecificMesure(
         mesureList.filter((mesure) => mesure.id === 3 || mesure.id === 4)
       );
@@ -110,7 +110,7 @@ function AddIngredientForm({ show, setShow, listIng }: AIFProps) {
         <h3 className="popupTitle">Ajouter un ingrédient</h3>
         {empty && <Alert variant="danger">Veuillez remplir tous les champs.</Alert>}
         {ingAlready && <Alert variant="danger">Cet ingrédient est déjà dans la recette</Alert>}
-        
+
         <Form.Group className="popupSelectBox mb-2" controlId="product">
           <Form.Label className="popupSelectLabel">Produit</Form.Label>
           <Form.Select onChange={updateMesurementOptions} id="product">

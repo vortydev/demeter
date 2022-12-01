@@ -62,15 +62,15 @@ function NewsPage(): JSX.Element {
 
   return (
     <section className="appPage">
-      {createdSuccess && <Alert variant="success">L'annonce à été créée avec succès!</Alert>}
-      {editedSuccess && <Alert variant="success">L'annonce à été modifiée avec succès!</Alert>}
-      {deleteSuccess && <Alert variant="success">L'annonce à été supprimée avec succès!</Alert>}
+      {createdSuccess && <Alert variant="success">L'annonce à été créée avec succès !</Alert>}
+      {editedSuccess && <Alert variant="success">L'annonce à été modifiée avec succès !</Alert>}
+      {deleteSuccess && <Alert variant="success">L'annonce à été supprimée avec succès !</Alert>}
 
       <p className="loginText mt-4 mb-3">Vous êtes connecté.e en tant que {account.accName}</p>
 
       {(role === "1" || role === "2" || role === "4") && (
         <div className="btnBar mb-4">
-          <Button variant={`hidden ${ role === "2" ? "hide" : ""}`}>
+          <Button variant={`hidden ${role === "2" ? "hide" : ""}`}>
             <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
             <span>Nouvelle Annonce</span>
           </Button>
@@ -103,7 +103,7 @@ function NewsPage(): JSX.Element {
         <NewsPreview
           news={news}
           editedSuccess={setEditedSucess}
-          deleteSuccess={setDeleteSuccess} editSuccess={false}        />
+          deleteSuccess={setDeleteSuccess} editSuccess={false} />
       ))}
 
       <CreateNewsForm show={createNews} close={close} success={success} />

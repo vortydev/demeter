@@ -6,7 +6,7 @@ class AccountService {
     return http.get<Array<Account>>("/accounts");
   }
 
-  getByRole(roleId: number){
+  getByRole(roleId: number) {
     return http.get<Account>(`/accounts?roleId=${roleId}`);
   }
 

@@ -11,7 +11,7 @@ interface taskHistoryProps {
   close: () => void;
 }
 
-function TaskHistoryModal({ show, newHistory,  close }: taskHistoryProps) {
+function TaskHistoryModal({ show, newHistory, close }: taskHistoryProps) {
   const [history, setHistory] = useState<TaskHistory[]>([]);
   const [daysHistory, setDaysHistory] = useState<TaskHistory[]>([]);
   const [weekPrior, setWeekPrior] = useState<Date[]>([]);

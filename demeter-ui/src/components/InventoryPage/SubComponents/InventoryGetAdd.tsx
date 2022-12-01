@@ -68,4 +68,4 @@ function GetMesurements(show: GettingShow): JSX.Element {
     );
 }
 
-export { GetCategory, GetVendors, GetMesurements }
+export { GetCategory, GetVendors, GetMesurements };

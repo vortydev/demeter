@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { getRecipesByCategory, getRecipesByCategoryName } from "../../services/recipe.functions";
 import { Recipe } from "../../types/Types";
 
-
-
 interface RecipeListProps {
   filter: number | null;
   selectedPage: string;
@@ -19,7 +17,7 @@ function RecipeList({ filter, selectedPage, deletedSuccess, setSelectedPage, set
   useEffect(() => {
 
     async function getList() {
-      if (nameFilter != ""){
+      if (nameFilter !== "") {
         setListRecipe(await getRecipesByCategoryName(filter, nameFilter));
       } else {
         setListRecipe(await getRecipesByCategory(filter));

@@ -372,10 +372,12 @@ input[type="file"] {
     background-color: #DC3545;
     color: white;
 }
+
 .btn-icon-danger:hover {
     background-color: #c82333;
     color: white;
 }
+
 .btn-icon-danger:focus {
     border-color: #c82333 !important;
     box-shadow: 0 0 0 .2rem rgb(200, 35, 51, 0.25) !important;

@@ -103,17 +103,20 @@
 }
 
 /* NEWS RESPONSIVE */
-@media only screen and (max-width: 800px) { 
+@media only screen and (max-width: 800px) {
     .flexNewsPreview {
         width: 100%;
     }
+
     .newsBody .btnBar {
         margin-top: 0;
         margin-bottom: 0;
     }
+
     .flexNewsEdit {
         margin-inline: auto;
     }
+
     .flexNewsEdit.invisible {
         display: none;
     }

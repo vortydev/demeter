@@ -4,7 +4,6 @@ import { getAllCategories } from "../../../services/inventory.functions";
 import { getAllVendor } from "../../../services/vendor.functions";
 import { Category, Vendor } from "../../../types/Types";
 import { CategoryDropDown, VendorDropDown } from "./Inventory";
-
 import { getCookie } from 'typescript-cookie';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";

@@ -3,7 +3,6 @@ import { Alert, Button, Form } from "react-bootstrap"
 import { confirmAlert } from "react-confirm-alert";
 import { createIngredient, deleteOneIngredientsByRecipe } from "../../../../services/Ingredients.functions";
 import { getAllMesurements, getProductsByCategory } from "../../../../services/inventory.functions";
-import { IngForRecipe } from "../../../../types/RecipeTypes.types";
 import { Ingredient, Mesurement, Product } from "../../../../types/Types";
 import { IngredientRow } from "../IngredientRow";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -108,7 +107,7 @@ function EditIngredient({ listIng, recipeId, setChanged }: EditIngredientProps) 
         )
       );
 
-    } else if (mesureId === 3 || mesureId == 4) {
+    } else if (mesureId === 3 || mesureId === 4) {
       setSpecificMesure(
         mesureList.filter((mesure) => mesure.id === 3 || mesure.id === 4)
       );
@@ -117,7 +116,6 @@ function EditIngredient({ listIng, recipeId, setChanged }: EditIngredientProps) 
         mesureList.filter((mesure) => mesure.id === 5)
       );
     }
-
   }
 
   return (<div className="popupForm">
@@ -150,7 +148,7 @@ function EditIngredient({ listIng, recipeId, setChanged }: EditIngredientProps) 
 
     {!addingIng && <div className="btnBar">
       <Button onClick={() => setAddingIng(true)} variant="icon-outline">
-      <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
+        <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
         <span>Ingrédient</span></Button>
     </div>}
 

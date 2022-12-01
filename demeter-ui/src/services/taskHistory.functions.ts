@@ -30,7 +30,7 @@ async function ifTodayHistory(date: Date, taskCategory: number) {
   const taskHistory = TaskHistoryService.ifTodayHistory(date, taskCategory)
     .then((response: any) => {
       console.log('the return should be true');
-     return true;
+      return true;
     })
     .catch((e: Error) => {
       console.log(e);

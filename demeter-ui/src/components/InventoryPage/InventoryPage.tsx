@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Button, Alert } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 import { InventoryForm } from './InventoryAddForm';
 import { InventoryUpdate } from './InventoryUpdate';
 import "../../css/inventory.css";

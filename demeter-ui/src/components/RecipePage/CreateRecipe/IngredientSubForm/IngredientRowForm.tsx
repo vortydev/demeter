@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
 import { getMesurementById } from "../../../../services/inventory.functions";
 import { IngForRecipe } from "../../../../types/RecipeTypes.types";
 import { Mesurement } from "../../../../types/Types";
@@ -34,38 +33,38 @@ function IngredientRowForm({
   function removeIngredient() {
     console.log("clicked Removed");
     setDeleteIngredient(false);
-      listIng.splice(index, 1);
-      if(listIng.length === 0){
-        listIng = [];
-      }
-      setDeleteIngredient(true);
+    listIng.splice(index, 1);
+    if (listIng.length === 0) {
+      listIng = [];
+    }
+    setDeleteIngredient(true);
   }
 
   const cost = pricePerQuantity(ingredient);
 
-    return (
-      <div className="ingListRow flex cellShade mb-2">
-        <span className="ingListCol cellCenter">{ingredient.ingredient.name}</span>
-        <span className="ingListColS cellCenter">{ingredient.quantity}{" "}{mesure?.mesurement}</span>
-        <span className="ingListColS cellCenter">{cost}$</span>
-        <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
-          confirmAlert({
-            title: 'Confirmation',
-            message: 'Êtes-vous sur de vouloir supprimer cet ingrédient?',
-            buttons: [
-              {
-                label: 'Oui',
-                onClick: () => {removeIngredient()}
-              },
-              {
-                label: 'Non',
-                onClick: () => {}
-              }
-            ]
-          });
-        }}/>
-      </div>
-    );
-  } 
+  return (
+    <div className="ingListRow flex cellShade mb-2">
+      <span className="ingListCol cellCenter">{ingredient.ingredient.name}</span>
+      <span className="ingListColS cellCenter">{ingredient.quantity}{" "}{mesure?.mesurement}</span>
+      <span className="ingListColS cellCenter">{cost}$</span>
+      <FontAwesomeIcon className="iconTrash cursor" icon={faTrashAlt} size="lg" onClick={() => {
+        confirmAlert({
+          title: 'Confirmation',
+          message: 'Êtes-vous sur de vouloir supprimer cet ingrédient?',
+          buttons: [
+            {
+              label: 'Oui',
+              onClick: () => { removeIngredient() }
+            },
+            {
+              label: 'Non',
+              onClick: () => { }
+            }
+          ]
+        });
+      }} />
+    </div>
+  );
+}
 
 export { IngredientRowForm };

@@ -176,12 +176,15 @@
   .pageSplit {
     flex-direction: column;
   }
+
   .pageSplit>div {
     width: 100% !important;
   }
+
   .pageSplit>div:not(:last-child) {
     margin-bottom: 1rem;
   }
+
   .pageSplit .popupForm {
     padding: 0;
   }

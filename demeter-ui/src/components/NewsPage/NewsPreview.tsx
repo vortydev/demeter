@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
-import { Alert, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { deleteNews } from "../../services/news.functions";
 import { getTask, updateTask } from "../../services/task.funtions";
 import { News, Task } from "../../types/Types";

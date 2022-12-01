@@ -9,7 +9,7 @@ interface VEFormProps {
     success: () => void;
     vendor: Vendor;
 }
-function VendorEdit({ show, close, success, vendor }: VEFormProps){
+function VendorEdit({ show, close, success, vendor }: VEFormProps) {
     const [error, setError] = useState<boolean>(false);
 
     const [alerting, setAlerting] = useState<boolean>(false);
@@ -22,7 +22,7 @@ function VendorEdit({ show, close, success, vendor }: VEFormProps){
         setAlerting2(false);
     }, 5000);
 
-    async function editVendor(): Promise<void>{
+    async function editVendor(): Promise<void> {
         const vendorName = document.getElementById("vendorName") as HTMLInputElement;
         const phone = document.getElementById("phone") as HTMLInputElement;
         const email = document.getElementById("email") as HTMLInputElement;
@@ -39,20 +39,20 @@ function VendorEdit({ show, close, success, vendor }: VEFormProps){
         setAlerting1(false);
         setAlerting2(false);
 
-        if (!vendorName.value){
+        if (!vendorName.value) {
             setAlerting(true);
             return;
         }
-        
-        if(phone.value){
-            if(!regexPhone1.test(phone.value)&&!regexPhone2.test(phone.value)&&!regexPhone3.test(phone.value)&&!regexPhone4.test(phone.value)){
+
+        if (phone.value) {
+            if (!regexPhone1.test(phone.value) && !regexPhone2.test(phone.value) && !regexPhone3.test(phone.value) && !regexPhone4.test(phone.value)) {
                 setAlerting1(true);
                 return;
             }
         }
-        
-        if(email.value){
-            if(!regexEmail.test(email.value)){
+
+        if (email.value) {
+            if (!regexEmail.test(email.value)) {
                 setAlerting2(true);
                 return;
             }
@@ -86,12 +86,12 @@ function VendorEdit({ show, close, success, vendor }: VEFormProps){
 
                 <Form.Group className="mb-2" controlId="vendorName">
                     <Form.Label>Nom</Form.Label>
-                    <Form.Control type="text" defaultValue={vendor.vendor}/>
+                    <Form.Control type="text" defaultValue={vendor.vendor} />
                 </Form.Group>
-                
+
                 <Form.Group className="mb-2" controlId="phone">
                     <Form.Label>Téléphone</Form.Label>
-                    <Form.Control type="text" defaultValue={vendor.phone}/>
+                    <Form.Control type="text" defaultValue={vendor.phone} />
                 </Form.Group>
 
                 <Form.Group className="mb-2" controlId="email">
@@ -101,7 +101,7 @@ function VendorEdit({ show, close, success, vendor }: VEFormProps){
 
                 <Form.Group className="mb-2" controlId="address">
                     <Form.Label>Adresse postale</Form.Label>
-                    <Form.Control type="text" defaultValue={vendor.address}/>
+                    <Form.Control type="text" defaultValue={vendor.address} />
                 </Form.Group>
 
                 <div className="mt-3 popupBtnBox">
@@ -113,4 +113,4 @@ function VendorEdit({ show, close, success, vendor }: VEFormProps){
     );
 }
 
-export {VendorEdit};
+export { VendorEdit };

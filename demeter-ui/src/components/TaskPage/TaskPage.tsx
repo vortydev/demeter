@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import { getCookie } from "typescript-cookie";
 import {
-  getAll,
   getbyCategorie,
   resetTask,
 } from "../../services/task.funtions";
@@ -34,7 +33,7 @@ function TaskPage(): JSX.Element {
   const [taskCompleted, setTaskCompleted] = useState<boolean>(false);
   const [createTask, setCreateTask] = useState<boolean>(false);
   const [seeHistory, setSeeHistory] = useState<boolean>(false);
-  const [dayStarted, setDayStarted]=useState<boolean>(false);
+  const [dayStarted, setDayStarted] = useState<boolean>(false);
   const today = new Date();
   const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
@@ -45,7 +44,7 @@ function TaskPage(): JSX.Element {
       setDayStarted(await ifTodayHistory(date, taskCategory));
       console.log("taskpage await", await ifTodayHistory(date, taskCategory))
       console.log('day Started for :', taskCategory, ":", dayStarted);
-     
+
 
       if (role === "2") {
         const taskForAccount: Task[] = taskByCat.filter(
@@ -85,7 +84,7 @@ function TaskPage(): JSX.Element {
   }
 
   async function enterInHistory(task: Task, date: Date) {
-    const historyInfo: TaskHistory = {  
+    const historyInfo: TaskHistory = {
       completionDate: date,
       taskName: task.title,
       whoDid: task.responsable,
@@ -120,7 +119,7 @@ function TaskPage(): JSX.Element {
 
         {taskCategory === 1 && (
           <Button
-          disabled={dayStarted}
+            disabled={dayStarted}
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {
@@ -132,9 +131,9 @@ function TaskPage(): JSX.Element {
                   onClick: () => {
                     resetTasksByCat();
                   }
-                },{
+                }, {
                   label: 'Annuler',
-                    onClick: () => { }
+                  onClick: () => { }
                 }]
               });
             }}
@@ -150,7 +149,7 @@ function TaskPage(): JSX.Element {
 
         {taskCategory === 2 && (
           <Button
-          disabled = {(today.getDay() !== 1 || dayStarted ) && (role !== "1" && role !== "4")}
+            disabled={(today.getDay() !== 1 || dayStarted) && (role !== "1" && role !== "4")}
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {
@@ -162,9 +161,9 @@ function TaskPage(): JSX.Element {
                   onClick: () => {
                     resetTasksByCat();
                   }
-                },{
+                }, {
                   label: 'Annuler',
-                    onClick: () => { }
+                  onClick: () => { }
                 }]
               });
             }}
@@ -191,9 +190,9 @@ function TaskPage(): JSX.Element {
                   onClick: () => {
                     resetTasksByCat();
                   }
-                },{
+                }, {
                   label: 'Annuler',
-                    onClick: () => { }
+                  onClick: () => { }
                 }]
               });
             }}
@@ -257,7 +256,7 @@ function TaskPage(): JSX.Element {
         </div>
       )}
       <CreateTaskForm show={createTask} close={close} success={setSuccess} />
-      <TaskHistoryModal show={seeHistory} close={close} newHistory={taskCompleted}/>
+      <TaskHistoryModal show={seeHistory} close={close} newHistory={taskCompleted} />
     </section>
   );
 }

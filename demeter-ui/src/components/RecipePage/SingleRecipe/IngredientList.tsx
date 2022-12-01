@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { getIngredientsByRecipe } from "../../../services/Ingredients.functions";
 import { Ingredient } from "../../../types/Types";
 import { IngredientRow } from "./IngredientRow";
 

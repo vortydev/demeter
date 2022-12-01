@@ -126,7 +126,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
         <h3 className="popupTitle">Édition d'une Annonce</h3>
 
         {error && (<Alert variant="danger">La mise à jour n'a pas fonctionnée.</Alert>)}
-        {empty && <Alert variant="danger">Veuillez donner un titre et un auteur à la tâche</Alert>}
+        {empty && <Alert variant="danger">Veuillez donner un titre et un auteur à la tâche.</Alert>}
 
         <Form.Group className="mb-2" controlId="title">
           <Form.Label>Titre</Form.Label>
@@ -151,7 +151,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
           <Form.Label className="popupSelectLabel">Destinataires</Form.Label>
           <Form.Select defaultValue={news.roleId} aria-label="target">
             <option value="1">Administrateurs</option>
-            <option value="2">Employés</option>
+            <option value="2">Succursales</option>
             <option value="3">Livreurs</option>
             <option value="4">Autres</option>
           </Form.Select>

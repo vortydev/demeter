@@ -80,7 +80,7 @@ function CreateAccountForm({ show, close, success }: CAFormProps) {
         )}
         {!regexValidPassword && (
           <Alert variant="danger">
-            Le mot de passe doit contenir au moins 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial. Sa longueur minimale doit être de 5 caractères.
+            Le mot de passe ne correspond pas aux critères requis.
           </Alert>
         )}
         {error && (

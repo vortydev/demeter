@@ -51,9 +51,9 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
         const price = document.getElementById("price") as HTMLInputElement;
         const qtyInv = document.getElementById("qty_inv") as HTMLInputElement;
 
-        var regexPrice = new RegExp (/[0-9]+[.][0-9]{2}/);
-        var regexPrice1 = new RegExp (/[0-9]+[,][0-9]{2}/);
-        var regexPrice2 = new RegExp (/^[0-9]+$/);
+        var regexPrice = new RegExp(/[0-9]+[.][0-9]{2}/);
+        var regexPrice1 = new RegExp(/[0-9]+[,][0-9]{2}/);
+        var regexPrice2 = new RegExp(/^[0-9]+$/);
         var regexNumber = new RegExp(/[0-9]+/);
 
         setError(false);
@@ -132,7 +132,7 @@ function InventoryEditProductForm({ show, close, success, product }: CRFormProps
                 <Form.Group className="vendorBox mb-2" controlId="vendor">
                     <Form.Label className="popupSelectLabel">Fournisseur</Form.Label>
                     <Form.Select aria-label="vendor" id="vendor" defaultValue={product.vendorId}>
-                        <GetVendorsEdit show={show} id={parseInt(product.vendorId)} update={createdSuccess}/>
+                        <GetVendorsEdit show={show} id={parseInt(product.vendorId)} update={createdSuccess} />
                     </Form.Select>
                     <div className="vendorListBox">
                         <FontAwesomeIcon className="iconAdd iconEdit cursor" icon={faPlus} size="lg" onClick={() => {

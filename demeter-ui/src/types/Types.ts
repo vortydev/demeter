@@ -10,7 +10,6 @@ type News = {
   title: string;
   description: string;
   author: string;
-  img: string;
   active: boolean;
   roleId: string;
   taskId: number;

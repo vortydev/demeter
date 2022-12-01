@@ -90,4 +90,17 @@ async function verifyLogin(accName: string, accPwd: string): Promise<number | nu
   return null;
 }
 
-export { createAccount, updateAccount, getAccounts, getAccountsByRole, verifyLogin, deleteAccount };
+async function getRoles() {
+  const accounts = AccountService.getRoles()
+  .then((response: any) => {
+    return response.data;
+  })
+  .catch((e: Error) => {
+    console.log(e);
+    return [];
+  });
+
+return accounts;
+}
+
+export { createAccount, updateAccount, getAccounts, getAccountsByRole, verifyLogin, deleteAccount, getRoles };

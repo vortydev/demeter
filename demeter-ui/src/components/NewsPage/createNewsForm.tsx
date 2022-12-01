@@ -16,7 +16,6 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
   const [priority, setPriority] = useState<boolean>(false);
   const [emptyTask, setEmptyTask] = useState<boolean>(false);
   const [empty, setEmpty] = useState<boolean>(false);
-  const [filebase64, setFileBase64] = useState<string>("");
 
   async function handlesubmit(): Promise<void> {
 
@@ -61,7 +60,6 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
 
         // validate
         console.log(taskCreated);
-        setFileBase64("");
         if (taskCreated === null) {
           setError(true);
         }
@@ -86,7 +84,6 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
         title: title.value,
         description: description.value,
         author: author.value,
-        img: filebase64,
         active: true,
         roleId: receiver.value,
         taskId: taskCreated ? taskCreated.id : 0,
@@ -102,19 +99,6 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
         success();
       } else {
         setError(true);
-      }
-    }
-  }
-
-  function convertFile(files: FileList | null) {
-    if (files) {
-      const fileRef = files[0] || ""
-      const fileType: string = fileRef.type || ""
-      console.log("This file upload is of type:", fileType)
-      const reader = new FileReader()
-      reader.readAsBinaryString(fileRef)
-      reader.onload = (ev: any) => {
-        setFileBase64(`data:${fileType};base64,${btoa(ev.target.result)}`)
       }
     }
   }
@@ -186,20 +170,9 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
             <hr className="loginLine mt-2" />
           </div>
         )}
-
-        <div className="popupImgBox mt-2 mb-2">
-          <input id="file" type="file" onChange={(e) => convertFile(e.target.files)} />
-          {filebase64 &&
-            <>
-              {(filebase64.indexOf("image/") > -1) &&
-                <img src={filebase64} width={300} />
-              }
-            </>
-          }
-        </div>
           
         <div className="mt-3 popupBtnBox">
-          <Button variant="demeter-dark" onClick={() => { setFileBase64(""); close(); }}>
+          <Button variant="demeter-dark" onClick={close}>
             Annuler
           </Button>
           <Button variant="demeter" onClick={handlesubmit}>

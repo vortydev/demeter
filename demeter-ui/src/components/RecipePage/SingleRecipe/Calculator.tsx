@@ -1,3 +1,5 @@
+import { format } from "node:path/win32";
+import { stringify } from "querystring";
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { getProduct } from "../../../services/inventory.functions";
@@ -17,6 +19,13 @@ function Calculator({ listIng, nbUnit, otherCost }: CalculatorProps) {
 
   var regex1 = new RegExp(/^[0-9]+$/);
   var regex2 = new RegExp(/[0-9]+[.][0-9]{1}/);
+  
+  var regexPrice = new RegExp(/[0-9]+[.][0-9]{2}/);
+  var regexPrice1 = new RegExp(/^[0-9]+$/);
+
+  var coutTotal = adjustPrice(Math.round(totalCost + Number.EPSILON * 100) / 100);
+  var coutUnitaire = adjustPrice( Math.round(totalCost / nbUnit + Number.EPSILON * 100) / 100);
+  var coutPerso = adjustPrice(Math.round(((totalCost / nbUnit) * customNB) + Number.EPSILON * 100) / 100);
 
   useEffect(() => {
     async function setTheCost() {
@@ -36,10 +45,21 @@ function Calculator({ listIng, nbUnit, otherCost }: CalculatorProps) {
     );
   }
 
+  function adjustPrice(price: number) {
+    var strPrice = price.toString();
+
+    if (regexPrice1.test(strPrice)) {
+      strPrice = strPrice.concat(".00");
+    }else if(!regexPrice.test(strPrice)){
+      strPrice = strPrice.concat("0")
+    }
+    return strPrice;
+  }
+
   return (
     <div className="calculatorBox flex">
-      <span>Coût total : {Math.round(totalCost + Number.EPSILON * 100) / 100} $</span>
-      <span>Coût unitaire : {(Math.round(totalCost / nbUnit + Number.EPSILON * 100) / 100)} $</span>
+      <span>Coût total : {coutTotal} $</span>
+      <span>Coût unitaire : {coutUnitaire} $</span>
 
       <Form className="mt-3">
         <Form.Group
@@ -51,7 +71,7 @@ function Calculator({ listIng, nbUnit, otherCost }: CalculatorProps) {
           <Form.Control defaultValue={0} type="number" />
         </Form.Group>
       </Form>
-      <span>Coût personnalisé : {Math.round(((totalCost / nbUnit) * customNB) + Number.EPSILON * 100) / 100} $</span>
+      <span>Coût personnalisé : {coutPerso} $</span>
     </div>
   );
 }

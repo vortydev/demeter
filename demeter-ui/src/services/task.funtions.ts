@@ -75,7 +75,6 @@ async function updateTask(data: Task): Promise<boolean> {
 }
 
 async function deleteTask(id: number) {
-  console.log("in deletesTask", id);
   const taskdeleted = TaskService.delete(id)
     .then((response: any) => {
       return true;

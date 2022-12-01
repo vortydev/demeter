@@ -12,7 +12,7 @@ module.exports = (sequelize, Sequelize) => {
       parentId: {
         type: Sequelize.INTEGER
       },
-      categoryTaskId: {
+      categorytaskId: {
         type: Sequelize.INTEGER
       }
     });

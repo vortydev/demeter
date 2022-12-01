@@ -7,6 +7,7 @@ import { getCookie } from "typescript-cookie";
 import { RecipeFilter } from "./RecipeFilter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { getCookieRole } from "../../services/cookie.functions";
 
 interface RecipePageProps {
   selectedPage: string;
@@ -27,9 +28,17 @@ function RecipePage({
   setDeletedSuccess,
   setRecipePage,
 }: RecipePageProps): JSX.Element {
-  const role = getCookie("role");
+  const [role, setRole] = useState<string>("0");
+  const loaded = true;
   const [filter, setFilter] = useState<number | null>(null);
   const [nameFilter, setNameFilter] = useState<string>("");
+
+  useEffect(() => {
+    async function getRoleId() {
+        setRole(await getCookieRole() || "0");
+    }
+    getRoleId();
+  },[loaded]);
 
   useEffect(() => {
     switch (role) {

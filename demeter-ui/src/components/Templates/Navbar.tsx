@@ -1,13 +1,20 @@
-import { getCookie } from 'typescript-cookie';
 import { Nav } from "react-bootstrap";
+import { useEffect, useState } from 'react';
+import { getCookieRole } from '../../services/cookie.functions';
 
 interface NavBarProps {
     navigateTo: (choice: string) => void;
 }
 
 function Navbar({ navigateTo }: NavBarProps) {
-
-    const role = getCookie("role");
+    const [role, setRole] = useState<string>("0");
+    useEffect(() => {
+        async function getRoleId() {
+            setRole(await getCookieRole() || "0");
+        }
+        getRoleId();
+    },[navigateTo]);
+    
 
     const accessRecipe: string[] = ["1", "4", "5", "6", "7", "8"];
     const accessInventory: string[] = ["1", "3", "4"];

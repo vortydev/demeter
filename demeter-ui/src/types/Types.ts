@@ -89,4 +89,8 @@ type TaskHistory = {
   categorytaskId: number;
 }
 
-export type { Account, News, Task, Product, Category, Recipe, Vendor, Mesurement, Ingredient, TaskHistory }
+type Role = {
+  id: number;
+}
+
+export type { Account, News, Task, Product, Category, Recipe, Vendor, Mesurement, Ingredient, TaskHistory, Role }

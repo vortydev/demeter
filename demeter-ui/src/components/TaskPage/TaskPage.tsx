@@ -20,7 +20,7 @@ import { HebdoTaskDisplay } from "./TasksDisplay/HebdoTaskDisplay";
 import { OtherTaskDisplay } from "./TasksDisplay/OtherTaskDisplay";
 import { createTaskHistory, ifTodayHistory } from "../../services/taskHistory.functions";
 import { TaskHistoryModal } from "./TaskHistory/TaskHistoryModal";
-import { getCookieAccount } from "../../services/cookie.functions";
+import { getCookieAccount, getCookieRole } from "../../services/cookie.functions";
 
 function TaskPage(): JSX.Element {
   const [createdSuccess, setSuccess] = useState<boolean>(false);
@@ -29,9 +29,8 @@ function TaskPage(): JSX.Element {
   const [taskCategory, setTaskCategory] = useState<number>(1);
   const [accountTask, setAccountTask] = useState<Task[]>([]);
   const [allCatTask, setAllCatTask] = useState<Task[]>([]);
-  var empty: Account = {accName: "Visiteur", accPassword: "", roleId: 0, stateId: 0};
-  const [account, setAccount] = useState<Account>(empty);
-  const role = getCookie("role");
+  const [account, setAccount] = useState<string>("Visiteur");
+  const [role, setRole] = useState<string>("0");
   const [taskCompleted, setTaskCompleted] = useState<boolean>(false);
   const [createTask, setCreateTask] = useState<boolean>(false);
   const [seeHistory, setSeeHistory] = useState<boolean>(false);
@@ -41,17 +40,18 @@ function TaskPage(): JSX.Element {
 
   useEffect(() => {
     async function getList() {
+      setRole(await getCookieRole() || "0");
       const taskByCat: Task[] = await getbyCategorie(taskCategory);
       setAllCatTask(taskByCat);
       setDayStarted(await ifTodayHistory(date, taskCategory));
       console.log("taskpage await", await ifTodayHistory(date, taskCategory))
       console.log('day Started for :', taskCategory, ":", dayStarted);
-      setAccount(await getCookieAccount() || empty);
+      setAccount(await getCookieAccount() || "Visiteur");
 
 
       if (role === "2") {
         const taskForAccount: Task[] = taskByCat.filter(
-          (t) => t.receiver === account.accName
+          (t) => t.receiver === account
         );
         setAccountTask(taskForAccount);
       } else if (role === "3") {

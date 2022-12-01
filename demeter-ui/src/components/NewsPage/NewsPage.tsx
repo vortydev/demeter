@@ -9,7 +9,7 @@ import { NewsPreview } from "./NewsPreview";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faList } from "@fortawesome/free-solid-svg-icons";
 import { PasswordModal } from "./passwordModal";
-import { getCookieAccount } from "../../services/cookie.functions";
+import { getCookieAccount, getCookieRole } from "../../services/cookie.functions";
 
 function NewsPage(): JSX.Element {
   const [createNews, setCreateNews] = useState<boolean>(false);
@@ -18,19 +18,18 @@ function NewsPage(): JSX.Element {
   const [editedSuccess, setEditedSucess] = useState<boolean>(false);
   const [newsList, setNewsList] = useState<News[]>([]);
   const [pwModal, setpwModal] = useState<boolean>(false);
-  var empty: Account = {accName: "Visiteur", accPassword: "", roleId: 0, stateId: 0};
-  const [account, setAccount] = useState<Account>(empty);
-
-  const role = getCookie("role");
+  const [account, setAccount] = useState<string>("Visiteur");
+  const [role, setRole] = useState<string>("0");
 
   useEffect(() => {
     async function getList() {
+      setRole(await getCookieRole() || "0");
       if (role !== undefined) {
         setNewsList(await getNewsByRole(parseInt(role)));
       } else {
         setNewsList([]);
       }
-      setAccount(await getCookieAccount() || empty);
+      setAccount(await getCookieAccount() || "Visiteur");
     }
     getList();
   }, [createdSuccess, editedSuccess, deleteSuccess, role]);
@@ -66,7 +65,7 @@ function NewsPage(): JSX.Element {
       {editedSuccess && <Alert variant="success">L'annonce à été modifiée avec succès !</Alert>}
       {deleteSuccess && <Alert variant="success">L'annonce à été supprimée avec succès !</Alert>}
 
-      <p className="loginText mt-4 mb-3">Vous êtes connecté.e en tant que {account.accName}</p>
+      <p className="loginText mt-4 mb-3">Vous êtes connecté.e en tant que {account}</p>
 
       {(role === "1" || role === "2" || role === "4") && (
         <div className="btnBar mb-4">

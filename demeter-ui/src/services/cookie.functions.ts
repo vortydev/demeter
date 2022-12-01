@@ -7,10 +7,10 @@ async function getCookieAccount() {
     const connected = getCookie("account") ? getCookie("account") : "Visiteur";
     const accountList: Account[] = await getAccounts();
     var account = null;
-    if(connected != "Visiteur" && connected) {
-        for (var i = 0; i < accountList.length; i++){
+    if (connected !== "Visiteur" && connected) {
+        for (var i = 0; i < accountList.length; i++) {
             var result = await bcrypt.compare(accountList[i].accName, connected);
-            if (result){
+            if (result) {
                 account = accountList[i].accName;
                 return account;
             }
@@ -19,12 +19,12 @@ async function getCookieAccount() {
     return "Visiteur";
 }
 
-async function getCookieRole(){
+async function getCookieRole() {
     const role = getCookie("role");
     const roleList: Role[] = await getRoles();
     var roleId = null;
     if (role) {
-        for (var i = 0; i < roleList.length; i++){
+        for (var i = 0; i < roleList.length; i++) {
             var result = await bcrypt.compare(roleList[i].id.toString(), role);
             if (result) {
                 roleId = roleList[i].id.toString();
@@ -37,4 +37,4 @@ async function getCookieRole(){
     }
 }
 
-export { getCookieAccount, getCookieRole};
+export { getCookieAccount, getCookieRole };

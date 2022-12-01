@@ -6,7 +6,7 @@ import {
   getbyCategorie,
   resetTask,
 } from "../../services/task.funtions";
-import { Task, TaskHistory } from "../../types/Types";
+import { Account, Task, TaskHistory } from "../../types/Types";
 import { CreateTaskForm } from "./createTaskForm";
 import { TaskNav } from "./TaskNav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,6 +21,7 @@ import { HebdoTaskDisplay } from "./TasksDisplay/HebdoTaskDisplay";
 import { OtherTaskDisplay } from "./TasksDisplay/OtherTaskDisplay";
 import { createTaskHistory, ifTodayHistory } from "../../services/taskHistory.functions";
 import { TaskHistoryModal } from "./TaskHistory/TaskHistoryModal";
+import { getCookieAccount } from "../../services/cookie.functions";
 
 function TaskPage(): JSX.Element {
   const [createdSuccess, setSuccess] = useState<boolean>(false);
@@ -29,7 +30,8 @@ function TaskPage(): JSX.Element {
   const [taskCategory, setTaskCategory] = useState<number>(1);
   const [accountTask, setAccountTask] = useState<Task[]>([]);
   const [allCatTask, setAllCatTask] = useState<Task[]>([]);
-  const account = getCookie("account") ? getCookie("account") : "Visiteur";
+  var empty: Account = {accName: "Visiteur", accPassword: "", roleId: 0, stateId: 0};
+  const [account, setAccount] = useState<Account>(empty);
   const role = getCookie("role");
   const [taskCompleted, setTaskCompleted] = useState<boolean>(false);
   const [createTask, setCreateTask] = useState<boolean>(false);
@@ -45,11 +47,11 @@ function TaskPage(): JSX.Element {
       setDayStarted(await ifTodayHistory(date, taskCategory));
       console.log("taskpage await", await ifTodayHistory(date, taskCategory))
       console.log('day Started for :', taskCategory, ":", dayStarted);
-     
+      setAccount(await getCookieAccount() || empty);
 
       if (role === "2") {
         const taskForAccount: Task[] = taskByCat.filter(
-          (t) => t.receiver === account
+          (t) => t.receiver === account.accName
         );
         setAccountTask(taskForAccount);
       } else if (role === "3") {

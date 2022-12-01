@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import { getCookie } from "typescript-cookie";
 import { getAllNews, getNewsByRole } from "../../services/news.functions";
-import { News } from "../../types/Types";
+import { Account, News } from "../../types/Types";
 import { CreateNewsForm } from "./createNewsForm";
 import { NewsPreview } from "./NewsPreview";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faList } from "@fortawesome/free-solid-svg-icons";
 import { PasswordModal } from "./passwordModal";
+import { getCookieAccount, getCookieRole } from "../../services/cookie.functions";
 
 function NewsPage(): JSX.Element {
   const [createNews, setCreateNews] = useState<boolean>(false);
@@ -17,17 +18,18 @@ function NewsPage(): JSX.Element {
   const [editedSuccess, setEditedSucess] = useState<boolean>(false);
   const [newsList, setNewsList] = useState<News[]>([]);
   const [pwModal, setpwModal] = useState<boolean>(false);
-
-  const connected = getCookie("account") ? getCookie("account") : "Visiteur";
-  const role = getCookie("role");
+  const [account, setAccount] = useState<string>("Visiteur");
+  const [role, setRole] = useState<string>("0");
 
   useEffect(() => {
     async function getList() {
+      setRole(await getCookieRole() || "0");
       if (role !== undefined) {
         setNewsList(await getNewsByRole(parseInt(role)));
       } else {
         setNewsList([]);
       }
+      setAccount(await getCookieAccount() || "Visiteur");
     }
     getList();
   }, [createdSuccess, editedSuccess, deleteSuccess, role]);
@@ -59,15 +61,15 @@ function NewsPage(): JSX.Element {
 
   return (
     <section className="appPage">
-      {createdSuccess && <Alert variant="success">L'annonce à été créée avec succès!</Alert>}
-      {editedSuccess && <Alert variant="success">L'annonce à été modifiée avec succès!</Alert>}
-      {deleteSuccess && <Alert variant="success">L'annonce à été supprimée avec succès!</Alert>}
+      {createdSuccess && <Alert variant="success">L'annonce à été créée avec succès !</Alert>}
+      {editedSuccess && <Alert variant="success">L'annonce à été modifiée avec succès !</Alert>}
+      {deleteSuccess && <Alert variant="success">L'annonce à été supprimée avec succès !</Alert>}
 
-      <p className="loginText mt-4 mb-3">Vous êtes connecté.e en tant que {connected}</p>
+      <p className="loginText mt-4 mb-3">Vous êtes connecté.e en tant que {account}</p>
 
       {(role === "1" || role === "2" || role === "4") && (
         <div className="btnBar mb-4">
-          <Button variant={`hidden ${ role === "2" ? "hide" : ""}`}>
+          <Button variant={`hidden ${role === "2" ? "hide" : ""}`}>
             <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
             <span>Nouvelle Annonce</span>
           </Button>
@@ -100,7 +102,7 @@ function NewsPage(): JSX.Element {
         <NewsPreview
           news={news}
           editedSuccess={setEditedSucess}
-          deleteSuccess={setDeleteSuccess} editSuccess={false}        />
+          deleteSuccess={setDeleteSuccess} editSuccess={false} />
       ))}
 
       <CreateNewsForm show={createNews} close={close} success={success} />

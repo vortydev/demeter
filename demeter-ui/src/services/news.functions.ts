@@ -10,7 +10,7 @@ async function createNews(data: News): Promise<boolean> {
       console.log(e);
       return false;
     });
-    
+
   return announcementCreated;
 }
 

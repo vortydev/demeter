@@ -1,4 +1,3 @@
-import { render } from "@testing-library/react";
 import { useEffect, useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 import { getAccountsByRole } from "../../services/account.functions";
@@ -17,7 +16,7 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
   const [listAccount, setListAccount] = useState<Account[]>([]);
   const [empty, setEmpty] = useState<boolean>(false);
   const [tt, setTypeTask] = useState<string>("1");
-  
+
 
   useEffect(() => {
     async function getList() {
@@ -159,10 +158,10 @@ function CreateTaskForm({ show, close, success }: CRFormProps) {
         )}
 
         <div className="mt-3 popupBtnBox">
-          <Button variant="demeter-dark" onClick={() => {setTypeTask("0"); close(); }}>
+          <Button variant="demeter-dark" onClick={() => { setTypeTask("0"); close(); }}>
             Annuler
           </Button>
-          <Button variant="demeter" onClick={() => {handlesubmit(); }}>
+          <Button variant="demeter" onClick={() => { handlesubmit(); }}>
             Confirmer
           </Button>
         </div>

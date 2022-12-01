@@ -32,7 +32,7 @@ async function createRecipe(
       const ingCreated = await createIngredient(ingToCreate);
       if (!ingCreated) {
         return false;
-        
+
       }
     }
     return true;
@@ -65,7 +65,7 @@ async function getRecipesByCategory(category: number | null) {
   }
 }
 
-async function getRecipesByCategoryName(category: number | null, research: string){
+async function getRecipesByCategoryName(category: number | null, research: string) {
   if (category !== null) {
     const recipes = RecipeService.getByCategoryName(category, research)
       .then((response: any) => {
@@ -105,20 +105,20 @@ async function deleteRecipe(id: number) {
       return false;
     });
 
-    console.log("compare",await deleted && deletedAllIngredients);
+  console.log("compare", await deleted && deletedAllIngredients);
   return await deleted && deletedAllIngredients;
 }
 
-async function updateRecipe(id: number, recipe: Recipe){
+async function updateRecipe(id: number, recipe: Recipe) {
   const updated = RecipeService.update(recipe, id.toString())
-      .then((response: any) => {
-        return true;
-      })
-      .catch((e: Error) => {
-        console.log(e);
-        return false;
-      });
-    return updated;
+    .then((response: any) => {
+      return true;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return false;
+    });
+  return updated;
 }
 
 export { createRecipe, getRecipesByCategory, deleteRecipe, updateRecipe, getRecipesByCategoryName };

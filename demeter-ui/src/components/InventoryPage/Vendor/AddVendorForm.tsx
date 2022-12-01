@@ -23,7 +23,7 @@ function VendorForm({ show, close, success }: CRFormProps) {
         setAlerting2(false);
     }, 5000);
 
-    async function addVendor(): Promise<void>{
+    async function addVendor(): Promise<void> {
         const vendorName = document.getElementById("vendorName") as HTMLInputElement;
         const phone = document.getElementById("phone") as HTMLInputElement;
         const email = document.getElementById("email") as HTMLInputElement;
@@ -40,20 +40,20 @@ function VendorForm({ show, close, success }: CRFormProps) {
         setAlerting1(false);
         setAlerting2(false);
 
-        if (!vendorName.value){
+        if (!vendorName.value) {
             setAlerting(true);
             return;
         }
-        
-        if(phone.value){
-            if(!regexPhone1.test(phone.value)&&!regexPhone2.test(phone.value)&&!regexPhone3.test(phone.value)&&!regexPhone4.test(phone.value)){
+
+        if (phone.value) {
+            if (!regexPhone1.test(phone.value) && !regexPhone2.test(phone.value) && !regexPhone3.test(phone.value) && !regexPhone4.test(phone.value)) {
                 setAlerting1(true);
                 return;
             }
         }
-        
-        if(email.value){
-            if(!regexEmail.test(email.value)){
+
+        if (email.value) {
+            if (!regexEmail.test(email.value)) {
                 setAlerting2(true);
                 return;
             }
@@ -89,7 +89,7 @@ function VendorForm({ show, close, success }: CRFormProps) {
                     <Form.Label>Nom</Form.Label>
                     <Form.Control type="text" />
                 </Form.Group>
-                
+
                 <Form.Group className="mb-2" controlId="phone">
                     <Form.Label>Téléphone</Form.Label>
                     <Form.Control type="text" />

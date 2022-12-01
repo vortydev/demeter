@@ -11,6 +11,7 @@ async function createAccount(data: Account): Promise<boolean> {
       console.log(e);
       return false;
     });
+    
   return accountCreated;
 }
 
@@ -23,6 +24,7 @@ async function updateAccount(data: Account, accName: String): Promise<boolean> {
       console.log(e);
       return false;
     });
+
   return accountUpdated;
 }
 
@@ -39,6 +41,19 @@ async function deleteAccount(accName: string) {
   return deleted;
 }
 
+async function getAccounts() {
+  const accounts = AccountService.getAll()
+    .then((response: any) => {
+      return response.data;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return [];
+    });
+
+  return accounts;
+}
+
 async function getAccountsByRole(role: number) {
   const accounts = AccountService.getByRole(role)
     .then((response: any) => {
@@ -48,11 +63,12 @@ async function getAccountsByRole(role: number) {
       console.log(e);
       return [];
     });
+
   return accounts;
 }
 
 // vérifies que le mot de passe correspond au mot de passe dans la base de données
-async function verifyLogin(accName: string, accPwd: string) :Promise<number | null>{
+async function verifyLogin(accName: string, accPwd: string): Promise<number | null> {
   // retourne le mot de passe encrypté de l'utilisateur en paramètre
   const fetchedInfo = await AccountService.verifyName(accName)
     .then((response: any) => {
@@ -66,12 +82,25 @@ async function verifyLogin(accName: string, accPwd: string) :Promise<number | nu
 
   // compare les deux mots de passe
   if (fetchedInfo) {
-    if(await bcrypt.compare(accPwd, fetchedInfo.accPassword)){
+    if (await bcrypt.compare(accPwd, fetchedInfo.accPassword)) {
       return fetchedInfo.roleId;
     };
-  } 
-    return null;
-  
+  }
+
+  return null;
 }
 
-export { createAccount, updateAccount, getAccountsByRole, verifyLogin, deleteAccount };
+async function getRoles() {
+  const accounts = AccountService.getRoles()
+  .then((response: any) => {
+    return response.data;
+  })
+  .catch((e: Error) => {
+    console.log(e);
+    return [];
+  });
+
+return accounts;
+}
+
+export { createAccount, updateAccount, getAccounts, getAccountsByRole, verifyLogin, deleteAccount, getRoles };

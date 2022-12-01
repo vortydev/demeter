@@ -1,6 +1,4 @@
-import { render } from "@testing-library/react";
 import { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
@@ -111,7 +109,7 @@ function AccountRow({
                 },
                 {
                   label: "Annuler",
-                  onClick: () => {},
+                  onClick: () => { },
                 },
               ],
             });

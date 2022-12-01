@@ -35,10 +35,11 @@
     padding-left: .5rem;
 }
 
-@media only screen and (max-width: 800px) { 
+@media only screen and (max-width: 800px) {
     .addAcc {
         margin: 1rem auto;
     }
+
     .accountList {
         width: 100%;
     }

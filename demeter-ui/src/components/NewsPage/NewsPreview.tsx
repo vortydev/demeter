@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
-import { Alert, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { deleteNews } from "../../services/news.functions";
 import { getTask, updateTask } from "../../services/task.funtions";
 import { News, Task } from "../../types/Types";
@@ -102,7 +102,7 @@ function NewsPreview({ news, editSuccess, editedSuccess, deleteSuccess }: NewsPr
   const role = getCookie("role");
   return (
     <article className="flexNewsPreview">
-      <div className={`newsBody ${news.priority ? "priority" : ""}`}>
+      <div className={`newsBody cellShade ${news.priority ? "priority" : ""}`}>
         <div className="btnBar flex">
           {(role === "1" || role === "4") &&
             <div className="flexNewsEdit invisible">
@@ -162,11 +162,6 @@ function NewsPreview({ news, editSuccess, editedSuccess, deleteSuccess }: NewsPr
             {text}
             <b>{longDesc && dotdotdot}</b>
           </p>
-          {news.img !== null && (
-            <div className="image">
-              <img src={news.img} alt="" />
-            </div>
-          )}
         </div>
 
         {task !== undefined && <div className="newsTaskBox flex mt-2">

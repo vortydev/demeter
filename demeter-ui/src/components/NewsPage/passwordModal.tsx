@@ -27,7 +27,7 @@ function PasswordModal({ show, setCreateNews, close }: pwModalProps) {
     <Modal show={show}>
       <div className="popupForm">
         <h3 className="popupTitle">Permission requise</h3>
-        <p className="popupHint mb-3">Créer une annonce est une action restrainte</p>
+        <p className="popupHint mb-3">Créer une annonce est une action restrainte.</p>
 
         <Form.Group className="mb-2" controlId="password">
           <Form.Label>Mot de passe</Form.Label>

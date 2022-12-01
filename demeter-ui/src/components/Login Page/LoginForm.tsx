@@ -2,11 +2,12 @@ import { SyntheticEvent, useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { setCookie } from "typescript-cookie";
 import { verifyLogin } from "../../services/account.functions";
+import bcrypt from "bcryptjs";
 
 function LoginForm(): JSX.Element {
   const [valid, setValid] = useState<boolean>(true);
   const [empty, setEmpty] = useState<boolean>(false);
-  
+
   async function handleLogin(e: SyntheticEvent): Promise<void> {
     e.preventDefault();
     setValid(true);
@@ -21,14 +22,16 @@ function LoginForm(): JSX.Element {
         setEmpty(false);
       }, 5000);
     } else {
-      const verification = await verifyLogin(accName.value, pw.value)
+      const verification = await verifyLogin(accName.value, pw.value);
+
       if (verification !== null) {
-        setCookie("account", accName.value,  { expires: 1 });
-        setCookie("role", verification,  { expires: 1 } );
+        const roleId = verification.toString();
+        setCookie("account", await bcrypt.hash(accName.value, 10), { expires: 1, secure: true, sameSite: 'strict' });
+        setCookie("role", await bcrypt.hash(roleId, 10), { expires: 1, secure: true, sameSite: 'strict' });  // gotta do the same than account
         window.location.reload();
       } else {
         setValid(false);
-  
+
         setTimeout(() => {
           setValid(true)
         }, 5000);
@@ -39,7 +42,8 @@ function LoginForm(): JSX.Element {
   return (
     <Form className="popupForm loginForm">
       {!valid && <Alert variant="danger">Informations invalides !</Alert>}
-      {empty && <Alert variant="danger">Veuillez remplir tout les champs</Alert>}
+      {empty && <Alert variant="danger">Veuillez remplir tout les champs.</Alert>}
+
       <Form.Group className="mb-3 loginField" controlId="account">
         <Form.Label>Nom d'utilisateur</Form.Label>
         <Form.Control type="text" />

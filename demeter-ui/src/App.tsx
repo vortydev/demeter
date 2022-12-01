@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { getCookie } from "typescript-cookie";
 import { LoginPage } from "./components/Login Page/LoginPage";
 import { Navbar } from "./components/Templates/Navbar";
@@ -14,12 +14,6 @@ function App() {
   if (loggedIn === undefined) {
     return <LoginPage />;
   } else {
-
-
-
-
-
-
     return (
       <div className="App">
         <header className="App-header">

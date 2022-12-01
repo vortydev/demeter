@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
 import { getCookie } from "typescript-cookie";
 import {
-  getAll,
   getbyCategorie,
   resetTask,
 } from "../../services/task.funtions";
-import { Task, TaskHistory } from "../../types/Types";
+import { Account, Task, TaskHistory } from "../../types/Types";
 import { CreateTaskForm } from "./createTaskForm";
 import { TaskNav } from "./TaskNav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,6 +20,7 @@ import { HebdoTaskDisplay } from "./TasksDisplay/HebdoTaskDisplay";
 import { OtherTaskDisplay } from "./TasksDisplay/OtherTaskDisplay";
 import { createTaskHistory, ifTodayHistory } from "../../services/taskHistory.functions";
 import { TaskHistoryModal } from "./TaskHistory/TaskHistoryModal";
+import { getCookieAccount, getCookieRole } from "../../services/cookie.functions";
 
 function TaskPage(): JSX.Element {
   const [createdSuccess, setSuccess] = useState<boolean>(false);
@@ -29,23 +29,25 @@ function TaskPage(): JSX.Element {
   const [taskCategory, setTaskCategory] = useState<number>(1);
   const [accountTask, setAccountTask] = useState<Task[]>([]);
   const [allCatTask, setAllCatTask] = useState<Task[]>([]);
-  const account = getCookie("account") ? getCookie("account") : "Visiteur";
-  const role = getCookie("role");
+  const [account, setAccount] = useState<string>("Visiteur");
+  const [role, setRole] = useState<string>("0");
   const [taskCompleted, setTaskCompleted] = useState<boolean>(false);
   const [createTask, setCreateTask] = useState<boolean>(false);
   const [seeHistory, setSeeHistory] = useState<boolean>(false);
-  const [dayStarted, setDayStarted]=useState<boolean>(false);
+  const [dayStarted, setDayStarted] = useState<boolean>(false);
   const today = new Date();
   const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
   useEffect(() => {
     async function getList() {
+      setRole(await getCookieRole() || "0");
       const taskByCat: Task[] = await getbyCategorie(taskCategory);
       setAllCatTask(taskByCat);
       setDayStarted(await ifTodayHistory(date, taskCategory));
       console.log("taskpage await", await ifTodayHistory(date, taskCategory))
       console.log('day Started for :', taskCategory, ":", dayStarted);
-     
+      setAccount(await getCookieAccount() || "Visiteur");
+
 
       if (role === "2") {
         const taskForAccount: Task[] = taskByCat.filter(
@@ -85,7 +87,7 @@ function TaskPage(): JSX.Element {
   }
 
   async function enterInHistory(task: Task, date: Date) {
-    const historyInfo: TaskHistory = {  
+    const historyInfo: TaskHistory = {
       completionDate: date,
       taskName: task.title,
       whoDid: task.responsable,
@@ -120,7 +122,7 @@ function TaskPage(): JSX.Element {
 
         {taskCategory === 1 && (
           <Button
-          disabled={dayStarted}
+            disabled={dayStarted}
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {
@@ -132,9 +134,9 @@ function TaskPage(): JSX.Element {
                   onClick: () => {
                     resetTasksByCat();
                   }
-                },{
+                }, {
                   label: 'Annuler',
-                    onClick: () => { }
+                  onClick: () => { }
                 }]
               });
             }}
@@ -150,7 +152,7 @@ function TaskPage(): JSX.Element {
 
         {taskCategory === 2 && (
           <Button
-          disabled = {(today.getDay() !== 1 || dayStarted ) && (role !== "1" && role !== "4")}
+            disabled={(today.getDay() !== 1 || dayStarted) && (role !== "1" && role !== "4")}
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {
@@ -162,9 +164,9 @@ function TaskPage(): JSX.Element {
                   onClick: () => {
                     resetTasksByCat();
                   }
-                },{
+                }, {
                   label: 'Annuler',
-                    onClick: () => { }
+                  onClick: () => { }
                 }]
               });
             }}
@@ -191,9 +193,9 @@ function TaskPage(): JSX.Element {
                   onClick: () => {
                     resetTasksByCat();
                   }
-                },{
+                }, {
                   label: 'Annuler',
-                    onClick: () => { }
+                  onClick: () => { }
                 }]
               });
             }}
@@ -257,7 +259,7 @@ function TaskPage(): JSX.Element {
         </div>
       )}
       <CreateTaskForm show={createTask} close={close} success={setSuccess} />
-      <TaskHistoryModal show={seeHistory} close={close} newHistory={taskCompleted}/>
+      <TaskHistoryModal show={seeHistory} close={close} newHistory={taskCompleted} />
     </section>
   );
 }

@@ -240,7 +240,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         </div>}
 
         <div className="mt-3 popupBtnBox">
-          <Button variant="demeter-dark" onClick={() => {setChildTask([]); close();}}>Annuler</Button>
+          <Button variant="demeter-dark" onClick={() => { setChildTask([]); close(); }}>Annuler</Button>
           <Button variant="demeter" onClick={handleSubmit}>Confirmer</Button>
         </div>
       </Form>

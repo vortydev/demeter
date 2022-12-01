@@ -16,7 +16,6 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
   const [priority, setPriority] = useState<boolean>(false);
   const [emptyTask, setEmptyTask] = useState<boolean>(false);
   const [empty, setEmpty] = useState<boolean>(false);
-  const [filebase64, setFileBase64] = useState<string>("");
 
   async function handlesubmit(): Promise<void> {
 
@@ -61,7 +60,6 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
 
         // validate
         console.log(taskCreated);
-        setFileBase64("");
         if (taskCreated === null) {
           setError(true);
         }
@@ -72,7 +70,6 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
     const author = document.getElementById("author") as HTMLInputElement;
     const receiver = document.getElementById("receiver") as HTMLInputElement;
     const description = document.getElementById("description") as HTMLInputElement;
-    // const img = document.getElementById("image") as HTMLInputElement;
 
     if (!title.value || !author.value) {
       setEmpty(true);
@@ -86,7 +83,6 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
         title: title.value,
         description: description.value,
         author: author.value,
-        img: filebase64,
         active: true,
         roleId: receiver.value,
         taskId: taskCreated ? taskCreated.id : 0,
@@ -106,24 +102,12 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
     }
   }
 
-  function convertFile(files: FileList | null) {
-    if (files) {
-      const fileRef = files[0] || ""
-      const fileType: string = fileRef.type || ""
-      console.log("This file upload is of type:", fileType)
-      const reader = new FileReader()
-      reader.readAsBinaryString(fileRef)
-      reader.onload = (ev: any) => {
-        setFileBase64(`data:${fileType};base64,${btoa(ev.target.result)}`)
-      }
-    }
-  }
-
   return (
     <Modal show={show} onHide={close}>
       <Form className="popupForm">
         <h3 className="popupTitle">Nouvelle Annonce</h3>
-        {empty && <Alert variant="danger">Veuillez donner un titre et un auteur à la tâche</Alert>}
+        {empty && <Alert variant="danger">Veuillez donner un titre et un auteur à la tâche.</Alert>}
+
         <Form.Group className="mb-2" controlId="title">
           <Form.Label>Titre</Form.Label>
           <Form.Control type="text" />
@@ -143,7 +127,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
           <Form.Label className="popupSelectLabel">Destinataires</Form.Label>
           <Form.Select aria-label="target">
             <option value="1">Administrateurs</option>
-            <option value="2">Employés</option>
+            <option value="2">Succursales</option>
             <option value="3">Livreurs</option>
             <option value="4">Autres</option>
           </Form.Select>
@@ -187,19 +171,8 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
           </div>
         )}
 
-        <div className="popupImgBox mt-2 mb-2">
-          <input id="file" type="file" onChange={(e) => convertFile(e.target.files)} />
-          {filebase64 &&
-            <>
-              {(filebase64.indexOf("image/") > -1) &&
-                <img src={filebase64} width={300} />
-              }
-            </>
-          }
-        </div>
-          
         <div className="mt-3 popupBtnBox">
-          <Button variant="demeter-dark" onClick={() => { setFileBase64(""); close(); }}>
+          <Button variant="demeter-dark" onClick={close}>
             Annuler
           </Button>
           <Button variant="demeter" onClick={handlesubmit}>

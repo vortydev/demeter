@@ -116,7 +116,9 @@ input[type="file"] {
     background-color: var(--demeter-green-h);
 }
 
-.cellShade span, .cellShade div .cellShade label, .cellShade input {
+.cellShade span,
+.cellShade div .cellShade label,
+.cellShade input {
     align-self: center;
 }
 
@@ -297,7 +299,7 @@ input[type="file"] {
     line-height: 1.25;
 }
 
-.popupForm input#password:focus + .inputHint {
+.popupForm input#password:focus+.inputHint {
     display: inline-block;
     margin-top: .5rem;
 }
@@ -307,6 +309,7 @@ input[type="file"] {
         width: 95vw;
         margin-inline: auto;
     }
+
     .popupBtnBox>button {
         width: 8rem;
         margin-inline: .5rem;
@@ -358,6 +361,31 @@ input[type="file"] {
 .btn-demeter-waxed:hover {
     background-color: var(--demeter-orange-v);
     color: white;
+}
+
+.btn-demeter-waxed:focus {
+    border-color: var(--demeter-orange-v) !important;
+    box-shadow: 0 0 0 .2rem rgb(200, 102, 4, 0.25) !important;
+}
+
+.btn-icon-danger {
+    background-color: #DC3545;
+    color: white;
+}
+
+.btn-icon-danger:hover {
+    background-color: #c82333;
+    color: white;
+}
+
+.btn-icon-danger:focus {
+    border-color: #c82333 !important;
+    box-shadow: 0 0 0 .2rem rgb(200, 35, 51, 0.25) !important;
+}
+
+.btn-secondary:focus {
+    border-color: #5a6268 !important;
+    box-shadow: 0 0 0 .2rem rgb(90, 98, 104, 0.25) !important;
 }
 
 .btn-link {
@@ -413,12 +441,10 @@ input[type="file"] {
     align-self: center;
 }
 
-.btn-icon-dark>[class*="icon"] {
+.btn-icon-dark>[class*="icon"],
+.btn-icon-outline:hover>[class*="icon"],
+.btn-icon-danger>[class*="icon"] {
     color: white;
-}
-
-.btn-icon-outline:hover>[class*="icon"] {
-    color: white
 }
 
 /* NAV LINK */
@@ -448,6 +474,12 @@ input[type="file"] {
     box-shadow: none !important;
     border-color: #dee2e6 #dee2e6 #fff !important;
     border-radius: .25rem .25rem 0 0;
+}
+
+.nav-link.active:focus {
+    border-color: #dee2e6 #dee2e6 #fff !important;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 /* confirmation alert */

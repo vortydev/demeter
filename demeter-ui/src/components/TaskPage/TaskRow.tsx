@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { deleteTask, updateTask } from "../../services/task.funtions";
 import { getCookie } from "typescript-cookie";
 import { Task } from "../../types/Types";
@@ -7,6 +7,7 @@ import "../../css/task.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt, faArrowRotateLeft, faCheck, faTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { confirmAlert } from "react-confirm-alert";
+import { getCookieRole } from "../../services/cookie.functions";
 
 interface TaskRowProps {
   task: Task;
@@ -81,7 +82,16 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
     setEditForm(false);
   }
 
-  const role = getCookie("role");
+  const [role, setRole] = useState<string>("0");
+  const loaded = true;
+
+  useEffect(() => {
+    async function getRoleId() {
+        setRole(await getCookieRole() || "0");
+    }
+    getRoleId();
+  },[loaded]);
+  
   return (
     <article className="taskRowBox">
       <div className={`taskRow flex cellShade ${task.priority ? "priority" : ""}`}>

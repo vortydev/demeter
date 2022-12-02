@@ -52,6 +52,7 @@ function BodyDemeter({ selected, setSelected, role }: BodyDemeterProps) {
         <CreateRecipePage
           setCreated={setRecipeCreated}
           setSelectedPage={setSelected}
+          role={role}
         />
       );
     case "inventory":

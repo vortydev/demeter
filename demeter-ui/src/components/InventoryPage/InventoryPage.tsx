@@ -64,7 +64,7 @@ function InventoryPage({role}:InventoryPageProps): JSX.Element {
                 </Button>
             </div>}
 
-            <FilterInventory setCategory={setCategoryFilter} setVendor={setVendorFilter} setName={setNameFilter} />
+            <FilterInventory setCategory={setCategoryFilter} setVendor={setVendorFilter} setName={setNameFilter} role={role} />
 
             <div className="invTable mb-2">
                 {createdSuccess && <Alert variant="success">Le produit a été créé avec succès!</Alert>}

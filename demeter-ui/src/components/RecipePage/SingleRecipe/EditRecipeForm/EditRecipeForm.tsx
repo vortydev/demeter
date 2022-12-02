@@ -13,6 +13,7 @@ interface ERFProps {
   setShow: (show: boolean) => void;
   setChanged: (changed: boolean) => void;
   editedSuccess: (edited: boolean) => void;
+  role: string;
 }
 
 function EditRecipeForm({
@@ -23,8 +24,8 @@ function EditRecipeForm({
   setShow,
   setChanged,
   editedSuccess,
+  role
 }: ERFProps) {
-  const role = getCookie("role");
   const [recipeInfo, setRecipeInfo] = useState<Recipe>(recipe);
   const [editing, setEditing] = useState<String>("recipe");
 

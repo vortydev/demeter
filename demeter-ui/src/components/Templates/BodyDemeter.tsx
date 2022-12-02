@@ -45,6 +45,7 @@ function BodyDemeter({ selected, setSelected, role }: BodyDemeterProps) {
           recipe={recipe}
           setRecipe={setRecipe}
           setRecipeDeleted={setRecipeDeleted}
+          role={role}
         />
       );
     case "CreateRecipe":

@@ -10,7 +10,7 @@ class TaskHistoryService {
     return http.get<TaskHistory>(`/th/${id}`);
   }
 
-  getWeeklyHistory(date: Date){
+  getWeeklyHistory(date: Date) {
     return http.get<TaskHistory>(`/th?week=${date}`);
   }
 
@@ -18,7 +18,7 @@ class TaskHistoryService {
     return http.get<TaskHistory>(`/th?today=${date}&categorytaskId=${categorytaskId}`);
   }
 
-  create(data:TaskHistory) {
+  create(data: TaskHistory) {
     return http.post<TaskHistory>("/th", data);
   }
 

@@ -8,9 +8,10 @@ interface OtherTaskProps {
   deleteSuccess: (deleted: boolean) => void;
   editSuccess: (edited: boolean) => void;
   completedSuccess: (completed: boolean) => void;
+  role: string;
 }
 
-function OtherTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, completedSuccess }: OtherTaskProps) {
+function OtherTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, completedSuccess, role }: OtherTaskProps) {
   const noChildList = listTask.filter((t) => t.parentId === 0);
 
   return (
@@ -23,6 +24,7 @@ function OtherTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
             deleteSuccess={deleteSuccess}
             editSuccess={editSuccess}
             completedSuccess={completedSuccess}
+            role={role}
           />
         ))}
     </div>);

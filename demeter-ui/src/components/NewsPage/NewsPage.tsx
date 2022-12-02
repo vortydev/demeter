@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
-import { getCookie } from "typescript-cookie";
 import { getAllNews, getNewsByRole } from "../../services/news.functions";
-import { Account, News } from "../../types/Types";
+import { News } from "../../types/Types";
 import { CreateNewsForm } from "./createNewsForm";
 import { NewsPreview } from "./NewsPreview";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faList } from "@fortawesome/free-solid-svg-icons";
 import { PasswordModal } from "./passwordModal";
-import { getCookieAccount, getCookieRole } from "../../services/cookie.functions";
+import { getCookieAccount } from "../../services/cookie.functions";
 
-function NewsPage(): JSX.Element {
+interface NewsPageProps{
+  role: string;
+}
+function NewsPage({role}:NewsPageProps): JSX.Element {
   const [createNews, setCreateNews] = useState<boolean>(false);
   const [createdSuccess, setSuccess] = useState<boolean>(false);
   const [deleteSuccess, setDeleteSuccess] = useState<boolean>(false);
@@ -19,11 +20,9 @@ function NewsPage(): JSX.Element {
   const [newsList, setNewsList] = useState<News[]>([]);
   const [pwModal, setpwModal] = useState<boolean>(false);
   const [account, setAccount] = useState<string>("Visiteur");
-  const [role, setRole] = useState<string>("0");
 
   useEffect(() => {
     async function getList() {
-      setRole(await getCookieRole() || "0");
       if (role !== undefined) {
         setNewsList(await getNewsByRole(parseInt(role)));
       } else {
@@ -102,7 +101,7 @@ function NewsPage(): JSX.Element {
         <NewsPreview
           news={news}
           editedSuccess={setEditedSucess}
-          deleteSuccess={setDeleteSuccess} editSuccess={false} />
+          deleteSuccess={setDeleteSuccess} editSuccess={false} role={role} />
       ))}
 
       <CreateNewsForm show={createNews} close={close} success={success} />

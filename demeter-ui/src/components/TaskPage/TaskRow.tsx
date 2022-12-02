@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { deleteTask, updateTask } from "../../services/task.funtions";
-import { getCookie } from "typescript-cookie";
 import { Task } from "../../types/Types";
 import { EditTaskForm } from "../TaskPage/EditTaskForm";
 import "../../css/task.css";
@@ -14,9 +13,10 @@ interface TaskRowProps {
   deleteSuccess: (deleted: boolean) => void;
   editSuccess: (edited: boolean) => void;
   completedSuccess: (completed: boolean) => void;
+  role: string;
 }
 
-function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess, }: TaskRowProps) {
+function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess, role }: TaskRowProps) {
   const [editform, setEditForm] = useState<boolean>(false);
   const [toEdit, setToEdit] = useState<Task>(task);
 
@@ -80,8 +80,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
   function closeEditForm() {
     setEditForm(false);
   }
-
-  const role = getCookie("role");
+  
   return (
     <article className="taskRowBox">
       <div className={`taskRow flex cellShade ${task.priority ? "priority" : ""}`}>

@@ -12,18 +12,19 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 interface BodyDemeterProps {
   selected: string;
   setSelected: (pageOn: string) => void;
+  role: string;
 }
 
-function BodyDemeter({ selected, setSelected }: BodyDemeterProps) {
+function BodyDemeter({ selected, setSelected, role }: BodyDemeterProps) {
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [recipeCreated, setRecipeCreated] = useState<boolean>(false);
   const [recipeDeleted, setRecipeDeleted] = useState<boolean>(false);
 
   switch (selected) {
     case "news":
-      return <NewsPage />;
+      return <NewsPage role={role}/>;
     case "task":
-      return <TaskPage />;
+      return <TaskPage role={role}/>;
     case "recipe":
       return (
         <RecipePage
@@ -34,6 +35,7 @@ function BodyDemeter({ selected, setSelected }: BodyDemeterProps) {
           selectedPage={selected}
           setSelectedPage={setSelected}
           setRecipePage={setRecipe}
+          role={role}
         />
       );
     case "SingleRecipe":
@@ -53,7 +55,7 @@ function BodyDemeter({ selected, setSelected }: BodyDemeterProps) {
         />
       );
     case "inventory":
-      return <InventoryPage />;
+      return <InventoryPage role={role}/>;
     case "accounts":
       return <AccountPage />;
     default:

@@ -4,7 +4,6 @@ import { InventoryForm } from './InventoryAddForm';
 import { InventoryUpdate } from './InventoryUpdate';
 import "../../css/inventory.css";
 import { VendorDisplay } from './Vendor/VendorDisplay';
-import { getCookie } from 'typescript-cookie';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList, faPlus, faArrowsRotate, faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { confirmAlert } from 'react-confirm-alert';
@@ -12,9 +11,11 @@ import { getAll, deleteProduct, getProductsByCategory, getProductsByVendor, getP
 import { Product } from '../../types/Types';
 import { InventoryEditProductForm } from './InventoryUpdateProduct';
 import { FilterInventory } from './SubComponents/FilterInventory';
-import { getCookieRole } from '../../services/cookie.functions';
 
-function InventoryPage(): JSX.Element {
+interface InventoryPageProps{
+    role: string;
+}
+function InventoryPage({role}:InventoryPageProps): JSX.Element {
     const [createNewProduct, setCreateNewProduct] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
     const [deletedSuccess, setDeleted] = useState<boolean>(false);
@@ -24,15 +25,6 @@ function InventoryPage(): JSX.Element {
     const [categoryFilter, setCategoryFilter] = useState<string>("0");
     const [vendorFilter, setVendorFilter] = useState<string>("0");
     const [nameFilter, setNameFilter] = useState<string>("");
-    const loaded = true;
-    const [role, setRole] = useState<string>("0");
-    
-    useEffect(() => {
-        async function getRoleId() {
-            setRole(await getCookieRole() || "0");
-        }
-        getRoleId();
-    },[loaded]);
 
     function success(): void {
         setSuccess(true);

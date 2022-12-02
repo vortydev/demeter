@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Form, Button, Modal, Alert} from 'react-bootstrap';
+import { Form, Button, Modal, Alert } from 'react-bootstrap';
 import { Product } from '../../types/Types';
 import { updateProduct, getProductsByCategory } from '../../services/inventory.functions'
 import React from 'react';
@@ -11,14 +11,13 @@ interface CRFormProps {
 }
 
 function InventoryUpdate({ show, close, success }: CRFormProps) {
-
     const [error, setError] = useState<boolean>(false);
     const [products, setProducts] = useState<Array<Product>>([]);
 
     const [alerting, setAlerting] = useState<boolean>(false);
     const [alerting1, setAlerting1] = useState<boolean>(false);
 
-    async function editProducts(): Promise<void>{
+    async function editProducts(): Promise<void> {
 
         async function getProducts() {
             setProducts(await getProductsByCategory("2"));
@@ -29,21 +28,21 @@ function InventoryUpdate({ show, close, success }: CRFormProps) {
         setError(false);
         setAlerting(false);
         setAlerting1(false);
-        
+
         products.map(async (productUpdated: Product) => {
 
             var product = document.getElementById(`qty_inv${productUpdated.id}`) as HTMLInputElement;
 
             var regexNumber = new RegExp(/[0-9]+/);
-    
-            if(!product.value){
+
+            if (!product.value) {
                 setAlerting(true);
                 return;
             }
-            else if(!regexNumber.test(product.value)){
+            else if (!regexNumber.test(product.value)) {
                 setAlerting1(true);
                 return;
-            }else{
+            } else {
                 if (productUpdated !== null) {
                     const updatedProduct: Product = {
                         id: productUpdated.id,
@@ -76,7 +75,7 @@ function InventoryUpdate({ show, close, success }: CRFormProps) {
 
                 {alerting && <Alert variant="danger">Veuillez remplir tous les champs.</Alert>}
                 {alerting1 && <Alert variant="danger">Veuillez entrer un nombre valide.</Alert>}
-                
+
                 {/* truc de barre de recherche */}
 
                 <div className="flex invUpdateHeader mt-2">

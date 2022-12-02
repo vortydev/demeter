@@ -3,7 +3,6 @@ import { Alert, Button } from "react-bootstrap";
 import { Recipe } from "../../types/Types";
 import "../../css/recipe.css";
 import { RecipeList } from "./RecipeList";
-import { getCookie } from "typescript-cookie";
 import { RecipeFilter } from "./RecipeFilter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -16,6 +15,7 @@ interface RecipePageProps {
   setDeletedSuccess: (deleted: boolean) => void;
   setSelectedPage: (page: string) => void;
   setRecipePage: (recipe: Recipe | null) => void;
+  role: string;
 }
 
 function RecipePage({
@@ -26,8 +26,8 @@ function RecipePage({
   setCreatedSuccess,
   setDeletedSuccess,
   setRecipePage,
+  role
 }: RecipePageProps): JSX.Element {
-  const role = getCookie("role");
   const [filter, setFilter] = useState<number | null>(null);
   const [nameFilter, setNameFilter] = useState<string>("");
 
@@ -71,7 +71,7 @@ function RecipePage({
 
       <div className="recipeContent flex mt-5">
         <div className="recipeListBox">
-          <div className="filterBar mb-2">
+          <div className="filterBar mb-3">
             <RecipeFilter setName={setNameFilter} />
             <Button
               className="ml-3"

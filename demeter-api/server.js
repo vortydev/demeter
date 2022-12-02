@@ -10,8 +10,8 @@ var corsOptions = {
 
 // express setup
 app.use(cors(corsOptions)); // use CORS options
-app.use(express.json()); // parse application/json
-app.use(express.urlencoded({ extended: true })); // parse application/x-www-form-urlencoded
+app.use(express.json({limit: "25mb"})); // parse application/json
+app.use(express.urlencoded({ extended: true, limit: "25mb" })); // parse application/x-www-form-urlencoded
 
 // initilizes the database
 const db = require("./app/models");
@@ -31,7 +31,7 @@ db.sequelize.sync({})                 // {force: true} drops the db
           { id: "6", role: "Boulangerie" },
           { id: "7", role: "Viennoiserie" },
           { id: "8", role: "Pâtisserie" },
-          { id: "9", role: "app" },
+          { id: "9", role: "App" },
         ],
         { ignoreDuplicates: true }
       )
@@ -136,7 +136,6 @@ require("./app/routes/product.routes")(app);            // produits
 require("./app/routes/recipe.routes")(app);             // recettes
 require("./app/routes/rel_productrecipe.routes")(app);  // table relationnelle recette/produit
 require("./app/routes/task.routes")(app);               // tâches
-require("./app/routes/teamleadpwd.routes")(app);        // mdp de chefs
 require("./app/routes/vendor.routes")(app);             // fournisseurs
 require("./app/routes/verify.routes")(app);             // vérification de login
 require("./app/routes/taskHistory.routes")(app);        // historique des tâches

@@ -6,8 +6,8 @@
     --demeter-green: #439e75;
     --demeter-green-v: #3E8E6A;
     --demeter-green-h: #e4eee9;
-    --demeter-orange: #bc5f04;
-    --demeter-orange-v: #a65505;
+    --demeter-orange: #c86604;
+    --demeter-orange-v: #bc5f04;
     --demeter-orange-h: #fff7ef;
     --demeter-grey: #696969;
     --demeter-purple: rgb(117, 67, 180, .15);
@@ -38,7 +38,8 @@ option {
 }
 
 .cursor,
-select {
+select,
+input[type="file"] {
     cursor: pointer;
 }
 
@@ -115,7 +116,9 @@ select {
     background-color: var(--demeter-green-h);
 }
 
-.cellShade span, .cellShade div .cellShade label, .cellShade input {
+.cellShade span,
+.cellShade div .cellShade label,
+.cellShade input {
     align-self: center;
 }
 
@@ -274,11 +277,39 @@ select {
     cursor: pointer;
 }
 
+.popupImgBox {
+    width: 100%;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.popupImgBox img {
+    margin-top: .75rem;
+    margin-inline: auto;
+    border: 2px solid var(--demeter-black);
+    border-radius: .25rem;
+}
+
+.inputHint {
+    width: 100%;
+    text-align: left;
+    display: none;
+    color: var(--demeter-grey);
+    line-height: 1.25;
+}
+
+.popupForm input#password:focus+.inputHint {
+    display: inline-block;
+    margin-top: .5rem;
+}
+
 @media only screen and (max-width: 800px) {
     .modal-dialog {
         width: 95vw;
         margin-inline: auto;
     }
+
     .popupBtnBox>button {
         width: 8rem;
         margin-inline: .5rem;
@@ -330,6 +361,31 @@ select {
 .btn-demeter-waxed:hover {
     background-color: var(--demeter-orange-v);
     color: white;
+}
+
+.btn-demeter-waxed:focus {
+    border-color: var(--demeter-orange-v) !important;
+    box-shadow: 0 0 0 .2rem rgb(200, 102, 4, 0.25) !important;
+}
+
+.btn-icon-danger {
+    background-color: #DC3545;
+    color: white;
+}
+
+.btn-icon-danger:hover {
+    background-color: #c82333;
+    color: white;
+}
+
+.btn-icon-danger:focus {
+    border-color: #c82333 !important;
+    box-shadow: 0 0 0 .2rem rgb(200, 35, 51, 0.25) !important;
+}
+
+.btn-secondary:focus {
+    border-color: #5a6268 !important;
+    box-shadow: 0 0 0 .2rem rgb(90, 98, 104, 0.25) !important;
 }
 
 .btn-link {
@@ -385,12 +441,10 @@ select {
     align-self: center;
 }
 
-.btn-icon-dark>[class*="icon"] {
+.btn-icon-dark>[class*="icon"],
+.btn-icon-outline:hover>[class*="icon"],
+.btn-icon-danger>[class*="icon"] {
     color: white;
-}
-
-.btn-icon-outline:hover>[class*="icon"] {
-    color: white
 }
 
 /* NAV LINK */
@@ -420,6 +474,12 @@ select {
     box-shadow: none !important;
     border-color: #dee2e6 #dee2e6 #fff !important;
     border-radius: .25rem .25rem 0 0;
+}
+
+.nav-link.active:focus {
+    border-color: #dee2e6 #dee2e6 #fff !important;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 /* confirmation alert */

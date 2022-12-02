@@ -75,7 +75,6 @@ async function updateTask(data: Task): Promise<boolean> {
 }
 
 async function deleteTask(id: number) {
-  console.log("in deletesTask", id);
   const taskdeleted = TaskService.delete(id)
     .then((response: any) => {
       return true;
@@ -88,17 +87,17 @@ async function deleteTask(id: number) {
   return taskdeleted;
 }
 
-async function resetTask(tasks: Task[]){
-for (const task of tasks){
-  const resetingTask : Task ={
-    ...task,
-    completed: false,
-    responsable: "",
+async function resetTask(tasks: Task[]) {
+  for (const task of tasks) {
+    const resetingTask: Task = {
+      ...task,
+      completed: false,
+      responsable: "",
+    }
+    if (!await updateTask(resetingTask)) {
+      console.log('error in reset');
+    }
   }
-  if(!await updateTask(resetingTask)){
-    console.log('error in reset');
-  }
-}
 }
 
 export {

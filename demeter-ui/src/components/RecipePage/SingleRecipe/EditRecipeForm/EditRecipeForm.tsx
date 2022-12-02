@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Alert, Button, Form, Modal, Nav } from "react-bootstrap";
-import { getCookie } from "typescript-cookie";
 import { updateRecipe } from "../../../../services/recipe.functions";
 import { Ingredient, Recipe } from "../../../../types/Types";
 import { EditIngredient } from "./EditIngredients";
@@ -13,6 +12,7 @@ interface ERFProps {
   setShow: (show: boolean) => void;
   setChanged: (changed: boolean) => void;
   editedSuccess: (edited: boolean) => void;
+  role: string;
 }
 
 function EditRecipeForm({
@@ -23,8 +23,8 @@ function EditRecipeForm({
   setShow,
   setChanged,
   editedSuccess,
+  role
 }: ERFProps) {
-  const role = getCookie("role");
   const [recipeInfo, setRecipeInfo] = useState<Recipe>(recipe);
   const [editing, setEditing] = useState<String>("recipe");
 

@@ -30,27 +30,22 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       parentId: 0,
       active: true,
       completed: false,
-      picture: null,
       date: new Date(),
       priority: false,
       responsable: "",
       receiver: "",
       taskMaster: "",
-      whenToDo:"",
+      whenToDo: "",
     };
 
     let taskCreated: Task | null = null;
 
     if (addTask) {
       // Retrive task info
-      const taskTitle = document.getElementById(
-        "tasktitle"
-      ) as HTMLInputElement;
-      const taskDesc = document.getElementById(
-        "taskdescription"
-      ) as HTMLInputElement;
+      const taskTitle = document.getElementById("tasktitle") as HTMLInputElement;
+      const taskDesc = document.getElementById("taskdescription") as HTMLInputElement;
 
-      if (!taskTitle.value){
+      if (!taskTitle.value) {
         setEmptyTask(true);
         setTimeout(() => {
           setEmptyTask(false);
@@ -62,6 +57,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
 
         // create task
         taskCreated = await createTask(newsTask);
+
         // validate
         console.log(taskCreated);
         if (taskCreated === null) {
@@ -71,15 +67,15 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
     }
 
     const title = document.getElementById("title") as HTMLInputElement;
-    const author = document.getElementById("author") as HTMLInputElement; 
+    const author = document.getElementById("author") as HTMLInputElement;
     const receiver = document.getElementById("receiver") as HTMLInputElement;
     const description = document.getElementById("description") as HTMLInputElement;
 
-    if (!title.value || !author.value){
+    if (!title.value || !author.value) {
       setEmpty(true);
       setTimeout(() => {
         setEmpty(false);
-      },5000);
+      }, 5000);
     }
     else {
       const newNews: News = {
@@ -87,11 +83,9 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
         title: title.value,
         description: description.value,
         author: author.value,
-        img: null,
         active: true,
         roleId: receiver.value,
         taskId: taskCreated ? taskCreated.id : 0,
-        picture: null,
         date: new Date(),
         priority: priority,
       };
@@ -112,7 +106,8 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
     <Modal show={show} onHide={close}>
       <Form className="popupForm">
         <h3 className="popupTitle">Nouvelle Annonce</h3>
-        {empty && <Alert variant="danger">Veuillez donner un titre et un auteur à la tâche</Alert>}
+        {empty && <Alert variant="danger">Veuillez donner un titre et un auteur à la tâche.</Alert>}
+
         <Form.Group className="mb-2" controlId="title">
           <Form.Label>Titre</Form.Label>
           <Form.Control type="text" />
@@ -132,7 +127,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
           <Form.Label className="popupSelectLabel">Destinataires</Form.Label>
           <Form.Select aria-label="target">
             <option value="1">Administrateurs</option>
-            <option value="2">Employés</option>
+            <option value="2">Succursales</option>
             <option value="3">Livreurs</option>
             <option value="4">Autres</option>
           </Form.Select>
@@ -140,7 +135,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
 
         <Form.Group className="flex" controlId="priority">
           <Form.Label className="popupSelectLabel">Prioritaire</Form.Label>
-          <Form.Check className="popupCheck" onChange={() => setPriority(!priority)} type="checkbox"/>
+          <Form.Check className="popupCheck" onChange={() => setPriority(!priority)} type="checkbox" />
         </Form.Group>
 
         {!addTask && (

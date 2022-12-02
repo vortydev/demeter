@@ -9,9 +9,10 @@ import { IngredientListForm } from "./IngredientSubForm/IngredientListForm";
 interface CRPProps {
   setSelectedPage: (page: string) => void;
   setCreated: (created: boolean) => void;
+  role: string;
 }
 
-function CreateRecipePage({ setSelectedPage, setCreated }: CRPProps) {
+function CreateRecipePage({ setSelectedPage, setCreated, role }: CRPProps) {
   const emptyRecipe: Recipe = {
     id: 1,
     title: "change me",
@@ -65,9 +66,9 @@ function CreateRecipePage({ setSelectedPage, setCreated }: CRPProps) {
       {empty && <Alert variant="danger">Veuillez remplir tous les champs de la recette.</Alert>}
       {emptyIng && <Alert variant="danger">Veuillez ajouter des ingrédients.</Alert>}
       {invalid && (<Alert variant="danger">Informations invalides, la recette n'a pas été créée.</Alert>)}
-      
+
       <div className="pageSplit">
-        <CreateRecipeForm setRecipeInfo={setRecipeInfo} />
+        <CreateRecipeForm setRecipeInfo={setRecipeInfo} role={role}/>
         <IngredientListForm setRecipeCost={setRecipeCost} listIng={listIng} />
       </div>
 

@@ -1,12 +1,12 @@
 import http from "../http-common";
-import { Account } from "../types/Types";
+import { Account, Role } from "../types/Types";
 
 class AccountService {
   getAll() {
     return http.get<Array<Account>>("/accounts");
   }
 
-  getByRole(roleId: number){
+  getByRole(roleId: number) {
     return http.get<Account>(`/accounts?roleId=${roleId}`);
   }
 
@@ -32,6 +32,10 @@ class AccountService {
 
   verifyName(user: string) {
     return http.get<Account>(`/verify/${user}`);
+  }
+
+  getRoles() {
+    return http.get<Array<Role>>(`/categories/roles`);
   }
 }
 

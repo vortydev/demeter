@@ -8,9 +8,10 @@ interface HebdoTaskProps {
   deleteSuccess: (deleted: boolean) => void;
   editSuccess: (edited: boolean) => void;
   completedSuccess: (completed: boolean) => void;
+  role: string;
 }
 
-function HebdoTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, completedSuccess }: HebdoTaskProps) {
+function HebdoTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, completedSuccess, role }: HebdoTaskProps) {
   const [listTaskMon, setLTMon] = useState<Task[]>([]);
   const [listTaskTue, setLTTue] = useState<Task[]>([]);
   const [listTaskWed, setLTWed] = useState<Task[]>([]);
@@ -20,7 +21,7 @@ function HebdoTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
   const [listTaskSun, setLTSun] = useState<Task[]>([]);
 
   useEffect(() => {
-    const noChildList = listTask.filter((t) => t.parentId == 0);
+    const noChildList = listTask.filter((t) => t.parentId === 0);
     setLTMon(listTask.filter(t => t.whenToDo === "mon"));
     setLTTue(listTask.filter(t => t.whenToDo === "tue"));
     setLTWed(listTask.filter(t => t.whenToDo === "wed"));
@@ -42,6 +43,7 @@ function HebdoTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
           deleteSuccess={deleteSuccess}
           editSuccess={editSuccess}
           completedSuccess={completedSuccess}
+          role={role}
         />
       ))}
     </div>
@@ -56,6 +58,7 @@ function HebdoTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
           deleteSuccess={deleteSuccess}
           editSuccess={editSuccess}
           completedSuccess={completedSuccess}
+          role={role}
         />
       ))}
     </div>
@@ -70,6 +73,7 @@ function HebdoTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
           deleteSuccess={deleteSuccess}
           editSuccess={editSuccess}
           completedSuccess={completedSuccess}
+          role={role}
         />
       ))}
     </div>
@@ -84,6 +88,7 @@ function HebdoTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
           deleteSuccess={deleteSuccess}
           editSuccess={editSuccess}
           completedSuccess={completedSuccess}
+          role={role}
         />
       ))}
     </div>
@@ -98,6 +103,7 @@ function HebdoTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
           deleteSuccess={deleteSuccess}
           editSuccess={editSuccess}
           completedSuccess={completedSuccess}
+          role={role}
         />
       ))}
     </div>
@@ -112,6 +118,7 @@ function HebdoTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
           deleteSuccess={deleteSuccess}
           editSuccess={editSuccess}
           completedSuccess={completedSuccess}
+          role={role}
         />
       ))}
     </div>
@@ -126,6 +133,7 @@ function HebdoTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
           deleteSuccess={deleteSuccess}
           editSuccess={editSuccess}
           completedSuccess={completedSuccess}
+          role={role}
         />
       ))}
     </div>

@@ -37,6 +37,8 @@
   width: 100%;
   height: max-content;
   padding-bottom: 5rem;
+  max-width: 1920px;
+  margin-inline: auto;
 }
 
 /* FOOTER */
@@ -171,6 +173,22 @@
     width: 90%;
   }
 
+  .pageSplit {
+    flex-direction: column;
+  }
+
+  .pageSplit>div {
+    width: 100% !important;
+  }
+
+  .pageSplit>div:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+
+  .pageSplit .popupForm {
+    padding: 0;
+  }
+
   .navbar {
     margin-top: 2rem;
     margin-bottom: 1rem;
@@ -181,9 +199,11 @@
     margin-bottom: .5rem;
     width: 100%;
   }
+
   .navbar .nav-item:last-child {
     margin-bottom: 0;
   }
+
   .navbar .nav-tabs {
     border: none;
   }
@@ -195,14 +215,17 @@
     margin-bottom: 0;
     padding: .25rem 0 !important
   }
+
   .navbar .nav-link:not(.active):hover {
     border-color: var(--demeter-green-v) !important;
     color: var(--demeter-green-v) !important;
   }
+
   .navbar .nav-link.active {
     background-color: var(--demeter-green) !important;
     color: white !important;
   }
+
   .navbar .nav-link.active:hover {
     background-color: var(--demeter-green-v) !important;
   }
@@ -220,7 +243,7 @@
 
   .btnBar>button:not(:last-child),
   .filterBar>div:not(:last-child),
-  .filterDrop>select:not(:last-child) {
+  .filterDrop>select {
     margin-bottom: .5rem;
   }
 

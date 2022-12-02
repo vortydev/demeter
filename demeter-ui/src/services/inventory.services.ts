@@ -14,15 +14,15 @@ class InventoryService {
     return http.get<Array<Product>>(`/products?categoryId=${categoryId}`);
   }
 
-  getByVendor(vendorId: string){
+  getByVendor(vendorId: string) {
     return http.get<Array<Product>>(`/products?vendorId=${vendorId}`);
   }
 
-  getByCategoryVendor(categoryId: string, vendorId: string){
+  getByCategoryVendor(categoryId: string, vendorId: string) {
     return http.get<Array<Product>>(`/products?categoryId=${categoryId}&vendorId=${vendorId}`);
   }
 
-  getByName(research: string){
+  getByName(research: string) {
     return http.get<Array<Product>>(`/products?research=${research}`);
   }
 
@@ -30,11 +30,11 @@ class InventoryService {
     return http.get<Array<Product>>(`/products?categoryId=${categoryId}&research=${research}`);
   }
 
-  getByNameVendor(research: string, vendorId: string){
+  getByNameVendor(research: string, vendorId: string) {
     return http.get<Array<Product>>(`/products?vendorId=${vendorId}&research=${research}`);
   }
 
-  getByCategoryVendorName(categoryId: string, vendorId: string, research: string){
+  getByCategoryVendorName(categoryId: string, vendorId: string, research: string) {
     return http.get<Array<Product>>(`/products?categoryId=${categoryId}&vendorId=${vendorId}&research=${research}`);
   }
 

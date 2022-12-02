@@ -2,53 +2,51 @@ import VendorService from "./vendor.services";
 import { Vendor } from "../types/Types";
 
 function getAllVendor() {
-    
     const vendors = VendorService.getAll()
-    .then((response)=>{
-        return response.data;
-    })
-    .catch((e: Error) => {
-        console.log(e);
-        return [];
-    });
+        .then((response) => {
+            return response.data;
+        })
+        .catch((e: Error) => {
+            console.log(e);
+            return [];
+        });
 
     return vendors;
-
 }
 
-async function createVendor(data: Vendor): Promise<boolean>{
+async function createVendor(data: Vendor): Promise<boolean> {
     const vendorCreated = VendorService.create(data)
-    .then((vendor) => {
-        return true;
-    })
-    .catch((e: Error) => {
-        console.log(e);
-        return false;
-    });
+        .then((vendor) => {
+            return true;
+        })
+        .catch((e: Error) => {
+            console.log(e);
+            return false;
+        });
     return vendorCreated;
 }
 
-async function updateVendor(data: Vendor, id: any): Promise<boolean>{
-    const vendorUpdated = VendorService.update(data,id)
-    .then((response)=>{
-        return true;
-    })
-    .catch ((e: Error)=>{
-        console.log(e);
-        return false;
-    });
+async function updateVendor(data: Vendor, id: any): Promise<boolean> {
+    const vendorUpdated = VendorService.update(data, id)
+        .then((response) => {
+            return true;
+        })
+        .catch((e: Error) => {
+            console.log(e);
+            return false;
+        });
     return vendorUpdated;
 }
 
-async function deleteVendor(id: any):Promise<boolean>{
+async function deleteVendor(id: any): Promise<boolean> {
     const vendorDeleted = VendorService.delete(id)
-    .then((response)=>{
-        return true;
-    })
-    .catch ((e: Error)=>{
-        console.log(e);
-        return false;
-    });
+        .then((response) => {
+            return true;
+        })
+        .catch((e: Error) => {
+            console.log(e);
+            return false;
+        });
     return vendorDeleted;
 }
 

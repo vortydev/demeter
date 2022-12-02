@@ -1,32 +1,32 @@
 import InventoryService from "./inventory.services";
 import { Product } from "../types/Types";
 
-function getAll(){
-    const products = InventoryService.getAll()
-    .then((response)=>{
-        return response.data;
-   })
-   .catch((e: Error) => {
-        console.log(e);
-        return [];
+function getAll() {
+  const products = InventoryService.getAll()
+    .then((response) => {
+      return response.data;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return [];
     });
-    return products;
+  return products;
 }
 
 function getProduct(id: string): any {
-    const product = InventoryService.getProduct(id)
-    .then((response)=>{
-         return response.data;
+  const product = InventoryService.getProduct(id)
+    .then((response) => {
+      return response.data;
     })
     .catch((e: Error) => {
-         console.log(e);
-         return undefined;
-     });
-     return product;
- }
+      console.log(e);
+      return undefined;
+    });
+  return product;
+}
 
- async function getProductsByCategory(category: string){
-    const products = InventoryService.getByCategory(category)
+async function getProductsByCategory(category: string) {
+  const products = InventoryService.getByCategory(category)
     .then((response: any) => {
       return response.data;
     })
@@ -34,11 +34,11 @@ function getProduct(id: string): any {
       console.log(e);
       return [];
     });
-  return products; 
- }
+  return products;
+}
 
- async function getProductsByVendor(vendor: string){
-    const products = InventoryService.getByVendor(vendor)
+async function getProductsByVendor(vendor: string) {
+  const products = InventoryService.getByVendor(vendor)
     .then((response: any) => {
       return response.data;
     })
@@ -46,11 +46,11 @@ function getProduct(id: string): any {
       console.log(e);
       return [];
     });
-  return products; 
- }
+  return products;
+}
 
- async function getProductsByCategoryVendor(category: string, vendor: string){
-    const products = InventoryService.getByCategoryVendor(category, vendor)
+async function getProductsByCategoryVendor(category: string, vendor: string) {
+  const products = InventoryService.getByCategoryVendor(category, vendor)
     .then((response: any) => {
       return response.data;
     })
@@ -58,11 +58,11 @@ function getProduct(id: string): any {
       console.log(e);
       return [];
     });
-  return products; 
- }
+  return products;
+}
 
- async function getProductsByName(research: string){
-    const products = InventoryService.getByName(research)
+async function getProductsByName(research: string) {
+  const products = InventoryService.getByName(research)
     .then((response: any) => {
       return response.data;
     })
@@ -70,11 +70,11 @@ function getProduct(id: string): any {
       console.log(e);
       return [];
     });
-  return products; 
- }
+  return products;
+}
 
- async function getProductsByCategoryName(category: string, research: string){
-    const products = InventoryService.getByCategoryName(category, research)
+async function getProductsByCategoryName(category: string, research: string) {
+  const products = InventoryService.getByCategoryName(category, research)
     .then((response: any) => {
       return response.data;
     })
@@ -82,11 +82,11 @@ function getProduct(id: string): any {
       console.log(e);
       return [];
     });
-  return products; 
- }
+  return products;
+}
 
- async function getProductsByNameVendor(research: string, vendor: string){
-    const products = InventoryService.getByCategoryVendor(research, vendor)
+async function getProductsByNameVendor(research: string, vendor: string) {
+  const products = InventoryService.getByCategoryVendor(research, vendor)
     .then((response: any) => {
       return response.data;
     })
@@ -94,11 +94,11 @@ function getProduct(id: string): any {
       console.log(e);
       return [];
     });
-  return products; 
- }
+  return products;
+}
 
- async function getProductsByCategoryVendorName(category: string, vendor: string, research: string){
-    const products = InventoryService.getByCategoryVendorName(category, vendor, research)
+async function getProductsByCategoryVendorName(category: string, vendor: string, research: string) {
+  const products = InventoryService.getByCategoryVendorName(category, vendor, research)
     .then((response: any) => {
       return response.data;
     })
@@ -106,113 +106,113 @@ function getProduct(id: string): any {
       console.log(e);
       return [];
     });
-  return products; 
- }
+  return products;
+}
 
-async function createProduct(data:Product): Promise<boolean>{
-    const productCreated = InventoryService.create(data)
+async function createProduct(data: Product): Promise<boolean> {
+  const productCreated = InventoryService.create(data)
     .then((product) => {
-        return true;
+      return true;
     })
     .catch((e: Error) => {
-        console.log(e);
-        return false;
+      console.log(e);
+      return false;
     });
-    return productCreated;
+  return productCreated;
 }
 
-async function updateProduct(data: Product, id: any): Promise<boolean>{
-    const productUpdated = InventoryService.update(data, id)
-    .then((response)=>{
-        return true;
+async function updateProduct(data: Product, id: any): Promise<boolean> {
+  const productUpdated = InventoryService.update(data, id)
+    .then((response) => {
+      return true;
     })
-    .catch ((e: Error)=>{
-        console.log(e);
-        return false;
+    .catch((e: Error) => {
+      console.log(e);
+      return false;
     });
-    return productUpdated;
+  return productUpdated;
 }
 
-function deleteProduct(id: any): Promise<boolean>{
-    const productDeleted = InventoryService.delete(id)
-    .then((response)=>{
-        return true;
+function deleteProduct(id: any): Promise<boolean> {
+  const productDeleted = InventoryService.delete(id)
+    .then((response) => {
+      return true;
     })
-    .catch((e: Error)=>{
-        console.log(e);
-        return false;
+    .catch((e: Error) => {
+      console.log(e);
+      return false;
     });
-    return productDeleted;
+  return productDeleted;
 }
 
 function getCategory(id: string) {
-   const category = InventoryService.getCategory(id)
-   .then((response)=>{
-        return response.data;
-   })
-   .catch((e: Error) => {
-        console.log(e);
-        return [];
+  const category = InventoryService.getCategory(id)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((e: Error) => {
+      console.log(e);
+      return [];
     });
-    return category;
+  return category;
 }
 
 function getAllCategories() {
-    const categories = InventoryService.getAllCategories()
-    .then((response)=>{
-        return response.data;
+  const categories = InventoryService.getAllCategories()
+    .then((response) => {
+      return response.data;
     })
     .catch((e: Error) => {
-        console.log(e);
-        return [];
+      console.log(e);
+      return [];
     });
 
-    return categories;
+  return categories;
 }
 
 function getAllMesurements() {
-    const mesurements = InventoryService.getAllMesurements()
-    .then((response)=>{
-        return response.data;
+  const mesurements = InventoryService.getAllMesurements()
+    .then((response) => {
+      return response.data;
     })
     .catch((e: Error) => {
-        console.log(e);
-        return [];
+      console.log(e);
+      return [];
     });
 
-    return mesurements;
+  return mesurements;
 }
 
-function getMesurementById(id:string){
-    const mesurement = InventoryService.getMesurement(id)
-    .then((response)=>{
-        return response.data;
+function getMesurementById(id: string) {
+  const mesurement = InventoryService.getMesurement(id)
+    .then((response) => {
+      return response.data;
     })
     .catch((e: Error) => {
-        console.log(e);
-        return undefined;
+      console.log(e);
+      return undefined;
     });
 
-    return mesurement;
+  return mesurement;
 }
 
 
 
 export {
-    getAll,
-    getProduct,
-    createProduct,
-    updateProduct,
-    deleteProduct,
-    getCategory,
-    getAllCategories,
-    getAllMesurements,
-    getMesurementById,
-    getProductsByCategory,
-    getProductsByVendor,
-    getProductsByCategoryVendor,
-    getProductsByName,
-    getProductsByCategoryName,
-    getProductsByNameVendor,
-    getProductsByCategoryVendorName
+  getAll,
+  getProduct,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  getCategory,
+  getAllCategories,
+  getAllMesurements,
+  getMesurementById,
+  getProductsByCategory,
+  getProductsByVendor,
+  getProductsByCategoryVendor,
+  getProductsByName,
+  getProductsByCategoryName,
+  getProductsByNameVendor,
+  getProductsByCategoryVendorName
 };

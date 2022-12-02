@@ -1,7 +1,5 @@
 import React from "react";
 import { Form } from "react-bootstrap";
-
-import { getCookie } from 'typescript-cookie';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
@@ -14,8 +12,6 @@ function RecipeFilter({ setName }: Filter): JSX.Element {
         const name = (document.getElementById("nameFilter") as HTMLInputElement).value;
         setName(name);
     }
-
-    const role = getCookie("role");
 
     return (
         <React.Fragment>

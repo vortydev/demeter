@@ -6,7 +6,7 @@ class RecipeService {
     return http.get<Array<Recipe>>("/recipes");
   }
 
-  getByCategory(categoryId: number){
+  getByCategory(categoryId: number) {
     return http.get<Recipe>(`/recipes?categoryrecipeId=${categoryId}`);
   }
 

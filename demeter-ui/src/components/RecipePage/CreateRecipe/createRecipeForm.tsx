@@ -1,16 +1,15 @@
 import { useEffect, useState } from "react";
-import { Alert, Button, Form, Modal } from "react-bootstrap";
-import { getCookie } from "typescript-cookie";
+import { Form } from "react-bootstrap";
 import { Recipe } from "../../../types/Types";
 
 
 interface CRFProps {
   setRecipeInfo: (recipe: Recipe) => void;
+  role: string;
 }
 
-function CreateRecipeForm({ setRecipeInfo }: CRFProps) {
+function CreateRecipeForm({ setRecipeInfo, role }: CRFProps) {
 
-  const role = getCookie("role");
   const [departement, setDepartement] = useState<number | null>(null);
   useEffect(() => {
     switch (role) {
@@ -31,10 +30,6 @@ function CreateRecipeForm({ setRecipeInfo }: CRFProps) {
         break;
     }
   }, []);
-
-
-
-
 
   function updateRecipeInfo() {
     const title = (document.getElementById("title") as HTMLInputElement).value;
@@ -77,7 +72,7 @@ function CreateRecipeForm({ setRecipeInfo }: CRFProps) {
             </Form.Select>
           </Form.Group>
         }
-        
+
         <Form.Group onChange={updateRecipeInfo} className="mb-2" controlId="instructions">
           <Form.Label>Instructions</Form.Label>
           <Form.Control as="textarea" rows={3} />

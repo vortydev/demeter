@@ -45,9 +45,8 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
         description: description.value,
         author: author.value,
         roleId: receiver.value,
-        taskId: taskInEdit ? taskInEdit.id : 0,
+        taskId: taskInEdit ? taskInEdit.id : news.taskId,
         priority: priority,
-
       };
 
       if (await updateNews(news.id, editNews)) {
@@ -83,11 +82,9 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
     setEmptyTask(false);
 
     const taskTitle = document.getElementById("tasktitle") as HTMLInputElement;
-    const taskDesc = document.getElementById(
-      "taskdescription"
-    ) as HTMLInputElement;
+    const taskDesc = document.getElementById("taskdescription") as HTMLInputElement;
 
-    if (!taskTitle.value){
+    if (!taskTitle.value) {
       setEmptyTask(true);
       setTimeout(() => {
         setEmptyTask(false);
@@ -110,7 +107,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
         taskMaster: "",
         whenToDo: "",
       };
-  
+
       const taskCreated = await createTask(newsTask);
       if (taskCreated) {
         setTaskInEdit(taskCreated);
@@ -129,7 +126,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
         <h3 className="popupTitle">Édition d'une Annonce</h3>
 
         {error && (<Alert variant="danger">La mise à jour n'a pas fonctionnée.</Alert>)}
-        {empty && <Alert variant="danger">Veuillez donner un titre et un auteur à la tâche</Alert>}
+        {empty && <Alert variant="danger">Veuillez donner un titre et un auteur à la tâche.</Alert>}
 
         <Form.Group className="mb-2" controlId="title">
           <Form.Label>Titre</Form.Label>
@@ -154,7 +151,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
           <Form.Label className="popupSelectLabel">Destinataires</Form.Label>
           <Form.Select defaultValue={news.roleId} aria-label="target">
             <option value="1">Administrateurs</option>
-            <option value="2">Employés</option>
+            <option value="2">Succursales</option>
             <option value="3">Livreurs</option>
             <option value="4">Autres</option>
           </Form.Select>
@@ -211,6 +208,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
               <Button variant="demeter-dark" onClick={() => setAddTask(false)}>Annuler</Button>
               <Button variant="demeter" onClick={addingTask}>Joindre</Button>
             </div>
+
             <hr className="loginLine mt-2" />
           </div>
         )}

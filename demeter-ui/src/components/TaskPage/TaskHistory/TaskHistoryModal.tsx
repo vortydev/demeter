@@ -11,7 +11,7 @@ interface taskHistoryProps {
   close: () => void;
 }
 
-function TaskHistoryModal({ show, newHistory,  close }: taskHistoryProps) {
+function TaskHistoryModal({ show, newHistory, close }: taskHistoryProps) {
   const [history, setHistory] = useState<TaskHistory[]>([]);
   const [daysHistory, setDaysHistory] = useState<TaskHistory[]>([]);
   const [weekPrior, setWeekPrior] = useState<Date[]>([]);
@@ -53,13 +53,13 @@ function TaskHistoryModal({ show, newHistory,  close }: taskHistoryProps) {
         </p>
 
         <div className="hisDayList flex mb-2">
-          {weekPrior.map((day) => (
+          {weekPrior.map((day) => ( 
             <Button
               className="hisDayBtn mb-2"
               variant="demeter-dark"
               onClick={() => setDay(day)}
             >
-              {new Date(day).toLocaleDateString()}
+              {new Date (new Date(day).getTime() -  1 * 24 * 60 * 60 * 1000).toLocaleDateString()}
             </Button>
           ))}
         </div>

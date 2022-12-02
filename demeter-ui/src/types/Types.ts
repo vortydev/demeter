@@ -10,14 +10,11 @@ type News = {
   title: string;
   description: string;
   author: string;
-  img: string | null;
   active: boolean;
   roleId: string;
   taskId: number;
-  picture: string | null;
   date: Date;
   priority: boolean;
-
 }
 
 type Task = {
@@ -28,10 +25,9 @@ type Task = {
   parentId: number | null;
   completed: boolean;
   active: boolean;
-  picture: string | null;
   responsable: string;
   date: Date;
-  priority : boolean;
+  priority: boolean;
   receiver: string;
   taskMaster: string;
   whenToDo: string;
@@ -86,15 +82,15 @@ type Ingredient = {
 }
 
 type TaskHistory = {
-  completionDate : Date;
-  taskName : string;
-  whoDid : string;
+  completionDate: Date;
+  taskName: string;
+  whoDid: string;
   parentId: number | null;
+  categorytaskId: number;
 }
 
-type TLP = { // Team Lead Password
-  pwdName:String;
-  pwdPassword: String;
+type Role = {
+  id: number;
 }
 
-export type { Account, News, Task, Product, Category, Recipe, Vendor, Mesurement, Ingredient, TaskHistory, TLP }
+export type { Account, News, Task, Product, Category, Recipe, Vendor, Mesurement, Ingredient, TaskHistory, Role }

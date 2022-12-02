@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Button, Alert } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 import { InventoryForm } from './InventoryAddForm';
 import { InventoryUpdate } from './InventoryUpdate';
 import "../../css/inventory.css";
 import { VendorDisplay } from './Vendor/VendorDisplay';
-import { getCookie } from 'typescript-cookie';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faList, faPlus, faArrowsRotate, faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import { confirmAlert } from 'react-confirm-alert';
@@ -13,7 +12,10 @@ import { Product } from '../../types/Types';
 import { InventoryEditProductForm } from './InventoryUpdateProduct';
 import { FilterInventory } from './SubComponents/FilterInventory';
 
-function InventoryPage(): JSX.Element {
+interface InventoryPageProps{
+    role: string;
+}
+function InventoryPage({role}:InventoryPageProps): JSX.Element {
     const [createNewProduct, setCreateNewProduct] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);
     const [deletedSuccess, setDeleted] = useState<boolean>(false);
@@ -46,8 +48,6 @@ function InventoryPage(): JSX.Element {
         setDeleted(false);
     }, 5000);
 
-    const role = getCookie("role");
-
     return (
         <section className="appPage">
             {(role === "1" || role === "4") && <div className="btnBar mt-5 mb-4">
@@ -64,21 +64,22 @@ function InventoryPage(): JSX.Element {
                 </Button>
             </div>}
 
-            <FilterInventory setCategory={setCategoryFilter} setVendor={setVendorFilter} setName={setNameFilter} />
-            
+            <FilterInventory setCategory={setCategoryFilter} setVendor={setVendorFilter} setName={setNameFilter} role={role} />
+
             <div className="invTable mb-2">
                 {createdSuccess && <Alert variant="success">Le produit a été créé avec succès!</Alert>}
                 {deletedSuccess && <Alert variant="success">Le produit a été supprimé avec succès!</Alert>}
                 {updatedSuccess && <Alert variant="success">Les produits ont été mis à jour avec succès!</Alert>}
-                <Container>
-                    <Row className="invPageHeader mb-2">
-                        <div className="invCol"><h2>Produit</h2></div>
-                        <div className="invCol"><h2>Format</h2></div>
-                        <div className="invColThin"><h2>Quantité</h2></div>
-                    </Row>
-                    <ListingProducts createSuccess={createdSuccess} setDeleteSuccess={setDeleted} deleteSuccess={deletedSuccess} setUpdateSuccess={setUpdated} updateSuccess={updatedSuccess} categoryFilter={categoryFilter} vendorFilter={vendorFilter} nameFilter={nameFilter} />
-                </Container>
+
+                <div className="invPageHeader mb-2 flex">
+                    <div className="invCol"><h2>Produit</h2></div>
+                    <div className="invCol"><h2>Format</h2></div>
+                    <div className="invColThin"><h2>Quantité</h2></div>
+                </div>
+
+                <ListingProducts createSuccess={createdSuccess} setDeleteSuccess={setDeleted} deleteSuccess={deletedSuccess} setUpdateSuccess={setUpdated} updateSuccess={updatedSuccess} categoryFilter={categoryFilter} vendorFilter={vendorFilter} nameFilter={nameFilter} />
             </div>
+
             <div className="btnBar mt-3">
                 <Button variant="icon-dark" className="centerBtn" onClick={() => {
                     setUpdatedProducts(true);
@@ -89,6 +90,7 @@ function InventoryPage(): JSX.Element {
                     <span>Mettre à jour l'inventaire</span>
                 </Button>
             </div>
+
             <InventoryForm show={createNewProduct} close={close} success={success} />
             <InventoryUpdate show={updateProducts} close={close} success={successUpdate} />
             <VendorDisplay show={vendorDisplay} close={close} />
@@ -106,6 +108,7 @@ interface Getting {
     vendorFilter: string;
     nameFilter: string;
 }
+
 function ListingProducts({ createSuccess, setDeleteSuccess, deleteSuccess, setUpdateSuccess, updateSuccess, categoryFilter, vendorFilter, nameFilter }: Getting): JSX.Element {
 
     const [products, setProducts] = useState<Product[]>([]);
@@ -160,6 +163,7 @@ interface ProductDisplayProps {
     setDeleteSuccess: (success: boolean) => void;
     setUpdateSuccess: (success: boolean) => void;
 }
+
 function ProductsDisplay({ product, setDeleteSuccess, setUpdateSuccess }: ProductDisplayProps): JSX.Element {
     const [updateProduct, setUpdatedProduct] = useState<boolean>(false);
     const [createdSuccess, setSuccess] = useState<boolean>(false);

@@ -37,7 +37,8 @@
     margin-bottom: .5rem;
 }
 
-.createRecipePage, .singleRecipePage {
+.createRecipePage,
+.singleRecipePage {
     width: 80%;
     margin: auto;
     margin-bottom: 4rem;
@@ -123,7 +124,8 @@
     margin-bottom: .5rem;
 }
 
-.IngList .ingListCol, .IngList .editIngListCol {
+.IngList .ingListCol,
+.IngList .editIngListCol {
     width: 60%;
 }
 
@@ -171,6 +173,43 @@
 }
 
 .singleRecipeBtnBox>button {
-    width: 10rem;
+    width: 15rem;
     margin-bottom: .75rem;
+}
+
+@media only screen and (max-width: 800px) {
+    .recipeContent {
+        width: 100%;
+        flex-direction: column-reverse;
+        justify-content: center;
+    }
+
+    .filterBox {
+        margin-inline: auto;
+        margin-bottom: 2rem;
+    }
+
+    .filterBox button {
+        min-width: 15rem;
+    }
+
+    .recipeListBox {
+        margin: 0;
+        width: 100%;
+    }
+
+    .ingListCol,
+    .editIngListCol {
+        width: 50% !important;
+    }
+
+    .ingListColS,
+    .editIngListColS {
+        width: 25% !important;
+    }
+
+    .ingListRow svg {
+        margin-inline: auto;
+        margin-top: .25rem;
+    }
 }

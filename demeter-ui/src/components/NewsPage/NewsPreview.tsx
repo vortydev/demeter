@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
-import { Alert, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { deleteNews } from "../../services/news.functions";
 import { getTask, updateTask } from "../../services/task.funtions";
 import { News, Task } from "../../types/Types";
@@ -8,7 +8,6 @@ import { EditNewsForm } from "./EditNewsForm";
 import "../../css/news.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt, faArrowRotateLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
-import { getCookie } from "typescript-cookie";
 import { confirmAlert } from "react-confirm-alert";
 
 interface NewsPreviewProps {
@@ -16,9 +15,10 @@ interface NewsPreviewProps {
   editSuccess: boolean;
   editedSuccess: (editedSuccess: boolean) => void;
   deleteSuccess: (deleted: boolean) => void;
+  role: string;
 }
 
-function NewsPreview({ news, editSuccess, editedSuccess, deleteSuccess }: NewsPreviewProps) {
+function NewsPreview({ news, editSuccess, editedSuccess, deleteSuccess, role }: NewsPreviewProps) {
   let shortDescription = news.description;
   const [fullText, setFullText] = useState<boolean>(false);
   const [EditNews, setEditNews] = useState<boolean>(false);
@@ -99,10 +99,9 @@ function NewsPreview({ news, editSuccess, editedSuccess, deleteSuccess }: NewsPr
     }
   }
 
-  const role = getCookie("role");
   return (
     <article className="flexNewsPreview">
-      <div className={`newsBody ${news.priority ? "priority" : ""}`}>
+      <div className={`newsBody cellShade ${news.priority ? "priority" : ""}`}>
         <div className="btnBar flex">
           {(role === "1" || role === "4") &&
             <div className="flexNewsEdit invisible">
@@ -158,11 +157,6 @@ function NewsPreview({ news, editSuccess, editedSuccess, deleteSuccess }: NewsPr
         </div>
 
         <div className="flexNewsBox">
-          {news.picture !== null && (
-            <div className="picture">
-              <img src={news.picture} />
-            </div>
-          )}
           <p className="newsContent">
             {text}
             <b>{longDesc && dotdotdot}</b>

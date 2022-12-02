@@ -58,24 +58,33 @@ function EditPasswordForm({
     <Modal show={show} onHide={close}>
       <Form className="popupForm">
         <h3 className="popupTitle">Édition du Compte</h3>
-        
+
         {!regexValidPassword && (
           <Alert variant="danger">
-            Le mot de passe doit contenir au moins 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial. Sa longueur minimale doit être de 5 caractères.
+            Le mot de passe ne correspond pas aux critères requis.
           </Alert>
         )}
-        {!validPassword && (<Alert variant="danger">Les mots de passe ne correspondent pas !</Alert>)}
+        {!validPassword && (
+          <Alert variant="danger">Les mots de passe ne correspondent pas!</Alert>
+        )}
 
         <Form.Group className="mb-2" controlId="password">
           <Form.Label>Nouveau mot de passe</Form.Label>
           <Form.Control type="password" />
+          <p className="inputHint">Le mot de passe doit contenir au minimum :<br />
+            - 5 caractères <br />
+            - 1 majuscule <br />
+            - 1 minuscule <br />
+            - 1 chiffre <br />
+            - 1 caractère spécial
+          </p>
         </Form.Group>
 
         <Form.Group className="mb-2" controlId="passwordConfirm">
           <Form.Label>Confirmer le mot de passe</Form.Label>
           <Form.Control type="password" />
         </Form.Group>
-        
+
         <div className="mt-3 popupBtnBox">
           <Button variant="demeter-dark" onClick={close}>Annuler</Button>
           <Button variant="demeter" onClick={handleSubmit}>Confirmer</Button>

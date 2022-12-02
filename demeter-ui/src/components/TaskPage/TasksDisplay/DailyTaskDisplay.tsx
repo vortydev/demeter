@@ -8,15 +8,16 @@ interface DailyTaskProps {
   deleteSuccess: (deleted: boolean) => void;
   editSuccess: (edited: boolean) => void;
   completedSuccess: (completed: boolean) => void;
+  role: string;
 }
 
-function DailyTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, completedSuccess }: DailyTaskProps) {
+function DailyTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, completedSuccess, role }: DailyTaskProps) {
   const [listTaskOpen, setLTO] = useState<Task[]>([]);
   const [listTaskPreClose, setLTPC] = useState<Task[]>([]);
   const [listTaskClose, setLTC] = useState<Task[]>([]);
 
   useEffect(() => {
-    const noChildList = listTask.filter((t) => t.parentId == 0);
+    const noChildList = listTask.filter((t) => t.parentId === 0);
     setLTO(noChildList.filter(t => t.whenToDo === "open"));
     setLTPC(noChildList.filter(t => t.whenToDo === "preClose"));
     setLTC(noChildList.filter(t => t.whenToDo === "close"));
@@ -35,6 +36,7 @@ function DailyTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
             deleteSuccess={deleteSuccess}
             editSuccess={editSuccess}
             completedSuccess={completedSuccess}
+            role={role}
           />
         ))}
       </div>
@@ -49,6 +51,7 @@ function DailyTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
             deleteSuccess={deleteSuccess}
             editSuccess={editSuccess}
             completedSuccess={completedSuccess}
+            role={role}
           />
         ))}
       </div>
@@ -63,6 +66,7 @@ function DailyTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
             deleteSuccess={deleteSuccess}
             editSuccess={editSuccess}
             completedSuccess={completedSuccess}
+            role={role}
           />
         ))}
       </div>

@@ -4,7 +4,6 @@ import { getAllCategories } from "../../../services/inventory.functions";
 import { getAllVendor } from "../../../services/vendor.functions";
 import { Category, Vendor } from "../../../types/Types";
 import { CategoryDropDown, VendorDropDown } from "./Inventory";
-import { getCookie } from 'typescript-cookie';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
@@ -12,8 +11,9 @@ interface Filter {
     setCategory: (id: string) => void;
     setVendor: (id: string) => void;
     setName: (name: string) => void;
+    role: string;
 }
-function FilterInventory({ setCategory, setVendor, setName }: Filter): JSX.Element {
+function FilterInventory({ setCategory, setVendor, setName, role }: Filter): JSX.Element {
     const [categories, setCategories] = useState<Category[]>([]);
     const categoryAll: Category = { "id": 0, "category": "Tous les produits" }
     const [vendors, setVendors] = useState<Vendor[]>([]);
@@ -36,8 +36,6 @@ function FilterInventory({ setCategory, setVendor, setName }: Filter): JSX.Eleme
         setVendor(vendor);
         setName(name);
     }
-
-    const role = getCookie("role");
 
     return (
         <React.Fragment>

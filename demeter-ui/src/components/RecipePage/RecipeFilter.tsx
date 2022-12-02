@@ -1,7 +1,5 @@
 import React from "react";
 import { Form } from "react-bootstrap";
-
-import { getCookie } from 'typescript-cookie';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 

@@ -36,9 +36,9 @@
 }
 
 .loginForm {
-    width: 40%;
+    width: 50%;
     margin: auto;
-    min-width: 10rem;
+    min-width: 20rem;
 }
 
 .LoginForm .loginField {
@@ -50,18 +50,18 @@
     margin: auto;
 }
 
-@media only screen and (max-width: 800px) { 
- .LoginPage {
-    flex-direction: column;
-    flex-wrap: wrap;
- }
+@media only screen and (max-width: 800px) {
+    .LoginPage {
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
 
- .loginForm {
-    width: 90%;
- }
+    .loginForm {
+        width: 90%;
+    }
 
- .loginImg {
-    height: auto;
-    width: inherit;
- }
+    .loginImg {
+        height: auto;
+        width: inherit;
+    }
 }

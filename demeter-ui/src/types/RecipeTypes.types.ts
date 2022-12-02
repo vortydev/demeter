@@ -1,9 +1,9 @@
 import { Product } from "./Types";
 
-type IngForRecipe ={
+type IngForRecipe = {
     ingredient: Product;
-    quantity : number;
+    quantity: number;
     mesurementId: string;
 }
 
-export type {  IngForRecipe }
+export type { IngForRecipe }

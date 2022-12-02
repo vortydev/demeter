@@ -4,7 +4,6 @@ import { getAllCategories } from "../../../services/inventory.functions";
 import { getAllVendor } from "../../../services/vendor.functions";
 import { Category, Vendor } from "../../../types/Types";
 import { CategoryDropDown, VendorDropDown } from "./Inventory";
-
 import { getCookie } from 'typescript-cookie';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
@@ -42,7 +41,7 @@ function FilterInventory({ setCategory, setVendor, setName }: Filter): JSX.Eleme
 
     return (
         <React.Fragment>
-            <div className={`filterBar mb-4 ${(role === "1" || role === "4") ? "mt-2" : "mt-4"}`}>
+            <div className={`filterBar mb-4 ${(role === "1" || role === "4") ? "mt-2" : "mt-5"}`}>
                 <Form.Group className="filterSearch flex mr-1" controlId="nameFilter">
                     <FontAwesomeIcon className="icon mr-1" icon={faMagnifyingGlass} size="lg" />
                     <Form.Control onChange={update} type="text" />

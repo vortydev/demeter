@@ -16,7 +16,6 @@ exports.create = (req, res) => {
     const announcement = {
         title: req.body.title,
         description: req.body.description,
-        img: req.body.img | null,
         roleId: req.body.roleId,
         active: req.body.active | true,
         author: req.body.author,

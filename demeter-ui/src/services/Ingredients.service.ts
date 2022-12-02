@@ -6,7 +6,7 @@ class IngredientService {
     return http.get<Array<Ingredient>>("/rpr");
   }
 
-  getByRecipe(recipeId: number){
+  getByRecipe(recipeId: number) {
     return http.get<Ingredient>(`/rpr?recipeId=${recipeId}`);
   }
 
@@ -14,7 +14,7 @@ class IngredientService {
     return http.post<Ingredient>("/rpr", data);
   }
 
-  update(data: Ingredient,recipeId: number, productId: number) {
+  update(data: Ingredient, recipeId: number, productId: number) {
     return http.put<any>(`/rpr?recipeId=${recipeId}&productId=${productId}`, data);
   }
 
@@ -22,7 +22,7 @@ class IngredientService {
 
     return http.delete<any>(`/rpr?recipeId=${recipeId}&productId=${productId}`);
   }
-  
+
   deleteAllFromRecipe(recipeId: number) {
 
     return http.delete<any>(`/rpr?recipeId=${recipeId}`);

@@ -15,8 +15,6 @@ function RecipeFilter({ setName }: Filter): JSX.Element {
         setName(name);
     }
 
-    const role = getCookie("role");
-
     return (
         <React.Fragment>
             <Form.Group className="filterSearch flex" controlId="nameFilter">

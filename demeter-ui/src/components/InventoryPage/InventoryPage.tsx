@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Button, Alert } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 import { InventoryForm } from './InventoryAddForm';
 import { InventoryUpdate } from './InventoryUpdate';
 import "../../css/inventory.css";
@@ -12,6 +12,7 @@ import { getAll, deleteProduct, getProductsByCategory, getProductsByVendor, getP
 import { Product } from '../../types/Types';
 import { InventoryEditProductForm } from './InventoryUpdateProduct';
 import { FilterInventory } from './SubComponents/FilterInventory';
+import { getCookieRole } from '../../services/cookie.functions';
 
 function InventoryPage(): JSX.Element {
     const [createNewProduct, setCreateNewProduct] = useState<boolean>(false);
@@ -23,6 +24,15 @@ function InventoryPage(): JSX.Element {
     const [categoryFilter, setCategoryFilter] = useState<string>("0");
     const [vendorFilter, setVendorFilter] = useState<string>("0");
     const [nameFilter, setNameFilter] = useState<string>("");
+    const loaded = true;
+    const [role, setRole] = useState<string>("0");
+    
+    useEffect(() => {
+        async function getRoleId() {
+            setRole(await getCookieRole() || "0");
+        }
+        getRoleId();
+    },[loaded]);
 
     function success(): void {
         setSuccess(true);
@@ -45,8 +55,6 @@ function InventoryPage(): JSX.Element {
         setUpdated(false);
         setDeleted(false);
     }, 5000);
-
-    const role = getCookie("role");
 
     return (
         <section className="appPage">

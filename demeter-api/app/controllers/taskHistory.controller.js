@@ -47,12 +47,13 @@ exports.findAll = (req, res) => {
       ? { completionDate: { [Op.eq]: `%${today}%` } }
       : null;
       var conditionC = category
-      ? { categorytaskId: { [Op.eq]: `%${category}%` } }
+      ? { categorytaskId: { [Op.eq]: category } }
       : null;
 
 if(conditionW !== null)
     {TH.findAll({conditionW})
       .then((data) => {
+  
         res.send(data);
       })
       .catch((err) => {
@@ -64,7 +65,7 @@ if(conditionW !== null)
       });}
 
       if(conditionT!== null)
-    {TH.findAll({ where: {[Op.and]: [ conditionT, conditionC]} })
+    {TH.findAll({ where: {[Op.and]: [conditionT, conditionC]} })
       .then((data) => {
         res.send(data);
       })

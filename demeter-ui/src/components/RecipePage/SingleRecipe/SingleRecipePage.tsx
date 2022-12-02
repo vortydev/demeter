@@ -16,6 +16,7 @@ interface SingleRecipePageProps {
   setRecipe: (recipe: Recipe | null) => void;
   setSelectedPage: (page: string) => void;
   setRecipeDeleted: (deleted: boolean) => void;
+  role: string;
 }
 //add setRecipe null on retour
 function SingleRecipePage({
@@ -23,6 +24,7 @@ function SingleRecipePage({
   setRecipe,
   setSelectedPage,
   setRecipeDeleted,
+  role
 }: SingleRecipePageProps) {
   const [showInstruction, setShowInstruction] = useState<boolean>(false);
   const [listIng, setListIng] = useState<Ingredient[]>([]);
@@ -110,6 +112,7 @@ function SingleRecipePage({
         listIng={listIng}
         setChanged={setChanged}
         editedSuccess={setEditSuccess}
+        role={role}
       />
     </section>
   );

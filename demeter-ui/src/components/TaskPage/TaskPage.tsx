@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
-import { getCookie } from "typescript-cookie";
 import {
   getbyCategorie,
   resetTask,
 } from "../../services/task.funtions";
-import { Account, Task, TaskHistory } from "../../types/Types";
+import { Task, TaskHistory } from "../../types/Types";
 import { CreateTaskForm } from "./createTaskForm";
 import { TaskNav } from "./TaskNav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,9 +19,12 @@ import { HebdoTaskDisplay } from "./TasksDisplay/HebdoTaskDisplay";
 import { OtherTaskDisplay } from "./TasksDisplay/OtherTaskDisplay";
 import { createTaskHistory, ifTodayHistory } from "../../services/taskHistory.functions";
 import { TaskHistoryModal } from "./TaskHistory/TaskHistoryModal";
-import { getCookieAccount, getCookieRole } from "../../services/cookie.functions";
+import { getCookieAccount } from "../../services/cookie.functions";
 
-function TaskPage(): JSX.Element {
+interface TaskPageProp{
+  role: string;
+}
+function TaskPage({role}:TaskPageProp): JSX.Element {
   const [createdSuccess, setSuccess] = useState<boolean>(false);
   const [deletedSuccess, setDelete] = useState<boolean>(false);
   const [editedSuccess, setEdit] = useState<boolean>(false);
@@ -30,7 +32,6 @@ function TaskPage(): JSX.Element {
   const [accountTask, setAccountTask] = useState<Task[]>([]);
   const [allCatTask, setAllCatTask] = useState<Task[]>([]);
   const [account, setAccount] = useState<string>("Visiteur");
-  const [role, setRole] = useState<string>("0");
   const [taskCompleted, setTaskCompleted] = useState<boolean>(false);
   const [createTask, setCreateTask] = useState<boolean>(false);
   const [seeHistory, setSeeHistory] = useState<boolean>(false);
@@ -40,7 +41,6 @@ function TaskPage(): JSX.Element {
 
   useEffect(() => {
     async function getList() {
-      setRole(await getCookieRole() || "0");
       const taskByCat: Task[] = await getbyCategorie(taskCategory);
       setAllCatTask(taskByCat);
       setDayStarted(await ifTodayHistory(date, taskCategory));
@@ -230,6 +230,7 @@ function TaskPage(): JSX.Element {
           deleteSuccess={setDelete}
           editSuccess={setEdit}
           completedSuccess={setTaskCompleted}
+          role={role}
         />}
 
         {taskCategory === 2 && <HebdoTaskDisplay
@@ -238,6 +239,7 @@ function TaskPage(): JSX.Element {
           deleteSuccess={setDelete}
           editSuccess={setEdit}
           completedSuccess={setTaskCompleted}
+          role={role}
         />}
 
         {taskCategory === 3 && <OtherTaskDisplay
@@ -246,6 +248,7 @@ function TaskPage(): JSX.Element {
           deleteSuccess={setDelete}
           editSuccess={setEdit}
           completedSuccess={setTaskCompleted}
+          role={role}
         />
         }
       </div>

@@ -8,9 +8,10 @@ interface DailyTaskProps {
   deleteSuccess: (deleted: boolean) => void;
   editSuccess: (edited: boolean) => void;
   completedSuccess: (completed: boolean) => void;
+  role: string;
 }
 
-function DailyTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, completedSuccess }: DailyTaskProps) {
+function DailyTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, completedSuccess, role }: DailyTaskProps) {
   const [listTaskOpen, setLTO] = useState<Task[]>([]);
   const [listTaskPreClose, setLTPC] = useState<Task[]>([]);
   const [listTaskClose, setLTC] = useState<Task[]>([]);
@@ -35,6 +36,7 @@ function DailyTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
             deleteSuccess={deleteSuccess}
             editSuccess={editSuccess}
             completedSuccess={completedSuccess}
+            role={role}
           />
         ))}
       </div>
@@ -49,6 +51,7 @@ function DailyTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
             deleteSuccess={deleteSuccess}
             editSuccess={editSuccess}
             completedSuccess={completedSuccess}
+            role={role}
           />
         ))}
       </div>
@@ -63,6 +66,7 @@ function DailyTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
             deleteSuccess={deleteSuccess}
             editSuccess={editSuccess}
             completedSuccess={completedSuccess}
+            role={role}
           />
         ))}
       </div>

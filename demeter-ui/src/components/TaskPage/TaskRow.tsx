@@ -1,13 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { deleteTask, updateTask } from "../../services/task.funtions";
-import { getCookie } from "typescript-cookie";
 import { Task } from "../../types/Types";
 import { EditTaskForm } from "../TaskPage/EditTaskForm";
 import "../../css/task.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt, faArrowRotateLeft, faCheck, faTurnUp } from "@fortawesome/free-solid-svg-icons";
 import { confirmAlert } from "react-confirm-alert";
-import { getCookieRole } from "../../services/cookie.functions";
 
 interface TaskRowProps {
   task: Task;
@@ -15,9 +13,10 @@ interface TaskRowProps {
   deleteSuccess: (deleted: boolean) => void;
   editSuccess: (edited: boolean) => void;
   completedSuccess: (completed: boolean) => void;
+  role: string;
 }
 
-function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess, }: TaskRowProps) {
+function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess, role }: TaskRowProps) {
   const [editform, setEditForm] = useState<boolean>(false);
   const [toEdit, setToEdit] = useState<Task>(task);
 
@@ -81,16 +80,6 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
   function closeEditForm() {
     setEditForm(false);
   }
-
-  const [role, setRole] = useState<string>("0");
-  const loaded = true;
-
-  useEffect(() => {
-    async function getRoleId() {
-        setRole(await getCookieRole() || "0");
-    }
-    getRoleId();
-  },[loaded]);
   
   return (
     <article className="taskRowBox">

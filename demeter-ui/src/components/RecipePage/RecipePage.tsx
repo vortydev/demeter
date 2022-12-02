@@ -3,11 +3,9 @@ import { Alert, Button } from "react-bootstrap";
 import { Recipe } from "../../types/Types";
 import "../../css/recipe.css";
 import { RecipeList } from "./RecipeList";
-import { getCookie } from "typescript-cookie";
 import { RecipeFilter } from "./RecipeFilter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { getCookieRole } from "../../services/cookie.functions";
 
 interface RecipePageProps {
   selectedPage: string;
@@ -17,6 +15,7 @@ interface RecipePageProps {
   setDeletedSuccess: (deleted: boolean) => void;
   setSelectedPage: (page: string) => void;
   setRecipePage: (recipe: Recipe | null) => void;
+  role: string;
 }
 
 function RecipePage({
@@ -27,18 +26,10 @@ function RecipePage({
   setCreatedSuccess,
   setDeletedSuccess,
   setRecipePage,
+  role
 }: RecipePageProps): JSX.Element {
-  const [role, setRole] = useState<string>("0");
-  const loaded = true;
   const [filter, setFilter] = useState<number | null>(null);
   const [nameFilter, setNameFilter] = useState<string>("");
-
-  useEffect(() => {
-    async function getRoleId() {
-        setRole(await getCookieRole() || "0");
-    }
-    getRoleId();
-  },[loaded]);
 
   useEffect(() => {
     switch (role) {

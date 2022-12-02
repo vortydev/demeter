@@ -6,11 +6,11 @@ import { Recipe } from "../../../types/Types";
 
 interface CRFProps {
   setRecipeInfo: (recipe: Recipe) => void;
+  role: string;
 }
 
-function CreateRecipeForm({ setRecipeInfo }: CRFProps) {
+function CreateRecipeForm({ setRecipeInfo, role }: CRFProps) {
 
-  const role = getCookie("role");
   const [departement, setDepartement] = useState<number | null>(null);
   useEffect(() => {
     switch (role) {

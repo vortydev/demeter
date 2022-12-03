@@ -23,15 +23,15 @@ import { getCookieAccount } from "../../services/cookie.functions";
 
 interface TaskPageProp{
   role: string;
+  account: string;
 }
-function TaskPage({role}:TaskPageProp): JSX.Element {
+function TaskPage({role, account}:TaskPageProp): JSX.Element {
   const [createdSuccess, setSuccess] = useState<boolean>(false);
   const [deletedSuccess, setDelete] = useState<boolean>(false);
   const [editedSuccess, setEdit] = useState<boolean>(false);
   const [taskCategory, setTaskCategory] = useState<number>(1);
   const [accountTask, setAccountTask] = useState<Task[]>([]);
   const [allCatTask, setAllCatTask] = useState<Task[]>([]);
-  const [account, setAccount] = useState<string>("Visiteur");
   const [taskCompleted, setTaskCompleted] = useState<boolean>(false);
   const [createTask, setCreateTask] = useState<boolean>(false);
   const [seeHistory, setSeeHistory] = useState<boolean>(false);
@@ -46,8 +46,6 @@ function TaskPage({role}:TaskPageProp): JSX.Element {
       setDayStarted(await ifTodayHistory(date, taskCategory));
       console.log("taskpage await", await ifTodayHistory(date, taskCategory))
       console.log('day Started for :', taskCategory, ":", dayStarted);
-      setAccount(await getCookieAccount() || "Visiteur");
-
 
       if (role === "2") {
         const taskForAccount: Task[] = taskByCat.filter(

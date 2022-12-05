@@ -19,7 +19,6 @@ import { HebdoTaskDisplay } from "./TasksDisplay/HebdoTaskDisplay";
 import { OtherTaskDisplay } from "./TasksDisplay/OtherTaskDisplay";
 import { createTaskHistory, ifTodayHistory } from "../../services/taskHistory.functions";
 import { TaskHistoryModal } from "./TaskHistory/TaskHistoryModal";
-import { getCookieAccount } from "../../services/cookie.functions";
 
 interface TaskPageProp{
   role: string;
@@ -93,8 +92,6 @@ function TaskPage({role, account}:TaskPageProp): JSX.Element {
       categorytaskId: task.categorytaskId,
     };
 
-    // createTaskHistory request here
-
     if (!await createTaskHistory(historyInfo)) {
       console.error("failed to add to history");
     }
@@ -108,8 +105,10 @@ function TaskPage({role, account}:TaskPageProp): JSX.Element {
         success={createdSuccess}
         setSuccess={setSuccess}
       />
-      {createdSuccess && <Alert variant="success">La tâche à été créée avec succès!</Alert>}
-      {deletedSuccess && <Alert variant="success">La tâche à été supprimée avec succès!</Alert>}
+
+      {createdSuccess && <Alert variant="success">La tâche a été créée avec succès !</Alert>}
+      {editedSuccess && <Alert variant="success">La tâche a été modifiée avec succès !</Alert>}
+      {deletedSuccess && <Alert variant="success">La tâche a été supprimée avec succès !</Alert>}
 
       <div className="btnBar">
         {/* EMPTY BTN */}

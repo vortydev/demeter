@@ -67,9 +67,9 @@ function InventoryPage({role}:InventoryPageProps): JSX.Element {
             <FilterInventory setCategory={setCategoryFilter} setVendor={setVendorFilter} setName={setNameFilter} role={role} />
 
             <div className="invTable mb-2">
-                {createdSuccess && <Alert variant="success">Le produit a été créé avec succès!</Alert>}
-                {deletedSuccess && <Alert variant="success">Le produit a été supprimé avec succès!</Alert>}
-                {updatedSuccess && <Alert variant="success">Les produits ont été mis à jour avec succès!</Alert>}
+                {createdSuccess && <Alert variant="success">Le produit a été créé avec succès !</Alert>}
+                {deletedSuccess && <Alert variant="success">Le produit a été supprimé avec succès !</Alert>}
+                {updatedSuccess && <Alert variant="success">Les produits ont été mis à jour avec succès !</Alert>}
 
                 <div className="invPageHeader mb-2 flex">
                     <div className="invCol"><h2>Produit</h2></div>

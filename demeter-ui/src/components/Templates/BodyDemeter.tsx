@@ -13,18 +13,19 @@ interface BodyDemeterProps {
   selected: string;
   setSelected: (pageOn: string) => void;
   role: string;
+  account: string;
 }
 
-function BodyDemeter({ selected, setSelected, role }: BodyDemeterProps) {
+function BodyDemeter({ selected, setSelected, role, account }: BodyDemeterProps) {
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [recipeCreated, setRecipeCreated] = useState<boolean>(false);
   const [recipeDeleted, setRecipeDeleted] = useState<boolean>(false);
 
   switch (selected) {
     case "news":
-      return <NewsPage role={role}/>;
+      return <NewsPage role={role} account={account}/>;
     case "task":
-      return <TaskPage role={role}/>;
+      return <TaskPage role={role} account={account}/>;
     case "recipe":
       return (
         <RecipePage

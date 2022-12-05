@@ -11,15 +11,15 @@ import { getCookieAccount } from "../../services/cookie.functions";
 
 interface NewsPageProps{
   role: string;
+  account: string;
 }
-function NewsPage({role}:NewsPageProps): JSX.Element {
+function NewsPage({role, account}:NewsPageProps): JSX.Element {
   const [createNews, setCreateNews] = useState<boolean>(false);
   const [createdSuccess, setSuccess] = useState<boolean>(false);
   const [deleteSuccess, setDeleteSuccess] = useState<boolean>(false);
   const [editedSuccess, setEditedSucess] = useState<boolean>(false);
   const [newsList, setNewsList] = useState<News[]>([]);
   const [pwModal, setpwModal] = useState<boolean>(false);
-  const [account, setAccount] = useState<string>("Visiteur");
 
   useEffect(() => {
     async function getList() {
@@ -28,7 +28,6 @@ function NewsPage({role}:NewsPageProps): JSX.Element {
       } else {
         setNewsList([]);
       }
-      setAccount(await getCookieAccount() || "Visiteur");
     }
     getList();
   }, [createdSuccess, editedSuccess, deleteSuccess, role]);

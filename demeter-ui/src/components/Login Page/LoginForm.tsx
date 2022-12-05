@@ -42,7 +42,7 @@ function LoginForm(): JSX.Element {
   return (
     <Form className="popupForm loginForm">
       {!valid && <Alert variant="danger">Informations invalides !</Alert>}
-      {empty && <Alert variant="danger">Veuillez remplir tout les champs.</Alert>}
+      {empty && <Alert variant="danger">Veuillez remplir tous les champs.</Alert>}
 
       <Form.Group className="mb-3 loginField" controlId="account">
         <Form.Label>Nom d'utilisateur</Form.Label>

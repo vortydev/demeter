@@ -141,6 +141,15 @@
     display: none;
 }
 
+.taskParent {
+    font-weight: bolder;
+    font-size: 1.35rem;
+}
+
+.taskParent span:first-child {
+    color: var(--demeter-green);
+}
+
 /* TASK RESPONSIVE */
 @media only screen and (max-width: 800px) {
     .taskDisplayList {
@@ -164,6 +173,8 @@
 
     .taskMaster {
         margin-right: 0;
+        word-break: unset !important;
+        align-self: flex-start !important;
     }
 
     .taskChildRow,

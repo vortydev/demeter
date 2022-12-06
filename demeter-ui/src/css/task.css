@@ -104,7 +104,8 @@
     width: 100%;
     margin: 0;
     text-align: left;
-    color: var(--demeter-green);
+    color: var(--demeter-orange);
+    font-weight: bold;
 }
 
 .hisDayList {

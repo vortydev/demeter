@@ -30,4 +30,4 @@
 
 node_modules/
 ./demeter-server/
-demeter_db_*
+/backups/*

@@ -10,6 +10,10 @@ DB_PWD=$(cat .env | grep MYSQLDB_ROOT_PASSWORD | cut -d '=' -f2)
 # Copy the content of the database called "demeter_db" into a CSV file
 DATE_TIME=$(date +"%Y-%m-%d_%H-%M-%S")
 
-docker exec -it $CONTAINER_ID mysqldump -u $DB_USER -p$DB_PWD demeter_db > demeter_db_$DATE_TIME.csv
+if [ ! -d "backups" ]; then
+  mkdir backups
+fi
 
+docker exec -it $CONTAINER_ID mysqldump -u $DB_USER -p$DB_PWD demeter_db > ./backups/demeter_db_$DATE_TIME.csv
+echo demeter_db_$DATE_TIME.csv was created
 exit 0

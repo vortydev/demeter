@@ -14,29 +14,35 @@ interface CalculatorProps {
   editSuccess: boolean;
 }
 
-function Calculator({ listIng, nbUnit, otherCost, editSuccess }: CalculatorProps) {
-  const [totalCost, setTotalCost] = useState<number>(0);
+function Calculator({
+  listIng,
+  nbUnit,
+  otherCost,
+  editSuccess,
+}: CalculatorProps) {
   const [customNB, setCustomNB] = useState<number>(0);
+  const [coutTotal, setCoutTotal] = useState<string>("0");
+  const [coutUnitaire, setCoutUnitaire] = useState<string>("0");
+  const [coutPerso, setCoutPerso] = useState<string>("0");
 
   var regex1 = new RegExp(/^[0-9]+$/);
   var regex2 = new RegExp(/[0-9]+[.][0-9]{1}/);
-  
+
   var regexPrice = new RegExp(/[0-9]+[.][0-9]{2}/);
   var regexPrice1 = new RegExp(/^[0-9]+$/);
-
-  var coutTotal = adjustPrice(Math.round(totalCost + Number.EPSILON * 100) / 100);
-  var coutUnitaire = adjustPrice( Math.round(totalCost / nbUnit + Number.EPSILON * 100) / 100);
-  var coutPerso = adjustPrice(Math.round(((totalCost / nbUnit) * customNB) + Number.EPSILON * 100) / 100);
 
   useEffect(() => {
     async function setTheCost() {
       const recipeCost: number = getRecipeCost(await changeIngFormat(listIng));
       const fullCost: number = recipeCost + otherCost;
-      console.log(recipeCost, otherCost, typeof otherCost);
-      setTotalCost(fullCost);
+      console.log(recipeCost, "+", otherCost, "=", fullCost);
+
+      setCoutTotal(adjustPrice(fullCost));
+      setCoutUnitaire(adjustPrice(fullCost / nbUnit));
+      setCoutPerso(adjustPrice((fullCost / nbUnit) * customNB));
     }
     setTheCost();
-  }, [totalCost, listIng, editSuccess]);
+  }, [coutTotal, listIng, editSuccess, customNB]);
 
   function updateCustomNb() {
     setCustomNB(
@@ -51,8 +57,8 @@ function Calculator({ listIng, nbUnit, otherCost, editSuccess }: CalculatorProps
 
     if (regexPrice1.test(strPrice)) {
       strPrice = strPrice.concat(".00");
-    }else if(!regexPrice.test(strPrice)){
-      strPrice = strPrice.concat("0")
+    } else if (!regexPrice.test(strPrice)) {
+      strPrice = strPrice.concat("0");
     }
     return strPrice;
   }

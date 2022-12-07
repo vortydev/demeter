@@ -1,11 +1,9 @@
-import { format } from "node:path/win32";
-import { stringify } from "querystring";
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import { getProduct } from "../../../services/inventory.functions";
 import { IngForRecipe } from "../../../types/RecipeTypes.types";
 import { Ingredient } from "../../../types/Types";
-import { getRecipeCost } from "../helper";
+import { getRecipeCost, adjustPrice } from "../helper";
 
 interface CalculatorProps {
   listIng: Ingredient[];
@@ -24,12 +22,6 @@ function Calculator({
   const [coutTotal, setCoutTotal] = useState<string>("0");
   const [coutUnitaire, setCoutUnitaire] = useState<string>("0");
   const [coutPerso, setCoutPerso] = useState<string>("0");
-
-  var regex1 = new RegExp(/^[0-9]+$/);
-  var regex2 = new RegExp(/[0-9]+[.][0-9]{1}/);
-
-  var regexPrice = new RegExp(/[0-9]+[.][0-9]{2}/);
-  var regexPrice1 = new RegExp(/^[0-9]+$/);
 
   useEffect(() => {
     async function setTheCost() {
@@ -50,17 +42,6 @@ function Calculator({
         (document.getElementById("customNB") as HTMLInputElement).value
       )
     );
-  }
-
-  function adjustPrice(price: number) {
-    var strPrice = price.toString();
-
-    if (regexPrice1.test(strPrice)) {
-      strPrice = strPrice.concat(".00");
-    } else if (!regexPrice.test(strPrice)) {
-      strPrice = strPrice.concat("0");
-    }
-    return strPrice;
   }
 
   return (
@@ -99,4 +80,4 @@ async function changeIngFormat(listI: Ingredient[]): Promise<IngForRecipe[]> {
   return listIF;
 }
 
-export { Calculator };
+export { Calculator};

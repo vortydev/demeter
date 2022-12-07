@@ -5,7 +5,7 @@ import {
 } from "../../../services/inventory.functions";
 import { IngForRecipe } from "../../../types/RecipeTypes.types";
 import { Ingredient, Mesurement, Product } from "../../../types/Types";
-import { pricePerQuantity } from "../helper";
+import { pricePerQuantity, adjustPrice } from "../helper";
 
 interface IRProps {
   ingredient: Ingredient;
@@ -13,7 +13,7 @@ interface IRProps {
 function IngredientRow({ ingredient }: IRProps) {
   const [product, setProduct] = useState<Product>();
   const [mesure, setMesure] = useState<Mesurement>();
-  const [cost, setCost] = useState<number>(0.0);
+  const [cost, setCost] = useState<string>("0");
 
   useEffect(() => {
     async function getInfos() {
@@ -32,7 +32,7 @@ function IngredientRow({ ingredient }: IRProps) {
         mesurementId: ingredient.mesurementId.toString(),
       };
 
-      setCost(pricePerQuantity(ing));
+      setCost(adjustPrice(pricePerQuantity(ing)));
     }
   }, [product, mesure]);
 

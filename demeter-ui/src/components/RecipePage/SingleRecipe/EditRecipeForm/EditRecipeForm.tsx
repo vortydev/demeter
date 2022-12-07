@@ -138,7 +138,7 @@ function EditRecipeForm({
       )}
 
       <div className="popupBtnBox mb-3">
-        <Button variant="demeter-dark" onClick={() => setShow(false)}>Annuler</Button>
+        <Button variant="demeter-dark" onClick={() => { setShow(false); setTimeout(()=>setEditing("recipe"), 500); }}>Annuler</Button>
         <Button variant="demeter" onClick={editRecipe}>Confirmer</Button>
       </div>
     </Modal>

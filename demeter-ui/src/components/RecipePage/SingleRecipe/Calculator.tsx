@@ -3,30 +3,38 @@ import { Form } from "react-bootstrap";
 import { getProduct } from "../../../services/inventory.functions";
 import { IngForRecipe } from "../../../types/RecipeTypes.types";
 import { Ingredient } from "../../../types/Types";
-import { getRecipeCost } from "../helper";
+import { getRecipeCost, adjustPrice } from "../helper";
 
 interface CalculatorProps {
   listIng: Ingredient[];
   nbUnit: number;
   otherCost: number;
+  editSuccess: boolean;
 }
 
-function Calculator({ listIng, nbUnit, otherCost }: CalculatorProps) {
-  const [totalCost, setTotalCost] = useState<number>(0);
+function Calculator({
+  listIng,
+  nbUnit,
+  otherCost,
+  editSuccess,
+}: CalculatorProps) {
   const [customNB, setCustomNB] = useState<number>(0);
-
-  var regex1 = new RegExp(/^[0-9]+$/);
-  var regex2 = new RegExp(/[0-9]+[.][0-9]{1}/);
+  const [coutTotal, setCoutTotal] = useState<string>("0");
+  const [coutUnitaire, setCoutUnitaire] = useState<string>("0");
+  const [coutPerso, setCoutPerso] = useState<string>("0");
 
   useEffect(() => {
     async function setTheCost() {
       const recipeCost: number = getRecipeCost(await changeIngFormat(listIng));
       const fullCost: number = recipeCost + otherCost;
-      console.log(recipeCost, otherCost, typeof otherCost);
-      setTotalCost(fullCost);
+      console.log(recipeCost, "+", otherCost, "=", fullCost);
+
+      setCoutTotal(adjustPrice(fullCost));
+      setCoutUnitaire(adjustPrice(fullCost / nbUnit));
+      setCoutPerso(adjustPrice((fullCost / nbUnit) * customNB));
     }
     setTheCost();
-  }, [totalCost, listIng]);
+  }, [coutTotal, listIng, editSuccess, customNB]);
 
   function updateCustomNb() {
     setCustomNB(
@@ -38,8 +46,8 @@ function Calculator({ listIng, nbUnit, otherCost }: CalculatorProps) {
 
   return (
     <div className="calculatorBox flex">
-      <span>Coût total : {Math.round(totalCost + Number.EPSILON * 100) / 100} $</span>
-      <span>Coût unitaire : {(Math.round(totalCost / nbUnit + Number.EPSILON * 100) / 100)} $</span>
+      <span>Coût total : {coutTotal} $</span>
+      <span>Coût unitaire : {coutUnitaire} $</span>
 
       <Form className="mt-3">
         <Form.Group
@@ -51,7 +59,7 @@ function Calculator({ listIng, nbUnit, otherCost }: CalculatorProps) {
           <Form.Control defaultValue={0} type="number" />
         </Form.Group>
       </Form>
-      <span>Coût personnalisé : {Math.round(((totalCost / nbUnit) * customNB) + Number.EPSILON * 100) / 100} $</span>
+      <span>Coût personnalisé : {coutPerso} $</span>
     </div>
   );
 }
@@ -72,4 +80,4 @@ async function changeIngFormat(listI: Ingredient[]): Promise<IngForRecipe[]> {
   return listIF;
 }
 
-export { Calculator };
+export { Calculator};

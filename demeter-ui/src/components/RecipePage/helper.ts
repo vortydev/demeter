@@ -55,10 +55,26 @@ export function pricePerQuantity(ingredient: IngForRecipe): number {
 
   return Math.round((result + Number.EPSILON) * 100) / 100;
 }
+
 function produitCroise(ingredient: IngForRecipe, actualQty: number) {
   return (
     (parseFloat(ingredient.ingredient.price) /
       parseFloat(ingredient.ingredient.qtyUnit)) *
     actualQty
   );
+}
+
+export function adjustPrice(price: number) {
+  var regex1 = new RegExp(/^[0-9]+$/);
+  var regex2 = new RegExp(/[0-9]+[.][0-9]{1}/);
+
+  var strPrice = (Math.round((price + Number.EPSILON) * 100) / 100).toFixed(2).toString();
+
+  if (regex1.test(strPrice)) {
+    strPrice = strPrice.concat(".00");
+  } else if (!regex2.test(strPrice)) {
+    strPrice = strPrice.concat("0");
+  }
+  
+  return strPrice;
 }

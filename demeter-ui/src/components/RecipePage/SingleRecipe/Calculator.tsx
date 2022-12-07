@@ -11,9 +11,10 @@ interface CalculatorProps {
   listIng: Ingredient[];
   nbUnit: number;
   otherCost: number;
+  editSuccess: boolean;
 }
 
-function Calculator({ listIng, nbUnit, otherCost }: CalculatorProps) {
+function Calculator({ listIng, nbUnit, otherCost, editSuccess }: CalculatorProps) {
   const [totalCost, setTotalCost] = useState<number>(0);
   const [customNB, setCustomNB] = useState<number>(0);
 
@@ -35,7 +36,7 @@ function Calculator({ listIng, nbUnit, otherCost }: CalculatorProps) {
       setTotalCost(fullCost);
     }
     setTheCost();
-  }, [totalCost, listIng]);
+  }, [totalCost, listIng, editSuccess]);
 
   function updateCustomNb() {
     setCustomNB(

@@ -57,7 +57,7 @@ function SingleRecipePage({
 
         <div className="singleRecipeInterface">
           <h3>Calculateur</h3>
-          <Calculator listIng={listIng} nbUnit={recipe!.nbUnitCreated} otherCost={recipe!.otherCost} />
+          <Calculator listIng={listIng} nbUnit={recipe!.nbUnitCreated} otherCost={recipe!.otherCost} editSuccess={editSuccess} />
 
           <div className="singleRecipeBtnBox flex mt-4">
             <Button variant="icon-dark" onClick={() => setShowInstruction(true)}>

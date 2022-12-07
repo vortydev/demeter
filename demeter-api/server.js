@@ -145,26 +145,3 @@ const PORT = process.env.NODE_DOCKER_PORT;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
-
-// read CSV file of a backup
-module.exports.readCSVFile = function (dumpPath) {
-  const fs = require('fs');
-  const csv = require('csv');
-
-  fs.readFile(dumpPath, (err, data) => {
-    if (err) throw err;
-
-    csv.parse(data, (err, data) => {
-      if (err) throw err;
-
-      // Insert data into Sequelize MySQL database
-      db.sequelize.query(`INSERT INTO tableName VALUES ?`, { replacements: [data] })
-        .then(() => {
-          console.log('Data successfully inserted into database!');
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    });
-  });
-};

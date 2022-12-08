@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Task } from "../../../types/Types";
 import { TaskRow } from "../TaskRow";
+import Accordion from "react-bootstrap/Accordion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
 interface HebdoTaskProps {
   listTask: Task[];
@@ -11,7 +14,14 @@ interface HebdoTaskProps {
   role: string;
 }
 
-function HebdoTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, completedSuccess, role }: HebdoTaskProps) {
+function HebdoTaskDisplay({
+  listTask,
+  allCatTask,
+  deleteSuccess,
+  editSuccess,
+  completedSuccess,
+  role,
+}: HebdoTaskProps) {
   const [listTaskMon, setLTMon] = useState<Task[]>([]);
   const [listTaskTue, setLTTue] = useState<Task[]>([]);
   const [listTaskWed, setLTWed] = useState<Task[]>([]);
@@ -22,122 +32,172 @@ function HebdoTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, co
 
   useEffect(() => {
     const noChildList = listTask.filter((t) => t.parentId === 0);
-    setLTMon(listTask.filter(t => t.whenToDo === "mon"));
-    setLTTue(listTask.filter(t => t.whenToDo === "tue"));
-    setLTWed(listTask.filter(t => t.whenToDo === "wed"));
-    setLTThu(listTask.filter(t => t.whenToDo === "thu"));
-    setLTFri(listTask.filter(t => t.whenToDo === "fri"));
-    setLTSat(listTask.filter(t => t.whenToDo === "sat"));
-    setLTSun(listTask.filter(t => t.whenToDo === "sun"));
-
+    setLTMon(listTask.filter((t) => t.whenToDo === "mon"));
+    setLTTue(listTask.filter((t) => t.whenToDo === "tue"));
+    setLTWed(listTask.filter((t) => t.whenToDo === "wed"));
+    setLTThu(listTask.filter((t) => t.whenToDo === "thu"));
+    setLTFri(listTask.filter((t) => t.whenToDo === "fri"));
+    setLTSat(listTask.filter((t) => t.whenToDo === "sat"));
+    setLTSun(listTask.filter((t) => t.whenToDo === "sun"));
   }, [listTask]);
 
-  return (<article className="taskDisplay">
-    <h3>Lundi</h3>
-    <hr className="taskLine" />
-    <div className="taskRowList flex mb-4">
-      {listTaskMon.map((Task) => (
-        <TaskRow
-          task={Task}
-          listTask={allCatTask}
-          deleteSuccess={deleteSuccess}
-          editSuccess={editSuccess}
-          completedSuccess={completedSuccess}
-          role={role}
-        />
-      ))}
-    </div>
+  return (
+    <Accordion defaultActiveKey={["0"]} alwaysOpen>
+      <Accordion.Item eventKey="0">
+        <Accordion.Header>
+          <span>Lundi</span>
+          <FontAwesomeIcon className="icon" icon={faAngleDown} size="lg" />
+        </Accordion.Header>
+        <hr className="taskLine" />
+        <Accordion.Body>
+          <div className="taskRowList flex mb-4">
+            {listTaskMon.map((Task) => (
+              <TaskRow
+                task={Task}
+                listTask={allCatTask}
+                deleteSuccess={deleteSuccess}
+                editSuccess={editSuccess}
+                completedSuccess={completedSuccess}
+                role={role}
+              />
+            ))}
+          </div>
+        </Accordion.Body>
+      </Accordion.Item>
 
-    <h3>Mardi</h3>
-    <hr className="taskLine" />
-    <div className="taskRowList flex mb-4">
-      {listTaskTue.map((Task) => (
-        <TaskRow
-          task={Task}
-          listTask={allCatTask}
-          deleteSuccess={deleteSuccess}
-          editSuccess={editSuccess}
-          completedSuccess={completedSuccess}
-          role={role}
-        />
-      ))}
-    </div>
+      <Accordion.Item eventKey="1">
+        <Accordion.Header>
+          <span>Mardi</span>
+          <FontAwesomeIcon className="icon" icon={faAngleDown} size="lg" />
+        </Accordion.Header>
+        <hr className="taskLine" />
+        <Accordion.Body>
+          <div className="taskRowList flex mb-4">
+            {listTaskTue.map((Task) => (
+              <TaskRow
+                task={Task}
+                listTask={allCatTask}
+                deleteSuccess={deleteSuccess}
+                editSuccess={editSuccess}
+                completedSuccess={completedSuccess}
+                role={role}
+              />
+            ))}
+          </div>
+        </Accordion.Body>
+      </Accordion.Item>
 
-    <h3>Mercredi</h3>
-    <hr className="taskLine" />
-    <div className="taskRowList flex mb-4">
-      {listTaskWed.map((Task) => (
-        <TaskRow
-          task={Task}
-          listTask={allCatTask}
-          deleteSuccess={deleteSuccess}
-          editSuccess={editSuccess}
-          completedSuccess={completedSuccess}
-          role={role}
-        />
-      ))}
-    </div>
+      <Accordion.Item eventKey="2">
+        <Accordion.Header>
+          <span>Mercredi</span>
+          <FontAwesomeIcon className="icon" icon={faAngleDown} size="lg" />
+        </Accordion.Header>
+        <hr className="taskLine" />
+        <Accordion.Body>
+          <div className="taskRowList flex mb-4">
+            {listTaskWed.map((Task) => (
+              <TaskRow
+                task={Task}
+                listTask={allCatTask}
+                deleteSuccess={deleteSuccess}
+                editSuccess={editSuccess}
+                completedSuccess={completedSuccess}
+                role={role}
+              />
+            ))}
+          </div>
+        </Accordion.Body>
+      </Accordion.Item>
 
-    <h3>Jeudi</h3>
-    <hr className="taskLine" />
-    <div className="taskRowList flex mb-4">
-      {listTaskThu.map((Task) => (
-        <TaskRow
-          task={Task}
-          listTask={allCatTask}
-          deleteSuccess={deleteSuccess}
-          editSuccess={editSuccess}
-          completedSuccess={completedSuccess}
-          role={role}
-        />
-      ))}
-    </div>
+      <Accordion.Item eventKey="3">
+        <Accordion.Header>
+          <span>Jeudi</span>
+          <FontAwesomeIcon className="icon" icon={faAngleDown} size="lg" />
+        </Accordion.Header>
+        <hr className="taskLine" />
+        <Accordion.Body>
+          <div className="taskRowList flex mb-4">
+            {listTaskThu.map((Task) => (
+              <TaskRow
+                task={Task}
+                listTask={allCatTask}
+                deleteSuccess={deleteSuccess}
+                editSuccess={editSuccess}
+                completedSuccess={completedSuccess}
+                role={role}
+              />
+            ))}
+          </div>
+        </Accordion.Body>
+      </Accordion.Item>
 
-    <h3>Vendredi</h3>
-    <hr className="taskLine" />
-    <div className="taskRowList flex mb-4">
-      {listTaskFri.map((Task) => (
-        <TaskRow
-          task={Task}
-          listTask={allCatTask}
-          deleteSuccess={deleteSuccess}
-          editSuccess={editSuccess}
-          completedSuccess={completedSuccess}
-          role={role}
-        />
-      ))}
-    </div>
+      <Accordion.Item eventKey="4">
+        <Accordion.Header>
+          <span>Vendredi</span>
+          <FontAwesomeIcon className="icon" icon={faAngleDown} size="lg" />
+        </Accordion.Header>
+        <hr className="taskLine" />
+        <Accordion.Body>
+          <div className="taskRowList flex mb-4">
+            {listTaskFri.map((Task) => (
+              <TaskRow
+                task={Task}
+                listTask={allCatTask}
+                deleteSuccess={deleteSuccess}
+                editSuccess={editSuccess}
+                completedSuccess={completedSuccess}
+                role={role}
+              />
+            ))}
+          </div>
+        </Accordion.Body>
+      </Accordion.Item>
 
-    <h3>Samedi</h3>
-    <hr className="taskLine" />
-    <div className="taskRowList flex mb-4">
-      {listTaskSat.map((Task) => (
-        <TaskRow
-          task={Task}
-          listTask={allCatTask}
-          deleteSuccess={deleteSuccess}
-          editSuccess={editSuccess}
-          completedSuccess={completedSuccess}
-          role={role}
-        />
-      ))}
-    </div>
+      <Accordion.Item eventKey="5">
+        <Accordion.Header>
+          <span>Samedi</span>
+          <FontAwesomeIcon className="icon" icon={faAngleDown} size="lg" />
+        </Accordion.Header>
+        <hr className="taskLine" />
+        <Accordion.Body>
+          <div className="taskRowList flex mb-4">
+            {listTaskSat.map((Task) => (
+              <TaskRow
+                task={Task}
+                listTask={allCatTask}
+                deleteSuccess={deleteSuccess}
+                editSuccess={editSuccess}
+                completedSuccess={completedSuccess}
+                role={role}
+              />
+            ))}
+          </div>
+        </Accordion.Body>
+      </Accordion.Item>
 
-    <h3>Dimanche</h3>
-    <hr className="taskLine" />
-    <div className="taskRowList flex mb-4">
-      {listTaskSun.map((Task) => (
-        <TaskRow
-          task={Task}
-          listTask={allCatTask}
-          deleteSuccess={deleteSuccess}
-          editSuccess={editSuccess}
-          completedSuccess={completedSuccess}
-          role={role}
-        />
-      ))}
-    </div>
-  </article>)
+      <Accordion.Item eventKey="6">
+        <Accordion.Header>
+          <span>Dimanche</span>
+          <FontAwesomeIcon className="icon" icon={faAngleDown} size="lg" />
+        </Accordion.Header>
+        <hr className="taskLine" />
+        <Accordion.Body>
+          <div className="taskRowList flex mb-4">
+            {listTaskSun.map((Task) => (
+              <TaskRow
+                task={Task}
+                listTask={allCatTask}
+                deleteSuccess={deleteSuccess}
+                editSuccess={editSuccess}
+                completedSuccess={completedSuccess}
+                role={role}
+              />
+            ))}
+          </div>
+        </Accordion.Body>
+      </Accordion.Item>
+    </Accordion>
+  );
 }
 
-export { HebdoTaskDisplay }
+export { HebdoTaskDisplay };

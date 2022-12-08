@@ -100,12 +100,37 @@
     margin-inline: auto;
 }
 
-.taskDisplayList h3 {
+.taskDisplayList .accordion-header {
     width: 100%;
     margin: 0;
     text-align: left;
+}
+
+.taskDisplayList .accordion-button {
+    width: fit-content;
+    padding: 0;
     color: var(--demeter-orange);
     font-weight: bold;
+    background-color: unset;
+    border: unset;
+    font-size: 1.75rem !important;
+    display: inline-flex;
+}
+
+.taskDisplayList .accordion-button:focus {
+    box-shadow: none !important;
+}
+
+.taskDisplayList .accordion-button>* {
+    align-self: center;
+}
+
+.taskDisplayList .accordion-button .icon {
+    color: var(--demeter-grey);
+}
+
+.taskDisplayList .accordion-button.collapsed .icon {
+    transform: rotate(-90deg);
 }
 
 .hisDayList {

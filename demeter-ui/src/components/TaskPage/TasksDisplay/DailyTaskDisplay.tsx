@@ -35,6 +35,7 @@ function DailyTaskDisplay({
     <Accordion defaultActiveKey={['0']} alwaysOpen>
       <Accordion.Item eventKey="0">
         <Accordion.Header>Ouverture </Accordion.Header>
+        <hr className="taskLine" />
         <Accordion.Body>
           <div className="taskRowList flex mb-4">
             {listTaskOpen.map((Task) => (
@@ -53,6 +54,7 @@ function DailyTaskDisplay({
 
       <Accordion.Item eventKey="1">
       <Accordion.Header>Pré-Fermeture</Accordion.Header>
+      <hr className="taskLine" />
       <Accordion.Body>
       <div className="taskRowList flex mb-4">
         {listTaskPreClose.map((Task) => (
@@ -71,6 +73,7 @@ function DailyTaskDisplay({
 
       <Accordion.Item eventKey="2">
       <Accordion.Header>Fermeture</Accordion.Header>
+      <hr className="taskLine" />
       <Accordion.Body>
       <div className="taskRowList flex mb-4">
         {listTaskClose.map((Task) => (

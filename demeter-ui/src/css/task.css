@@ -13,6 +13,12 @@
     align-self: center;
 }
 
+.taskName {
+    flex-wrap: nowrap;
+    text-align: left;
+    /* width: 100%; */
+}
+
 .taskRowBox input,
 .taskRowBox .taskResponsable {
     margin-inline: .5rem;

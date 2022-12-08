@@ -7,6 +7,7 @@ bash db-backup.sh
 docker-compose down
 
 # Builds and starts the application
-docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d --build
+docker-compose build
+docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d
 
 exit 0

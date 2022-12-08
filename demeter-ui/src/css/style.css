@@ -180,7 +180,7 @@ input[type="file"] {
 
 .iconBullet {
     color: #CCC;
-    align-self: center;
+    align-self: baseline;
     transform: rotate(90deg);
 }
 

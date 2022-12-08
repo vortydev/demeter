@@ -251,7 +251,7 @@ function TaskPage({role, account}:TaskPageProp): JSX.Element {
       </div>
 
       {(role === "1" || role === "4") && (
-        <div className="btnBar">
+        <div className="btnBar mt-3">
           <Button onClick={() => setSeeHistory(true)} variant="icon-dark" className="centerBtn">
             <FontAwesomeIcon className="icon" icon={faClock} size="lg" />
             <span>Afficher l'historique</span>

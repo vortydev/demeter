@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Accordion from 'react-bootstrap/Accordion';
 import { Task } from "../../../types/Types";
 import { TaskRow } from "../TaskRow";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
 interface DailyTaskProps {
   listTask: Task[];
@@ -34,7 +36,10 @@ function DailyTaskDisplay({
   return (
     <Accordion defaultActiveKey={['0']} alwaysOpen>
       <Accordion.Item eventKey="0">
-        <Accordion.Header>Ouverture </Accordion.Header>
+        <Accordion.Header>
+          <span>Ouverture</span>
+          <FontAwesomeIcon className="icon" icon={faAngleDown} size="lg" />
+        </Accordion.Header>
         <hr className="taskLine" />
         <Accordion.Body>
           <div className="taskRowList flex mb-4">
@@ -53,41 +58,47 @@ function DailyTaskDisplay({
       </Accordion.Item>
 
       <Accordion.Item eventKey="1">
-      <Accordion.Header>Pré-Fermeture</Accordion.Header>
-      <hr className="taskLine" />
-      <Accordion.Body>
-      <div className="taskRowList flex mb-4">
-        {listTaskPreClose.map((Task) => (
-          <TaskRow
-            task={Task}
-            listTask={allCatTask}
-            deleteSuccess={deleteSuccess}
-            editSuccess={editSuccess}
-            completedSuccess={completedSuccess}
-            role={role}
-          />
-        ))}
-      </div>
-      </Accordion.Body>
+        <Accordion.Header>
+          <span>Pré-Fermeture</span>
+          <FontAwesomeIcon className="icon" icon={faAngleDown} size="lg" />
+        </Accordion.Header>
+        <hr className="taskLine" />
+        <Accordion.Body>
+          <div className="taskRowList flex mb-4">
+            {listTaskPreClose.map((Task) => (
+              <TaskRow
+                task={Task}
+                listTask={allCatTask}
+                deleteSuccess={deleteSuccess}
+                editSuccess={editSuccess}
+                completedSuccess={completedSuccess}
+                role={role}
+              />
+            ))}
+          </div>
+        </Accordion.Body>
       </Accordion.Item>
 
       <Accordion.Item eventKey="2">
-      <Accordion.Header>Fermeture</Accordion.Header>
-      <hr className="taskLine" />
-      <Accordion.Body>
-      <div className="taskRowList flex mb-4">
-        {listTaskClose.map((Task) => (
-          <TaskRow
-            task={Task}
-            listTask={allCatTask}
-            deleteSuccess={deleteSuccess}
-            editSuccess={editSuccess}
-            completedSuccess={completedSuccess}
-            role={role}
-          />
-        ))}
-      </div>
-      </Accordion.Body>
+        <Accordion.Header>
+          <span>Fermeture</span>
+          <FontAwesomeIcon className="icon" icon={faAngleDown} size="lg" />
+        </Accordion.Header>
+        <hr className="taskLine" />
+        <Accordion.Body>
+          <div className="taskRowList flex mb-4">
+            {listTaskClose.map((Task) => (
+              <TaskRow
+                task={Task}
+                listTask={allCatTask}
+                deleteSuccess={deleteSuccess}
+                editSuccess={editSuccess}
+                completedSuccess={completedSuccess}
+                role={role}
+              />
+            ))}
+          </div>
+        </Accordion.Body>
       </Accordion.Item>
     </Accordion>
   );

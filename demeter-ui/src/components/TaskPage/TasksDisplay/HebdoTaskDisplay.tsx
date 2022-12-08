@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Task } from "../../../types/Types";
 import { TaskRow } from "../TaskRow";
 import Accordion from "react-bootstrap/Accordion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
 interface HebdoTaskProps {
   listTask: Task[];
@@ -42,7 +44,10 @@ function HebdoTaskDisplay({
   return (
     <Accordion defaultActiveKey={["0"]} alwaysOpen>
       <Accordion.Item eventKey="0">
-        <Accordion.Header>Lundi</Accordion.Header>
+        <Accordion.Header>
+          <span>Lundi</span>
+          <FontAwesomeIcon className="icon" icon={faAngleDown} size="lg" />
+        </Accordion.Header>
         <hr className="taskLine" />
         <Accordion.Body>
           <div className="taskRowList flex mb-4">
@@ -59,8 +64,12 @@ function HebdoTaskDisplay({
           </div>
         </Accordion.Body>
       </Accordion.Item>
+
       <Accordion.Item eventKey="1">
-        <Accordion.Header>Mardi</Accordion.Header>
+        <Accordion.Header>
+          <span>Mardi</span>
+          <FontAwesomeIcon className="icon" icon={faAngleDown} size="lg" />
+        </Accordion.Header>
         <hr className="taskLine" />
         <Accordion.Body>
           <div className="taskRowList flex mb-4">
@@ -77,8 +86,12 @@ function HebdoTaskDisplay({
           </div>
         </Accordion.Body>
       </Accordion.Item>
+
       <Accordion.Item eventKey="2">
-        <Accordion.Header>Mercredi</Accordion.Header>
+        <Accordion.Header>
+          <span>Mercredi</span>
+          <FontAwesomeIcon className="icon" icon={faAngleDown} size="lg" />
+        </Accordion.Header>
         <hr className="taskLine" />
         <Accordion.Body>
           <div className="taskRowList flex mb-4">
@@ -95,8 +108,12 @@ function HebdoTaskDisplay({
           </div>
         </Accordion.Body>
       </Accordion.Item>
+
       <Accordion.Item eventKey="3">
-        <Accordion.Header>Jeudi</Accordion.Header>
+        <Accordion.Header>
+          <span>Jeudi</span>
+          <FontAwesomeIcon className="icon" icon={faAngleDown} size="lg" />
+        </Accordion.Header>
         <hr className="taskLine" />
         <Accordion.Body>
           <div className="taskRowList flex mb-4">
@@ -113,8 +130,12 @@ function HebdoTaskDisplay({
           </div>
         </Accordion.Body>
       </Accordion.Item>
+
       <Accordion.Item eventKey="4">
-        <Accordion.Header>Vendredi</Accordion.Header>
+        <Accordion.Header>
+          <span>Vendredi</span>
+          <FontAwesomeIcon className="icon" icon={faAngleDown} size="lg" />
+        </Accordion.Header>
         <hr className="taskLine" />
         <Accordion.Body>
           <div className="taskRowList flex mb-4">
@@ -131,8 +152,12 @@ function HebdoTaskDisplay({
           </div>
         </Accordion.Body>
       </Accordion.Item>
+
       <Accordion.Item eventKey="5">
-        <Accordion.Header>Samedi</Accordion.Header>
+        <Accordion.Header>
+          <span>Samedi</span>
+          <FontAwesomeIcon className="icon" icon={faAngleDown} size="lg" />
+        </Accordion.Header>
         <hr className="taskLine" />
         <Accordion.Body>
           <div className="taskRowList flex mb-4">
@@ -148,9 +173,13 @@ function HebdoTaskDisplay({
             ))}
           </div>
         </Accordion.Body>
-      </Accordion.Item>{" "}
+      </Accordion.Item>
+
       <Accordion.Item eventKey="6">
-        <Accordion.Header>Dimanche</Accordion.Header>
+        <Accordion.Header>
+          <span>Dimanche</span>
+          <FontAwesomeIcon className="icon" icon={faAngleDown} size="lg" />
+        </Accordion.Header>
         <hr className="taskLine" />
         <Accordion.Body>
           <div className="taskRowList flex mb-4">

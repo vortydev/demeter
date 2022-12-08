@@ -9,12 +9,11 @@ DB_PWD=$(cat .env | grep MYSQLDB_ROOT_PASSWORD | cut -d '=' -f2)
 
 # Print a list of the available backups
 echo "Below is a list of the latest backups:"
-ls -1 backups | grep "demeter_db_" | sort -r | nl
+ls -1 backups | grep "demeter_db_" | sort -r | nl | head -5
 
 # Asks the user to choose a file
 printf "\nEnter the file you wish to restore from: "
 read dumpPath
-echo $dumpPath
 
 # Create a "backups" folder if it doesn't exist
 if [ ! -d "backups" ]; then

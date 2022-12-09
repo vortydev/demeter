@@ -3,7 +3,6 @@ import { Task } from "../types/Types";
 
 function getAll() {
   const tasks = TaskService.getAll()
-
     .then((response) => {
       return response.data;
     })

@@ -91,7 +91,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
       }, 5000);
     }
     else {
-      const newsTask = {
+      const newsTask: Task = {
         id: 1,
         title: taskTitle.value,
         description: taskDesc.value,
@@ -99,7 +99,6 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
         parentId: 0,
         active: true,
         completed: false,
-        picture: null,
         date: new Date(),
         responsable: "",
         receiver: "",
@@ -111,7 +110,6 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
       const taskCreated = await createTask(newsTask);
       if (taskCreated) {
         setTaskInEdit(taskCreated);
-        success();
         setAddTask(false);
       } else {
         console.log("that task wasnt created");
@@ -196,7 +194,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
             {emptyTask && <Alert variant="danger">Veuillez donner un titre à la tâche.</Alert>}
             <Form.Group className="mb-2" controlId="tasktitle">
               <Form.Label>Titre de l'annonce</Form.Label>
-              <Form.Control as="textarea" rows={3} />
+              <Form.Control type="text" />
             </Form.Group>
 
             <Form.Group className="mb-2" controlId="taskdescription">

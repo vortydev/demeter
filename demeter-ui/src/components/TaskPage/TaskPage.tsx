@@ -113,7 +113,7 @@ function TaskPage({role, account}:TaskPageProp): JSX.Element {
   return (
     <section className="appPage">
 
-<ButtonGroup>
+{(role === "1" || role === "4")&& <ButtonGroup>
             {receiver.map((radio, idx) => (
               <ToggleButton
                 key={idx}
@@ -127,7 +127,7 @@ function TaskPage({role, account}:TaskPageProp): JSX.Element {
                 {radio.name}
               </ToggleButton>
             ))}
-          </ButtonGroup>
+          </ButtonGroup>}
       <TaskNav
         taskCategory={taskCategory}
         setTaskCategory={setTaskCategory}

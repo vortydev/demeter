@@ -5,7 +5,7 @@ import { InventoryUpdate } from './InventoryUpdate';
 import "../../css/inventory.css";
 import { VendorDisplay } from './Vendor/VendorDisplay';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faList, faPlus, faArrowsRotate, faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faList, faPlus, faArrowsRotate, faEdit, faTrashAlt, faFileArrowDown } from "@fortawesome/free-solid-svg-icons";
 import { confirmAlert } from 'react-confirm-alert';
 import { getAll, deleteProduct, getProductsByCategory, getProductsByVendor, getProductsByCategoryVendor, getProductsByName, getProductsByCategoryName, getProductsByNameVendor, getProductsByCategoryVendorName } from '../../services/inventory.functions';
 import { Product } from '../../types/Types';
@@ -51,16 +51,22 @@ function InventoryPage({role}:InventoryPageProps): JSX.Element {
     return (
         <section className="appPage">
             {(role === "1" || role === "4") && <div className="btnBar mt-5 mb-4">
-                <Button variant="icon-outline" className="leftBtn" onClick={() => setVendor(true)}>
+                <Button variant="icon-outline" onClick={() => setVendor(true)}>
                     <FontAwesomeIcon className="iconList" icon={faList} size="lg" />
                     <span>Fournisseurs</span>
                 </Button>
-                <Button variant="icon-outline" onClick={() => {
+                <Button variant="icon-outline" className="centerBtn" onClick={() => {
                     setCreateNewProduct(true);
                     setSuccess(false);
                 }}>
                     <FontAwesomeIcon className="iconPlus" icon={faPlus} size="lg" />
                     <span>Nouveau Produit</span>
+                </Button>
+                <Button variant="icon-outline" onClick={() => {
+                    // FONCTION POUR DOWNLOAD LA LISTE
+                }}>
+                    <FontAwesomeIcon className="iconPlus" icon={faFileArrowDown} size="lg" />
+                    <span>Télécharger</span>
                 </Button>
             </div>}
 

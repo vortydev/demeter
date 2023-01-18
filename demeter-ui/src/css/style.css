@@ -425,6 +425,29 @@ input[type="file"] {
     visibility: hidden;
 }
 
+.btn-group > .btn-check {
+    display: none;
+}
+
+.btn-group > label {
+    min-width: 7rem;
+    margin-bottom: 0;
+    font-size: 1.4rem;
+}
+
+.btn-group > label:focus {
+    box-shadow: none !important;
+}
+
+.btn-group > label:first-of-type {
+    border-bottom-left-radius: .25rem !important;
+    border-top-left-radius: .25rem !important;
+}
+
+.btn-group > label.selected {
+    background-color: var(--demeter-green-v);
+}
+
 /* btn-icon */
 [class*="btn-icon"] {
     display: flex !important;

@@ -95,7 +95,7 @@ function NewsPage({role, account}:NewsPageProps): JSX.Element {
       )}
 
       {newsList.length === 0 && <p>Aucune annonce présentement.</p>}
-      {newsList.map((news) => (
+      {newsList.reverse().map((news) => (
         <NewsPreview
           news={news}
           editedSuccess={setEditedSucess}

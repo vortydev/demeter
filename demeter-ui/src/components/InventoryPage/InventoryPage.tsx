@@ -11,6 +11,7 @@ import { getAll, deleteProduct, getProductsByCategory, getProductsByVendor, getP
 import { Product } from '../../types/Types';
 import { InventoryEditProductForm } from './InventoryUpdateProduct';
 import { FilterInventory } from './SubComponents/FilterInventory';
+import { InventoryInvoiceButton } from './SubComponents/InventoryRapport';
 
 interface InventoryPageProps{
     role: string;
@@ -62,12 +63,7 @@ function InventoryPage({role}:InventoryPageProps): JSX.Element {
                     <FontAwesomeIcon className="iconPlus" icon={faPlus} size="lg" />
                     <span>Nouveau Produit</span>
                 </Button>
-                <Button variant="icon-outline" onClick={() => {
-                    // FONCTION POUR DOWNLOAD LA LISTE
-                }}>
-                    <FontAwesomeIcon className="iconPlus" icon={faFileArrowDown} size="lg" />
-                    <span>Télécharger</span>
-                </Button>
+                <InventoryInvoiceButton />
             </div>}
 
             <FilterInventory setCategory={setCategoryFilter} setVendor={setVendorFilter} setName={setNameFilter} role={role} />

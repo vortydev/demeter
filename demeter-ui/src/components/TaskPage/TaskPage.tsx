@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Alert, Button } from "react-bootstrap";
+import { Alert, Button, ButtonGroup, ToggleButton } from "react-bootstrap";
 import {
   getbyCategorie,
   resetTask,
 } from "../../services/task.funtions";
-import { Task, TaskHistory } from "../../types/Types";
+import { Account, Task, TaskHistory } from "../../types/Types";
 import { CreateTaskForm } from "./createTaskForm";
 import { TaskNav } from "./TaskNav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,12 +19,14 @@ import { HebdoTaskDisplay } from "./TasksDisplay/HebdoTaskDisplay";
 import { OtherTaskDisplay } from "./TasksDisplay/OtherTaskDisplay";
 import { createTaskHistory, ifTodayHistory } from "../../services/taskHistory.functions";
 import { TaskHistoryModal } from "./TaskHistory/TaskHistoryModal";
+import { getAccountsByRole } from "../../services/account.functions";
 
-interface TaskPageProp{
+interface TaskPageProp {
   role: string;
   account: string;
 }
-function TaskPage({role, account}:TaskPageProp): JSX.Element {
+
+function TaskPage({ role, account }: TaskPageProp): JSX.Element {
   const [createdSuccess, setSuccess] = useState<boolean>(false);
   const [deletedSuccess, setDelete] = useState<boolean>(false);
   const [editedSuccess, setEdit] = useState<boolean>(false);
@@ -35,6 +37,8 @@ function TaskPage({role, account}:TaskPageProp): JSX.Element {
   const [createTask, setCreateTask] = useState<boolean>(false);
   const [seeHistory, setSeeHistory] = useState<boolean>(false);
   const [dayStarted, setDayStarted] = useState<boolean>(false);
+  const [receiver, setReceiver] = useState<{ name: string, value: string }[]>([]);
+  const [chosenReceiver, setChosen] = useState<String>("");
   const today = new Date();
   const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
@@ -46,6 +50,14 @@ function TaskPage({role, account}:TaskPageProp): JSX.Element {
       console.log("taskpage await", await ifTodayHistory(date, taskCategory))
       console.log('day Started for :', taskCategory, ":", dayStarted);
 
+      const listAccount: Account[] = await getAccountsByRole(2);
+      var accountOption = listAccount.map((employee: Account) => (
+        { name: employee.accName, value: employee.accName }
+      ))
+
+      accountOption.push({ name: 'Livreur', value: 'delivery' });
+      setReceiver(accountOption);
+
       if (role === "2") {
         const taskForAccount: Task[] = taskByCat.filter(
           (t) => t.receiver === account
@@ -54,8 +66,9 @@ function TaskPage({role, account}:TaskPageProp): JSX.Element {
       } else if (role === "3") {
         setAccountTask(taskByCat.filter((t) => t.receiver === "delivery"));
       } else {
-        setAccountTask(taskByCat);
+        setAccountTask(taskByCat.filter((t) => t.receiver === chosenReceiver));
       }
+
     }
     getList();
   }, [
@@ -64,6 +77,7 @@ function TaskPage({role, account}:TaskPageProp): JSX.Element {
     deletedSuccess,
     editedSuccess,
     taskCompleted,
+    chosenReceiver,
   ]);
 
   async function resetTasksByCat() {
@@ -97,6 +111,15 @@ function TaskPage({role, account}:TaskPageProp): JSX.Element {
     }
   }
 
+  async function setDefaultView() {
+    if (chosenReceiver === "") {
+      const listAccount: Account[] = await getAccountsByRole(2);
+      setChosen(listAccount[0].accName);
+    }
+  }
+
+  setDefaultView();
+
   return (
     <section className="appPage">
       <TaskNav
@@ -105,6 +128,24 @@ function TaskPage({role, account}:TaskPageProp): JSX.Element {
         success={createdSuccess}
         setSuccess={setSuccess}
       />
+
+      {(role === "1" || role === "4") && <ButtonGroup className="taskView mb-4">
+        {receiver.map((radio, idx) => (
+          <ToggleButton
+            className={`${chosenReceiver === radio.value ? "selected" : ""}`}
+            variant="demeter"
+            key={idx}
+            id={`radio-${idx}`}
+            type="radio"
+            name="radio"
+            value={radio.value}
+            checked={chosenReceiver === radio.value}
+            onChange={(e) => setChosen(e.currentTarget.value)}
+          >
+            {radio.name}
+          </ToggleButton>
+        ))}
+      </ButtonGroup>}
 
       {createdSuccess && <Alert variant="success">La tâche a été créée avec succès !</Alert>}
       {editedSuccess && <Alert variant="success">La tâche a été modifiée avec succès !</Alert>}

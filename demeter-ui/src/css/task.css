@@ -191,12 +191,20 @@
     background-color: var(--demeter-blue-v) !important;
 }
 
+.bleuCentroTaskBtn:focus {
+    border-color: var(--demeter-blue-v) !important;
+}
+
 .mauveLivreurTaskBtn {
     background-color: var(--demeter-mauve) !important;
 }
 
 .mauveLivreurTaskBtn:hover, .mauveLivreurTaskBtn.selected {
     background-color: var(--demeter-mauve-v) !important;
+}
+
+.mauveLivreurTaskBtn:focus {
+    border-color: var(--demeter-mauve-v) !important;
 }
 
 /* TASK RESPONSIVE */

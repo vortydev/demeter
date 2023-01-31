@@ -147,7 +147,8 @@
 }
 
 .hisDayList .hisDayBtn {
-    width: 10rem;
+    width: 8.5rem;
+    font-size: 1.15rem !important;
     margin-inline: .5rem;
 }
 
@@ -180,6 +181,22 @@
 
 .taskParent span:first-child {
     color: var(--demeter-green);
+}
+
+.bleuCentroTaskBtn {
+    background-color: var(--demeter-blue) !important;
+  }
+  
+.bleuCentroTaskBtn:hover, .bleuCentroTaskBtn.selected {
+    background-color: var(--demeter-blue-v) !important;
+}
+
+.mauveLivreurTaskBtn {
+    background-color: var(--demeter-mauve) !important;
+}
+
+.mauveLivreurTaskBtn:hover, .mauveLivreurTaskBtn.selected {
+    background-color: var(--demeter-mauve-v) !important;
 }
 
 /* TASK RESPONSIVE */

@@ -47,8 +47,6 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
       const taskByCat: Task[] = await getbyCategorie(taskCategory);
       setAllCatTask(taskByCat);
       setDayStarted(await ifTodayHistory(date, taskCategory));
-      console.log("taskpage await", await ifTodayHistory(date, taskCategory))
-      console.log('day Started for :', taskCategory, ":", dayStarted);
 
       const listAccount: Account[] = await getAccountsByRole(2);
       var accountOption = listAccount.map((employee: Account) => (
@@ -81,7 +79,6 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
   ]);
 
   async function resetTasksByCat() {
-    console.log('the date', date);
     for (const task of allCatTask) {
       await enterInHistory(task, date);
     }
@@ -114,7 +111,13 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
   async function setDefaultView() {
     if (chosenReceiver === "") {
       const listAccount: Account[] = await getAccountsByRole(2);
-      setChosen(listAccount[0].accName);
+
+      if (listAccount.length > 0) {
+        setChosen(listAccount[0].accName);
+      }
+      else {
+        setChosen("delivery");
+      }
     }
   }
 
@@ -132,7 +135,11 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
       {(role === "1" || role === "4") && <ButtonGroup className="taskView mb-4">
         {receiver.map((radio, idx) => (
           <ToggleButton
-            className={`${chosenReceiver === radio.value ? "selected" : ""} ${"Centro" === radio.value ? "bleuCentroTaskBtn" : ""}`}
+            className={`
+              ${chosenReceiver === radio.value ? "selected" : ""}
+              ${"Centro" === radio.value ? "bleuCentroTaskBtn" : ""}
+              ${"delivery" === radio.value ? "mauveLivreurTaskBtn" : ""}
+            `}
             variant="demeter"
             key={idx}
             id={`radio-${idx}`}
@@ -292,7 +299,7 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
       </div>
 
       {(role === "1" || role === "4") && (
-        <div className="btnBar mt-3">
+        <div className="btnBar mt-4">
           <Button onClick={() => setSeeHistory(true)} variant="icon-dark" className="centerBtn">
             <FontAwesomeIcon className="icon" icon={faClock} size="lg" />
             <span>Afficher l'historique</span>

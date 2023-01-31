@@ -28,8 +28,6 @@ function TaskHistoryModal({ show, newHistory, close }: taskHistoryProps) {
         .map((task) => task.completionDate)
         .filter((value, index, self) => self.indexOf(value) === index)
     );
-
-    // console.log(history.map(task => task.completionDate).filter((value, index, self) => self.indexOf(value) === index));
   }
 
   useEffect(() => {
@@ -56,7 +54,7 @@ function TaskHistoryModal({ show, newHistory, close }: taskHistoryProps) {
           {weekPrior.map((day) => ( 
             <Button
               className="hisDayBtn mb-2"
-              variant="demeter-dark"
+              variant="outline-dark"
               onClick={() => setDay(day)}
             >
               {new Date (new Date(day).getTime() -  1 * 24 * 60 * 60 * 1000).toLocaleDateString()}

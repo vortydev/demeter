@@ -67,14 +67,6 @@
   font-family: 'Spectral SC', serif;
 }
 
-.bleuCentroTaskBtn {
-  background-color: var(--demeter-blue) !important;
-}
-
-.bleuCentroTaskBtn:hover, .bleuCentroTaskBtn.selected {
-  background-color: var(--demeter-blue-v) !important;
-}
-
 .deco {
   width: 7rem;
   font-size: .9rem !important;

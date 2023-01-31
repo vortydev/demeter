@@ -27,6 +27,7 @@ function TaskHistoryModal({ show, newHistory, close }: taskHistoryProps) {
       history
         .map((task) => task.completionDate)
         .filter((value, index, self) => self.indexOf(value) === index)
+        .reverse()
     );
   }
 
@@ -51,7 +52,7 @@ function TaskHistoryModal({ show, newHistory, close }: taskHistoryProps) {
         </p>
 
         <div className="hisDayList flex mb-2">
-          {weekPrior.reverse().map((day) => ( 
+          {weekPrior.map((day) => ( 
             <Button
               className="hisDayBtn mb-2"
               variant="outline-dark"

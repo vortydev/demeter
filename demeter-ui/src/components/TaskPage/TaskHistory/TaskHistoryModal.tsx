@@ -66,7 +66,7 @@ function TaskHistoryModal({ show, newHistory, close }: taskHistoryProps) {
 
         {daysHistory.length > 0 && (
           <div className="hisTaskList">
-            {daysHistory.map((t) => (
+            {daysHistory.reverse().map((t) => (
               <div>
                 {t.parentId === 0 && <hr className="taskLine" />}
                 <div className="hisTaskRow flex cellShade">

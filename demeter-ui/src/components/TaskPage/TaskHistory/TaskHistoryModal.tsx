@@ -51,7 +51,7 @@ function TaskHistoryModal({ show, newHistory, close }: taskHistoryProps) {
         </p>
 
         <div className="hisDayList flex mb-2">
-          {weekPrior.map((day) => ( 
+          {weekPrior.reverse().map((day) => ( 
             <Button
               className="hisDayBtn mb-2"
               variant="outline-dark"
@@ -64,7 +64,7 @@ function TaskHistoryModal({ show, newHistory, close }: taskHistoryProps) {
 
         {daysHistory.length > 0 && (
           <div className="hisTaskList">
-            {daysHistory.reverse().map((t) => (
+            {daysHistory.map((t) => (
               <div>
                 {t.parentId === 0 && <hr className="taskLine" />}
                 <div className="hisTaskRow flex cellShade">

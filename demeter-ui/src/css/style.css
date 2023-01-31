@@ -11,6 +11,8 @@
     --demeter-orange-h: #fff7ef;
     --demeter-grey: #696969;
     --demeter-purple: rgb(117, 67, 180, .15);
+    --demeter-blue: #437a9e;
+    --demeter-blue-v: #3f7091;
 }
 
 /* defaults */
@@ -186,6 +188,10 @@ input[type="file"] {
 
 .iconCheck {
     color: var(--demeter-green);
+}
+
+.iconCheckCentro {
+    color: var(--demeter-blue);
 }
 
 /* popup ui */

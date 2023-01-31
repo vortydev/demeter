@@ -85,7 +85,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
     <article className="taskRowBox">
       <div className={`taskRow flex cellShade ${task.priority ? "priority" : ""}`}>
         <div className={`flex taskName ${subListTask.length !== 0 ? "taskParent" : ""}`}>
-          {task.completed && <FontAwesomeIcon className="iconCheck" icon={faCheck} size="lg" />}
+          {task.completed && <FontAwesomeIcon className={`iconCheck ${task.receiver === "Centro" ? "iconCheckCentro" : ""} `} icon={faCheck} size="lg" />}
           <span>{task.title}</span>
           {task.taskMaster !== "" && <span className="taskMaster">({task.taskMaster})</span>}
         </div>
@@ -144,7 +144,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
           <div className={`taskChildRow flex cellShade ${st.priority ? "priority" : ""}`}>
             <div className="flex taskName">
               {!st.completed && <FontAwesomeIcon className="iconBullet mr-2 ml-1" icon={faTurnUp} size="sm" />}
-              {st.completed && <FontAwesomeIcon className="iconCheck" icon={faCheck} size="lg" />}
+              {st.completed && <FontAwesomeIcon className={`iconCheck ${task.receiver === "Centro" ? "iconCheckCentro" : ""} `} icon={faCheck} size="lg" />}
               <span>{st.title}</span>
             </div>
 

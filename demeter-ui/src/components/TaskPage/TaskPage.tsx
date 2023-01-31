@@ -132,7 +132,7 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
       {(role === "1" || role === "4") && <ButtonGroup className="taskView mb-4">
         {receiver.map((radio, idx) => (
           <ToggleButton
-            className={`${chosenReceiver === radio.value ? "selected" : ""}`}
+            className={`${chosenReceiver === radio.value ? "selected" : ""} ${"Centro" === radio.value ? "bleuCentroTaskBtn" : ""}`}
             variant="demeter"
             key={idx}
             id={`radio-${idx}`}

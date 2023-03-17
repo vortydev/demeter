@@ -72,10 +72,38 @@
   font-size: .9rem !important;
 }
 
-.demeterLogo {
-  height: 2rem;
-  align-self: center;
+.loginText {
+  color: var(--demeter-grey);
+  text-align: center;
+}
+
+.flexLogoBody {
+  display: flex;
+  width: fit-content;
+  flex-wrap: nowrap;
   margin-right: .75rem;
+}
+
+.demeterLogo {
+  height: 2.1rem;
+  padding: .1rem;
+  align-self: center;
+  transition: all .15s;
+  border-radius: .25rem;
+}
+
+.demeterLogo:hover {
+  background-color: var(--demeter-green);
+  cursor: pointer;
+}
+
+#appVersion {
+  color: var(--demeter-green);
+  margin-bottom: 0;
+  font-size: 1rem;
+  align-self: center;
+  margin-left: .5rem;
+  margin-right: .25rem;
 }
 
 .footerText {
@@ -273,12 +301,12 @@
     flex-direction: column;
   }
 
-  .demeterLogo,
+  .flexLogoBody,
   .flexFooter .deco {
     margin: auto;
   }
 
-  .demeterLogo,
+  .flexLogoBody,
   .footerText {
     margin-bottom: .5rem;
   }

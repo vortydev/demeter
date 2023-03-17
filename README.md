@@ -14,25 +14,25 @@ $ docker-compose up -d
 ### Démarrage de l'application en production
 Pour démarrer l'application sur un serveur de production, il faut joindre le fichier de production en paramètre:
 ```
-$ docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d
+$ docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d --build
 ```
 
 ### Sauvegarder la base de données
 Pour effectuer une sauvegarde de la base de données, il suffit d'exécuter le script suivant:
 ```
-$ bash db-backup.sh
+$ bash backup-db.sh
 ```
 Les sauvegardes sont groupées sous `/backups/`.
 
 ### Restaurer une sauvegarde
 Pour restaurer une sauvegarde, exécutez le script suivant:
 ```
-$ bash db-restore.sh
+$ bash restore-db.sh
 ```
-Entrez le nom du fichier que vous voulez restaurer, puis confirmez.
+Entrez le numéro du fichier que vous voulez restaurer, puis confirmez.
 
 ## Auteurs
-- Valery Beauchemin
 - [Étienne Ménard](https://github.com/vortydev)
-- David Pelletier
+- Valery Beauchemin
 - Isabelle Rioux
+- David Pelletier

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Backup the database
-bash db-backup.sh
+bash backup-db.sh
 
 # Stop the application
 docker-compose down

@@ -3,6 +3,8 @@ const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
+const key = "$2a$10$"
+const devPassword = key + process.env.REACT_DEV_PASSWORD;
 
 var corsOptions = {
   origin: process.env.CLIENT_ORIGIN,
@@ -24,7 +26,7 @@ db.sequelize.sync({})                 // {force: true} drops the db
       .bulkCreate(
         [
           { id: "1", role: "Administrateur" },
-          { id: "2", role: "Employé" },
+          { id: "2", role: "Succursale" },
           { id: "3", role: "Livreur" },
           { id: "4", role: "Développeur" },
           { id: "5", role: "Cuisine" },
@@ -108,9 +110,7 @@ db.sequelize.sync({})                 // {force: true} drops the db
           {
             id: "1",
             accName: "dev",
-            accPassword:
-              "$2a$10$McypW7KhpbdC1A9lDH8g5equNOzUYuSi243dPZxtfLXwKZ9La2V.W",
-            // TODO needs to be put in .env files
+            accPassword: devPassword,
             roleId: 4,
             stateId: 2,
           },

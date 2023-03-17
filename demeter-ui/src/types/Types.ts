@@ -15,6 +15,7 @@ type News = {
   taskId: number;
   date: Date;
   priority: boolean;
+  receiver: string;
 }
 
 type Task = {

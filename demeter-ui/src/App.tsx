@@ -23,8 +23,10 @@ function App() {
   },[loggedIn]);
 
   if (loggedIn === undefined) {
+    // redirect to login page if disconnected
     return <LoginPage />;
-  } else {
+  } 
+  else {
     return (
       <div className="App">
         <header className="App-header">

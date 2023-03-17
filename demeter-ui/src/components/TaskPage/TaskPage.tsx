@@ -51,7 +51,7 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
       const listAccount: Account[] = await getAccountsByRole(2);
       var accountOption = listAccount.map((employee: Account) => (
         { name: employee.accName, value: employee.accName }
-      ))
+      ));
 
       accountOption.push({ name: 'Livreur', value: 'delivery' });
       setReceiver(accountOption);

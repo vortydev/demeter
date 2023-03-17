@@ -111,6 +111,9 @@ function NewsPreview({ news, editSuccess, editedSuccess, deleteSuccess, role }: 
           }
           <div className="newsHeader">
             <h2 className="newsTitle">{news.title}</h2>
+            {((role === "1" || role === "4") && news.receiver !== "") &&
+              <h3 className={`newsReceiver ${news.receiver === "RockFo" ? "greenText":""} ${news.receiver === "Centro" ? "blueText":""} ${news.receiver === "delivery" ? "purpleText":""}`}>{(news.receiver === "delivery" ? "Livreurs" : news.receiver)}</h3>
+            }
             <h3 className="newsDate">
               {theDate.toLocaleDateString()} - {news.author}
             </h3>

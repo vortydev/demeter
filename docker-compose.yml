@@ -3,6 +3,7 @@ version: '3.3'
 services:
   mysqldb:
     image: mysql:5.7
+    container_name: mysql
     restart: unless-stopped
     env_file: ./.env
     environment:
@@ -19,6 +20,7 @@ services:
     depends_on:
       - mysqldb
     build: ./demeter-api
+    container_name: demeter-api
     restart: unless-stopped
     env_file: ./.env
     ports:
@@ -41,6 +43,7 @@ services:
       context: ./demeter-ui
       args:
         - REACT_APP_API_BASE_URL=$CLIENT_API_BASE_URL
+    container_name: demeter-ui
     ports:
       - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT
     networks:
@@ -48,7 +51,6 @@ services:
 
 volumes:
   db:
-
 
 networks:
   backend:

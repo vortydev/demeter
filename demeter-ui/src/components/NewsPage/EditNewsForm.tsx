@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 import { updateNews } from "../../services/news.functions";
 import { createTask, deleteTask } from "../../services/task.funtions";
-import { News, Task } from "../../types/Types";
+import { getAccountsByRole } from "../../services/account.functions";
+import { News, Task, Account } from "../../types/Types";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
@@ -23,6 +24,15 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
   const [priority, setPriority] = useState<boolean>(news.priority);
   const [emptyTask, setEmptyTask] = useState<boolean>(false);
   const [empty, setEmpty] = useState<boolean>(false);
+  const [receiverRole, setReceiverRole] = useState<string>(news.roleId);
+  const [listAccount, setListAccount] = useState<Account[]>([]);
+
+  useEffect(() => {
+    async function getList() {
+      setListAccount(await getAccountsByRole(2));
+    }
+    getList();
+  }, []);
 
   async function handleSubmit() {
     setEmpty(false);
@@ -30,6 +40,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
     const title = document.getElementById("title") as HTMLInputElement;
     const author = document.getElementById("author") as HTMLInputElement;
     const receiver = document.getElementById("receiver") as HTMLInputElement;
+    const receiverName = document.getElementById("receiverName") as HTMLInputElement;
     const description = document.getElementById("description") as HTMLInputElement;
 
     if (!title.value || !author.value) {
@@ -39,6 +50,15 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
       }, 5000);
     }
     else {
+      // sets reciever name if it's succursale
+      var receiverAcc = "";
+      if (receiver.value === "2") {
+        receiverAcc = receiverName.value;
+      }
+      else if (receiver.value === "3") {
+        receiverAcc = "delivery";
+      }
+
       const editNews: News = {
         ...news,
         title: title.value,
@@ -47,6 +67,7 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
         roleId: receiver.value,
         taskId: taskInEdit ? taskInEdit.id : news.taskId,
         priority: priority,
+        receiver: receiverAcc,
       };
 
       if (await updateNews(news.id, editNews)) {
@@ -147,12 +168,18 @@ function EditNewsForm({ show, news, task, close, success }: CRFormProps) {
 
         <Form.Group className="popupSelectBox mb-2" controlId="receiver">
           <Form.Label className="popupSelectLabel">Destinataires</Form.Label>
-          <Form.Select defaultValue={news.roleId} aria-label="target">
+          <Form.Select defaultValue={news.roleId} aria-label="target" onChange={(e) => setReceiverRole(e.target.value)}>
             <option value="1">Administrateurs</option>
-            <option value="2">Succursales</option>
+            {(listAccount.length > 0) && <option value="2">Succursale</option>}
             <option value="3">Livreurs</option>
             <option value="4">Autres</option>
           </Form.Select>
+
+          {(receiverRole === "2" || news.receiver !== "") && <Form.Select id="receiverName" className="ml-2" defaultValue={news.receiver}>
+            {listAccount.map((employee) => (
+                <option value={employee.accName}>{employee.accName}</option>
+            ))}
+          </Form.Select>}
         </Form.Group>
 
         <Form.Group className="flex" controlId="priority">

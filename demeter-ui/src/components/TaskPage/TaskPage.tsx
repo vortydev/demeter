@@ -51,7 +51,7 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
       const listAccount: Account[] = await getAccountsByRole(2);
       var accountOption = listAccount.map((employee: Account) => (
         { name: employee.accName, value: employee.accName }
-      ))
+      ));
 
       accountOption.push({ name: 'Livreur', value: 'delivery' });
       setReceiver(accountOption);
@@ -61,9 +61,11 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
           (t) => t.receiver === account
         );
         setAccountTask(taskForAccount);
-      } else if (role === "3") {
+      } 
+      else if (role === "3") {
         setAccountTask(taskByCat.filter((t) => t.receiver === "delivery"));
-      } else {
+      } 
+      else {
         setAccountTask(taskByCat.filter((t) => t.receiver === chosenReceiver));
       }
 
@@ -109,7 +111,7 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
   }
 
   async function setDefaultView() {
-    if (chosenReceiver === "") {
+    if (chosenReceiver === "" && (role === "1" || role === "4")) {
       const listAccount: Account[] = await getAccountsByRole(2);
 
       if (listAccount.length > 0) {

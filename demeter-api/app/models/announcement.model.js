@@ -6,7 +6,8 @@ module.exports = (sequelize, Sequelize) => {
     author: { type: Sequelize.STRING },
     taskId: { type: Sequelize.INTEGER },
     date: { type: Sequelize.DATE },
-    priority : {type: Sequelize.BOOLEAN}
+    priority: {type: Sequelize.BOOLEAN},
+    receiver: { type: Sequelize.TEXT }
   });
 
   return Announcement;

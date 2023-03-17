@@ -43,6 +43,12 @@
     margin-top: .25rem;
 }
 
+.newsReceiver {
+    font-size: 1.5rem;
+    margin-bottom: .25rem;
+    margin-top: .25rem;
+}
+
 .newsLine {
     border: 1.5px solid #EEE;
     width: 50%;

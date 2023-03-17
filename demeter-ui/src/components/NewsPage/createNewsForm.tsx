@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
 import { createNews } from "../../services/news.functions";
 import { createTask } from "../../services/task.funtions";
-import { News, Task } from "../../types/Types";
+import { getAccountsByRole } from "../../services/account.functions";
+import { News, Task, Account } from "../../types/Types";
 
 interface CRFormProps {
   show: boolean;
@@ -16,6 +17,15 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
   const [priority, setPriority] = useState<boolean>(false);
   const [emptyTask, setEmptyTask] = useState<boolean>(false);
   const [empty, setEmpty] = useState<boolean>(false);
+  const [receiver, setReceiver] = useState<string>("");
+  const [listAccount, setListAccount] = useState<Account[]>([]);
+
+  useEffect(() => {
+    async function getList() {
+      setListAccount(await getAccountsByRole(2));
+    }
+    getList();
+  }, []);
 
   async function handlesubmit(): Promise<void> {
 
@@ -69,6 +79,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
     const title = document.getElementById("title") as HTMLInputElement;
     const author = document.getElementById("author") as HTMLInputElement;
     const receiver = document.getElementById("receiver") as HTMLInputElement;
+    const receiverName = document.getElementById("receiverName") as HTMLInputElement;
     const description = document.getElementById("description") as HTMLInputElement;
 
     if (!title.value || !author.value) {
@@ -78,6 +89,15 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
       }, 5000);
     }
     else {
+      // sets reciever name if it's succursale
+      var receiverAcc = "";
+      if (receiver.value === "2") {
+        receiverAcc = receiverName.value;
+      }
+      else if (receiver.value === "3") {
+        receiverAcc = "delivery";
+      }
+
       const newNews: News = {
         id: 1,
         title: title.value,
@@ -88,6 +108,7 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
         taskId: taskCreated ? taskCreated.id : 0,
         date: new Date(),
         priority: priority,
+        receiver: receiverAcc,
       };
 
       setError(false);
@@ -125,12 +146,18 @@ function CreateNewsForm({ show, close, success }: CRFormProps) {
 
         <Form.Group className="popupSelectBox mb-2" controlId="receiver">
           <Form.Label className="popupSelectLabel">Destinataires</Form.Label>
-          <Form.Select aria-label="target">
+          <Form.Select aria-label="target" onChange={(e) => setReceiver(e.target.value)}>
             <option value="1">Administrateurs</option>
-            <option value="2">Succursales</option>
+            {(listAccount.length > 0) && <option value="2">Succursale</option>}
             <option value="3">Livreurs</option>
             <option value="4">Autres</option>
           </Form.Select>
+
+          {(receiver === "2") && <Form.Select id="receiverName" className="ml-2">
+            {listAccount.map((employee) => (
+                <option value={employee.accName}>{employee.accName}</option>
+              ))}
+          </Form.Select>}
         </Form.Group>
 
         <Form.Group className="flex" controlId="priority">

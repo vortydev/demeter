@@ -43,6 +43,7 @@ services:
       context: ./demeter-ui
       args:
         - REACT_APP_API_BASE_URL=$CLIENT_API_BASE_URL
+        - REACT_DEV_PASSWORD=$DEV_PASSWORD
     container_name: demeter-ui
     ports:
       - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT

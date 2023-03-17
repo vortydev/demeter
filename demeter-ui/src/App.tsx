@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { LoginPage } from "./components/Login Page/LoginPage";
 import { Navbar } from "./components/Templates/Navbar";
-import { Footerbar } from "./components/Templates/Footerbar";
+import { FooterBar } from "./components/Templates/Footerbar";
 import { BodyDemeter } from "./components/Templates/BodyDemeter";
 import "./css/App.css";
 import { getCookieAccount, getCookieRole } from "./services/cookie.functions";
 import { getCookie } from "typescript-cookie";
+import packageJson from '../package.json';
 
 function App() {
   const [pageOn, setPageOn] = useState<string>("news");
@@ -35,7 +36,8 @@ function App() {
         <main className="App-body">
           <BodyDemeter selected={pageOn} setSelected={setPageOn} role={role} account={account}/>
         </main>
-        <Footerbar />
+
+        <FooterBar appVersion={packageJson.version}/>
       </div>
     );
   }

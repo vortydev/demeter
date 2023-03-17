@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Change the current directory to the root of the project
-cd "$(dirname "$0")"/..
-
 # Get the ID of the docker container that runs the mysql service and store it into a variable
 # CONTAINER_ID=$(docker ps | grep mysql | awk '{print $1}')
 CONTAINER_ID=$(docker ps -qf "name=mysql")

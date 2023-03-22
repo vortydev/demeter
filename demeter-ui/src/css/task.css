@@ -183,30 +183,6 @@
     color: var(--demeter-green);
 }
 
-.bleuCentroTaskBtn {
-    background-color: var(--demeter-blue) !important;
-  }
-  
-.bleuCentroTaskBtn:hover, .bleuCentroTaskBtn.selected {
-    background-color: var(--demeter-blue-v) !important;
-}
-
-.bleuCentroTaskBtn:focus {
-    border-color: var(--demeter-blue-v) !important;
-}
-
-.mauveLivreurTaskBtn {
-    background-color: var(--demeter-mauve) !important;
-}
-
-.mauveLivreurTaskBtn:hover, .mauveLivreurTaskBtn.selected {
-    background-color: var(--demeter-mauve-v) !important;
-}
-
-.mauveLivreurTaskBtn:focus {
-    border-color: var(--demeter-mauve-v) !important;
-}
-
 /* TASK RESPONSIVE */
 @media only screen and (max-width: 800px) {
     .taskDisplayList {

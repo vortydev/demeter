@@ -110,6 +110,31 @@
   align-self: center;
 }
 
+/* SPLIT VIEW */
+.bleuViewBtn {
+  background-color: var(--demeter-blue) !important;
+}
+
+.bleuViewBtn:hover, .bleuViewBtn.selected {
+  background-color: var(--demeter-blue-v) !important;
+}
+
+.bleuViewBtn:focus {
+  border-color: var(--demeter-blue-v) !important;
+}
+
+.mauveViewBtn {
+  background-color: var(--demeter-mauve) !important;
+}
+
+.mauveViewBtn:hover, .mauveViewBtn.selected {
+  background-color: var(--demeter-mauve-v) !important;
+}
+
+.mauveViewBtn:focus {
+  border-color: var(--demeter-mauve-v) !important;
+}
+
 /* FILTER BAR */
 .filterBar {
   display: inline-flex;

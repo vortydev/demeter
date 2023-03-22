@@ -88,6 +88,7 @@ type TaskHistory = {
   whoDid: string;
   parentId: number | null;
   categorytaskId: number;
+  receiver: string;
 }
 
 type Role = {

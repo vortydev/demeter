@@ -12,15 +12,15 @@ exports.create = (req, res) => {
     return;
   }
 
-    // Create a TaskHistory
-    const taskHistory = {
-        completionDate: req.body.completionDate,
-        taskName: req.body.taskName,
-        whoDid: req.body.whoDid,
-        parentId: req.body.parentId,
-        categorytaskId: req.body.categorytaskId,
-
-    };
+  // Create a TaskHistory
+  const taskHistory = {
+      completionDate: req.body.completionDate,
+      taskName: req.body.taskName,
+      whoDid: req.body.whoDid,
+      parentId: req.body.parentId,
+      categorytaskId: req.body.categorytaskId,
+      receiver: req.body.receiver,
+  };
 
   // Save Task in the database
   TH.create(taskHistory)

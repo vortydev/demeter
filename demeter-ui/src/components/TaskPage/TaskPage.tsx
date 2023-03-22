@@ -71,6 +71,7 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
 
     }
     getList();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     taskCategory,
     createdSuccess,
@@ -103,6 +104,7 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
       whoDid: task.responsable,
       parentId: task.parentId,
       categorytaskId: task.categorytaskId,
+      receiver: task.receiver
     };
 
     if (!await createTaskHistory(historyInfo)) {
@@ -134,13 +136,13 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
         setSuccess={setSuccess}
       />
 
-      {(role === "1" || role === "4") && <ButtonGroup className="taskView mb-4">
+      {(role === "1" || role === "4") && <ButtonGroup id="viewMenu" className="mb-4">
         {receiver.map((radio, idx) => (
           <ToggleButton
             className={`
               ${chosenReceiver === radio.value ? "selected" : ""}
-              ${"Centro" === radio.value ? "bleuCentroTaskBtn" : ""}
-              ${"delivery" === radio.value ? "mauveLivreurTaskBtn" : ""}
+              ${"Centro" === radio.value ? "bleuViewBtn" : ""}
+              ${"delivery" === radio.value ? "mauveViewBtn" : ""}
             `}
             variant="demeter"
             key={idx}
@@ -309,7 +311,7 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
         </div>
       )}
       <CreateTaskForm show={createTask} close={close} success={setSuccess} />
-      <TaskHistoryModal show={seeHistory} close={close} newHistory={taskCompleted} />
+      <TaskHistoryModal show={seeHistory} close={close} newHistory={taskCompleted} viewReceiver={chosenReceiver} />
     </section>
   );
 }

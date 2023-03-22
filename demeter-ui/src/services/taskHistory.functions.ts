@@ -4,7 +4,7 @@ import TaskHistoryService from "./taskHistory.services";
 async function createTaskHistory(data: TaskHistory) {
   const thCreated = TaskHistoryService.create(data)
     .then((response: any) => {
-      console.log("in create Task History", data);
+      // console.log("in create Task History", data);
       return response.data;
     })
     .catch((e: Error) => {
@@ -28,10 +28,10 @@ async function getWeeklyHistory(date: Date) {
 }
 
 async function ifTodayHistory(date: Date, taskCategory: number) {
-  console.log('category',taskCategory);
+  // console.log('category',taskCategory);
   const taskHistory = TaskHistoryService.ifTodayHistory(date, taskCategory)
     .then((response: any) => {
-      console.log(response.data);
+      // console.log(response.data);
       return response.data.length  > 0;
     })
     .catch((e: Error) => {

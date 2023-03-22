@@ -14,6 +14,9 @@ module.exports = (sequelize, Sequelize) => {
       },
       categorytaskId: {
         type: Sequelize.INTEGER
+      },
+      receiver: {
+        type: Sequelize.STRING
       }
     });
   

@@ -9,9 +9,10 @@ interface taskHistoryProps {
   show: boolean;
   newHistory: boolean;
   close: () => void;
+  viewReceiver: String;
 }
 
-function TaskHistoryModal({ show, newHistory, close }: taskHistoryProps) {
+function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistoryProps) {
   const [history, setHistory] = useState<TaskHistory[]>([]);
   const [daysHistory, setDaysHistory] = useState<TaskHistory[]>([]);
   const [weekPrior, setWeekPrior] = useState<Date[]>([]);
@@ -33,11 +34,13 @@ function TaskHistoryModal({ show, newHistory, close }: taskHistoryProps) {
 
   useEffect(() => {
     getList();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show, newHistory]);
 
+  // toggle la liste de tâches de la journée
   function setDay(day: Date) {
     if (daysHistory.length === 0) {
-      setDaysHistory(history.filter((t) => t.completionDate === day));
+      setDaysHistory(history.filter((t) => (t.completionDate === day && t.receiver === viewReceiver)));
     } else {
       setDaysHistory([]);
     }

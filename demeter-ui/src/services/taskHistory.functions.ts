@@ -27,9 +27,9 @@ async function getWeeklyHistory(date: Date) {
   return taskHistory;
 }
 
-async function ifTodayHistory(date: Date, taskCategory: number) {
+async function ifTodayHistory(date: Date, taskCategory: number, receiver: string) {
   // console.log('category',taskCategory);
-  const taskHistory = TaskHistoryService.ifTodayHistory(date, taskCategory)
+  const taskHistory = TaskHistoryService.ifTodayHistory(date, taskCategory, receiver)
     .then((response: any) => {
       // console.log(response.data);
       return response.data.length  > 0;

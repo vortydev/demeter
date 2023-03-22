@@ -36,22 +36,26 @@ exports.create = (req, res) => {
 
 // Retrieve all Tasks from the database.
 exports.findAll = (req, res) => {
-
     const week = req.query.week;
     const today = req.query.today;
     const category = req.query.categorytaskId;
+    const receiver = req.query.receiver;
+
     var conditionW = week
       ? { completionDate: { [Op.gte]: `%${week}%` } }
       : null;
-      var conditionT = today
+    var conditionT = today
       ? { completionDate: { [Op.eq]: `%${today}%` } }
       : null;
-      var conditionC = category
+    var conditionC = category
       ? { categorytaskId: { [Op.eq]: category } }
       : null;
+    var conditionR = receiver
+      ? { receiver: { [Op.eq]: receiver } }
+      : null;
 
-if(conditionW !== null)
-    {TH.findAll({conditionW})
+  if (conditionW !== null) {
+    TH.findAll({conditionW})
       .then((data) => {
   
         res.send(data);
@@ -62,10 +66,11 @@ if(conditionW !== null)
             err.message ||
             "Some error occurred while retrieving announcements.",
         });
-      });}
+      });
+    }
 
-      if(conditionT!== null)
-    {TH.findAll({ where: {[Op.and]: [conditionT, conditionC]} })
+    if (conditionT!== null) {
+      TH.findAll({ where: {[Op.and]: [conditionT, conditionC, conditionR]} })
       .then((data) => {
         res.send(data);
       })
@@ -75,8 +80,8 @@ if(conditionW !== null)
             err.message ||
             "Some error occurred while retrieving announcements.",
         });
-      });}
-  
+      });
+    }
 };
 
 // Find a single Task with an id

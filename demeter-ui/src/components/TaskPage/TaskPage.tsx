@@ -36,39 +36,52 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
   const [taskCompleted, setTaskCompleted] = useState<boolean>(false);
   const [createTask, setCreateTask] = useState<boolean>(false);
   const [seeHistory, setSeeHistory] = useState<boolean>(false);
-  const [dayStarted, setDayStarted] = useState<boolean>(false);
+  const [dayStarted, setDayStarted] = useState<{ name: string, value: boolean}[]>([]);
   const [receiver, setReceiver] = useState<{ name: string, value: string }[]>([]);
   const [chosenReceiver, setChosen] = useState<String>("");
   const today = new Date();
   const date = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
+  // initialize dayStarted pairs
+  useEffect(() => {
+    const initializeDayStarted = async () => {
+    const pairs = await Promise.all(receiver.map(async (account) => {
+      const todayInHistory = await ifTodayHistory(date, taskCategory, account.value);
+      return { name: account.value, value: todayInHistory };
+    }));
+    setDayStarted(pairs);
+  };
+
+  if (receiver.length > 0) {
+    initializeDayStarted();
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [receiver]);
+
   useEffect(() => {
     async function getList() {
       const taskByCat: Task[] = await getbyCategorie(taskCategory);
       setAllCatTask(taskByCat);
-      setDayStarted(await ifTodayHistory(date, taskCategory));
 
+      // add Succursale accounts to view menu options
       const listAccount: Account[] = await getAccountsByRole(2);
       var accountOption = listAccount.map((employee: Account) => (
         { name: employee.accName, value: employee.accName }
       ));
 
-      accountOption.push({ name: 'Livreur', value: 'delivery' });
+      // append delivery by default to view menu options
+      accountOption.push({ name: 'Livreurs', value: 'delivery' });
       setReceiver(accountOption);
 
+      // filter tasks by account
       if (role === "2") {
-        const taskForAccount: Task[] = taskByCat.filter(
-          (t) => t.receiver === account
-        );
-        setAccountTask(taskForAccount);
+        setChosen(account);
       } 
       else if (role === "3") {
-        setAccountTask(taskByCat.filter((t) => t.receiver === "delivery"));
+        setChosen("delivery");
       } 
-      else {
-        setAccountTask(taskByCat.filter((t) => t.receiver === chosenReceiver));
-      }
-
+      
+      setAccountTask(taskByCat.filter((t) => t.receiver === chosenReceiver));
     }
     getList();
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,10 +95,12 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
   ]);
 
   async function resetTasksByCat() {
-    for (const task of allCatTask) {
+    const accCatTasks = allCatTask.filter((t) => t.receiver === chosenReceiver)
+
+    for (const task of accCatTasks) {
       await enterInHistory(task, date);
     }
-    resetTask(allCatTask);
+    resetTask(accCatTasks);
     setTaskCompleted(true);
     setTimeout(() => {
       setTaskCompleted(false);
@@ -97,6 +112,7 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
     setSeeHistory(false);
   }
 
+  // send the task to the history
   async function enterInHistory(task: Task, date: Date) {
     const historyInfo: TaskHistory = {
       completionDate: date,
@@ -112,6 +128,7 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
     }
   }
 
+  // set the default view to the first option of the view menu
   async function setDefaultView() {
     if (chosenReceiver === "" && (role === "1" || role === "4")) {
       const listAccount: Account[] = await getAccountsByRole(2);
@@ -124,11 +141,14 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
       }
     }
   }
-
   setDefaultView();
 
   return (
     <section className="appPage">
+      {createdSuccess && <Alert variant="success">La tâche a été créée avec succès !</Alert>}
+      {editedSuccess && <Alert variant="success">La tâche a été modifiée avec succès !</Alert>}
+      {deletedSuccess && <Alert variant="success">La tâche a été supprimée avec succès !</Alert>}
+
       <TaskNav
         taskCategory={taskCategory}
         setTaskCategory={setTaskCategory}
@@ -158,10 +178,6 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
         ))}
       </ButtonGroup>}
 
-      {createdSuccess && <Alert variant="success">La tâche a été créée avec succès !</Alert>}
-      {editedSuccess && <Alert variant="success">La tâche a été modifiée avec succès !</Alert>}
-      {deletedSuccess && <Alert variant="success">La tâche a été supprimée avec succès !</Alert>}
-
       <div className="btnBar">
         {/* EMPTY BTN */}
         {(role === "1" || role === "4") && (<Button variant="hidden">
@@ -171,7 +187,7 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
 
         {taskCategory === 1 && (
           <Button
-            disabled={dayStarted}
+            disabled={dayStarted.find(acc => acc.name === chosenReceiver)?.value}
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {
@@ -201,7 +217,7 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
 
         {taskCategory === 2 && (
           <Button
-            disabled={(today.getDay() !== 1 || dayStarted) && (role !== "1" && role !== "4")}
+            disabled={(today.getDay() !== 1 || dayStarted.find(acc => acc.name === chosenReceiver)?.value) && (role !== "1" && role !== "4")}
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {

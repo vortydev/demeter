@@ -14,8 +14,8 @@ class TaskHistoryService {
     return http.get<TaskHistory>(`/th?week=${date}`);
   }
 
-  ifTodayHistory(date: Date, categorytaskId: number){
-    return http.get<TaskHistory>(`/th?today=${date}&categorytaskId=${categorytaskId}`);
+  ifTodayHistory(date: Date, categorytaskId: number, receiver: string){
+    return http.get<TaskHistory>(`/th?today=${date}&categorytaskId=${categorytaskId}&receiver=${receiver}`);
   }
 
   create(data: TaskHistory) {

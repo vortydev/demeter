@@ -53,7 +53,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         description: task.parentId === 0 ? description.value : "",
         categorytaskId: parseFloat(typeTask.value),
         priority: priority,
-        receiver: task.parentId === 0 ? receiver.value : "",
+        receiver: receiver.value,
         whenToDo: (task.parentId === 0 && tt !== "3") ? when.value : "",
         taskMaster: (task.parentId === 0 && tt === "2") ? taskMaster.value : "",
       };

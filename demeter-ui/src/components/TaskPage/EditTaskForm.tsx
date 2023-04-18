@@ -119,7 +119,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
         date: new Date(),
         priority: false,
         responsable: "",
-        receiver: "",
+        receiver: task.receiver,
         taskMaster: "",
         whenToDo: "",
       },

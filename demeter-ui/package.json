@@ -1,8 +1,8 @@
 {
   "name": "demeter-ui",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "private": true,
-  "description": "frontend",
+  "description": "client",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

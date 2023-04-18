@@ -32,6 +32,7 @@ services:
       - DB_NAME=$MYSQLDB_DATABASE
       - DB_PORT=$MYSQLDB_DOCKER_PORT
       - CLIENT_ORIGIN=$CLIENT_ORIGIN
+      - DEV_PASSWORD=$DEV_PASSWORD
     networks:
       - backend
       - frontend
@@ -43,7 +44,6 @@ services:
       context: ./demeter-ui
       args:
         - REACT_APP_API_BASE_URL=$CLIENT_API_BASE_URL
-        - REACT_DEV_PASSWORD=$DEV_PASSWORD
     container_name: demeter-ui
     ports:
       - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT

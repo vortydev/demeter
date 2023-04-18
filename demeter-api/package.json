@@ -2,7 +2,7 @@
   "name": "demeter-api",
   "version": "2.2.0",
   "private": true,
-  "description": "backend",
+  "description": "server_api",
   "main": "server.js",
   "license": "ISC",
   "dependencies": {

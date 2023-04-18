@@ -3,8 +3,8 @@ const cors = require("cors");
 require("dotenv").config();
 
 const app = express();
-const key = "$2a$10$"
-const devPassword = key + process.env.REACT_DEV_PASSWORD;
+const key = "$2a$10$";
+const devPassword = key + process.env.DEV_PASSWORD;
 
 var corsOptions = {
   origin: process.env.CLIENT_ORIGIN,

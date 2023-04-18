@@ -96,11 +96,10 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
 
   async function resetTasksByCat() {
     const accCatTasks = allCatTask.filter((t) => t.receiver === chosenReceiver)
-
     for (const task of accCatTasks) {
       await enterInHistory(task, date);
     }
-    resetTask(accCatTasks);
+    await resetTask(accCatTasks);
     setTaskCompleted(true);
     setTimeout(() => {
       setTaskCompleted(false);
@@ -187,7 +186,7 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
 
         {taskCategory === 1 && (
           <Button
-            disabled={dayStarted.find(acc => acc.name === chosenReceiver)?.value}
+            disabled={role !== "4" ? dayStarted.find(acc => acc.name === chosenReceiver)?.value : false}
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {

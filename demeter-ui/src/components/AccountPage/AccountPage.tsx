@@ -6,6 +6,7 @@ import { CreateAccountForm } from "./CreateAccountForm";
 import "../../css/account.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { setCookiePage } from "../../services/cookie.functions";
 
 function AccountPage(): JSX.Element {
   const [createAccount, setCreateAccount] = useState<boolean>(false);
@@ -28,6 +29,8 @@ function AccountPage(): JSX.Element {
     setDeleted(false);
     setSuccess(false);
   }, 5000);
+
+  setCookiePage('accounts');
 
   return (
     <section className="appPage">

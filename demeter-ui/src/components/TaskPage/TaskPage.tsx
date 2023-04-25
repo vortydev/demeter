@@ -20,6 +20,7 @@ import { OtherTaskDisplay } from "./TasksDisplay/OtherTaskDisplay";
 import { createTaskHistory, ifTodayHistory } from "../../services/taskHistory.functions";
 import { TaskHistoryModal } from "./TaskHistory/TaskHistoryModal";
 import { getAccountsByRole } from "../../services/account.functions";
+import { setCookiePage } from "../../services/cookie.functions";
 
 interface TaskPageProp {
   role: string;
@@ -141,6 +142,8 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
     }
   }
   setDefaultView();
+
+  setCookiePage('task');
 
   return (
     <section className="appPage">

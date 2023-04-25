@@ -12,6 +12,7 @@ import { Product } from '../../types/Types';
 import { InventoryEditProductForm } from './InventoryUpdateProduct';
 import { FilterInventory } from './SubComponents/FilterInventory';
 import { InventoryInvoiceButton } from './SubComponents/InventoryRapport';
+import { setCookiePage } from '../../services/cookie.functions';
 
 interface InventoryPageProps{
     role: string;
@@ -179,6 +180,8 @@ function ProductsDisplay({ product, setDeleteSuccess, setUpdateSuccess }: Produc
     function close(): void {
         setUpdatedProduct(false);
     }
+
+    setCookiePage('inventory');
 
     return (
         <article>

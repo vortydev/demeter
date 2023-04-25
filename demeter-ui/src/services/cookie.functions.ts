@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs";
-import { getCookie } from "typescript-cookie";
+import { getCookie, setCookie } from "typescript-cookie";
 import { Account, Role } from "../types/Types";
 import { getAccounts, getRoles } from "./account.functions";
 
@@ -37,4 +37,37 @@ async function getCookieRole() {
     }
 }
 
-export { getCookieAccount, getCookieRole };
+const pageList: string[] = ["news", "task", "inventory", "recipe", "accounts"];
+
+function getCookiePage() {
+    const page = getCookie("page");
+    if (page) {
+        for (var i = 0; i < pageList.length; i++) {
+            if (i.toString() === page) {
+                return pageList[i];
+            }
+        }
+    }
+    // else
+    setCookie("page", 0, { expires: 1, secure: true, sameSite: 'strict' });
+    return pageList[0];
+    
+}
+
+function setCookiePage(setPage:string) {
+    const pos = getCookie("page");
+    if (pos && pageList[parseInt(pos)] === setPage) return;
+
+    console.log("setting page:", setPage);
+    // setCookie("page", await bcrypt.hash(setPage, 10), { expires: 1, secure: true, sameSite: 'strict' });
+
+    // update pos
+    for (var i = 0; i < pageList.length; i++) {
+        if (pageList[i] === setPage) {
+            setCookie("page", i, { expires: 1, secure: true, sameSite: 'strict' });
+            return;
+        }
+    }
+}
+
+export { getCookieAccount, getCookieRole, getCookiePage, setCookiePage };

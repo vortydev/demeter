@@ -59,8 +59,8 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
           newSubTasks[parentTaskId].push(t);
         }
       });
-      console.log("parent tasks", parentTasks);
-      console.log("subtasks", newSubTasks);
+      // console.log("parent tasks", parentTasks);
+      // console.log("subtasks", newSubTasks);
 
       // set subtasks
       setSubTasks(newSubTasks);
@@ -74,14 +74,14 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
         catTasks[t.categorytaskId].push(t);
         
         const subtasks = newSubTasks[t.ogTaskId];
-        console.log("current substasks", subtasks);
+        // console.log("current substasks", subtasks);
         if (subtasks) {
           subtasks.forEach((st) => {
             catTasks[t.categorytaskId].push(st); // add subtask
           });
         }
       });
-      console.log("cat tasks", catTasks);
+      // console.log("cat tasks", catTasks);
 
       // group by whenToDo (open, pre-close, close, day of the week)
       const whenTasks: { title: string, tasks: TaskHistory[] }[] = [];
@@ -159,7 +159,7 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
                   />
                 )}
                 <span className="hisTask">{t.taskName}</span>
-                <span className="taskResponsable">{t.whoDid}</span>
+                <span className={`taskResponsable ${subTasks[t.ogTaskId] ? 'taskParent' : ''}`}>{t.whoDid}</span>
               </div>
             </div>
           ))}

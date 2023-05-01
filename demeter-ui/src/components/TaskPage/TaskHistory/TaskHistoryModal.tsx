@@ -146,7 +146,7 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 
         {displayedTasks.map((category) => (
         <div>
-          <h4 className="">{category.title}</h4>
+          <h3 className="hisCat mt-4">{category.title}</h3>
           {category.tasks.map((t) => (
             <div>
               {t.parentId === 0 && <hr className="taskLine" />}
@@ -159,7 +159,7 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
                   />
                 )}
                 <span className="hisTask">{t.taskName}</span>
-                <span className={`taskResponsable ${subTasks[t.ogTaskId] ? 'taskParent' : ''}`}>{t.whoDid}</span>
+                <span className={`taskResponsable ${subTasks[t.ogTaskId] ? 'hide' : ''}`}>{t.whoDid}</span>
               </div>
             </div>
           ))}

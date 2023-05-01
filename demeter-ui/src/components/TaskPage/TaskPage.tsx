@@ -120,7 +120,9 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
       whoDid: task.responsable,
       parentId: task.parentId,
       categorytaskId: task.categorytaskId,
-      receiver: task.receiver
+      receiver: task.receiver,
+      ogTaskId: task.id,
+      whenToDo: task.whenToDo,
     };
 
     if (!await createTaskHistory(historyInfo)) {

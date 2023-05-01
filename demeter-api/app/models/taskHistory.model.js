@@ -17,7 +17,13 @@ module.exports = (sequelize, Sequelize) => {
       },
       receiver: {
         type: Sequelize.STRING
-      }
+      },
+      ogTaskId: {
+        type: Sequelize.INTEGER
+      },
+      whenToDo: {
+        type: Sequelize.STRING
+      },
     });
   
     return TaskHistory;

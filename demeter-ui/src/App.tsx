@@ -29,7 +29,6 @@ function App() {
     return <LoginPage />;
   } 
   else {
-    console.log("pageOn", pageOn);
     return (
       <div className="App">
         <header className="App-header">

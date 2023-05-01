@@ -58,9 +58,6 @@ function setCookiePage(setPage:string) {
     const pos = getCookie("page");
     if (pos && pageList[parseInt(pos)] === setPage) return;
 
-    console.log("setting page:", setPage);
-    // setCookie("page", await bcrypt.hash(setPage, 10), { expires: 1, secure: true, sameSite: 'strict' });
-
     // update pos
     for (var i = 0; i < pageList.length; i++) {
         if (pageList[i] === setPage) {

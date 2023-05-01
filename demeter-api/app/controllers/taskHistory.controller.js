@@ -20,6 +20,8 @@ exports.create = (req, res) => {
       parentId: req.body.parentId,
       categorytaskId: req.body.categorytaskId,
       receiver: req.body.receiver,
+      ogTaskId: req.body.ogTaskId,
+      whenToDo: req.body.whenToDo,
   };
 
   // Save Task in the database

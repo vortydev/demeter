@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Accordion } from "react-bootstrap";
 import { getWeeklyHistory } from "../../../services/taskHistory.functions";
 import { TaskHistory } from "../../../types/Types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTurnUp } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faTurnUp } from "@fortawesome/free-solid-svg-icons";
 
 interface taskHistoryProps {
 	show: boolean;
@@ -17,7 +17,7 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 	const [weekPrior, setWeekPrior] = useState<Date[]>([]);
 	const [dateTampon, setDateTampon] = useState<Date>();
 	const [subTasks, setSubTasks] = useState<Record<number, TaskHistory[]>>({});
-	const [displayedTasks, setDisplayedTasks] = useState<{ title: string, tasks: TaskHistory[] }[]>([]);
+	const [displayedTasks, setDisplayedTasks] = useState<{ title: string, sections: { when: string, tasks: TaskHistory[] }[] }[]>([]);
 
 	async function getList() {
 		const today = new Date();
@@ -81,39 +81,45 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 			});
 			// console.log("cat tasks", catTasks);
 
-			// group by whenToDo (open, pre-close, close, day of the week)
-			const whenTasks: { title: string, tasks: TaskHistory[] }[] = [];
+			const taskList: { title: string, sections:{ when: string, tasks: TaskHistory[] }[] }[] = [];
 			for (let categoryId in catTasks) {
 				if (catTasks.hasOwnProperty(categoryId)) {
 					const ct = catTasks[categoryId];
 					let title: string;
 					if (categoryId === "1") {
 						title = "Quotidiennes";
-						ct.sort((a, b) => {
-							const order = ["open", "preClose", "close"];
-							return order.indexOf(a.whenToDo) - order.indexOf(b.whenToDo);
-						});
 					}
 					else if (categoryId === "2") {
 						title = "Hebdomadaires";
-						ct.sort((a, b) => {
-							const order = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
-							return order.indexOf(a.whenToDo) - order.indexOf(b.whenToDo);
-						});
 					}
 					else {
 						title = "Autres";
-						ct.sort((a, b) => {
-							return a.whenToDo.localeCompare(b.whenToDo);
-						});
 					}
-					whenTasks.push({ title, tasks: ct });
+					const sections: { when: string, tasks: TaskHistory[] }[] = [];
+					for (let whenToDo of ['open', 'preClose', 'close', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']) {
+						const tasks = ct.filter(task => task.whenToDo === whenToDo);
+						if (tasks.length > 0) {
+							let whenStr: string = whenToDo;
+							if (whenToDo === 'open') whenStr = "Ouverture";
+							else if (whenToDo === 'preClose') whenStr = "Pré-Fermeture";
+							else if (whenToDo === 'close') whenStr = "Fermeture";
+							else if (whenToDo === 'mon') whenStr = "Lundi";
+							else if (whenToDo === 'tue') whenStr = "Mardi";
+							else if (whenToDo === 'wed') whenStr = "Mercredi";
+							else if (whenToDo === 'thu') whenStr = "Jeudi";
+							else if (whenToDo === 'fri') whenStr = "Vendredi";
+							else if (whenToDo === 'sat') whenStr = "Samedi";
+							else if (whenToDo === 'sun') whenStr = "Dimanche";
+							sections.push({ when: whenStr, tasks });
+						}
+					}
+					taskList.push({ title, sections: sections });
 				}
 			}
-			console.log("when tasks", whenTasks);
+			// console.log("taskList", taskList);
 
 			// set displayed tasks
-			setDisplayedTasks(whenTasks);
+			setDisplayedTasks(taskList);
 		} else {
 			setDisplayedTasks([]);
 		}
@@ -143,25 +149,35 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 				</div>
 
 				{displayedTasks.map((category) => (
-					<div>
-						<h3 className="hisCat mt-4">{category.title}</h3>
-						{category.tasks.map((t) => (
-							<div>
-								{t.parentId === 0 && <hr className="taskLine" />}
-								<div className={`hisTaskRow flex ${subTasks[t.ogTaskId] ? 'taskParent' : ''}`}>
-									{t.parentId !== 0 && (
-										<FontAwesomeIcon
-											className="iconBullet mr-2"
-											icon={faTurnUp}
-											size="sm"
-										/>
-									)}
-									<span className="hisTask">{t.taskName}</span>
-									<span className={`taskResponsable ${subTasks[t.ogTaskId] ? 'hide' : ''}`}>{t.whoDid}</span>
-								</div>
-							</div>
+					<Accordion defaultActiveKey={['Ouverture']} alwaysOpen className="hisTaskList mb-4">
+						<h3 className="hisCat">{category.title}</h3>
+						{category.sections.map((section) => (
+							<Accordion.Item eventKey={section.when}>
+								<Accordion.Header>
+									<span>{section.when}</span>
+									<FontAwesomeIcon className="icon" icon={faAngleDown} size="lg" />
+								</Accordion.Header>
+								<Accordion.Body>
+									{section.tasks.map((t) => (
+										<div>
+											{t.parentId === 0 && <hr className="taskLine" />}
+											<div className={`hisTaskRow flex ${subTasks[t.ogTaskId] ? 'taskParent' : ''}`}>
+												{t.parentId !== 0 && (
+													<FontAwesomeIcon
+														className="iconBullet mr-2"
+														icon={faTurnUp}
+														size="sm"
+													/>
+												)}
+												<span className="hisTask">{t.taskName}</span>
+												<span className={`taskResponsable ${subTasks[t.ogTaskId] ? 'hide' : ''}`}>{t.whoDid}</span>
+											</div>
+										</div>
+									))}
+								</Accordion.Body>
+							</Accordion.Item>
 						))}
-					</div>
+					</Accordion>
 				))}
 
 

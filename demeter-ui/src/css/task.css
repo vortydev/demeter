@@ -106,12 +106,14 @@
     margin-inline: auto;
 }
 
+.hisTaskList .accordion-header,
 .taskDisplayList .accordion-header {
     width: 100%;
     margin: 0;
     text-align: left;
 }
 
+.hisTaskList .accordion-button,
 .taskDisplayList .accordion-button {
     width: 100%;
     padding: 0;
@@ -123,20 +125,28 @@
     display: inline-flex;
 }
 
+.hisTaskList .accordion-button:focus,
 .taskDisplayList .accordion-button:focus {
     box-shadow: none !important;
 }
 
+.hisTaskList .accordion-button>*,
 .taskDisplayList .accordion-button>* {
     align-self: center;
 }
 
+.hisTaskList .accordion-button .icon,
 .taskDisplayList .accordion-button .icon {
     color: var(--demeter-grey);
 }
 
+.hisTaskList .accordion-button.collapsed .icon,
 .taskDisplayList .accordion-button.collapsed .icon {
     transform: rotate(-90deg);
+}
+
+.hisTaskList .accordion-collapse.collapse.show {
+    margin-bottom: 1.25rem;
 }
 
 .hisDayList {
@@ -193,6 +203,8 @@
 
 .hisCat {
     color: var(--demeter-blue);
+    font-size: 2rem;
+    font-weight: bold;
 }
 
 

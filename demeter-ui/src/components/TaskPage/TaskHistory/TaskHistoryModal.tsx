@@ -22,20 +22,22 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 
 
 	async function getList() {
-		const today = new Date();
-		const aWeekBefore = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
 		// requete qui get toute les taskHistory entre aWeekBefore & aujourd'hui : setHistory
-		// filtre qui prends chaque date unique de history et les mets dans setWeekPrior
-	  
+		const today = new Date();
+		const aWeekBefore = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000); 
 		setHistory(await getWeeklyHistory(aWeekBefore));
+
+		// filtre qui prends chaque date unique de history
 		const uniqueDates = history
 		  .map((task) => task.completionDate)
 		  .filter((value, index, self) => self.indexOf(value) === index)
 		  .reverse();
+
+		// groupe les dates par groupe de 12 et les insère dans weekPrior
 		const pages: { page: number, dates: Date[] }[] = [];
 		for (let i = 0; i < uniqueDates.length; i += 12) {
-		const page = uniqueDates.slice(i, i + 12);
-		pages.push({ page: i / 12, dates: page });
+			const page = uniqueDates.slice(i, i + 12);
+			pages.push({ page: i / 12, dates: page });
 		}
 		setWeekPrior(pages);
 	}
@@ -67,8 +69,7 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 			// console.log("parent tasks", parentTasks);
 			// console.log("subtasks", newSubTasks);
 
-			// set subtasks
-			setSubTasks(newSubTasks);
+			setSubTasks(newSubTasks);	// set subtasks
 
 			// group by categories (1:Daily, 2:Hebdo, 3:Autre)
 			const catTasks: Record<number, TaskHistory[]> = {};
@@ -87,6 +88,7 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 			});
 			// console.log("cat tasks", catTasks);
 
+			// group by sections within a category
 			const taskList: { title: string, sections:{ when: string, tasks: TaskHistory[] }[] }[] = [];
 			for (let categoryId in catTasks) {
 				if (catTasks.hasOwnProperty(categoryId)) {
@@ -124,14 +126,15 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 			}
 			// console.log("taskList", taskList);
 
-			// set displayed tasks
-			setDisplayedTasks(taskList);
-		} else {
-			setDateTampon(undefined);
-			setDisplayedTasks([]);
+			setDisplayedTasks(taskList);	// set displayed tasks
+		} 
+		else {
+			setDateTampon(undefined);	// clear cached date
+			setDisplayedTasks([]);		// display an empty array of tasks
 		}
 	}
 
+	// pro-gamer hack pour les noms et couleurs
 	var receiverName = viewReceiver === "delivery" ? "Livreurs" : viewReceiver;
 	var receiverColor = viewReceiver === "delivery" ? "purpleText" : (viewReceiver === "Centro" ? "blueText" : "greenText");
 
@@ -155,14 +158,12 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 					))}
 					<div className="hisNav">
 						<FontAwesomeIcon
-							className=""
 							icon={faLeftLong}
 							size="lg"
 							onClick={() => setCurrentPage((prevPage) => prevPage > 0 ? prevPage - 1 : prevPage)}
 						/>
 						<span>{currentPage + 1}/{weekPrior.length}</span>
 						<FontAwesomeIcon
-							className=""
 							icon={faRightLong}
 							size="lg"
 							onClick={() => setCurrentPage((prevPage) => prevPage < weekPrior.length - 1 ? prevPage + 1 : prevPage)}
@@ -195,22 +196,19 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 						))}
 					</Accordion>
 				))}
+
 				{(displayedTasks.length === 0 && dateTampon !== undefined) && (
 				<p className="popupHint">
 					<i>Rien à afficher pour cette date</i>
 				</p>
 				)}
 
-
 				<div className="popupBtnBox mt-3">
-					<Button
-						variant="demeter-dark"
-						onClick={() => {
-							setDisplayedTasks([]);
-							setDateTampon(undefined);
-							close();
-						}}
-					>
+					<Button variant="demeter-dark" onClick={() => {
+						setDisplayedTasks([]);
+						setDateTampon(undefined);
+						close();
+					}}>
 						Retour
 					</Button>
 				</div>

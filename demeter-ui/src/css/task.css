@@ -213,14 +213,20 @@
     justify-content: center;
 }
 
-.hisNav svg {
-    cursor: pointer;
-    color: var(--demeter-black);
-    margin: auto 0;
-}
-
 .hisNav span {
     margin: auto .5rem;
+}
+
+.hisNav svg {
+    cursor: pointer;
+    color: var(--demeter-grey);
+    margin: auto 0;
+    transition: all 0.15s;
+    padding: .25rem;
+}
+
+.hisNav svg:hover {
+    color: var(--demeter-black);
 }
 
 

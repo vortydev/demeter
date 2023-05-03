@@ -3,24 +3,25 @@ import { Nav } from "react-bootstrap";
 interface NavBarProps {
     navigateTo: (choice: string) => void;
     role: string;
+    selected: string;
 }
 
-function Navbar({ navigateTo, role }: NavBarProps) {
-
+function Navbar({ navigateTo, role, selected }: NavBarProps) {
+    // Rôles ayant accès à certaines pages
     const accessRecipe: string[] = ["1", "4", "5", "6", "7", "8"];
     const accessInventory: string[] = ["1", "3", "4"];
     const accessAccount: string[] = ["1", "4"];
 
     return (
         <section className="appNav">
-            <Nav defaultActiveKey="news">
+            <Nav defaultActiveKey="news" activeKey={selected} onSelect={(key) => navigateTo((key ? key.toString() : "news"))}>
                 <Nav.Item>
                     <Nav.Link onClick={() => navigateTo('news')} eventKey="news">
                         Annonces
                     </Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                    <Nav.Link onClick={() => navigateTo('task')} eventKey="tache2">
+                    <Nav.Link onClick={() => navigateTo('task')} eventKey="task">
                         Tâches
                     </Nav.Link>
                 </Nav.Item>

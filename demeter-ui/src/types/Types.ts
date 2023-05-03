@@ -34,6 +34,17 @@ type Task = {
   whenToDo: string;
 }
 
+type TaskHistory = {
+  completionDate: Date;
+  taskName: string;
+  whoDid: string;
+  parentId: number | null;
+  categorytaskId: number;
+  receiver: string;
+  ogTaskId: number;
+  whenToDo: string;
+}
+
 type Recipe = {
   id: number;
   title: string;
@@ -80,15 +91,6 @@ type Ingredient = {
   productId: number;
   qty: number;
   mesurementId: number;
-}
-
-type TaskHistory = {
-  completionDate: Date;
-  taskName: string;
-  whoDid: string;
-  parentId: number | null;
-  categorytaskId: number;
-  receiver: string;
 }
 
 type Role = {

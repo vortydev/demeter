@@ -1,6 +1,6 @@
 {
   "name": "demeter-api",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "private": true,
   "description": "server_api",
   "main": "server.js",

@@ -106,12 +106,14 @@
     margin-inline: auto;
 }
 
+.hisTaskList .accordion-header,
 .taskDisplayList .accordion-header {
     width: 100%;
     margin: 0;
     text-align: left;
 }
 
+.hisTaskList .accordion-button,
 .taskDisplayList .accordion-button {
     width: 100%;
     padding: 0;
@@ -123,20 +125,28 @@
     display: inline-flex;
 }
 
+.hisTaskList .accordion-button:focus,
 .taskDisplayList .accordion-button:focus {
     box-shadow: none !important;
 }
 
+.hisTaskList .accordion-button>*,
 .taskDisplayList .accordion-button>* {
     align-self: center;
 }
 
+.hisTaskList .accordion-button .icon,
 .taskDisplayList .accordion-button .icon {
     color: var(--demeter-grey);
 }
 
+.hisTaskList .accordion-button.collapsed .icon,
 .taskDisplayList .accordion-button.collapsed .icon {
     transform: rotate(-90deg);
+}
+
+.hisTaskList .accordion-collapse.collapse.show {
+    margin-bottom: 1.25rem;
 }
 
 .hisDayList {
@@ -160,14 +170,22 @@
     width: 100%;
 }
 
-.hisTaskRow .hisTask {
+.hisTaskRow:not(.taskParent) .hisTask {
     width: 75%;
 }
 
-.hisTaskRow span:last-child {
+.hisTaskRow.taskParent .hisTask {
+    width: 100%;
+}
+
+.hisTaskRow:not(.taskParent) span:last-child {
     width: 4.25rem;
     text-align: right;
     margin-left: auto;
+}
+
+.hisTaskRow.taskParent span:last-child {
+    text-align: left;
 }
 
 .hisTaskList>div:first-child hr.taskLine {
@@ -182,6 +200,13 @@
 .taskParent span:first-child {
     color: var(--demeter-green);
 }
+
+.hisCat {
+    color: var(--demeter-blue);
+    font-size: 2rem;
+    font-weight: bold;
+}
+
 
 /* TASK RESPONSIVE */
 @media only screen and (max-width: 800px) {

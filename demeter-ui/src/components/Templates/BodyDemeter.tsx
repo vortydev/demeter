@@ -62,7 +62,7 @@ function BodyDemeter({ selected, setSelected, role, account }: BodyDemeterProps)
     case "accounts":
       return <AccountPage />;
     default:
-      return <div>404 Uh... that's weird. Page not found.</div>;
+      return <div className="mt-3">404 Uh... that's weird. Page not found.</div>;
   }
 }
 

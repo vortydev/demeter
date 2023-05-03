@@ -20,6 +20,7 @@ import { OtherTaskDisplay } from "./TasksDisplay/OtherTaskDisplay";
 import { createTaskHistory, ifTodayHistory } from "../../services/taskHistory.functions";
 import { TaskHistoryModal } from "./TaskHistory/TaskHistoryModal";
 import { getAccountsByRole } from "../../services/account.functions";
+import { setCookiePage } from "../../services/cookie.functions";
 
 interface TaskPageProp {
   role: string;
@@ -119,7 +120,9 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
       whoDid: task.responsable,
       parentId: task.parentId,
       categorytaskId: task.categorytaskId,
-      receiver: task.receiver
+      receiver: task.receiver,
+      ogTaskId: task.id,
+      whenToDo: task.whenToDo,
     };
 
     if (!await createTaskHistory(historyInfo)) {
@@ -141,6 +144,8 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
     }
   }
   setDefaultView();
+
+  setCookiePage('task');
 
   return (
     <section className="appPage">

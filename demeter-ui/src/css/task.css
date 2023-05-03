@@ -207,6 +207,22 @@
     font-weight: bold;
 }
 
+.hisNav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.hisNav svg {
+    cursor: pointer;
+    color: var(--demeter-black);
+    margin: auto 0;
+}
+
+.hisNav span {
+    margin: auto .5rem;
+}
+
 
 /* TASK RESPONSIVE */
 @media only screen and (max-width: 800px) {

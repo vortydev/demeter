@@ -3,7 +3,7 @@ import { Modal, Button, Accordion } from "react-bootstrap";
 import { getWeeklyHistory } from "../../../services/taskHistory.functions";
 import { TaskHistory } from "../../../types/Types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown, faTurnUp } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faLeftLong, faRightLong, faTurnUp } from "@fortawesome/free-solid-svg-icons";
 
 interface taskHistoryProps {
 	show: boolean;
@@ -14,26 +14,32 @@ interface taskHistoryProps {
 
 function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistoryProps) {
 	const [history, setHistory] = useState<TaskHistory[]>([]);
-	const [weekPrior, setWeekPrior] = useState<Date[]>([]);
+	const [weekPrior, setWeekPrior] = useState<{ page:number, dates: Date[]}[]>([]);
 	const [dateTampon, setDateTampon] = useState<Date>();
 	const [subTasks, setSubTasks] = useState<Record<number, TaskHistory[]>>({});
 	const [displayedTasks, setDisplayedTasks] = useState<{ title: string, sections: { when: string, tasks: TaskHistory[] }[] }[]>([]);
+	const [currentPage, setCurrentPage] = useState(0);
+
 
 	async function getList() {
 		const today = new Date();
 		const aWeekBefore = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
 		// requete qui get toute les taskHistory entre aWeekBefore & aujourd'hui : setHistory
 		// filtre qui prends chaque date unique de history et les mets dans setWeekPrior
-
+	  
 		setHistory(await getWeeklyHistory(aWeekBefore));
-		setWeekPrior(
-			history
-				.map((task) => task.completionDate)
-				.filter((value, index, self) => self.indexOf(value) === index)
-				.reverse()
-		);
+		const uniqueDates = history
+		  .map((task) => task.completionDate)
+		  .filter((value, index, self) => self.indexOf(value) === index)
+		  .reverse();
+		const pages: { page: number, dates: Date[] }[] = [];
+		for (let i = 0; i < uniqueDates.length; i += 12) {
+		const page = uniqueDates.slice(i, i + 12);
+		pages.push({ page: i / 12, dates: page });
+		}
+		setWeekPrior(pages);
 	}
-
+	
 	useEffect(() => {
 		getList();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -121,6 +127,7 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 			// set displayed tasks
 			setDisplayedTasks(taskList);
 		} else {
+			setDateTampon(undefined);
 			setDisplayedTasks([]);
 		}
 	}
@@ -137,15 +144,30 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 				</p>
 
 				<div className="hisDayList flex mb-2">
-					{weekPrior.map((day) => (
+					{weekPrior[currentPage]?.dates.map((day) => (
 						<Button
 							className="hisDayBtn mb-2"
-							variant="outline-dark"
+							variant={day === dateTampon ? "demeter" : "outline-dark"}
 							onClick={() => setDay(day)}
 						>
 							{new Date(new Date(day).getTime() - 1 * 24 * 60 * 60 * 1000).toLocaleDateString()}
 						</Button>
 					))}
+					<div className="hisNav">
+						<FontAwesomeIcon
+							className=""
+							icon={faLeftLong}
+							size="lg"
+							onClick={() => setCurrentPage((prevPage) => prevPage > 0 ? prevPage - 1 : prevPage)}
+						/>
+						<span>{currentPage + 1}/{weekPrior.length}</span>
+						<FontAwesomeIcon
+							className=""
+							icon={faRightLong}
+							size="lg"
+							onClick={() => setCurrentPage((prevPage) => prevPage < weekPrior.length - 1 ? prevPage + 1 : prevPage)}
+						/>
+					</div>
 				</div>
 
 				{displayedTasks.map((category) => (
@@ -162,13 +184,7 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 										<div>
 											{t.parentId === 0 && <hr className="taskLine" />}
 											<div className={`hisTaskRow flex ${subTasks[t.ogTaskId] ? 'taskParent' : ''}`}>
-												{t.parentId !== 0 && (
-													<FontAwesomeIcon
-														className="iconBullet mr-2"
-														icon={faTurnUp}
-														size="sm"
-													/>
-												)}
+												{t.parentId !== 0 && (<FontAwesomeIcon className="iconBullet mr-2" icon={faTurnUp} size="sm" />)}
 												<span className="hisTask">{t.taskName}</span>
 												<span className={`taskResponsable ${subTasks[t.ogTaskId] ? 'hide' : ''}`}>{t.whoDid}</span>
 											</div>
@@ -179,6 +195,11 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 						))}
 					</Accordion>
 				))}
+				{(displayedTasks.length === 0 && dateTampon !== undefined) && (
+				<p className="popupHint">
+					<i>Rien à afficher pour cette date</i>
+				</p>
+				)}
 
 
 				<div className="popupBtnBox mt-3">
@@ -186,6 +207,7 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 						variant="demeter-dark"
 						onClick={() => {
 							setDisplayedTasks([]);
+							setDateTampon(undefined);
 							close();
 						}}
 					>

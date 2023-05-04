@@ -1,16 +1,13 @@
 import { useEffect, useState } from "react";
 import { Alert, Button, ButtonGroup, ToggleButton } from "react-bootstrap";
-import {
-  getbyCategorie,
-  resetTask,
-} from "../../services/task.funtions";
+import { getbyCategorie, resetTask } from "../../services/task.funtions";
 import { Account, Task, TaskHistory } from "../../types/Types";
 import { CreateTaskForm } from "./createTaskForm";
 import { TaskNav } from "./TaskNav";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRotateLeft,
-  faClock,
+  faListCheck,
   faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { confirmAlert } from "react-confirm-alert";
@@ -183,11 +180,12 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
       </ButtonGroup>}
 
       <div className="btnBar">
-        {/* EMPTY BTN */}
-        {(role === "1" || role === "4") && (<Button variant="hidden">
-          <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
-          <span>Nouvelle Tâche</span>
-        </Button>)}
+        {(role === "1" || role === "4") && (
+          <Button onClick={() => setSeeHistory(true)} variant="icon-outline">
+          <FontAwesomeIcon className="icon" icon={faListCheck} size="lg" />
+            <span>Afficher l'historique</span>
+          </Button>
+        )}
 
         {taskCategory === 1 && (
           <Button
@@ -279,13 +277,10 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
         )}
 
         {(role === "1" || role === "4") && (
-          <Button
-            variant="icon-outline"
-            onClick={() => {
+          <Button variant="icon-outline" onClick={() => {
               setCreateTask(true);
               setSuccess(false);
-            }}
-          >
+            }}>
             <FontAwesomeIcon className="icon" icon={faPlus} size="lg" />
             <span>Nouvelle Tâche</span>
           </Button>
@@ -322,14 +317,6 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
         }
       </div>
 
-      {(role === "1" || role === "4") && (
-        <div className="btnBar mt-4">
-          <Button onClick={() => setSeeHistory(true)} variant="icon-dark" className="centerBtn">
-            <FontAwesomeIcon className="icon" icon={faClock} size="lg" />
-            <span>Afficher l'historique</span>
-          </Button>
-        </div>
-      )}
       <CreateTaskForm show={createTask} close={close} success={setSuccess} />
       <TaskHistoryModal show={seeHistory} close={close} newHistory={taskCompleted} viewReceiver={chosenReceiver} />
     </section>

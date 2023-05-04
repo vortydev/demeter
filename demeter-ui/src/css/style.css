@@ -296,6 +296,10 @@ input[type="file"] {
     cursor: pointer;
 }
 
+.popupCheck>input:focus {
+    box-shadow: none !important;
+}
+
 .popupImgBox {
     width: 100%;
     display: inline-flex;

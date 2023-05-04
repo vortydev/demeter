@@ -18,6 +18,7 @@ function FooterBar({ appVersion }: FooterBarProps) {
   function handleLogout(): void {
     removeCookie("account");
     removeCookie("role");
+    removeCookie("page");
     window.location.reload();
   }
 

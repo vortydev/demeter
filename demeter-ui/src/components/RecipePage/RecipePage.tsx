@@ -6,6 +6,7 @@ import { RecipeList } from "./RecipeList";
 import { RecipeFilter } from "./RecipeFilter";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { setCookiePage } from "../../services/cookie.functions";
 
 interface RecipePageProps {
   selectedPage: string;
@@ -59,6 +60,8 @@ function RecipePage({
   setTimeout(() => {
     closeAllAlerts();
   }, 5000);
+
+  setCookiePage('recipe');
 
   return (
     <section className="appPage">

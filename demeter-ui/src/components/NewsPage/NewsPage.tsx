@@ -8,6 +8,7 @@ import { News, Account } from "../../types/Types";
 import { CreateNewsForm } from "./createNewsForm";
 import { NewsPreview } from "./NewsPreview";
 import { getAccountsByRole } from "../../services/account.functions";
+import { setCookiePage } from "../../services/cookie.functions";
 
 interface NewsPageProps{
   role: string;
@@ -112,6 +113,8 @@ function NewsPage({role, account}:NewsPageProps): JSX.Element {
       setCreateNews(true);
     }
   }
+
+  setCookiePage('news');
 
   return (
     <section className="appPage">

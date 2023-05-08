@@ -32,13 +32,13 @@ function HebdoTaskDisplay({
 
   useEffect(() => {
     const noChildList = listTask.filter((t) => t.parentId === 0);
-    setLTMon(listTask.filter((t) => t.whenToDo === "mon"));
-    setLTTue(listTask.filter((t) => t.whenToDo === "tue"));
-    setLTWed(listTask.filter((t) => t.whenToDo === "wed"));
-    setLTThu(listTask.filter((t) => t.whenToDo === "thu"));
-    setLTFri(listTask.filter((t) => t.whenToDo === "fri"));
-    setLTSat(listTask.filter((t) => t.whenToDo === "sat"));
-    setLTSun(listTask.filter((t) => t.whenToDo === "sun"));
+    setLTMon(noChildList.filter((t) => t.whenToDo === "mon"));
+    setLTTue(noChildList.filter((t) => t.whenToDo === "tue"));
+    setLTWed(noChildList.filter((t) => t.whenToDo === "wed"));
+    setLTThu(noChildList.filter((t) => t.whenToDo === "thu"));
+    setLTFri(noChildList.filter((t) => t.whenToDo === "fri"));
+    setLTSat(noChildList.filter((t) => t.whenToDo === "sat"));
+    setLTSun(noChildList.filter((t) => t.whenToDo === "sun"));
   }, [listTask]);
 
   return (

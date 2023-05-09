@@ -23,7 +23,7 @@ type Task = {
   title: string;
   description: string;
   categorytaskId: number;
-  parentId: number | null;
+  parentId: number;
   completed: boolean;
   active: boolean;
   responsable: string;
@@ -38,7 +38,7 @@ type TaskHistory = {
   completionDate: Date;
   taskName: string;
   whoDid: string;
-  parentId: number | null;
+  parentId: number;
   categorytaskId: number;
   receiver: string;
   ogTaskId: number;

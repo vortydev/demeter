@@ -59,7 +59,7 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 			const newSubTasks: Record<number, TaskHistory[]> = {};
 			seenTasks.forEach((t) => {
 				if (t.parentId !== 0) {
-					const parentTaskId = t.parentId || 0;
+					const parentTaskId = t.parentId;
 					if (!newSubTasks[parentTaskId]) {
 						newSubTasks[parentTaskId] = [];
 					}
@@ -77,16 +77,23 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 				if (!catTasks[t.categorytaskId]) {
 					catTasks[t.categorytaskId] = [];
 				}
-				catTasks[t.categorytaskId].push(t);	// add parent task
-
+				const taskExists = catTasks[t.categorytaskId].some((task) => task.ogTaskId === t.ogTaskId); // check if task already exists in array
+				if (!taskExists) {
+					catTasks[t.categorytaskId].push(t);    // add parent task
+				}
+			
 				const subtasks = newSubTasks[t.ogTaskId];
 				if (subtasks) {
 					subtasks.forEach((st) => {
-						catTasks[t.categorytaskId].push(st); // add subtask
+						const subtaskExists = catTasks[t.categorytaskId].some((task) => task.ogTaskId === st.ogTaskId); // check if subtask already exists in array
+						if (!subtaskExists) {
+							catTasks[t.categorytaskId].push(st); // add subtask
+						}
 					});
 				}
 			});
-			// console.log("cat tasks", catTasks);
+			
+			console.log("cat tasks", catTasks);
 
 			// group by sections within a category
 			const taskList: { title: string, sections:{ when: string, tasks: TaskHistory[] }[] }[] = [];
@@ -107,10 +114,12 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 					for (let whenToDo of ['open', 'preClose', 'close', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']) {
 						const tasks = ct.filter(task => task.whenToDo === whenToDo);
 						if (tasks.length > 0) {
-							let whenStr: string = whenToDo;
+							let whenStr: string = whenToDo.length > 0 ? whenToDo : "Non-Catégorisé";
+							// quotidiennes
 							if (whenToDo === 'open') whenStr = "Ouverture";
 							else if (whenToDo === 'preClose') whenStr = "Pré-Fermeture";
 							else if (whenToDo === 'close') whenStr = "Fermeture";
+							// hebdomadaires
 							else if (whenToDo === 'mon') whenStr = "Lundi";
 							else if (whenToDo === 'tue') whenStr = "Mardi";
 							else if (whenToDo === 'wed') whenStr = "Mercredi";

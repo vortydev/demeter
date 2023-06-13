@@ -216,6 +216,7 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 					<Button variant="demeter-dark" onClick={() => {
 						setDisplayedTasks([]);
 						setDateTampon(undefined);
+						setCurrentPage(0);
 						close();
 					}}>
 						Retour

@@ -189,7 +189,7 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
 
         {taskCategory === 1 && (
           <Button
-            disabled={role !== "4" ? dayStarted.find(acc => acc.name === chosenReceiver)?.value : false}
+            // disabled={role !== "4" ? dayStarted.find(acc => acc.name === chosenReceiver)?.value : false}
             className="centerBtn"
             variant="icon-dark"
             onClick={() => {

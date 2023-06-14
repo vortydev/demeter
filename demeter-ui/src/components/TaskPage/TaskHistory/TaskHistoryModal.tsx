@@ -93,7 +93,7 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 				}
 			});
 			
-			console.log("cat tasks", catTasks);
+			// console.log("cat tasks", catTasks);
 
 			// group by sections within a category
 			const taskList: { title: string, sections:{ when: string, tasks: TaskHistory[] }[] }[] = [];

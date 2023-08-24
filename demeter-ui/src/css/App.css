@@ -111,6 +111,18 @@
   align-self: center;
 }
 
+#loading {
+  text-align: center;
+  margin-inline: auto;
+  color: var(--demeter-green);
+  font-size: 1.5rem;
+  margin-bottom: .5rem;
+}
+
+#loading svg {
+  margin-right: .5rem;
+}
+
 /* SPLIT VIEW */
 .bleuViewBtn {
   background-color: var(--demeter-blue) !important;

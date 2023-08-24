@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Alert, Button, Form, Modal } from "react-bootstrap";
-import { getAccountsByRole } from "../../services/account.functions";
 import { createTask, updateTask } from "../../services/task.funtions";
 import { Account, Task } from "../../types/Types";
 
@@ -12,23 +11,16 @@ interface CRFormProps {
   show: boolean;
   close: () => void;
   success: (succes: boolean) => void;
+  accountBuffer: Account[];
 }
 
-function EditTaskForm({ task, close, success, show }: CRFormProps) {
+function EditTaskForm({ task, close, success, show, accountBuffer }: CRFormProps) {
   const [error, setError] = useState<boolean>(false);
   const [childTask, setChildTask] = useState<Task[]>([]);
   const [priority, setPriority] = useState<boolean>(task.priority);
-  const [listAccount, setListAccount] = useState<Account[]>([]);
   const [empty, setEmpty] = useState<boolean>(false);
   const [tt, setTypeTask] = useState<string>("1");
 
-  useEffect(() => {
-    async function getList() {
-      setListAccount(await getAccountsByRole(2));
-    }
-    getList();
-
-  }, [show]);
 
   async function handleSubmit() {
     const taskName = document.getElementById("taskName") as HTMLInputElement;
@@ -160,7 +152,7 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
           <Form.Group className={`popupSelectBox ${task.parentId !== 0 ? "hide" : ""}`}>
             <Form.Label className="popupSelectLabel">Destinataire</Form.Label>
             <Form.Select defaultValue={task.receiver} id="receiver" aria-label="Type">
-              {listAccount.map((employee) => (
+              {accountBuffer.map((employee) => (
                 <option value={employee.accName}>{employee.accName}</option>
               ))}
               <option value="delivery">Livreur</option>
@@ -179,7 +171,6 @@ function EditTaskForm({ task, close, success, show }: CRFormProps) {
             <Form.Select defaultValue={task.categorytaskId} onChange={typeTask} id="typeTask" aria-label="Type">
               <option value="1">Quotidienne</option>
               <option value="2">Hebdomadaire</option>
-              <option value="3">Autre</option>
             </Form.Select>
           </Form.Group>
 

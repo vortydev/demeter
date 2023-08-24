@@ -1,13 +1,10 @@
 import { Nav } from "react-bootstrap";
 
 interface TaskNavProps {
-  taskCategory: number;
   setTaskCategory: (location: number) => void;
-  setSuccess: (succeed: boolean) => void;
-  success: boolean;
 }
 
-function TaskNav({ taskCategory, setTaskCategory, success, setSuccess }: TaskNavProps) {
+function TaskNav({ setTaskCategory }: TaskNavProps) {
 
   return (
     <section className="navbar">
@@ -20,11 +17,6 @@ function TaskNav({ taskCategory, setTaskCategory, success, setSuccess }: TaskNav
         <Nav.Item>
           <Nav.Link onClick={() => setTaskCategory(2)} eventKey="tache2">
             Hebdomadaires
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link onClick={() => setTaskCategory(3)} eventKey="tache3">
-            Autres
           </Nav.Link>
         </Nav.Item>
       </Nav>

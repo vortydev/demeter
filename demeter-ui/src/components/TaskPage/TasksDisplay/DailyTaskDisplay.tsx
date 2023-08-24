@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Accordion from 'react-bootstrap/Accordion';
-import { Task } from "../../../types/Types";
+import { Account, Task } from "../../../types/Types";
 import { TaskRow } from "../TaskRow";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
@@ -12,16 +12,10 @@ interface DailyTaskProps {
   editSuccess: (edited: boolean) => void;
   completedSuccess: (completed: boolean) => void;
   role: string;
+  accountBuffer: Account[];
 }
 
-function DailyTaskDisplay({
-  listTask,
-  allCatTask,
-  deleteSuccess,
-  editSuccess,
-  completedSuccess,
-  role,
-}: DailyTaskProps) {
+function DailyTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, completedSuccess, role, accountBuffer }: DailyTaskProps) {
   const [listTaskOpen, setLTO] = useState<Task[]>([]);
   const [listTaskPreClose, setLTPC] = useState<Task[]>([]);
   const [listTaskClose, setLTC] = useState<Task[]>([]);
@@ -51,6 +45,7 @@ function DailyTaskDisplay({
                 editSuccess={editSuccess}
                 completedSuccess={completedSuccess}
                 role={role}
+                accountBuffer={accountBuffer}
               />
             ))}
           </div>
@@ -73,6 +68,7 @@ function DailyTaskDisplay({
                 editSuccess={editSuccess}
                 completedSuccess={completedSuccess}
                 role={role}
+                accountBuffer={accountBuffer}
               />
             ))}
           </div>
@@ -95,6 +91,7 @@ function DailyTaskDisplay({
                 editSuccess={editSuccess}
                 completedSuccess={completedSuccess}
                 role={role}
+                accountBuffer={accountBuffer}
               />
             ))}
           </div>

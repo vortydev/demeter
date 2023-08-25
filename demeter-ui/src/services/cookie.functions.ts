@@ -67,4 +67,21 @@ function setCookiePage(setPage:string) {
     }
 }
 
-export { getCookieAccount, getCookieRole, getCookiePage, setCookiePage };
+function getCookieTaskView(accounts: Account[]) {
+    const viewAcc = getCookie("taskViewAcc");
+    if (viewAcc) {
+        return viewAcc;
+    }
+    else {
+        var acc = accounts.length > 0 ? accounts[0].accName : "delivery";
+        setCookie("taskViewAcc", acc, { expires: 1, secure: true, sameSite: 'strict' });
+        return acc;
+    }
+}
+
+function setCookieTaskView(account: string) {
+    setCookie("taskViewAcc", account, { expires: 1, secure: true, sameSite: 'strict' });
+    return;
+}
+
+export { getCookieAccount, getCookieRole, getCookiePage, setCookiePage, getCookieTaskView, setCookieTaskView };

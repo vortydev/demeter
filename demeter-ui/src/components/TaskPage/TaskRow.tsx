@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { deleteTask, updateTask } from "../../services/task.funtions";
-import { Task } from "../../types/Types";
+import { Account, Task } from "../../types/Types";
 import { EditTaskForm } from "../TaskPage/EditTaskForm";
 import "../../css/task.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,9 +14,10 @@ interface TaskRowProps {
   editSuccess: (edited: boolean) => void;
   completedSuccess: (completed: boolean) => void;
   role: string;
+  accountBuffer: Account[];
 }
 
-function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess, role }: TaskRowProps) {
+function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess, role, accountBuffer }: TaskRowProps) {
   const [editform, setEditForm] = useState<boolean>(false);
   const [toEdit, setToEdit] = useState<Task>(task);
 
@@ -206,6 +207,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
         show={editform}
         close={closeEditForm}
         success={editSuccess}
+        accountBuffer={accountBuffer}
       />
     </article >
   );

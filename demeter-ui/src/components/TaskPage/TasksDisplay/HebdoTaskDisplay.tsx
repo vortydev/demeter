@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Task } from "../../../types/Types";
+import { Account, Task } from "../../../types/Types";
 import { TaskRow } from "../TaskRow";
 import Accordion from "react-bootstrap/Accordion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,16 +12,10 @@ interface HebdoTaskProps {
   editSuccess: (edited: boolean) => void;
   completedSuccess: (completed: boolean) => void;
   role: string;
+  accountBuffer: Account[];
 }
 
-function HebdoTaskDisplay({
-  listTask,
-  allCatTask,
-  deleteSuccess,
-  editSuccess,
-  completedSuccess,
-  role,
-}: HebdoTaskProps) {
+function HebdoTaskDisplay({ listTask, allCatTask, deleteSuccess, editSuccess, completedSuccess, role, accountBuffer }: HebdoTaskProps) {
   const [listTaskMon, setLTMon] = useState<Task[]>([]);
   const [listTaskTue, setLTTue] = useState<Task[]>([]);
   const [listTaskWed, setLTWed] = useState<Task[]>([]);
@@ -59,6 +53,7 @@ function HebdoTaskDisplay({
                 editSuccess={editSuccess}
                 completedSuccess={completedSuccess}
                 role={role}
+                accountBuffer={accountBuffer}
               />
             ))}
           </div>
@@ -81,6 +76,7 @@ function HebdoTaskDisplay({
                 editSuccess={editSuccess}
                 completedSuccess={completedSuccess}
                 role={role}
+                accountBuffer={accountBuffer}
               />
             ))}
           </div>
@@ -103,6 +99,7 @@ function HebdoTaskDisplay({
                 editSuccess={editSuccess}
                 completedSuccess={completedSuccess}
                 role={role}
+                accountBuffer={accountBuffer}
               />
             ))}
           </div>
@@ -125,6 +122,7 @@ function HebdoTaskDisplay({
                 editSuccess={editSuccess}
                 completedSuccess={completedSuccess}
                 role={role}
+                accountBuffer={accountBuffer}
               />
             ))}
           </div>
@@ -147,6 +145,7 @@ function HebdoTaskDisplay({
                 editSuccess={editSuccess}
                 completedSuccess={completedSuccess}
                 role={role}
+                accountBuffer={accountBuffer}
               />
             ))}
           </div>
@@ -169,6 +168,7 @@ function HebdoTaskDisplay({
                 editSuccess={editSuccess}
                 completedSuccess={completedSuccess}
                 role={role}
+                accountBuffer={accountBuffer}
               />
             ))}
           </div>
@@ -191,6 +191,7 @@ function HebdoTaskDisplay({
                 editSuccess={editSuccess}
                 completedSuccess={completedSuccess}
                 role={role}
+                accountBuffer={accountBuffer}
               />
             ))}
           </div>

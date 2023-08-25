@@ -3,7 +3,10 @@ import { Modal, Button, Accordion } from "react-bootstrap";
 import { getWeeklyHistory } from "../../../services/taskHistory.functions";
 import { TaskHistory } from "../../../types/Types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleDown, faLeftLong, faRightLong, faTurnUp } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faLeftLong, faRightLong, faTurnUp, faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+
+// Define buffer size
+const bufferSize = 12;
 
 interface taskHistoryProps {
 	show: boolean;
@@ -13,46 +16,57 @@ interface taskHistoryProps {
 }
 
 function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistoryProps) {
-	const [history, setHistory] = useState<TaskHistory[]>([]);
-	const [weekPrior, setWeekPrior] = useState<{ page:number, dates: Date[]}[]>([]);
 	const [dateTampon, setDateTampon] = useState<Date>();
 	const [subTasks, setSubTasks] = useState<Record<number, TaskHistory[]>>({});
 	const [displayedTasks, setDisplayedTasks] = useState<{ title: string, sections: { when: string, tasks: TaskHistory[] }[] }[]>([]);
+
+	// Use buffer to store TaskHistory data
+	const [taskHistoryBuffer, setTaskHistoryBuffer] = useState<TaskHistory[]>([]);
+	const [dateBuffer, setDateBuffer] = useState<Date[]>([]);
 	const [currentPage, setCurrentPage] = useState(0);
-
-
-	async function getList() {
-		// requete qui get toute les taskHistory entre aWeekBefore & aujourd'hui : setHistory
-		const today = new Date();
-		const aWeekBefore = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000); 
-		setHistory(await getWeeklyHistory(aWeekBefore));
-
-		// filtre qui prends chaque date unique de history
-		const uniqueDates = history
-		  .map((task) => task.completionDate)
-		  .filter((value, index, self) => self.indexOf(value) === index)
-		  .reverse();
-
-		// groupe les dates par groupe de 12 et les insère dans weekPrior
-		const pages: { page: number, dates: Date[] }[] = [];
-		for (let i = 0; i < uniqueDates.length; i += 12) {
-			const page = uniqueDates.slice(i, i + 12);
-			pages.push({ page: i / 12, dates: page });
-		}
-		setWeekPrior(pages);
-	}
+	const [loading, setLoading] = useState(true);
 	
 	useEffect(() => {
-		getList();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [show, newHistory]);
+		// Function to fetch TaskHistory data and update buffer
+		async function fetchTaskHistory() {
+			const today = new Date();
+			const aWeekBefore = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+			
+			setLoading(true);
+			
+			const fetchedHistory: TaskHistory[] = await getWeeklyHistory(aWeekBefore);
+			setTaskHistoryBuffer(fetchedHistory);	
+			
+			const uniqueDates = fetchedHistory
+			.map((task) => task.completionDate)
+			.filter((value, index, self) => self.indexOf(value) === index)
+			.reverse();
+			setDateBuffer(uniqueDates);
+
+			setLoading(false);
+		}
+
+		if (show && taskHistoryBuffer.length === 0) {
+			fetchTaskHistory();
+		}
+	}, [show]);
+
+	// Function to get TaskHistory data for a specific date
+	function getTaskHistoryForDate(day: Date): TaskHistory[] {
+		return taskHistoryBuffer.filter((task) => task.completionDate === day && task.receiver === viewReceiver);
+	}
+
+	// Function to handle page navigation
+	function handlePageNavigation(direction: number) {
+		setCurrentPage((prevPage) => Math.max(0, Math.min(prevPage + direction, Math.ceil(dateBuffer.length / bufferSize) - 1)));
+	}
 
 	// toggle la liste de tâches de la journée
 	function setDay(day: Date) {
-		setDateTampon(day);	// remember the selected date
+		setDateTampon(day);
 		if (displayedTasks.length === 0 || dateTampon !== day) {
 			// filter the day's tasks and their receiver
-			const seenTasks = history.filter((t) => (t.completionDate === day && t.receiver === viewReceiver));
+			const seenTasks = getTaskHistoryForDate(day);
 
 			// group sub-tasks with their parent
 			const parentTasks = seenTasks.filter((t) => t.parentId === 0);
@@ -66,8 +80,6 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 					newSubTasks[parentTaskId].push(t);
 				}
 			});
-			// console.log("parent tasks", parentTasks);
-			// console.log("subtasks", newSubTasks);
 
 			setSubTasks(newSubTasks);	// set subtasks
 
@@ -93,8 +105,6 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 				}
 			});
 			
-			// console.log("cat tasks", catTasks);
-
 			// group by sections within a category
 			const taskList: { title: string, sections:{ when: string, tasks: TaskHistory[] }[] }[] = [];
 			for (let categoryId in catTasks) {
@@ -134,7 +144,6 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 				}
 			}
 			// console.log("taskList", taskList);
-
 			setDisplayedTasks(taskList);	// set displayed tasks
 		} 
 		else {
@@ -155,8 +164,12 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 					Cliquer sur une date pour voir la complétion des tâches ce jour-là
 				</p>
 
+				{loading && <div className="mb-2">
+					<p id="loading"><FontAwesomeIcon icon={faCircleNotch} spin />Chargement</p>
+				</div>}
+
 				<div className="hisDayList flex mb-2">
-					{weekPrior[currentPage]?.dates.map((day) => (
+					{dateBuffer.slice(currentPage * bufferSize, (currentPage + 1) * bufferSize).map((day) => (
 						<Button
 							className="hisDayBtn mb-2"
 							variant={day === dateTampon ? "demeter" : "outline-dark"}
@@ -169,13 +182,13 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 						<FontAwesomeIcon
 							icon={faLeftLong}
 							size="lg"
-							onClick={() => setCurrentPage((prevPage) => prevPage > 0 ? prevPage - 1 : prevPage)}
+							onClick={() => handlePageNavigation(-1)}
 						/>
-						<span>{currentPage + 1}/{weekPrior.length}</span>
+						<span>{currentPage + 1}/{Math.ceil(dateBuffer.length / bufferSize)}</span>
 						<FontAwesomeIcon
 							icon={faRightLong}
 							size="lg"
-							onClick={() => setCurrentPage((prevPage) => prevPage < weekPrior.length - 1 ? prevPage + 1 : prevPage)}
+							onClick={() => handlePageNavigation(1)}
 						/>
 					</div>
 				</div>

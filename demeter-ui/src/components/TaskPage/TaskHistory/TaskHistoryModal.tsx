@@ -7,6 +7,7 @@ import { faAngleDown, faLeftLong, faRightLong, faTurnUp, faCircleNotch } from "@
 
 // Define buffer size
 const bufferSize = 12;
+const fetchDays = 30;
 
 interface taskHistoryProps {
 	show: boolean;
@@ -23,25 +24,38 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 	// Use buffer to store TaskHistory data
 	const [taskHistoryBuffer, setTaskHistoryBuffer] = useState<TaskHistory[]>([]);
 	const [dateBuffer, setDateBuffer] = useState<Date[]>([]);
+
 	const [currentPage, setCurrentPage] = useState(0);
 	const [loading, setLoading] = useState(true);
+	const [hasMoreData, setHasMoreData] = useState(true);
+	const [lastLoadedDate, setLastLoadedDate] = useState<Date>(new Date());
+	
 	
 	useEffect(() => {
 		// Function to fetch TaskHistory data and update buffer
 		async function fetchTaskHistory() {
-			const today = new Date();
-			const aWeekBefore = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-			
 			setLoading(true);
+
+			const today = new Date();
+			const aWeekBefore = new Date(today.getTime() - fetchDays * 24 * 60 * 60 * 1000);
+			console.log(`Fetching initial history from ${aWeekBefore} to ${today}`);
+			const fetchedHistory: TaskHistory[] = await getWeeklyHistory(aWeekBefore, fetchDays);
+			console.log("Fetched history:", fetchedHistory);
 			
-			const fetchedHistory: TaskHistory[] = await getWeeklyHistory(aWeekBefore);
-			setTaskHistoryBuffer(fetchedHistory);	
-			
-			const uniqueDates = fetchedHistory
-			.map((task) => task.completionDate)
-			.filter((value, index, self) => self.indexOf(value) === index)
-			.reverse();
-			setDateBuffer(uniqueDates);
+
+			if (fetchedHistory.length === 0) {
+				setHasMoreData(false);
+			} 
+			else {
+				setTaskHistoryBuffer(fetchedHistory);
+				setLastLoadedDate(aWeekBefore);
+		
+				const uniqueDates = fetchedHistory
+				  .map(task => task.completionDate)
+				  .filter((value, index, self) => self.indexOf(value) === index)
+				  .reverse();
+				setDateBuffer(uniqueDates);
+			}
 
 			setLoading(false);
 		}
@@ -51,6 +65,35 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 		}
 	}, [show]);
 
+
+	async function loadMoreHistory() {
+		if (!hasMoreData) return;
+	  
+		setLoading(true);
+	  
+		const newEndDate = new Date(lastLoadedDate.getTime() - fetchDays * 24 * 60 * 60 * 1000);
+		console.log(`Fetching more history from ${newEndDate} to ${lastLoadedDate}`);
+	  
+		const fetchedHistory: TaskHistory[] = await getWeeklyHistory(newEndDate, fetchDays);
+	  
+		if (fetchedHistory.length === 0) {
+			setHasMoreData(false);
+		} 
+		else {
+			setTaskHistoryBuffer(prevBuffer => [...prevBuffer, ...fetchedHistory]);
+			setLastLoadedDate(newEndDate);
+		
+			const uniqueDates = fetchedHistory
+				.map(task => task.completionDate)
+				.filter((value, index, self) => self.indexOf(value) === index)
+				.reverse();
+			setDateBuffer(prevBuffer => [...prevBuffer, ...uniqueDates]);
+		}
+
+		setLoading(false);
+	  }
+	  
+
 	// Function to get TaskHistory data for a specific date
 	function getTaskHistoryForDate(day: Date): TaskHistory[] {
 		return taskHistoryBuffer.filter((task) => task.completionDate === day && task.receiver === viewReceiver);
@@ -58,8 +101,15 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 
 	// Function to handle page navigation
 	function handlePageNavigation(direction: number) {
-		setCurrentPage((prevPage) => Math.max(0, Math.min(prevPage + direction, Math.ceil(dateBuffer.length / bufferSize) - 1)));
+		const newPage = Math.max(0, Math.min(currentPage + direction, Math.ceil(dateBuffer.length / bufferSize) - 1));
+
+		if (direction > 0 && newPage === currentPage) {
+		loadMoreHistory(); // Load more data if reaching the end of the buffer
+		}
+	  
+		setCurrentPage(newPage);
 	}
+	  
 
 	// toggle la liste de tâches de la journée
 	function setDay(day: Date) {
@@ -71,6 +121,7 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 			// group sub-tasks with their parent
 			const parentTasks = seenTasks.filter((t) => t.parentId === 0);
 			const newSubTasks: Record<number, TaskHistory[]> = {};
+
 			seenTasks.forEach((t) => {
 				if (t.parentId !== 0) {
 					const parentTaskId = t.parentId;
@@ -121,23 +172,23 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 						title = "Autres";
 					}
 					const sections: { when: string, tasks: TaskHistory[] }[] = [];
+					const whenLabels: { [key: string]: string } = {
+						open: "Ouverture",
+						preClose: "Pré-Fermeture",
+						close: "Fermeture",
+						mon: "Lundi",
+						tue: "Mardi",
+						wed: "Mercredi",
+						thu: "Jeudi",
+						fri: "Vendredi",
+						sat: "Samedi",
+						sun: "Dimanche",
+					  };
+
 					for (let whenToDo of ['open', 'preClose', 'close', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']) {
 						const tasks = ct.filter(task => task.whenToDo === whenToDo);
 						if (tasks.length > 0) {
-							let whenStr: string = whenToDo.length > 0 ? whenToDo : "Non-Catégorisé";
-							// quotidiennes
-							if (whenToDo === 'open') whenStr = "Ouverture";
-							else if (whenToDo === 'preClose') whenStr = "Pré-Fermeture";
-							else if (whenToDo === 'close') whenStr = "Fermeture";
-							// hebdomadaires
-							else if (whenToDo === 'mon') whenStr = "Lundi";
-							else if (whenToDo === 'tue') whenStr = "Mardi";
-							else if (whenToDo === 'wed') whenStr = "Mercredi";
-							else if (whenToDo === 'thu') whenStr = "Jeudi";
-							else if (whenToDo === 'fri') whenStr = "Vendredi";
-							else if (whenToDo === 'sat') whenStr = "Samedi";
-							else if (whenToDo === 'sun') whenStr = "Dimanche";
-							sections.push({ when: whenStr, tasks });
+							sections.push({ when: whenLabels[whenToDo] || "Non-Catégorisé", tasks });
 						}
 					}
 					taskList.push({ title, sections: sections });
@@ -161,14 +212,40 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 			<div className="popupForm">
 				<h3 className="popupTitle">Historique des tâches (<span className={`${receiverColor}`}>{receiverName}</span>)</h3>
 				<p className="popupHint mb-3">
-					Cliquer sur une date pour voir la complétion des tâches ce jour-là
+					Cliquer sur une date pour voir la complétion des tâches ce jour-là.
 				</p>
 
 				{loading && <div className="mb-2">
 					<p id="loading"><FontAwesomeIcon icon={faCircleNotch} spin />Chargement</p>
 				</div>}
 
-				<div className="hisDayList flex mb-2">
+				<div className="hisNav mb-2">
+					<Button
+						onClick={() => handlePageNavigation(-1)}
+						disabled={currentPage === 0}
+						className="navButton"
+						variant="icon-nav"
+					>
+						<FontAwesomeIcon
+						icon={faLeftLong}
+						size="lg"
+						/>
+					</Button>
+					<span>{currentPage + 1}/{Math.ceil(dateBuffer.length / bufferSize)}</span>
+					<Button
+						onClick={() => handlePageNavigation(1)}
+						disabled={currentPage >= Math.ceil(dateBuffer.length / bufferSize) - 1 && !hasMoreData}
+						className="navButton"
+						variant="icon-nav"
+					>
+						<FontAwesomeIcon
+						icon={faRightLong}
+						size="lg"
+						/>
+					</Button>
+					</div>
+
+				<div className="hisDayList flex">
 					{dateBuffer.slice(currentPage * bufferSize, (currentPage + 1) * bufferSize).map((day) => (
 						<Button
 							className="hisDayBtn mb-2"
@@ -178,23 +255,10 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 							{new Date(new Date(day).getTime() - 1 * 24 * 60 * 60 * 1000).toLocaleDateString()}
 						</Button>
 					))}
-					<div className="hisNav">
-						<FontAwesomeIcon
-							icon={faLeftLong}
-							size="lg"
-							onClick={() => handlePageNavigation(-1)}
-						/>
-						<span>{currentPage + 1}/{Math.ceil(dateBuffer.length / bufferSize)}</span>
-						<FontAwesomeIcon
-							icon={faRightLong}
-							size="lg"
-							onClick={() => handlePageNavigation(1)}
-						/>
-					</div>
 				</div>
 
 				{displayedTasks.map((category) => (
-					<Accordion defaultActiveKey={['Ouverture']} alwaysOpen className="hisTaskList mb-4">
+					<Accordion defaultActiveKey={['Ouverture']} alwaysOpen className="hisTaskList mt-3 mb-4">
 						<h3 className="hisCat">{category.title}</h3>
 						{category.sections.map((section) => (
 							<Accordion.Item eventKey={section.when}>

@@ -31,7 +31,11 @@ function FooterBar({ appVersion }: FooterBarProps) {
             <span id="appVersion" className={`${versionVisibility ? "" : "hide"}`}>v{appVersion}</span>
           </div>
           
-          <p>Équipe Demeter © 2022-2023</p>
+          <p>Équipe Demeter © 2022-<span id="currentYear"></span></p>
+          <script>
+            var today = new Date();
+            document.getElementByID('currentYear').innerText = today.getFullYear();
+          </script>
         </div>
 
         <Button className="deco" variant="demeter-waxed" onClick={handleLogout}>

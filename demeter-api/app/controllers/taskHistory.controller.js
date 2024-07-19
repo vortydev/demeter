@@ -42,48 +42,43 @@ exports.findAll = (req, res) => {
     const today = req.query.today;
     const category = req.query.categorytaskId;
     const receiver = req.query.receiver;
+    const historyPageSize = parseInt(req.query.historyPageSize) || 7;
+    // const limit = parseInt(req.query.limit) || 10; // Default limit to 10 if not provided
+    // const offset = parseInt(req.query.offset) || 0; // Default offset to 0 if not provided
 
-    var conditionW = week
-      ? { completionDate: { [Op.gte]: `%${week}%` } }
-      : null;
-    var conditionT = today
-      ? { completionDate: { [Op.eq]: `%${today}%` } }
-      : null;
-    var conditionC = category
-      ? { categorytaskId: { [Op.eq]: category } }
-      : null;
-    var conditionR = receiver
-      ? { receiver: { [Op.eq]: receiver } }
-      : null;
+  let conditions = [];
+  if (week) {
+    const startOfWeek = new Date(week);
+    const endOfWeek = new Date(startOfWeek);
+    endOfWeek.setDate(endOfWeek.getDate() + historyPageSize);
+    conditions.push({
+      completionDate: {
+        [Op.gte]: startOfWeek,
+        [Op.lt]: endOfWeek
+      }
+    });
+  }
+  if (today) {
+    conditions.push({ completionDate: { [Op.eq]: today } });
+  }
+  if (category) {
+    conditions.push({ categorytaskId: category });
+  }
+  if (receiver) {
+    conditions.push({ receiver: receiver });
+  }
 
-  if (conditionW !== null) {
-    TH.findAll({conditionW})
-      .then((data) => {
-  
-        res.send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message:
-            err.message ||
-            "Some error occurred while retrieving announcements.",
-        });
+  TH.findAll({
+    where: { [Op.and]: conditions },
+  })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving tasks."
       });
-    }
-
-    if (conditionT!== null) {
-      TH.findAll({ where: {[Op.and]: [conditionT, conditionC, conditionR]} })
-      .then((data) => {
-        res.send(data);
-      })
-      .catch((err) => {
-        res.status(500).send({
-          message:
-            err.message ||
-            "Some error occurred while retrieving announcements.",
-        });
-      });
-    }
+    });
 };
 
 // Find a single Task with an id

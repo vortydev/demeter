@@ -10,8 +10,8 @@ class TaskHistoryService {
     return http.get<TaskHistory>(`/th/${id}`);
   }
 
-  getWeeklyHistory(date: Date) {
-    return http.get<TaskHistory>(`/th?week=${date}`);
+  getWeeklyHistory(date: Date, historyPageSize: number) {
+    return http.get<TaskHistory>(`/th?week=${date.toISOString()}&historyPageSize=${historyPageSize}`);
   }
 
   ifTodayHistory(date: Date, categorytaskId: number, receiver: string){

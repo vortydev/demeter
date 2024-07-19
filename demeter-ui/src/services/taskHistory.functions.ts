@@ -15,8 +15,8 @@ async function createTaskHistory(data: TaskHistory) {
   return thCreated;
 }
 
-async function getWeeklyHistory(date: Date) {
-  const taskHistory = TaskHistoryService.getWeeklyHistory(date)
+async function getWeeklyHistory(date: Date, historyPageSize: number) {
+  const taskHistory = TaskHistoryService.getWeeklyHistory(date, historyPageSize)
     .then((response: any) => {
       return response.data;
     })

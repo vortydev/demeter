@@ -406,6 +406,21 @@ input[type="file"] {
     box-shadow: 0 0 0 .2rem rgb(200, 35, 51, 0.25) !important;
 }
 
+.btn-icon-nav {
+    background-color: none;
+    color: var(--demeter-grey);
+}
+
+.btn-icon-nav:not(:disabled):hover {
+    background-color: none;
+    color: var(--demeter-green);
+}
+
+.btn-icon-nav:focus, .btn-icon-nav:active {
+    border: none !important;
+    box-shadow: none !important;
+}
+
 .btn-secondary:focus {
     border-color: #5a6268 !important;
     box-shadow: 0 0 0 .2rem rgb(90, 98, 104, 0.25) !important;

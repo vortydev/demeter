@@ -157,7 +157,7 @@
 }
 
 .hisDayList .hisDayBtn {
-    width: 8.5rem;
+    width: 8.6rem;
     font-size: 1.15rem !important;
     margin-inline: .5rem;
 }
@@ -217,7 +217,7 @@
     margin: auto .5rem;
 }
 
-.hisNav svg {
+/* .hisNav svg {
     cursor: pointer;
     color: var(--demeter-grey);
     margin: auto 0;
@@ -226,8 +226,8 @@
 }
 
 .hisNav svg:hover {
-    color: var(--demeter-black);
-}
+    color: var(--demeter-green);
+} */
 
 
 /* TASK RESPONSIVE */

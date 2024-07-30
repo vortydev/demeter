@@ -205,14 +205,15 @@ function TaskHistoryModal({ show, newHistory, close, viewReceiver }: taskHistory
 
 	// pro-gamer hack pour les noms et couleurs
 	var receiverName = viewReceiver === "delivery" ? "Livreurs" : viewReceiver;
-	var receiverColor = viewReceiver === "delivery" ? "purpleText" : (viewReceiver === "Centro" ? "blueText" : "greenText");
+	var receiverColor = viewReceiver === "delivery" ? "purpleText" : (viewReceiver === "Syracuse" ? "magentaText" : (viewReceiver === "Centro" ? "blueText" : "greenText"));
 
 	return (
 		<Modal show={show} onClose={close} >
 			<div className="popupForm">
-				<h3 className="popupTitle">Historique des tâches (<span className={`${receiverColor}`}>{receiverName}</span>)</h3>
+				<h3 className="popupTitle">Historique des tâches de <span className={`${receiverColor}`}>{receiverName}</span></h3>
 				<p className="popupHint mb-3">
 					Cliquer sur une date pour voir la complétion des tâches ce jour-là.
+					La flèche de droite charge plus de dates.
 				</p>
 
 				{loading && <div className="mb-2">

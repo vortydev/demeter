@@ -31,3 +31,5 @@
 node_modules/
 ./demeter-server/
 /backups/*
+
+.env

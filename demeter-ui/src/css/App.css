@@ -148,6 +148,18 @@
   border-color: var(--demeter-mauve-v) !important;
 }
 
+.kakiViewBtn {
+  background-color: var(--demeter-syracuse) !important;
+}
+
+.kakiViewBtn:hover, .kakiViewBtn.selected {
+  background-color: var(--demeter-syracuse-v)!important;
+}
+
+.kakiViewBtn:focus {
+  border-color: var(--demeter-syracuse-v) !important;
+}
+
 /* FILTER BAR */
 .filterBar {
   display: inline-flex;

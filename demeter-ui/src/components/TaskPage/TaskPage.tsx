@@ -85,7 +85,7 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
   useEffect(() => {
     async function fetchData() {
       const loadedAccounts = await getBufferedAccounts();
-      console.log("loaded accounts:", loadedAccounts);
+      // console.log("loaded accounts:", loadedAccounts);
       loadAccountView(loadedAccounts);
     }
     fetchData();
@@ -173,14 +173,13 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
 
       <TaskNav setTaskCategory={setTaskCategory} />
 
-      {(role === "1" || role === "4") && <ButtonGroup id="viewMenu" className="mb-4">
+      {(role === "1" || role === "4") && <ButtonGroup id="viewMenu" className="mb-3">
         {viewOptions.map((radio, idx) => (
           <ToggleButton
-            className={`
-              ${accountView === radio.value ? "selected" : ""}
+            className={`${accountView === radio.value ? "selected" : ""}
               ${"Centro" === radio.value ? "bleuViewBtn" : ""}
               ${"delivery" === radio.value ? "mauveViewBtn" : ""}
-            `}
+              ${"Syracuse" === radio.value ? "kakiViewBtn": ""}`}
             variant="demeter"
             key={idx}
             id={`radio-${idx}`}
@@ -198,7 +197,15 @@ function TaskPage({ role, account }: TaskPageProp): JSX.Element {
         ))}
       </ButtonGroup>}
 
-      <div className="btnBar">
+      {(role === "1" || role === "4") && (
+        <h4 className="mb-4">Vous regardez les tâches de <b className={`${(accountView !== "delivery" ? 
+        (accountView !== "Syracuse" ? (
+          (accountView !== "Centro" ? "iconCheck" : "iconCheckCentro")
+        ) : "iconCheckSyracuse") : "iconCheckLivreur")}`}>{(accountView)}</b></h4>
+      )}
+      
+
+      <div className="btnBar mb-4">
         {(role === "1" || role === "4") && (
           <Button onClick={() => setSeeHistory(true)} variant="icon-outline">
           <FontAwesomeIcon className="icon" icon={faListCheck} size="lg" />

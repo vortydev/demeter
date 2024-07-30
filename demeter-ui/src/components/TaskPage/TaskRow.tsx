@@ -86,7 +86,7 @@ function TaskRow({ task, listTask, deleteSuccess, editSuccess, completedSuccess,
     <article className="taskRowBox">
       <div className={`taskRow flex cellShade ${task.priority ? "priority" : ""}`}>
         <div className={`flex taskName ${subListTask.length !== 0 ? "taskParent" : ""}`}>
-          {task.completed && <FontAwesomeIcon className={`iconCheck ${task.receiver === "Centro" ? "iconCheckCentro" : ""} ${task.receiver === "delivery" ? "iconCheckLivreur" : ""}`} icon={faCheck} size="lg" />}
+          {task.completed && <FontAwesomeIcon className={`iconCheck ${task.receiver === "Centro" ? "iconCheckCentro" : ""} ${task.receiver === "delivery" ? "iconCheckLivreur" : ""} ${task.receiver === "Syracuse" ? "iconCheckSyracuse" : ""}`}  icon={faCheck} size="lg" />}
           <span>{task.title}</span>
           {task.taskMaster !== "" && <span className="taskMaster">({task.taskMaster})</span>}
         </div>
